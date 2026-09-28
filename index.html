@@ -544,6 +544,72 @@
   }
   .addon-other-field input:focus { outline: none; border-color: var(--gold-hover); }
 
+  /* ---------- Flujo de dos pasos (Detalles → Formulario) ---------- */
+  .panel-body { overflow-x: hidden; }
+  .panel-step-label { display: block; margin-top: 0.4rem; font-size: 0.72rem; color: var(--text-muted); letter-spacing: 0.03em; }
+  .panel-step-label strong { color: var(--gold-base); font-weight: 600; }
+
+  .modal-step {
+    opacity: 0;
+    transform: translateX(20px);
+    transition: opacity 0.28s ease, transform 0.28s ease;
+  }
+  .modal-step.is-active  { opacity: 1; transform: translateX(0); }
+  .modal-step.is-leaving { opacity: 0; transform: translateX(-20px); }
+  .modal-step.from-left  { transform: translateX(-20px); }
+  .modal-step[hidden]    { display: none; }
+
+  .modal-extended-label { display: block; font-size: 0.8rem; font-weight: 500; color: var(--text-muted); margin-bottom: 0.75rem; }
+  .modal-extended ul { list-style: none; display: flex; flex-direction: column; gap: 0.7rem; }
+  .modal-extended li {
+    position: relative;
+    padding: 0.85rem 1rem 0.85rem 2.75rem;
+    background: var(--corporate-dark);
+    border: 1px solid rgba(197, 160, 89, 0.18);
+    border-radius: 0.6rem;
+    font-size: 0.85rem;
+    line-height: 1.5;
+    color: var(--text-muted);
+  }
+  .modal-extended li strong { display: block; color: var(--text-high); font-weight: 500; margin-bottom: 0.15rem; }
+  .modal-extended li::before {
+    content: '✓';
+    position: absolute;
+    left: 1rem; top: 0.95rem;
+    width: 1.15rem; height: 1.15rem;
+    border-radius: 50%;
+    background: var(--gold-base);
+    color: var(--corporate-dark);
+    font-size: 0.7rem;
+    font-weight: 700;
+    display: flex; align-items: center; justify-content: center;
+  }
+
+  .btn-cta-lg { padding: 0.95rem 1.25rem; font-size: 0.95rem; }
+  .modal-note { margin-top: 0.6rem; font-size: 0.75rem; color: var(--text-muted); text-align: center; }
+
+  .btn-back {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    background: none;
+    border: none;
+    padding: 0.25rem 0;
+    margin-bottom: 1.25rem;
+    color: var(--text-muted);
+    font-family: 'Inter', sans-serif;
+    font-size: 0.8rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: color 0.2s;
+  }
+  .btn-back:hover { color: var(--gold-hover); }
+  .btn-back:focus-visible { color: var(--gold-hover); outline: 2px solid var(--gold-hover); outline-offset: 2px; border-radius: 0.25rem; }
+
+  @media (prefers-reduced-motion: reduce) {
+    .modal-step { transition: none; }
+  }
+
   /* ---------- Footer ---------- */
   footer {
     border-top: 1px solid rgba(197, 160, 89, 0.1);
@@ -906,24 +972,45 @@
       <div class="panel-header-text">
         <span class="panel-badge">Servicio Premium</span>
         <h3 class="modal-title heading" id="leadModalTitle"></h3>
+        <span class="panel-step-label" id="leadModalStepLabel"><strong>Paso 1 de 2</strong> · Detalles del servicio</span>
       </div>
       <button type="button" class="modal-close" id="leadModalClose" aria-label="Cerrar formulario">
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
       </button>
     </div>
-    <div class="panel-body">
-      <p class="modal-description" id="leadModalDescription"></p>
-      <form id="leadModalForm">
-        <div id="leadModalFields"></div>
-      </form>
+    <div class="panel-body" id="leadModalBody">
+      <!-- PASO 1: Detalles del servicio -->
+      <div class="modal-step is-active" id="modalStep1">
+        <p class="modal-description" id="leadModalDescription"></p>
+        <span class="modal-extended-label">Lo que recibes</span>
+        <div class="modal-extended" id="leadModalExtended"></div>
+      </div>
+      <!-- PASO 2: Formulario -->
+      <div class="modal-step" id="modalStep2" hidden>
+        <button type="button" class="btn-back" id="modalBackBtn">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
+          Atrás
+        </button>
+        <form id="leadModalForm">
+          <div id="leadModalFields"></div>
+        </form>
+      </div>
     </div>
     <div class="panel-footer">
-      <div class="panel-summary">
-        <span>Configuración</span>
-        <strong id="leadModalSummary">0/0 completado</strong>
+      <!-- Footer PASO 1 -->
+      <div class="modal-step is-active" id="footerStep1">
+        <button type="button" class="btn btn-gold modal-submit btn-cta-lg" id="modalToStep2">Solicitar Servicio Premium</button>
+        <p class="modal-note">Sin compromiso · Toma menos de 1 minuto</p>
       </div>
-      <button type="submit" form="leadModalForm" class="btn btn-gold modal-submit" id="leadModalSubmit">Añadir a mi Plan</button>
-      <div class="modal-status" id="leadModalStatus" aria-live="polite"></div>
+      <!-- Footer PASO 2 -->
+      <div class="modal-step" id="footerStep2" hidden>
+        <div class="panel-summary">
+          <span>Configuración</span>
+          <strong id="leadModalSummary">0/0 completado</strong>
+        </div>
+        <button type="submit" form="leadModalForm" class="btn btn-gold modal-submit" id="leadModalSubmit">Añadir a mi Plan</button>
+        <div class="modal-status" id="leadModalStatus" aria-live="polite"></div>
+      </div>
     </div>
   </div>
 </div>
@@ -1220,6 +1307,11 @@
     auditoria: {
       title: 'Auditoría de Cumplimiento Laboral',
       description: 'Mapeo completo de riesgos, revisión de expedientes y un reporte de brechas normativas según el Departamento del Trabajo de PR.',
+      extended_info: '<ul>' +
+        '<li><strong>Reporte de hallazgos por nivel de riesgo</strong>Cada brecha clasificada como alta, media o baja para saber qué atender primero.</li>' +
+        '<li><strong>Revisión de expedientes y políticas</strong>Contraste contra la legislación laboral de PR y las leyes federales aplicables.</li>' +
+        '<li><strong>Plan de remediación con acompañamiento</strong>Pasos concretos y priorizados, con apoyo durante la implementación.</li>' +
+        '</ul>',
       fields: [
         { name: 'cantidad_empleados', label: 'Cantidad de empleados', type: 'pills', options: ['1-10', '11-50', '50+'] },
         { name: 'ultima_auditoria', label: 'Última auditoría de cumplimiento', type: 'pills', options: ['Hace menos de 1 año', 'Hace más de 1 año', 'Nunca'] }
@@ -1228,6 +1320,11 @@
     manuales: {
       title: 'Manuales y Políticas Corporativas',
       description: 'Un manual de empleados redactado a la medida de tu operación, alineado con la legislación laboral vigente y listo para implementar.',
+      extended_info: '<ul>' +
+        '<li><strong>Handbook a la medida de tu operación</strong>Hostigamiento, licencias, uso de tecnología y disciplina progresiva.</li>' +
+        '<li><strong>Alineado con la ley vigente</strong>Redactado conforme a la legislación laboral de PR y federal aplicable.</li>' +
+        '<li><strong>Listo para implementar</strong>Incluye hoja de acuse de recibo para documentar que cada empleado lo recibió.</li>' +
+        '</ul>',
       fields: [
         { name: 'tiene_manual', label: '¿Tienen un manual de empleados actualmente?', type: 'pills', options: ['Sí, actualizado', 'Sí, desactualizado', 'No tenemos'] },
         { name: 'sector', label: 'Sector de la empresa', type: 'pills', options: ['Retail / Comercio', 'Manufactura', 'Salud', 'Construcción', 'Servicios profesionales', 'Otro'], allowOther: true }
@@ -1236,6 +1333,11 @@
     relaciones: {
       title: 'Relaciones Obrero-Patronales & Contratación',
       description: 'Asesoría directa en tu caso específico — desde una desvinculación hasta una clasificación de puesto — con estrategia clara antes de actuar.',
+      extended_info: '<ul>' +
+        '<li><strong>Análisis de riesgo antes de despedir</strong>Evaluación de causa justa y documentación para reducir exposición bajo la Ley 80.</li>' +
+        '<li><strong>Períodos probatorios bien manejados</strong>Guía práctica para evaluar y documentar desde el primer día.</li>' +
+        '<li><strong>Clasificación exento / no exento (FLSA)</strong>Revisión de puestos para evitar reclamaciones de horas extra retroactivas.</li>' +
+        '</ul>',
       fields: [
         { name: 'naturaleza', label: 'Naturaleza de la controversia', type: 'pills', options: ['Despido', 'Período probatorio', 'Clasificación exento/no exento', 'Otro'] },
         { name: 'urgencia', label: 'Urgencia del caso', type: 'pills', options: ['Inmediata', 'Esta semana', 'Preventiva / sin urgencia'] }
@@ -1244,6 +1346,11 @@
     nomina: {
       title: 'Optimización de Nómina y Capacitación Directiva',
       description: 'Capacitación práctica para tu equipo de supervisión en cumplimiento, liderazgo y procesos de nómina, con resultados medibles.',
+      extended_info: '<ul>' +
+        '<li><strong>Talleres prácticos para supervisores</strong>Liderazgo y cumplimiento normativo aplicados a situaciones reales.</li>' +
+        '<li><strong>Revisión de procesos de nómina</strong>Detección de errores y costos ocultos en tus procesos actuales.</li>' +
+        '<li><strong>Resultados medibles</strong>Materiales de apoyo y evaluación posterior para medir el impacto.</li>' +
+        '</ul>',
       fields: [
         { name: 'cantidad_supervisores', label: 'Cantidad de supervisores a capacitar', type: 'pills', options: ['1-5', '6-15', '16+'] },
         { name: 'area_enfoque', label: 'Área de enfoque', type: 'pills', options: ['Liderazgo', 'Cumplimiento normativo', 'Procesos de nómina', 'Otro'] }
@@ -1263,6 +1370,84 @@
     var submitBtn = document.getElementById('leadModalSubmit');
     var statusEl = document.getElementById('leadModalStatus');
     var summaryEl = document.getElementById('leadModalSummary');
+    var extendedEl = document.getElementById('leadModalExtended');
+    var stepLabelEl = document.getElementById('leadModalStepLabel');
+    var bodyEl = document.getElementById('leadModalBody');
+    var step1 = document.getElementById('modalStep1');
+    var step2 = document.getElementById('modalStep2');
+    var footer1 = document.getElementById('footerStep1');
+    var footer2 = document.getElementById('footerStep2');
+    var toStep2Btn = document.getElementById('modalToStep2');
+    var backBtn = document.getElementById('modalBackBtn');
+    var STEP_MS = 280; // igual a la duración de .modal-step en el CSS
+    var isAnimating = false;
+    var stepTimer = null;
+
+    function setStepLabel(n) {
+      stepLabelEl.innerHTML = n === 1
+        ? '<strong>Paso 1 de 2</strong> · Detalles del servicio'
+        : '<strong>Paso 2 de 2</strong> · Configura tu solicitud';
+    }
+
+    // Estado inicial: siempre Paso 1 visible, Paso 2 oculto (sin animación)
+    function resetToStep1() {
+      clearTimeout(stepTimer);
+      isAnimating = false;
+      [step2, footer2].forEach(function (el) {
+        el.hidden = true;
+        el.classList.remove('is-active', 'is-leaving', 'from-left');
+      });
+      [step1, footer1].forEach(function (el) {
+        el.hidden = false;
+        el.classList.remove('is-leaving', 'from-left');
+        el.classList.add('is-active');
+      });
+      setStepLabel(1);
+      bodyEl.scrollTop = 0;
+    }
+
+    // Transición fade + slide entre pasos (body y footer a la vez)
+    function switchStep(target) {
+      if (isAnimating) return;
+      isAnimating = true;
+      var goingForward = target === 2;
+      var fromEls = goingForward ? [step1, footer1] : [step2, footer2];
+      var toEls = goingForward ? [step2, footer2] : [step1, footer1];
+
+      fromEls.forEach(function (el) {
+        el.classList.remove('is-active');
+        el.classList.add('is-leaving');
+      });
+
+      stepTimer = setTimeout(function () {
+        fromEls.forEach(function (el) {
+          el.hidden = true;
+          el.classList.remove('is-leaving');
+        });
+        toEls.forEach(function (el) {
+          el.hidden = false;
+          if (!goingForward) el.classList.add('from-left');
+        });
+        void bodyEl.offsetWidth; // fuerza reflow para que corra la transición de entrada
+        toEls.forEach(function (el) {
+          el.classList.remove('from-left');
+          el.classList.add('is-active');
+        });
+
+        setStepLabel(target);
+        bodyEl.scrollTop = 0;
+        if (goingForward) {
+          var firstInput = fieldsEl.querySelector('input:not([type="hidden"])');
+          if (firstInput) firstInput.focus({ preventScroll: true });
+        } else {
+          toStep2Btn.focus({ preventScroll: true });
+        }
+        stepTimer = setTimeout(function () { isAnimating = false; }, STEP_MS);
+      }, STEP_MS);
+    }
+
+    toStep2Btn.addEventListener('click', function () { switchStep(2); });
+    backBtn.addEventListener('click', function () { switchStep(1); });
     var currentService = null;
 
     function textFieldMarkup(field) {
@@ -1391,6 +1576,7 @@
       iconEl.innerHTML = SERVICE_ICONS[serviceKey] || '';
       titleEl.textContent = service.title;
       descriptionEl.textContent = service.description;
+      extendedEl.innerHTML = service.extended_info || '';
       fieldsEl.innerHTML = '';
 
       fieldsEl.appendChild(fieldMarkup({ name: 'nombre', label: 'Nombre', type: 'text', required: true }));
@@ -1406,10 +1592,10 @@
 
     function openModal(serviceKey) {
       buildForm(serviceKey);
+      resetToStep1();
       overlay.classList.add('open');
       document.body.style.overflow = 'hidden';
-      var firstInput = fieldsEl.querySelector('input, select');
-      if (firstInput) firstInput.focus();
+      toStep2Btn.focus({ preventScroll: true });
     }
     function closeModal() {
       overlay.classList.remove('open');
