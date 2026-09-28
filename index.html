@@ -1,0 +1,1511 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AJMC | RRHH Consulting — Cumplimiento Laboral en Puerto Rico</title>
+<meta name="description" content="Protección jurídico-laboral y optimización de talento para empresas en Puerto Rico. Auditorías de cumplimiento, manuales corporativos y relaciones obrero-patronales sin la burocracia de las grandes agencias.">
+<meta name="robots" content="index, follow">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "ProfessionalService",
+  "name": "AJMC | RRHH Consulting",
+  "areaServed": "Puerto Rico",
+  "email": "ajmccorporation167@gmail.com",
+  "sameAs": ["https://www.linkedin.com/in/alexis-mercado-58899b395"],
+  "contactPoint": {
+    "@type": "ContactPoint",
+    "contactType": "customer service",
+    "telephone": "+1 939-428-2820",
+    "email": "ajmccorporation167@gmail.com",
+    "areaServed": "PR",
+    "availableLanguage": ["Spanish", "English"]
+  }
+}
+</script>
+
+<style>
+  :root {
+    --corporate-dark: #0a1128;
+    --corporate-surface: #16203a;
+    --gold-base: #C5A059;
+    --gold-hover: #D4AF37;
+    --text-high: #F8F9FA;
+    --text-muted: #94A3B8;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background-color: var(--corporate-dark);
+    color: var(--text-high);
+    font-family: 'Inter', sans-serif;
+    font-weight: 400;
+    line-height: 1.5;
+  }
+
+  h1, h2, h3, .heading {
+    font-family: 'Playfair Display', serif;
+    font-weight: 700;
+  }
+
+  img { max-width: 100%; height: auto; display: block; }
+
+  a { color: inherit; text-decoration: none; }
+
+  .container {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 0 1.5rem;
+  }
+
+  /* ---------- Header ---------- */
+  header {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 50;
+    background: rgba(10, 17, 40, 0.95);
+    backdrop-filter: blur(6px);
+    border-bottom: 1px solid rgba(197, 160, 89, 0.1);
+    transition: box-shadow 0.3s ease, border-color 0.3s ease;
+  }
+  header.scrolled {
+    box-shadow: 0 8px 24px rgba(0,0,0,0.25);
+    border-bottom-color: rgba(197, 160, 89, 0.25);
+  }
+
+  .header-inner {
+    height: 4rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    transition: height 0.3s ease;
+  }
+  header.scrolled .header-inner { height: 3.5rem; }
+
+  .logo {
+    font-family: 'Playfair Display', serif;
+    font-weight: 600;
+    font-size: 1.125rem;
+  }
+  .logo span { color: var(--gold-base); }
+
+  nav.desktop-nav {
+    display: flex;
+    gap: 2rem;
+  }
+  nav.desktop-nav a {
+    position: relative;
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: var(--text-muted);
+    transition: color 0.2s;
+    padding-bottom: 0.3rem;
+  }
+  nav.desktop-nav a::after {
+    content: '';
+    position: absolute;
+    left: 0; bottom: 0;
+    width: 0;
+    height: 1px;
+    background: var(--gold-hover);
+    transition: width 0.3s ease;
+  }
+  nav.desktop-nav a:hover { color: var(--gold-hover); }
+  nav.desktop-nav a:hover::after { width: 100%; }
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 0.375rem;
+    font-size: 0.875rem;
+    font-weight: 600;
+    padding: 0.65rem 1.25rem;
+    transition: transform 0.2s ease, background-color 0.2s ease, border-color 0.2s ease;
+    cursor: pointer;
+    border: none;
+  }
+  .btn-gold {
+    background-color: var(--gold-base);
+    color: var(--corporate-dark);
+  }
+  .btn-gold:hover { background-color: var(--gold-hover); transform: scale(1.05); box-shadow: 0 10px 24px rgba(212, 175, 55, 0.3); }
+  .btn-ghost {
+    background: transparent;
+    color: var(--text-high);
+    border: 1px solid rgba(197, 160, 89, 0.4);
+  }
+  .btn-ghost:hover { border-color: var(--gold-hover); transform: scale(1.05); }
+  .btn:focus-visible { outline: 2px solid var(--gold-hover); outline-offset: 2px; }
+
+  .header-cta { display: none; }
+  .mobile-toggle {
+    display: inline-flex;
+    background: none;
+    border: none;
+    color: var(--text-high);
+    cursor: pointer;
+    padding: 0.5rem;
+  }
+
+  .mobile-nav {
+    display: none;
+    position: absolute;
+    left: 0; right: 0; top: 100%;
+    background: var(--corporate-surface);
+    border-top: 1px solid rgba(197, 160, 89, 0.2);
+    padding: 1rem 1.5rem;
+    flex-direction: column;
+    gap: 1rem;
+  }
+  .mobile-nav.open { display: flex; }
+
+  @media (min-width: 768px) {
+    nav.desktop-nav { display: flex; }
+    .header-cta { display: inline-flex; }
+    .mobile-toggle { display: none; }
+    .mobile-nav { display: none !important; }
+  }
+  @media (max-width: 767px) {
+    nav.desktop-nav { display: none; }
+  }
+
+  /* ---------- Hero ---------- */
+  .hero {
+    padding: 10rem 0 6rem;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero > .container { position: relative; z-index: 1; }
+  .hero h1 {
+    font-size: clamp(1.9rem, 5vw, 3.25rem);
+    line-height: 1.2;
+    max-width: 46rem;
+    margin: 0 auto;
+  }
+  .hero p {
+    margin-top: 1.5rem;
+    color: var(--text-muted);
+    max-width: 42rem;
+    margin-left: auto;
+    margin-right: auto;
+    font-size: 1rem;
+  }
+  .hero-actions {
+    margin-top: 2.5rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+  }
+  @media (min-width: 640px) {
+    .hero-actions { flex-direction: row; }
+  }
+
+  /* ---------- Reveal al hacer scroll ---------- */
+  .reveal {
+    opacity: 0;
+    transform: translateY(28px);
+    transition: opacity 0.8s cubic-bezier(0.16,1,0.3,1), transform 0.8s cubic-bezier(0.16,1,0.3,1);
+  }
+  .reveal.is-visible { opacity: 1; transform: translateY(0); }
+  .reveal-d1 { transition-delay: 0.1s; }
+  .reveal-d2 { transition-delay: 0.2s; }
+  .reveal-d3 { transition-delay: 0.3s; }
+
+  /* ---------- Section headings ---------- */
+  section { padding: clamp(4rem, 8vw, 7rem) 0; }
+  section h2.section-title {
+    font-size: 1.5rem;
+    text-align: center;
+    margin-bottom: 3.5rem;
+  }
+  @media (min-width: 768px) {
+    section h2.section-title { font-size: 1.875rem; }
+  }
+  .section-alt {
+    background: rgba(22, 32, 58, 0.4);
+    position: relative;
+    overflow: hidden;
+  }
+  .section-alt > .container { position: relative; z-index: 1; }
+
+  /* ---------- Capa de fondo con parallax (hero + .section-alt) ---------- */
+  .parallax-layer {
+    position: absolute;
+    inset: -15% -10%;
+    z-index: 0;
+    pointer-events: none;
+    will-change: transform;
+    background:
+      radial-gradient(circle at 22% 25%, rgba(197, 160, 89, 0.14), transparent 55%),
+      radial-gradient(circle at 82% 75%, rgba(212, 175, 55, 0.10), transparent 55%);
+  }
+
+  /* ---------- Servicios ---------- */
+  .services-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+    perspective: 1200px;
+  }
+  @media (min-width: 768px) {
+    .services-grid { grid-template-columns: 1fr 1fr; }
+  }
+  .service-card {
+    background: var(--gold-base);
+    border: 1px solid var(--gold-base);
+    border-radius: 0.5rem;
+    padding: 2rem;
+    cursor: pointer;
+    position: relative;
+    transform-style: preserve-3d;
+    transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  .service-card:hover, .service-card:focus-visible {
+    background-color: var(--gold-hover);
+    box-shadow: 0 18px 34px rgba(0,0,0,0.35);
+  }
+  .service-card:focus-visible { outline: 2px solid var(--corporate-dark); outline-offset: 3px; }
+  /* Escalonado dinámico: parte de scale(0.95)/translateY, el índice de retraso lo asigna el JS */
+  .services-grid .service-card.reveal {
+    transform: translateY(28px) scale(0.95);
+    transition: opacity 0.7s cubic-bezier(0.25, 1, 0.5, 1), transform 0.7s cubic-bezier(0.25, 1, 0.5, 1);
+  }
+  .services-grid .service-card.reveal.is-visible {
+    transform: translateY(0) scale(1);
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .service-card, .parallax-layer { transition: none !important; transform: none !important; }
+  }
+  .service-card .icon {
+    width: 28px; height: 28px;
+    color: var(--corporate-dark);
+    margin-bottom: 1.25rem;
+  }
+  .service-card h3 {
+    font-size: 1.125rem;
+    margin-bottom: 0.5rem;
+    color: var(--corporate-dark);
+    padding-right: 1.5rem;
+  }
+  .service-card p {
+    font-size: 0.9rem;
+    color: rgba(10, 17, 40, 0.75);
+  }
+  .service-card-arrow {
+    position: absolute;
+    top: 1.75rem;
+    right: 1.5rem;
+    color: var(--corporate-dark);
+    transition: transform 0.3s ease;
+  }
+  .service-card:hover .service-card-arrow { transform: translateX(3px); }
+
+  /* ---------- Metodología ---------- */
+  .steps-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2rem;
+    text-align: center;
+  }
+  @media (min-width: 640px) {
+    .steps-grid { grid-template-columns: 1fr 1fr; }
+  }
+  @media (min-width: 900px) {
+    .steps-grid { grid-template-columns: repeat(4, 1fr); }
+  }
+  .step-number {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: rgba(197, 160, 89, 0.3);
+  }
+  .step-title { margin-top: 0.5rem; font-size: 1.1rem; }
+
+  /* ---------- Perfil ---------- */
+  .trust-section { max-width: 44rem; margin: 0 auto; text-align: center; }
+  .trust-section p { color: var(--text-muted); }
+
+  /* ---------- FAQ ---------- */
+  .faq-list { max-width: 44rem; margin: 0 auto; display: flex; flex-direction: column; gap: 0.75rem; }
+  .faq-item {
+    border: 1px solid rgba(197, 160, 89, 0.2);
+    border-radius: 0.5rem;
+    background: var(--corporate-dark);
+    overflow: hidden;
+  }
+  .faq-question {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    background: none;
+    border: none;
+    color: var(--text-high);
+    font-family: 'Inter', sans-serif;
+    font-size: 0.95rem;
+    font-weight: 500;
+    text-align: left;
+    padding: 1rem 1.25rem;
+    cursor: pointer;
+  }
+  .faq-question .chevron {
+    flex-shrink: 0;
+    transition: transform 0.2s;
+    color: var(--gold-base);
+  }
+  .faq-item.open .chevron { transform: rotate(180deg); }
+  .faq-answer {
+    max-height: 0;
+    overflow: hidden;
+    padding: 0 1.25rem;
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    line-height: 1.6;
+    transition: max-height 0.4s ease, padding 0.4s ease;
+  }
+  .faq-item.open .faq-answer { padding: 0 1.25rem 1rem; }
+
+  /* ---------- Panel configurador off-canvas (estilo checkout) ---------- */
+  .modal-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 60;
+    background: rgba(10, 17, 40, 0.65);
+    backdrop-filter: blur(2px);
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.35s ease, visibility 0.35s ease;
+  }
+  .modal-overlay.open { opacity: 1; visibility: visible; }
+  .modal-panel {
+    background: var(--corporate-surface);
+    border-left: 1px solid rgba(197, 160, 89, 0.3);
+    box-shadow: -24px 0 60px rgba(0,0,0,0.5);
+    position: fixed;
+    top: 0; right: 0; bottom: 0;
+    width: min(440px, 100vw);
+    max-height: none;
+    display: flex;
+    flex-direction: column;
+    transform: translateX(100%);
+    transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .modal-overlay.open .modal-panel { transform: translateX(0); }
+
+  .panel-header {
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+    padding: 1.5rem 1.5rem 1.25rem;
+    border-bottom: 1px solid rgba(197, 160, 89, 0.2);
+    flex-shrink: 0;
+  }
+  .panel-header-icon {
+    flex-shrink: 0;
+    width: 3rem; height: 3rem;
+    border-radius: 0.75rem;
+    background: rgba(197, 160, 89, 0.14);
+    border: 1px solid rgba(197, 160, 89, 0.4);
+    display: flex; align-items: center; justify-content: center;
+    color: var(--gold-base);
+  }
+  .panel-header-icon svg { width: 26px; height: 26px; }
+  .panel-header-text { flex: 1; min-width: 0; }
+  .panel-badge {
+    display: inline-block;
+    font-size: 0.65rem;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--corporate-dark);
+    background: var(--gold-base);
+    border-radius: 9999px;
+    padding: 0.2rem 0.6rem;
+    margin-bottom: 0.5rem;
+  }
+  .modal-title { font-size: 1.15rem; line-height: 1.3; padding-right: 0; }
+  .modal-close {
+    flex-shrink: 0;
+    background: none;
+    border: none;
+    color: var(--text-muted);
+    cursor: pointer;
+    padding: 0.25rem;
+    margin-top: -0.25rem;
+  }
+  .modal-close:hover { color: var(--gold-hover); }
+
+  .panel-body { flex: 1; overflow-y: auto; padding: 1.5rem; }
+  .modal-description { color: var(--text-muted); font-size: 0.875rem; margin: 0 0 1.5rem; line-height: 1.5; }
+  .modal-field { margin-bottom: 1.25rem; }
+  .modal-field label, .addon-group-label { display: block; font-size: 0.8rem; color: var(--text-muted); margin-bottom: 0.5rem; font-weight: 500; }
+  .modal-field input, .modal-field select {
+    width: 100%;
+    background: var(--corporate-dark);
+    border: 1px solid rgba(148, 163, 184, 0.25);
+    border-radius: 0.4rem;
+    padding: 0.6rem 0.75rem;
+    color: var(--text-high);
+    font-family: 'Inter', sans-serif;
+    font-size: 0.9rem;
+  }
+  .modal-field input:focus, .modal-field select:focus { outline: none; border-color: var(--gold-hover); }
+
+  .panel-footer {
+    flex-shrink: 0;
+    padding: 1.1rem 1.5rem 1.25rem;
+    border-top: 1px solid rgba(197, 160, 89, 0.2);
+    background: rgba(10, 17, 40, 0.5);
+  }
+  .panel-summary {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    margin-bottom: 0.75rem;
+  }
+  .panel-summary strong { color: var(--text-high); }
+  .modal-submit { width: 100%; }
+  .modal-submit:disabled { opacity: 0.45; cursor: not-allowed; }
+  .modal-status { font-size: 0.8rem; margin-top: 0.6rem; min-height: 1.1rem; line-height: 1.4; }
+  .modal-status.error { color: #FCA5A5; }
+  .modal-status.success { color: #86efac; }
+
+  /* ---------- Add-on cards (configurador estilo e-commerce) ---------- */
+  .addon-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.65rem;
+  }
+  .addon-card {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    background: var(--corporate-dark);
+    border: 1.5px solid rgba(148, 163, 184, 0.22);
+    border-radius: 0.6rem;
+    padding: 0.75rem 0.8rem;
+    cursor: pointer;
+    text-align: left;
+    color: var(--text-high);
+    font-family: 'Inter', sans-serif;
+    font-size: 0.82rem;
+    line-height: 1.25;
+    transition: border-color 0.2s ease, background-color 0.2s ease, transform 0.15s ease;
+  }
+  .addon-card:hover { border-color: rgba(197, 160, 89, 0.55); transform: translateY(-2px); }
+  .addon-card:focus-visible { outline: 2px solid var(--gold-hover); outline-offset: 2px; }
+  .addon-card-icon { flex-shrink: 0; width: 18px; height: 18px; color: var(--gold-base); }
+  .addon-card-label { flex: 1; }
+  .addon-card-check {
+    flex-shrink: 0;
+    width: 17px; height: 17px;
+    border-radius: 50%;
+    border: 1.5px solid rgba(148, 163, 184, 0.35);
+    display: flex; align-items: center; justify-content: center;
+    color: transparent;
+    transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+  }
+  .addon-card-check svg { width: 10px; height: 10px; }
+  .addon-card.active {
+    border-color: var(--gold-hover);
+    background: rgba(197, 160, 89, 0.12);
+  }
+  .addon-card.active .addon-card-check {
+    background: var(--gold-hover);
+    border-color: var(--gold-hover);
+    color: var(--corporate-dark);
+  }
+  .addon-other-field { grid-column: 1 / -1; margin-top: 0.2rem; }
+  .addon-other-field input {
+    width: 100%;
+    background: var(--corporate-dark);
+    border: 1px solid rgba(148, 163, 184, 0.25);
+    border-radius: 0.4rem;
+    padding: 0.5rem 0.7rem;
+    color: var(--text-high);
+    font-family: 'Inter', sans-serif;
+    font-size: 0.85rem;
+  }
+  .addon-other-field input:focus { outline: none; border-color: var(--gold-hover); }
+
+  /* ---------- Footer ---------- */
+  footer {
+    border-top: 1px solid rgba(197, 160, 89, 0.1);
+    padding: 2.5rem 0;
+  }
+  .footer-inner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    font-size: 0.875rem;
+    color: var(--text-muted);
+    text-align: center;
+  }
+  @media (min-width: 768px) {
+    .footer-inner { flex-direction: row; text-align: left; }
+  }
+  .footer-links { display: flex; align-items: center; gap: 1.5rem; }
+  .footer-links a:hover { color: var(--gold-hover); }
+
+  /* ---------- WhatsApp FAB ---------- */
+  .fab {
+    position: fixed;
+    bottom: 1.5rem;
+    right: 1.5rem;
+    z-index: 50;
+    background: var(--gold-base);
+    color: var(--corporate-dark);
+    border-radius: 9999px;
+    padding: 1rem;
+    border: none;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.35);
+    cursor: pointer;
+    display: inline-flex;
+    transition: transform 0.2s;
+  }
+  .fab:hover { transform: scale(1.05); }
+
+  /* ---------- Chat de IA ---------- */
+  .ai-fab {
+    position: fixed;
+    bottom: 5.5rem;
+    right: 1.5rem;
+    z-index: 51;
+    background: var(--corporate-surface);
+    color: var(--gold-base);
+    border: 1px solid rgba(197, 160, 89, 0.5);
+    border-radius: 9999px;
+    padding: 1rem;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.35);
+    cursor: pointer;
+    display: inline-flex;
+    transition: transform 0.2s, border-color 0.2s;
+  }
+  .ai-fab:hover { transform: scale(1.05); border-color: var(--gold-hover); }
+
+  .ai-chat-panel {
+    position: fixed;
+    bottom: 5.5rem;
+    right: 1.5rem;
+    z-index: 52;
+    width: min(360px, calc(100vw - 2rem));
+    height: min(480px, calc(100vh - 8rem));
+    background: var(--corporate-surface);
+    border: 1px solid rgba(197, 160, 89, 0.25);
+    border-radius: 0.75rem;
+    box-shadow: 0 20px 50px rgba(0,0,0,0.45);
+    display: none;
+    flex-direction: column;
+    overflow: hidden;
+  }
+  .ai-chat-panel.open { display: flex; }
+
+  .ai-chat-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.9rem 1rem;
+    background: rgba(10, 17, 40, 0.6);
+    border-bottom: 1px solid rgba(197, 160, 89, 0.2);
+  }
+  .ai-chat-header strong { font-family: 'Playfair Display', serif; font-size: 0.95rem; }
+  .ai-chat-header span { display: block; font-size: 0.7rem; color: var(--text-muted); margin-top: 0.1rem; }
+  .ai-chat-close {
+    background: none; border: none; color: var(--text-muted); cursor: pointer; padding: 0.25rem;
+  }
+  .ai-chat-close:hover { color: var(--gold-hover); }
+
+  .ai-chat-messages {
+    flex: 1;
+    overflow-y: auto;
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+  .ai-msg {
+    max-width: 85%;
+    padding: 0.6rem 0.85rem;
+    border-radius: 0.6rem;
+    font-size: 0.85rem;
+    line-height: 1.5;
+  }
+  .ai-msg-assistant {
+    align-self: flex-start;
+    background: rgba(148, 163, 184, 0.12);
+    color: var(--text-high);
+    border-bottom-left-radius: 0.15rem;
+  }
+  .ai-msg-user {
+    align-self: flex-end;
+    background: var(--gold-base);
+    color: var(--corporate-dark);
+    border-bottom-right-radius: 0.15rem;
+  }
+  .ai-msg-error {
+    align-self: flex-start;
+    background: rgba(220, 38, 38, 0.15);
+    color: #FCA5A5;
+    border: 1px solid rgba(220, 38, 38, 0.3);
+  }
+  .ai-msg-error a { color: #FCA5A5; text-decoration: underline; }
+
+  .ai-chat-form {
+    display: flex;
+    gap: 0.5rem;
+    padding: 0.75rem;
+    border-top: 1px solid rgba(197, 160, 89, 0.2);
+  }
+  .ai-chat-input {
+    flex: 1;
+    background: var(--corporate-dark);
+    border: 1px solid rgba(148, 163, 184, 0.25);
+    border-radius: 0.5rem;
+    padding: 0.55rem 0.75rem;
+    color: var(--text-high);
+    font-family: 'Inter', sans-serif;
+    font-size: 0.85rem;
+    resize: none;
+  }
+  .ai-chat-input:focus { outline: none; border-color: var(--gold-hover); }
+  .ai-chat-send {
+    background: var(--gold-base);
+    color: var(--corporate-dark);
+    border: none;
+    border-radius: 0.5rem;
+    padding: 0 0.9rem;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.2s;
+  }
+  .ai-chat-send:hover { background-color: var(--gold-hover); }
+  .ai-chat-send:disabled { opacity: 0.5; cursor: not-allowed; }
+
+  .ai-chat-disclaimer {
+    padding: 0.5rem 1rem 0.75rem;
+    font-size: 0.65rem;
+    color: var(--text-muted);
+    text-align: center;
+  }
+
+  @media (max-width: 480px) {
+    .ai-fab, .fab { bottom: 1rem; right: 1rem; }
+    .ai-fab { bottom: 4.75rem; }
+    .ai-chat-panel { bottom: 4.75rem; right: 0.75rem; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="container header-inner" style="position:relative;">
+    <a href="#top" class="logo">AJMC <span>| RRHH Consulting</span></a>
+
+    <nav class="desktop-nav">
+      <a href="#servicios">Servicios</a>
+      <a href="#metodologia">Metodología</a>
+      <a href="#perfil">Perfil</a>
+      <a href="#faq">FAQ</a>
+    </nav>
+
+    <a href="https://calendar.app.google/vEu1C9fPBmbVUhWY7" target="_blank" rel="noopener noreferrer" class="btn btn-gold header-cta">Agendar Consulta</a>
+
+    <button class="mobile-toggle" id="mobileToggle" aria-label="Abrir menú" aria-expanded="false">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+    </button>
+
+    <nav class="mobile-nav" id="mobileNav">
+      <a href="#servicios">Servicios</a>
+      <a href="#metodologia">Metodología</a>
+      <a href="#perfil">Perfil</a>
+      <a href="#faq">FAQ</a>
+      <a href="https://calendar.app.google/vEu1C9fPBmbVUhWY7" target="_blank" rel="noopener noreferrer" class="btn btn-gold" style="align-self:flex-start;">Agendar Consulta</a>
+    </nav>
+  </div>
+</header>
+
+<main id="top">
+
+  <section class="hero">
+    <div class="parallax-layer" data-speed="0.12" aria-hidden="true"></div>
+    <div class="container">
+      <h1 class="reveal">Protección Jurídico-Laboral y Optimización de Talento para Empresas en Puerto Rico.</h1>
+      <p class="reveal reveal-d1">Consultoría especializada en cumplimiento normativo, auditorías y manuales corporativos sin la burocracia de las grandes agencias.</p>
+      <div class="hero-actions reveal reveal-d2">
+        <a href="https://calendar.app.google/vEu1C9fPBmbVUhWY7" target="_blank" rel="noopener noreferrer" class="btn btn-gold">Agendar Consulta</a>
+        <a href="https://wa.me/19394282820" target="_blank" rel="noopener noreferrer" class="btn btn-ghost">Consultar por WhatsApp</a>
+      </div>
+    </div>
+  </section>
+
+  <section id="servicios">
+    <div class="container">
+      <h2 class="section-title reveal">Servicios</h2>
+      <div class="services-grid">
+
+        <article class="service-card reveal" data-service="auditoria" role="button" tabindex="0" aria-haspopup="dialog">
+          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+          <h3>Auditorías de Cumplimiento Laboral</h3>
+          <p>Mapeo de riesgos, brechas normativas en PR y Departamento del Trabajo.</p>
+          <svg class="service-card-arrow" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg>
+        </article>
+
+        <article class="service-card reveal" data-service="manuales" role="button" tabindex="0" aria-haspopup="dialog">
+          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path></svg>
+          <h3>Manuales y Políticas Corporativas</h3>
+          <p>Handbooks de empleados a medida (políticas de hostigamiento, licencias, uso de tecnología, disciplina progresiva).</p>
+          <svg class="service-card-arrow" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg>
+        </article>
+
+        <article class="service-card reveal" data-service="relaciones" role="button" tabindex="0" aria-haspopup="dialog">
+          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><path d="M16 3h5v5"></path><path d="M8 3H3v5"></path><path d="M12 22V8"></path><path d="M12 8 3 3"></path><path d="m12 8 9-5"></path></svg>
+          <h3>Relaciones Obrero-Patronales &amp; Contratación</h3>
+          <p>Asesoría preventiva en despidos (Ley 80), periodos probatorios y clasificación exento/no exento (FLSA).</p>
+          <svg class="service-card-arrow" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg>
+        </article>
+
+        <article class="service-card reveal" data-service="nomina" role="button" tabindex="0" aria-haspopup="dialog">
+          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
+          <h3>Optimización de Nómina y Capacitación Directiva</h3>
+          <p>Talleres a supervisores y alineación de procesos.</p>
+          <svg class="service-card-arrow" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+  <section id="metodologia" class="section-alt">
+    <div class="parallax-layer" data-speed="0.18" aria-hidden="true"></div>
+    <div class="container">
+      <h2 class="section-title reveal">Metodología</h2>
+      <div class="steps-grid">
+        <div class="reveal"><div class="step-number">01</div><div class="step-title">Diagnóstico</div></div>
+        <div class="reveal reveal-d1"><div class="step-number">02</div><div class="step-title">Diseño Normativo</div></div>
+        <div class="reveal reveal-d2"><div class="step-number">03</div><div class="step-title">Implementación</div></div>
+        <div class="reveal reveal-d3"><div class="step-number">04</div><div class="step-title">Soporte Continuo</div></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="perfil">
+    <div class="container trust-section">
+      <h2 class="section-title reveal" style="margin-bottom:1.5rem;">Sobre Alexis Joel Mercado Colón</h2>
+      <p class="reveal reveal-d1">Formación en Administración de Empresas con concentración en Recursos Humanos por la Universidad de Puerto Rico, combinada con experiencia directa en coordinación financiera y administrativa en organizaciones de Puerto Rico. AJMC RRHH Consulting nace de esa base: conocimiento cercano de la normativa laboral local y un enfoque práctico y tecnológico, pensado para las necesidades reales de las PYMES — sin la burocracia ni el costo de las grandes agencias.</p>
+    </div>
+  </section>
+
+  <section id="faq" class="section-alt">
+    <div class="parallax-layer" data-speed="0.18" aria-hidden="true"></div>
+    <div class="container">
+      <h2 class="section-title reveal">Preguntas Frecuentes</h2>
+      <div class="faq-list reveal" id="faqList">
+
+        <div class="faq-item">
+          <button class="faq-question">
+            <span>¿Cuánto tiempo toma un proyecto de auditoría o manual corporativo?</span>
+            <svg class="chevron" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg>
+          </button>
+          <p class="faq-answer">El tiempo de entrega depende del alcance y tamaño de la empresa. Durante la etapa de Diagnóstico se define un cronograma específico para tu caso antes de comenzar cualquier trabajo.</p>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question">
+            <span>¿Trabajan con empresas fuera de San Juan y Bayamón?</span>
+            <svg class="chevron" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg>
+          </button>
+          <p class="faq-answer">Sí. La consultoría opera a nivel de Puerto Rico, con reuniones remotas o presenciales según la necesidad de la empresa.</p>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question">
+            <span>¿Cómo manejan la confidencialidad de la información de mi empresa?</span>
+            <svg class="chevron" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg>
+          </button>
+          <p class="faq-answer">Toda la información compartida (casos, nombres de empleados, datos sensibles) se trata bajo estricta confidencialidad y nunca se expone en canales públicos.</p>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question">
+            <span>¿Cobran por proyecto o por retención mensual?</span>
+            <svg class="chevron" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg>
+          </button>
+          <p class="faq-answer">Ambos modelos están disponibles — proyecto puntual o retención mensual para soporte continuo. La tarifa se define según el alcance durante la consulta inicial.</p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="container footer-inner">
+    <p>&copy; <span id="year"></span> AJMC | RRHH Consulting. Todos los derechos reservados.</p>
+    <div class="footer-links">
+      <a href="mailto:ajmccorporation167@gmail.com">Escríbenos</a>
+      <a href="https://www.linkedin.com/in/alexis-mercado-58899b395" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+    </div>
+  </div>
+</footer>
+
+<a href="https://wa.me/19394282820" target="_blank" rel="noopener noreferrer" class="fab" aria-label="Escríbenos por WhatsApp">
+  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path></svg>
+</a>
+
+<button type="button" class="ai-fab" id="aiChatToggle" aria-label="Abrir asistente de IA">
+  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a5 5 0 0 0-5 5v1a5 5 0 0 0 10 0V7a5 5 0 0 0-5-5z"></path><path d="M8 13v1a4 4 0 0 0 8 0v-1"></path><path d="M12 21v-3"></path><circle cx="9" cy="7" r="0.6" fill="currentColor" stroke="none"></circle><circle cx="15" cy="7" r="0.6" fill="currentColor" stroke="none"></circle></svg>
+</button>
+
+<div class="ai-chat-panel" id="aiChatPanel" role="dialog" aria-label="Asistente Ejecutivo IA de AJMC">
+  <div class="ai-chat-header">
+    <div>
+      <strong>Asistente AJMC</strong>
+      <span>Consultas de RRHH y cumplimiento laboral</span>
+    </div>
+    <button type="button" class="ai-chat-close" id="aiChatClose" aria-label="Cerrar chat">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+    </button>
+  </div>
+  <div class="ai-chat-messages" id="aiChatMessages">
+    <div class="ai-msg ai-msg-assistant">Hola, soy el asistente ejecutivo de AJMC RRHH Consulting. ¿En qué duda de cumplimiento laboral o RRHH puedo orientarte?</div>
+  </div>
+  <form class="ai-chat-form" id="aiChatForm">
+    <textarea class="ai-chat-input" id="aiChatInput" rows="1" placeholder="Escribe tu pregunta..." maxlength="4000" required></textarea>
+    <button type="submit" class="ai-chat-send" id="aiChatSend" aria-label="Enviar mensaje">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
+    </button>
+  </form>
+  <div class="ai-chat-disclaimer">Respuestas generadas por IA. No sustituyen asesoría legal formal.</div>
+</div>
+
+<div class="modal-overlay" id="leadModalOverlay">
+  <div class="modal-panel" id="leadModalPanel" role="dialog" aria-modal="true" aria-labelledby="leadModalTitle">
+    <div class="panel-header">
+      <div class="panel-header-icon" id="leadModalIcon"></div>
+      <div class="panel-header-text">
+        <span class="panel-badge">Servicio Premium</span>
+        <h3 class="modal-title heading" id="leadModalTitle"></h3>
+      </div>
+      <button type="button" class="modal-close" id="leadModalClose" aria-label="Cerrar formulario">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+      </button>
+    </div>
+    <div class="panel-body">
+      <p class="modal-description" id="leadModalDescription"></p>
+      <form id="leadModalForm">
+        <div id="leadModalFields"></div>
+      </form>
+    </div>
+    <div class="panel-footer">
+      <div class="panel-summary">
+        <span>Configuración</span>
+        <strong id="leadModalSummary">0/0 completado</strong>
+      </div>
+      <button type="submit" form="leadModalForm" class="btn btn-gold modal-submit" id="leadModalSubmit">Añadir a mi Plan</button>
+      <div class="modal-status" id="leadModalStatus" aria-live="polite"></div>
+    </div>
+  </div>
+</div>
+
+<script>
+  document.getElementById('year').textContent = new Date().getFullYear();
+
+  var toggle = document.getElementById('mobileToggle');
+  var mobileNav = document.getElementById('mobileNav');
+  toggle.addEventListener('click', function () {
+    var isOpen = mobileNav.classList.toggle('open');
+    toggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+  });
+  mobileNav.querySelectorAll('a').forEach(function (link) {
+    link.addEventListener('click', function () {
+      mobileNav.classList.remove('open');
+      toggle.setAttribute('aria-expanded', 'false');
+    });
+  });
+
+  document.querySelectorAll('.faq-item').forEach(function (item) {
+    var question = item.querySelector('.faq-question');
+    var answer = item.querySelector('.faq-answer');
+    question.addEventListener('click', function () {
+      var isOpen = item.classList.contains('open');
+      document.querySelectorAll('.faq-item').forEach(function (i) {
+        i.classList.remove('open');
+        i.querySelector('.faq-answer').style.maxHeight = null;
+      });
+      if (!isOpen) {
+        item.classList.add('open');
+        answer.style.maxHeight = answer.scrollHeight + 'px';
+      }
+    });
+  });
+
+  /* Header: se compacta y gana sombra al hacer scroll */
+  var headerEl = document.querySelector('header');
+  function onScroll() {
+    if (window.scrollY > 20) {
+      headerEl.classList.add('scrolled');
+    } else {
+      headerEl.classList.remove('scrolled');
+    }
+  }
+  window.addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
+
+  /* ---------- Scroll Parallax suave (hero + .section-alt) ---------- */
+  (function () {
+    var reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    var layers = document.querySelectorAll('.parallax-layer');
+    if (reduceMotion || !layers.length) return;
+    var ticking = false;
+    function updateParallax() {
+      layers.forEach(function (layer) {
+        var section = layer.parentElement;
+        var rect = section.getBoundingClientRect();
+        var speed = parseFloat(layer.getAttribute('data-speed')) || 0.15;
+        var offset = rect.top * speed;
+        layer.style.transform = 'translate3d(0,' + (-offset).toFixed(1) + 'px,0)';
+      });
+      ticking = false;
+    }
+    window.addEventListener('scroll', function () {
+      if (!ticking) {
+        requestAnimationFrame(updateParallax);
+        ticking = true;
+      }
+    }, { passive: true });
+    updateParallax();
+  })();
+
+  /* ---------- Tarjetas 3D Hover (tilt) en .service-card ---------- */
+  (function () {
+    var reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    var isFinePointer = window.matchMedia && window.matchMedia('(pointer: fine)').matches;
+    if (reduceMotion || !isFinePointer) return;
+
+    document.querySelectorAll('.service-card').forEach(function (card) {
+      var maxTilt = 8;
+
+      function handleMove(e) {
+        var bounds = card.getBoundingClientRect();
+        var x = (e.clientX - bounds.left) / bounds.width;
+        var y = (e.clientY - bounds.top) / bounds.height;
+        var rotateY = (x - 0.5) * (maxTilt * 2);
+        var rotateX = (0.5 - y) * (maxTilt * 2);
+        card.style.transform =
+          'translateY(-6px) scale3d(1.02,1.02,1.02) rotateX(' + rotateX.toFixed(2) + 'deg) rotateY(' + rotateY.toFixed(2) + 'deg)';
+      }
+
+      card.addEventListener('mouseenter', function () {
+        card.style.transition = 'background-color 0.3s ease, box-shadow 0.3s ease';
+      });
+      card.addEventListener('mousemove', handleMove);
+      card.addEventListener('mouseleave', function () {
+        card.style.transition = 'background-color 0.3s ease, transform 0.4s ease, box-shadow 0.3s ease';
+        card.style.transform = '';
+      });
+    });
+  })();
+
+  /* ---------- Chat de IA ---------- */
+  // IMPORTANTE: reemplaza esta URL por la de tu proyecto ya desplegado en
+  // Vercel (ej. "https://ajmc-portal.vercel.app/api/chat") en cuanto lo
+  // publiques. Mientras diga "TU-PROYECTO" el chat mostrará el aviso de
+  // fallback y dirigirá a WhatsApp en vez de fallar en silencio.
+  var AJMC_CHAT_ENDPOINT = 'https://TU-PROYECTO.vercel.app/api/chat';
+
+  // ---------- Base de conocimiento del agente (contexto oculto) ----------
+  // Este objeto NO se muestra en la interfaz. Se concatena de forma invisible
+  // junto al historial de mensajes antes de cada fetch, para que el agente
+  // responda dudas de servicio al cliente sin salir del contexto corporativo.
+  // AVISO: los resúmenes de Ley 80 y FLSA son de carácter educativo/referencial
+  // (no sustituyen asesoría legal formal) — revísalos antes de publicarlos.
+  var AJMC_KNOWLEDGE_BASE = {
+    empresa: {
+      nombre: 'AJMC | RRHH Consulting',
+      area_servicio: 'Puerto Rico (remoto o presencial según necesidad)',
+      contacto: { email: 'ajmccorporation167@gmail.com', telefono: '+1 939-428-2820', whatsapp: 'https://wa.me/19394282820', agenda: 'https://calendar.app.google/vEu1C9fPBmbVUhWY7' },
+      perfil: 'Alexis Joel Mercado Colón — Administración de Empresas con concentración en Recursos Humanos (UPR), con experiencia en coordinación financiera y administrativa. AJMC nace para ofrecer conocimiento cercano de la normativa laboral de PR con un enfoque práctico y tecnológico para PYMES, sin la burocracia ni el costo de las grandes agencias.'
+    },
+    servicios: [
+      { id: 'auditoria', nombre: 'Auditorías de Cumplimiento Laboral', resumen: 'Mapeo de riesgos, revisión de expedientes y brechas normativas frente al Departamento del Trabajo de PR.' },
+      { id: 'manuales', nombre: 'Manuales y Políticas Corporativas', resumen: 'Handbooks de empleados a medida: hostigamiento, licencias, uso de tecnología, disciplina progresiva.' },
+      { id: 'relaciones', nombre: 'Relaciones Obrero-Patronales & Contratación', resumen: 'Asesoría preventiva en despidos (Ley 80), períodos probatorios y clasificación exento/no exento (FLSA).' },
+      { id: 'nomina', nombre: 'Optimización de Nómina y Capacitación Directiva', resumen: 'Talleres a supervisores y alineación de procesos de nómina.' }
+    ],
+    metodologia: ['01 Diagnóstico', '02 Diseño Normativo', '03 Implementación', '04 Soporte Continuo'],
+    faq: [
+      { q: '¿Cuánto tiempo toma un proyecto de auditoría o manual corporativo?', a: 'Depende del alcance y tamaño de la empresa; en la etapa de Diagnóstico se define un cronograma específico antes de comenzar.' },
+      { q: '¿Trabajan con empresas fuera de San Juan y Bayamón?', a: 'Sí, la consultoría opera a nivel de todo Puerto Rico, con reuniones remotas o presenciales según la necesidad.' },
+      { q: '¿Cómo manejan la confidencialidad de la información?', a: 'Toda la información se trata bajo estricta confidencialidad y nunca se expone en canales públicos.' },
+      { q: '¿Cobran por proyecto o por retención mensual?', a: 'Ambos modelos están disponibles; la tarifa se define según el alcance durante la consulta inicial.' }
+    ],
+    marco_legal_referencial: {
+      aviso: 'Información educativa/referencial. No sustituye asesoría legal formal de un abogado laboral licenciado en Puerto Rico.',
+      ley_80_1976_despido_injustificado: {
+        resumen: 'Ley de mesada. Si el despido no responde a una causa justa, el patrono debe pagar una compensación (mesada) calculada según los años de servicio.',
+        causas_justas: ['Conducta impropia del empleado', 'Desempeño deficiente repetido y documentado', 'Violaciones al reglamento interno', 'Cierre total de operaciones', 'Reducción de fuerza bona fide (económica/tecnológica)', 'Ineptitud o incapacidad del empleado'],
+        nota_ley_4_2017: 'Creó un período probatorio de 9 meses; durante ese período el despido no genera mesada. Para empleados post-Ley 4, la mesada es 2 meses mínimo + 1 semana por año de servicio (máx. 6 meses).'
+      },
+      flsa_clasificacion_exento_no_exento: {
+        resumen: 'Ley federal de salario mínimo y horas extra, aplicable en PR junto con la Ley 379-1948 (aplica siempre la norma más beneficiosa para el empleado).',
+        exentos: 'Ejecutivos (supervisión real de 2+ personas), administrativos (discreción y juicio independiente) y profesionales (conocimiento avanzado especializado), sujeto a un umbral salarial mínimo (~$684/semana; verificar actualización vigente del DOL).',
+        no_exentos: 'Todo el resto de los empleados — aplica pago de horas extra obligatorio.',
+        salario_minimo: 'Aplica el mayor entre el federal ($7.25/hr) y la escala progresiva de PR bajo la Ley 47-2021 (referencia 2024: $10.50/hr).',
+        riesgo: 'Clasificar mal a un empleado como exento o como contratista independiente es de las violaciones más costosas: expone a horas extras retroactivas, beneficios y penalidades.'
+      },
+      proceso_tipico_auditoria: ['1. Diagnóstico inicial y mapeo de riesgos', '2. Revisión de expedientes de empleados y políticas vigentes', '3. Identificación de brechas frente a leyes de PR y federales aplicables', '4. Reporte de hallazgos con nivel de riesgo (alto/medio/bajo)', '5. Plan de remediación y acompañamiento en la implementación']
+    }
+  };
+
+  var AJMC_SYSTEM_PROMPT = [
+    'Eres el asistente ejecutivo virtual de AJMC | RRHH Consulting, una consultoría de Recursos Humanos y cumplimiento laboral en Puerto Rico.',
+    'Responde siempre en español, con tono profesional, cercano y claro. Usa SOLO la información del CONTEXTO_AJMC de abajo — no inventes datos de precios, plazos o servicios que no estén ahí.',
+    'Si la pregunta requiere asesoría legal específica sobre un caso real, aclara que la respuesta es educativa/referencial y recomienda agendar una consulta con Alexis (no sustituye asesoría legal formal).',
+    'Si no tienes la información para responder, dirige a la persona a WhatsApp o a agendar una consulta.',
+    '',
+    'CONTEXTO_AJMC (base de conocimiento oficial, no visible para el usuario):',
+    JSON.stringify(AJMC_KNOWLEDGE_BASE)
+  ].join('\n');
+
+  (function () {
+    var toggle = document.getElementById('aiChatToggle');
+    var panel = document.getElementById('aiChatPanel');
+    var closeBtn = document.getElementById('aiChatClose');
+    var messagesEl = document.getElementById('aiChatMessages');
+    var form = document.getElementById('aiChatForm');
+    var input = document.getElementById('aiChatInput');
+    var sendBtn = document.getElementById('aiChatSend');
+    var history = [];
+    var sending = false;
+
+    function openPanel() {
+      panel.classList.add('open');
+      toggle.setAttribute('aria-expanded', 'true');
+      input.focus();
+    }
+    function closePanel() {
+      panel.classList.remove('open');
+      toggle.setAttribute('aria-expanded', 'false');
+    }
+    toggle.addEventListener('click', function () {
+      panel.classList.contains('open') ? closePanel() : openPanel();
+    });
+    closeBtn.addEventListener('click', closePanel);
+
+    function appendMessage(role, text) {
+      var el = document.createElement('div');
+      el.className = 'ai-msg ai-msg-' + role;
+      el.textContent = text;
+      messagesEl.appendChild(el);
+      messagesEl.scrollTop = messagesEl.scrollHeight;
+      return el;
+    }
+
+    function appendFallback() {
+      var el = document.createElement('div');
+      el.className = 'ai-msg ai-msg-error';
+      el.innerHTML = 'El asistente de IA todavía no está conectado a un servidor activo. Escríbenos directo por <a href="https://wa.me/19394282820" target="_blank" rel="noopener noreferrer">WhatsApp</a> mientras tanto.';
+      messagesEl.appendChild(el);
+      messagesEl.scrollTop = messagesEl.scrollHeight;
+    }
+
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      var text = input.value.trim();
+      if (!text || sending) return;
+
+      if (AJMC_CHAT_ENDPOINT.indexOf('TU-PROYECTO') !== -1) {
+        appendMessage('user', text);
+        input.value = '';
+        appendFallback();
+        return;
+      }
+
+      sending = true;
+      sendBtn.disabled = true;
+      appendMessage('user', text);
+      history.push({ role: 'user', content: text });
+      input.value = '';
+
+      var assistantEl = appendMessage('assistant', '');
+      var assistantText = '';
+
+      // Inyección invisible: el system prompt + base de conocimiento se
+      // concatena junto al historial visible antes de cada fetch. El usuario
+      // nunca ve este mensaje en la interfaz; solo lo recibe el backend.
+      var payloadMessages = [{ role: 'system', content: AJMC_SYSTEM_PROMPT }].concat(history);
+
+      fetch(AJMC_CHAT_ENDPOINT, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ messages: payloadMessages }),
+      })
+        .then(function (res) {
+          if (!res.ok || !res.body) throw new Error('Respuesta no válida del servidor.');
+          var reader = res.body.getReader();
+          var decoder = new TextDecoder();
+
+          function read() {
+            return reader.read().then(function (chunk) {
+              if (chunk.done) {
+                history.push({ role: 'assistant', content: assistantText });
+                sending = false;
+                sendBtn.disabled = false;
+                return;
+              }
+              assistantText += decoder.decode(chunk.value, { stream: true });
+              assistantEl.textContent = assistantText;
+              messagesEl.scrollTop = messagesEl.scrollHeight;
+              return read();
+            });
+          }
+          return read();
+        })
+        .catch(function () {
+          assistantEl.remove();
+          appendFallback();
+          sending = false;
+          sendBtn.disabled = false;
+        });
+    });
+
+    input.addEventListener('keydown', function (e) {
+      if (e.key === 'Enter' && !e.shiftKey) {
+        e.preventDefault();
+        form.requestSubmit();
+      }
+    });
+  })();
+
+  /* ---------- Modal de captación por servicio ---------- */
+  // IMPORTANTE: reemplaza esta clave por tu "Access Key" real de Web3Forms
+  // (se obtiene gratis en https://web3forms.com registrando el correo
+  // ajmccorporation167@gmail.com). Mientras diga "TU-ACCESS-KEY-AQUI" el
+  // formulario mostrará un aviso de fallback en vez de fallar en silencio.
+  var WEB3FORMS_ACCESS_KEY = 'TU-ACCESS-KEY-AQUI';
+  var WEB3FORMS_ENDPOINT = 'https://api.web3forms.com/submit';
+
+  // Iconos SVG reutilizados de las tarjetas de servicio (misma identidad visual)
+  var SERVICE_ICONS = {
+    auditoria: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>',
+    manuales: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path></svg>',
+    relaciones: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><path d="M16 3h5v5"></path><path d="M8 3H3v5"></path><path d="M12 22V8"></path><path d="M12 8 3 3"></path><path d="m12 8 9-5"></path></svg>',
+    nomina: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>'
+  };
+  // Icono genérico por grupo de add-on (independiente del icono de check de selección)
+  var ADDON_ICON = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3L22 4"></path><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"></path></svg>';
+
+  var LEAD_SERVICES = {
+    auditoria: {
+      title: 'Auditoría de Cumplimiento Laboral',
+      description: 'Mapeo completo de riesgos, revisión de expedientes y un reporte de brechas normativas según el Departamento del Trabajo de PR.',
+      fields: [
+        { name: 'cantidad_empleados', label: 'Cantidad de empleados', type: 'pills', options: ['1-10', '11-50', '50+'] },
+        { name: 'ultima_auditoria', label: 'Última auditoría de cumplimiento', type: 'pills', options: ['Hace menos de 1 año', 'Hace más de 1 año', 'Nunca'] }
+      ]
+    },
+    manuales: {
+      title: 'Manuales y Políticas Corporativas',
+      description: 'Un manual de empleados redactado a la medida de tu operación, alineado con la legislación laboral vigente y listo para implementar.',
+      fields: [
+        { name: 'tiene_manual', label: '¿Tienen un manual de empleados actualmente?', type: 'pills', options: ['Sí, actualizado', 'Sí, desactualizado', 'No tenemos'] },
+        { name: 'sector', label: 'Sector de la empresa', type: 'pills', options: ['Retail / Comercio', 'Manufactura', 'Salud', 'Construcción', 'Servicios profesionales', 'Otro'], allowOther: true }
+      ]
+    },
+    relaciones: {
+      title: 'Relaciones Obrero-Patronales & Contratación',
+      description: 'Asesoría directa en tu caso específico — desde una desvinculación hasta una clasificación de puesto — con estrategia clara antes de actuar.',
+      fields: [
+        { name: 'naturaleza', label: 'Naturaleza de la controversia', type: 'pills', options: ['Despido', 'Período probatorio', 'Clasificación exento/no exento', 'Otro'] },
+        { name: 'urgencia', label: 'Urgencia del caso', type: 'pills', options: ['Inmediata', 'Esta semana', 'Preventiva / sin urgencia'] }
+      ]
+    },
+    nomina: {
+      title: 'Optimización de Nómina y Capacitación Directiva',
+      description: 'Capacitación práctica para tu equipo de supervisión en cumplimiento, liderazgo y procesos de nómina, con resultados medibles.',
+      fields: [
+        { name: 'cantidad_supervisores', label: 'Cantidad de supervisores a capacitar', type: 'pills', options: ['1-5', '6-15', '16+'] },
+        { name: 'area_enfoque', label: 'Área de enfoque', type: 'pills', options: ['Liderazgo', 'Cumplimiento normativo', 'Procesos de nómina', 'Otro'] }
+      ]
+    }
+  };
+
+  (function () {
+    var overlay = document.getElementById('leadModalOverlay');
+    var panel = document.getElementById('leadModalPanel');
+    var closeBtn = document.getElementById('leadModalClose');
+    var iconEl = document.getElementById('leadModalIcon');
+    var titleEl = document.getElementById('leadModalTitle');
+    var descriptionEl = document.getElementById('leadModalDescription');
+    var fieldsEl = document.getElementById('leadModalFields');
+    var form = document.getElementById('leadModalForm');
+    var submitBtn = document.getElementById('leadModalSubmit');
+    var statusEl = document.getElementById('leadModalStatus');
+    var summaryEl = document.getElementById('leadModalSummary');
+    var currentService = null;
+
+    function textFieldMarkup(field) {
+      var wrap = document.createElement('div');
+      wrap.className = 'modal-field';
+      var label = document.createElement('label');
+      label.setAttribute('for', 'lead_' + field.name);
+      label.textContent = field.label;
+      wrap.appendChild(label);
+
+      var input = document.createElement('input');
+      input.type = 'text';
+      input.id = 'lead_' + field.name;
+      input.name = field.name;
+      if (field.required) input.required = true;
+      input.addEventListener('input', checkComplete);
+      wrap.appendChild(input);
+      return wrap;
+    }
+
+    function addonFieldMarkup(field) {
+      var wrap = document.createElement('div');
+      wrap.className = 'modal-field';
+      var label = document.createElement('label');
+      label.className = 'addon-group-label';
+      label.textContent = field.label;
+      wrap.appendChild(label);
+
+      var group = document.createElement('div');
+      group.className = 'addon-grid';
+      group.setAttribute('role', 'radiogroup');
+      group.setAttribute('aria-label', field.label);
+
+      var hidden = document.createElement('input');
+      hidden.type = 'hidden';
+      hidden.id = 'lead_' + field.name;
+      hidden.name = field.name;
+
+      var otroWrap = null;
+      if (field.allowOther) {
+        otroWrap = document.createElement('div');
+        otroWrap.className = 'addon-other-field';
+        otroWrap.style.display = 'none';
+        var otroInput = document.createElement('input');
+        otroInput.type = 'text';
+        otroInput.name = field.name + '_detalle';
+        otroInput.placeholder = 'Especifica el sector...';
+        otroWrap.appendChild(otroInput);
+      }
+
+      field.options.forEach(function (opt) {
+        var card = document.createElement('button');
+        card.type = 'button';
+        card.className = 'addon-card';
+        card.setAttribute('role', 'radio');
+        card.setAttribute('aria-checked', 'false');
+
+        var icon = document.createElement('span');
+        icon.className = 'addon-card-icon';
+        icon.innerHTML = ADDON_ICON;
+        icon.setAttribute('aria-hidden', 'true');
+
+        var text = document.createElement('span');
+        text.className = 'addon-card-label';
+        text.textContent = opt;
+
+        var check = document.createElement('span');
+        check.className = 'addon-card-check';
+        check.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>';
+
+        card.appendChild(icon);
+        card.appendChild(text);
+        card.appendChild(check);
+
+        card.addEventListener('click', function () {
+          group.querySelectorAll('.addon-card').forEach(function (p) {
+            p.classList.remove('active');
+            p.setAttribute('aria-checked', 'false');
+          });
+          card.classList.add('active');
+          card.setAttribute('aria-checked', 'true');
+          hidden.value = opt;
+          if (otroWrap) {
+            var show = opt === 'Otro';
+            otroWrap.style.display = show ? 'block' : 'none';
+            if (!show) otroWrap.querySelector('input').value = '';
+          }
+          checkComplete();
+        });
+        group.appendChild(card);
+      });
+
+      wrap.appendChild(group);
+      wrap.appendChild(hidden);
+      if (otroWrap) wrap.appendChild(otroWrap);
+      return wrap;
+    }
+
+    function fieldMarkup(field) {
+      return field.type === 'pills' ? addonFieldMarkup(field) : textFieldMarkup(field);
+    }
+
+    function requiredNamesForService(serviceKey) {
+      var service = LEAD_SERVICES[serviceKey];
+      var names = ['nombre', 'empresa', 'contacto'];
+      service.fields.forEach(function (f) { names.push(f.name); });
+      return names;
+    }
+
+    function checkComplete() {
+      if (!currentService) return;
+      var names = requiredNamesForService(currentService);
+      var doneCount = names.filter(function (name) {
+        var el = document.getElementById('lead_' + name);
+        return el && el.value && el.value.trim() !== '';
+      }).length;
+      var complete = doneCount === names.length;
+      submitBtn.disabled = !complete;
+      if (summaryEl) summaryEl.textContent = doneCount + '/' + names.length + ' completado';
+    }
+
+    function buildForm(serviceKey) {
+      var service = LEAD_SERVICES[serviceKey];
+      if (!service) return;
+      currentService = serviceKey;
+      iconEl.innerHTML = SERVICE_ICONS[serviceKey] || '';
+      titleEl.textContent = service.title;
+      descriptionEl.textContent = service.description;
+      fieldsEl.innerHTML = '';
+
+      fieldsEl.appendChild(fieldMarkup({ name: 'nombre', label: 'Nombre', type: 'text', required: true }));
+      fieldsEl.appendChild(fieldMarkup({ name: 'empresa', label: 'Empresa', type: 'text', required: true }));
+      fieldsEl.appendChild(fieldMarkup({ name: 'contacto', label: 'Email o teléfono', type: 'text', required: true }));
+      service.fields.forEach(function (f) { fieldsEl.appendChild(fieldMarkup(f)); });
+
+      statusEl.textContent = '';
+      statusEl.className = 'modal-status';
+      submitBtn.textContent = 'Añadir a mi Plan';
+      checkComplete();
+    }
+
+    function openModal(serviceKey) {
+      buildForm(serviceKey);
+      overlay.classList.add('open');
+      document.body.style.overflow = 'hidden';
+      var firstInput = fieldsEl.querySelector('input, select');
+      if (firstInput) firstInput.focus();
+    }
+    function closeModal() {
+      overlay.classList.remove('open');
+      document.body.style.overflow = '';
+    }
+
+    document.querySelectorAll('.service-card[data-service]').forEach(function (card) {
+      card.addEventListener('click', function () {
+        openModal(card.getAttribute('data-service'));
+      });
+      card.addEventListener('keydown', function (e) {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          openModal(card.getAttribute('data-service'));
+        }
+      });
+    });
+
+    closeBtn.addEventListener('click', closeModal);
+    overlay.addEventListener('click', function (e) {
+      if (e.target === overlay) closeModal();
+    });
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape' && overlay.classList.contains('open')) closeModal();
+    });
+
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      if (!currentService) return;
+      var service = LEAD_SERVICES[currentService];
+
+      if (WEB3FORMS_ACCESS_KEY.indexOf('TU-ACCESS-KEY-AQUI') !== -1) {
+        statusEl.textContent = 'El formulario todavía no está conectado. Escríbenos directo por WhatsApp o correo mientras tanto: ajmccorporation167@gmail.com';
+        statusEl.className = 'modal-status error';
+        return;
+      }
+
+      var formData = new FormData(form);
+      formData.append('access_key', WEB3FORMS_ACCESS_KEY);
+      formData.append('subject', 'Nuevo lead — ' + service.title);
+      formData.append('from_name', 'AJMC RRHH Consulting — Formulario web');
+      formData.append('servicio', service.title);
+
+      submitBtn.disabled = true;
+      submitBtn.textContent = 'Enviando...';
+      statusEl.textContent = '';
+      statusEl.className = 'modal-status';
+
+      fetch(WEB3FORMS_ENDPOINT, { method: 'POST', body: formData })
+        .then(function (res) { return res.json(); })
+        .then(function (data) {
+          if (data.success) {
+            statusEl.textContent = 'Recibido. Alexis te contactará pronto para coordinar la consulta.';
+            statusEl.className = 'modal-status success';
+            submitBtn.textContent = 'Enviado';
+            form.reset();
+            setTimeout(closeModal, 2200);
+          } else {
+            throw new Error('web3forms error');
+          }
+        })
+        .catch(function () {
+          statusEl.textContent = 'No se pudo enviar. Intenta de nuevo o escríbenos por WhatsApp.';
+          statusEl.className = 'modal-status error';
+          submitBtn.disabled = false;
+          submitBtn.textContent = 'Añadir a mi Plan';
+        });
+    });
+  })();
+
+  /* Scroll-reveal: fade-in + translateY (y scale para .services-grid) al entrar en viewport */
+  var revealEls = document.querySelectorAll('.reveal');
+
+  // Asigna un índice de escalonado dinámico a las tarjetas de .services-grid
+  document.querySelectorAll('.services-grid .service-card').forEach(function (card, i) {
+    card.dataset.staggerIndex = i;
+  });
+
+  if ('IntersectionObserver' in window) {
+    var revealObserver = new IntersectionObserver(function (entries, obs) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) {
+          var target = entry.target;
+          if (target.dataset.staggerIndex !== undefined) {
+            target.style.transitionDelay = (parseInt(target.dataset.staggerIndex, 10) * 0.09).toFixed(2) + 's';
+          }
+          target.classList.add('is-visible');
+          obs.unobserve(target);
+        }
+      });
+    }, { threshold: 0.15, rootMargin: '0px 0px -40px 0px' });
+    revealEls.forEach(function (el) { revealObserver.observe(el); });
+  } else {
+    revealEls.forEach(function (el) { el.classList.add('is-visible'); });
+  }
+</script>
+
+</body>
+</html>
