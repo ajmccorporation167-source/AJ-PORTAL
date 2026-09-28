@@ -17,13 +17,11 @@
   "@type": "ProfessionalService",
   "name": "AJMC | RRHH Consulting",
   "areaServed": "Puerto Rico",
-  "email": "ajmccorporation167@gmail.com",
   "sameAs": ["https://www.linkedin.com/in/alexis-mercado-58899b395"],
   "contactPoint": {
     "@type": "ContactPoint",
     "contactType": "customer service",
     "telephone": "+1 939-428-2820",
-    "email": "ajmccorporation167@gmail.com",
     "areaServed": "PR",
     "availableLanguage": ["Spanish", "English"]
   }
@@ -610,6 +608,90 @@
     .modal-step { transition: none; }
   }
 
+  /* =====================================================================
+     PREMIUM LAYER — grano, revelado de texto, campos y botones magnéticos
+     ===================================================================== */
+
+  /* 1. Textura de grano animada (acabado mate). Solo decorativa. */
+  body::after {
+    content: '';
+    position: fixed;
+    inset: -50%;
+    z-index: 100;
+    pointer-events: none;
+    opacity: 0.045;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    animation: grain-shift 1.2s steps(6) infinite;
+  }
+  @keyframes grain-shift {
+    0%   { transform: translate(0, 0); }
+    20%  { transform: translate(-3%, 2%); }
+    40%  { transform: translate(2%, -3%); }
+    60%  { transform: translate(-2%, -1%); }
+    80%  { transform: translate(3%, 3%); }
+    100% { transform: translate(0, 0); }
+  }
+
+  /* 2. Revelado de títulos con clip-path (emergen desde abajo) */
+  .reveal.reveal-text {
+    opacity: 1;
+    transform: translateY(35%);
+    clip-path: polygon(0 100%, 100% 100%, 100% 100%, 0% 100%);
+    transition: clip-path 1.1s cubic-bezier(0.77, 0, 0.18, 1), transform 1.1s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .reveal.reveal-text.is-visible {
+    transform: translateY(0);
+    clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+  }
+
+  /* 3. Campos premium: borde con gradiente dorado + label flotante */
+  .float-field { position: relative; }
+  .float-field input {
+    padding: 1.3rem 0.8rem 0.45rem;
+    border: 1px solid transparent;
+    background:
+      linear-gradient(var(--corporate-dark), var(--corporate-dark)) padding-box,
+      linear-gradient(135deg, rgba(148, 163, 184, 0.25), rgba(148, 163, 184, 0.25)) border-box;
+    transition: background 0.3s ease, box-shadow 0.3s ease;
+  }
+  .float-field input:focus {
+    border-color: transparent;
+    background:
+      linear-gradient(var(--corporate-dark), var(--corporate-dark)) padding-box,
+      linear-gradient(135deg, var(--gold-hover), var(--gold-base) 50%, rgba(197, 160, 89, 0.25)) border-box;
+    box-shadow: 0 0 0 3px rgba(197, 160, 89, 0.12), 0 8px 24px rgba(197, 160, 89, 0.08);
+  }
+  .float-field label {
+    position: absolute;
+    left: 0.85rem;
+    top: 0.9rem;
+    margin: 0;
+    pointer-events: none;
+    transform-origin: left top;
+    transition: transform 0.22s cubic-bezier(0.16, 1, 0.3, 1), color 0.22s ease;
+  }
+  .float-field input:focus + label,
+  .float-field input:not(:placeholder-shown) + label {
+    transform: translateY(-0.6rem) scale(0.78);
+    color: var(--gold-base);
+  }
+
+  /* 4. Botones magnéticos */
+  .magnetic { will-change: transform; }
+  .magnetic.is-magnet { transition: transform 0.15s linear, background-color 0.2s ease, box-shadow 0.2s ease; }
+  .magnetic.is-releasing { transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1), background-color 0.2s ease, box-shadow 0.2s ease; }
+  .magnetic-inner { display: inline-block; pointer-events: none; transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1); }
+  .magnetic.is-magnet .magnetic-inner { transition: transform 0.15s linear; }
+
+  /* Honeypot anti-bots: fuera de pantalla, invisible para personas */
+  .hp-field { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
+
+  @media (prefers-reduced-motion: reduce) {
+    body::after { animation: none; }
+    .reveal.reveal-text { transform: none; clip-path: none; transition: none; }
+    .float-field label { transition: none; }
+  }
+
   /* ---------- Footer ---------- */
   footer {
     border-top: 1px solid rgba(197, 160, 89, 0.1);
@@ -929,7 +1011,8 @@
   <div class="container footer-inner">
     <p>&copy; <span id="year"></span> AJMC | RRHH Consulting. Todos los derechos reservados.</p>
     <div class="footer-links">
-      <a href="mailto:ajmccorporation167@gmail.com">Escríbenos</a>
+      <a href="https://wa.me/19394282820" target="_blank" rel="noopener noreferrer">Escríbenos</a>
+      <a href="#servicios">Solicitar servicio</a>
       <a href="https://www.linkedin.com/in/alexis-mercado-58899b395" target="_blank" rel="noopener noreferrer">LinkedIn</a>
     </div>
   </div>
@@ -992,6 +1075,10 @@
           Atrás
         </button>
         <form id="leadModalForm">
+          <div class="hp-field" aria-hidden="true">
+            <label for="lead_website">No llenar este campo</label>
+            <input type="text" id="lead_website" name="website" tabindex="-1" autocomplete="off">
+          </div>
           <div id="leadModalFields"></div>
         </form>
       </div>
@@ -1115,11 +1202,10 @@
   })();
 
   /* ---------- Chat de IA ---------- */
-  // IMPORTANTE: reemplaza esta URL por la de tu proyecto ya desplegado en
-  // Vercel (ej. "https://ajmc-portal.vercel.app/api/chat") en cuanto lo
-  // publiques. Mientras diga "TU-PROYECTO" el chat mostrará el aviso de
-  // fallback y dirigirá a WhatsApp en vez de fallar en silencio.
-  var AJMC_CHAT_ENDPOINT = 'https://TU-PROYECTO.vercel.app/api/chat';
+  // Backend en Vercel (proyecto portal-ajmc-web). Si publicas este index.html
+  // en el mismo proyecto, puedes dejar AJMC_API_BASE = '' (rutas relativas).
+  var AJMC_API_BASE = 'https://portal-ajmc-web.vercel.app';
+  var AJMC_CHAT_ENDPOINT = AJMC_API_BASE + '/api/chat';
 
   // ---------- Base de conocimiento del agente (contexto oculto) ----------
   // Este objeto NO se muestra en la interfaz. Se concatena de forma invisible
@@ -1131,7 +1217,7 @@
     empresa: {
       nombre: 'AJMC | RRHH Consulting',
       area_servicio: 'Puerto Rico (remoto o presencial según necesidad)',
-      contacto: { email: 'ajmccorporation167@gmail.com', telefono: '+1 939-428-2820', whatsapp: 'https://wa.me/19394282820', agenda: 'https://calendar.app.google/vEu1C9fPBmbVUhWY7' },
+      contacto: { formulario: 'Botón "Solicitar Servicio Premium" en cada tarjeta de servicio', telefono: '+1 939-428-2820', whatsapp: 'https://wa.me/19394282820', agenda: 'https://calendar.app.google/vEu1C9fPBmbVUhWY7' },
       perfil: 'Alexis Joel Mercado Colón — Administración de Empresas con concentración en Recursos Humanos (UPR), con experiencia en coordinación financiera y administrativa. AJMC nace para ofrecer conocimiento cercano de la normativa laboral de PR con un enfoque práctico y tecnológico para PYMES, sin la burocracia ni el costo de las grandes agencias.'
     },
     servicios: [
@@ -1222,13 +1308,6 @@
       var text = input.value.trim();
       if (!text || sending) return;
 
-      if (AJMC_CHAT_ENDPOINT.indexOf('TU-PROYECTO') !== -1) {
-        appendMessage('user', text);
-        input.value = '';
-        appendFallback();
-        return;
-      }
-
       sending = true;
       sendBtn.disabled = true;
       appendMessage('user', text);
@@ -1286,12 +1365,9 @@
   })();
 
   /* ---------- Modal de captación por servicio ---------- */
-  // IMPORTANTE: reemplaza esta clave por tu "Access Key" real de Web3Forms
-  // (se obtiene gratis en https://web3forms.com registrando el correo
-  // ajmccorporation167@gmail.com). Mientras diga "TU-ACCESS-KEY-AQUI" el
-  // formulario mostrará un aviso de fallback en vez de fallar en silencio.
-  var WEB3FORMS_ACCESS_KEY = 'TU-ACCESS-KEY-AQUI';
-  var WEB3FORMS_ENDPOINT = 'https://api.web3forms.com/submit';
+  // Envío seguro: el correo destino y las llaves viven SOLO en variables de
+  // entorno del servidor (Vercel). Nada sensible queda en este archivo.
+  var LEAD_ENDPOINT = AJMC_API_BASE + '/api/send-email';
 
   // Iconos SVG reutilizados de las tarjetas de servicio (misma identidad visual)
   var SERVICE_ICONS = {
@@ -1451,20 +1527,25 @@
     var currentService = null;
 
     function textFieldMarkup(field) {
+      // Estructura para label flotante: input primero, label después (CSS :placeholder-shown)
       var wrap = document.createElement('div');
-      wrap.className = 'modal-field';
-      var label = document.createElement('label');
-      label.setAttribute('for', 'lead_' + field.name);
-      label.textContent = field.label;
-      wrap.appendChild(label);
+      wrap.className = 'modal-field float-field';
 
       var input = document.createElement('input');
       input.type = 'text';
       input.id = 'lead_' + field.name;
       input.name = field.name;
+      input.placeholder = ' ';
+      input.maxLength = 120;
+      input.autocomplete = field.name === 'nombre' ? 'name' : field.name === 'empresa' ? 'organization' : 'on';
       if (field.required) input.required = true;
       input.addEventListener('input', checkComplete);
       wrap.appendChild(input);
+
+      var label = document.createElement('label');
+      label.setAttribute('for', 'lead_' + field.name);
+      label.textContent = field.label;
+      wrap.appendChild(label);
       return wrap;
     }
 
@@ -1627,38 +1708,55 @@
       if (!currentService) return;
       var service = LEAD_SERVICES[currentService];
 
-      if (WEB3FORMS_ACCESS_KEY.indexOf('TU-ACCESS-KEY-AQUI') !== -1) {
-        statusEl.textContent = 'El formulario todavía no está conectado. Escríbenos directo por WhatsApp o correo mientras tanto: ajmccorporation167@gmail.com';
-        statusEl.className = 'modal-status error';
-        return;
-      }
+      // Honeypot: los bots llenan este campo invisible; las personas no.
+      var trap = document.getElementById('lead_website');
+      if (trap && trap.value) return;
 
-      var formData = new FormData(form);
-      formData.append('access_key', WEB3FORMS_ACCESS_KEY);
-      formData.append('subject', 'Nuevo lead — ' + service.title);
-      formData.append('from_name', 'AJMC RRHH Consulting — Formulario web');
-      formData.append('servicio', service.title);
+      // Payload JSON limpio: datos base + respuestas específicas del servicio
+      var detalles = {};
+      service.fields.forEach(function (f) {
+        var el = document.getElementById('lead_' + f.name);
+        if (el && el.value) detalles[f.label] = el.value.trim();
+        var otro = form.querySelector('[name="' + f.name + '_detalle"]');
+        if (otro && otro.value.trim()) detalles[f.label + ' (detalle)'] = otro.value.trim();
+      });
+      var payload = {
+        servicio: currentService,
+        nombre: document.getElementById('lead_nombre').value.trim(),
+        empresa: document.getElementById('lead_empresa').value.trim(),
+        contacto: document.getElementById('lead_contacto').value.trim(),
+        detalles: detalles,
+        website: trap ? trap.value : ''
+      };
 
       submitBtn.disabled = true;
       submitBtn.textContent = 'Enviando...';
       statusEl.textContent = '';
       statusEl.className = 'modal-status';
 
-      fetch(WEB3FORMS_ENDPOINT, { method: 'POST', body: formData })
-        .then(function (res) { return res.json(); })
-        .then(function (data) {
-          if (data.success) {
+      fetch(LEAD_ENDPOINT, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+      })
+        .then(function (res) {
+          return res.json().catch(function () { return {}; }).then(function (data) {
+            if (res.status === 429) throw new Error('rate');
+            if (!res.ok || !data.ok) throw new Error(data.error || 'server');
+            return data;
+          });
+        })
+        .then(function () {
             statusEl.textContent = 'Recibido. Alexis te contactará pronto para coordinar la consulta.';
             statusEl.className = 'modal-status success';
             submitBtn.textContent = 'Enviado';
             form.reset();
             setTimeout(closeModal, 2200);
-          } else {
-            throw new Error('web3forms error');
-          }
         })
-        .catch(function () {
-          statusEl.textContent = 'No se pudo enviar. Intenta de nuevo o escríbenos por WhatsApp.';
+        .catch(function (err) {
+          statusEl.textContent = err && err.message === 'rate'
+            ? 'Demasiados intentos seguidos. Espera unos minutos o escríbenos por WhatsApp.'
+            : 'No se pudo enviar. Intenta de nuevo o escríbenos por WhatsApp.';
           statusEl.className = 'modal-status error';
           submitBtn.disabled = false;
           submitBtn.textContent = 'Añadir a mi Plan';
