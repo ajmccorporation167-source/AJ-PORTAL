@@ -35,7 +35,8 @@
     --gold-base: #C5A059;
     --gold-hover: #D4AF37;
     --text-high: #F8F9FA;
-    --text-muted: #94A3B8;
+    --text-muted: #AEB9CE;
+    --hairline: rgba(197, 160, 89, 0.12);
   }
 
   * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -63,6 +64,24 @@
     max-width: 1280px;
     margin: 0 auto;
     padding: 0 1.5rem;
+  }
+
+  /* ---------- Barra de progreso de scroll ---------- */
+  .scroll-progress {
+    position: fixed;
+    top: 0; left: 0;
+    height: 3px;
+    width: 100%;
+    z-index: 101;
+    transform: scaleX(0);
+    transform-origin: 0 50%;
+    background: linear-gradient(90deg, var(--gold-base), var(--gold-hover) 55%, #F0D98A);
+    box-shadow: 0 0 12px rgba(212, 175, 55, 0.55), 0 1px 2px rgba(0, 0, 0, 0.3);
+    will-change: transform;
+    pointer-events: none;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .scroll-progress { display: none; }
   }
 
   /* ---------- Header ---------- */
@@ -128,15 +147,16 @@
     font-size: 0.875rem;
     font-weight: 600;
     padding: 0.65rem 1.25rem;
-    transition: transform 0.2s ease, background-color 0.2s ease, border-color 0.2s ease;
+    transition: transform 0.2s ease, background-color 0.2s ease, border-color 0.2s ease, filter 0.2s ease, box-shadow 0.2s ease;
     cursor: pointer;
     border: none;
   }
   .btn-gold {
+    background-image: linear-gradient(135deg, var(--gold-hover), var(--gold-base));
     background-color: var(--gold-base);
     color: var(--corporate-dark);
   }
-  .btn-gold:hover { background-color: var(--gold-hover); transform: scale(1.05); box-shadow: 0 10px 24px rgba(212, 175, 55, 0.3); }
+  .btn-gold:hover { filter: brightness(1.08); transform: scale(1.05); box-shadow: 0 10px 24px rgba(212, 175, 55, 0.35); }
   .btn-ghost {
     background: transparent;
     color: var(--text-high);
@@ -233,7 +253,9 @@
     section h2.section-title { font-size: 1.875rem; }
   }
   .section-alt {
-    background: rgba(22, 32, 58, 0.4);
+    background: rgba(22, 32, 58, 0.55);
+    border-top: 1px solid var(--hairline);
+    border-bottom: 1px solid var(--hairline);
     position: relative;
     overflow: hidden;
   }
@@ -501,6 +523,8 @@
   .panel-summary strong { color: var(--text-high); }
   .modal-submit { width: 100%; }
   .modal-submit:disabled { opacity: 0.45; cursor: not-allowed; }
+  /* Separación entre los dos botones del footer (Solicitar / WhatsApp) */
+  #footerStep1 .btn + .btn { margin-top: 0.6rem; }
   .modal-status { font-size: 0.8rem; margin-top: 0.6rem; min-height: 1.1rem; line-height: 1.4; }
   .modal-status.error { color: #FCA5A5; }
   .modal-status.success { color: #86efac; }
@@ -602,6 +626,29 @@
     font-size: 0.7rem;
     font-weight: 700;
     display: flex; align-items: center; justify-content: center;
+  }
+  /* Separación cuando hay una segunda sección ("Cómo trabajamos") */
+  .modal-extended + .modal-extended-label { margin-top: 1.5rem; }
+  /* Bloque "Ideal para ti si…" */
+  .modal-ideal {
+    margin-top: 1.5rem;
+    padding: 0.9rem 1rem;
+    border-left: 3px solid var(--gold-base);
+    background: rgba(197, 160, 89, 0.08);
+    border-radius: 0 0.5rem 0.5rem 0;
+    font-size: 0.85rem;
+    line-height: 1.55;
+    color: var(--text-high);
+  }
+  .modal-ideal:empty { display: none; }
+  .modal-ideal-label {
+    display: block;
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
+    color: var(--gold-base);
+    margin-bottom: 0.3rem;
   }
 
   .btn-cta-lg { padding: 0.95rem 1.25rem; font-size: 0.95rem; }
@@ -907,71 +954,31 @@
     padding: clamp(1.5rem, 4vw, 2.75rem);
     box-shadow: 0 24px 60px rgba(0, 0, 0, 0.35);
   }
-  .contact-form { width: 100%; }
-  /* Disposición tipo tabla simétrica con CSS Grid */
-  .contact-grid {
-    display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 1.25rem 1.5rem;
-  }
-  .contact-field { display: flex; flex-direction: column; }
-  .contact-field.full { grid-column: 1 / -1; }
-  .contact-field label {
-    font-size: 0.8rem;
-    color: var(--text-muted);
-    margin-bottom: 0.5rem;
-    font-weight: 500;
-    letter-spacing: 0.01em;
-  }
-  .contact-field label .req { color: var(--gold-base); margin-left: 0.15rem; }
-  .contact-field input,
-  .contact-field select,
-  .contact-field textarea {
-    width: 100%;
-    background: var(--corporate-dark);
-    border: 1px solid rgba(148, 163, 184, 0.25);
-    border-radius: 0.5rem;
-    padding: 0.7rem 0.85rem;
-    color: var(--text-high);
-    font-family: 'Inter', sans-serif;
-    font-size: 0.9rem;
-    transition: border-color 0.2s ease, box-shadow 0.2s ease;
-  }
-  .contact-field textarea { resize: vertical; min-height: 130px; line-height: 1.5; }
-  .contact-field select { cursor: pointer; appearance: none;
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='%23C5A059' stroke-width='2'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");
-    background-repeat: no-repeat; background-position: right 0.85rem center; padding-right: 2.25rem;
-  }
-  .contact-field input:focus,
-  .contact-field select:focus,
-  .contact-field textarea:focus {
-    outline: none;
-    border-color: var(--gold-hover);
-    box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.15);
-  }
-  .contact-field input::placeholder,
-  .contact-field textarea::placeholder { color: rgba(148, 163, 184, 0.55); }
-  /* Honeypot: fuera de pantalla para humanos, visible/enlazable para bots */
-  .contact-hp {
-    position: absolute !important;
-    left: -9999px !important;
-    top: auto;
-    width: 1px; height: 1px;
-    overflow: hidden;
-    opacity: 0;
-  }
-  .contact-actions {
-    margin-top: 1.75rem;
+  /* Botones de acción (CTA) que reemplazan al formulario */
+  .contact-cta {
     display: flex;
     flex-direction: column;
-    align-items: stretch;
-    gap: 0.75rem;
+    align-items: center;
+    gap: 1.1rem;
+    text-align: center;
   }
-  .contact-submit { width: 100%; }
-  .contact-submit:disabled { opacity: 0.45; cursor: not-allowed; }
-  .contact-status { font-size: 0.85rem; min-height: 1.2rem; line-height: 1.45; text-align: center; }
-  .contact-status.error { color: #FCA5A5; }
-  .contact-status.success { color: #86efac; }
+  .contact-cta .btn {
+    width: 100%;
+    max-width: 22rem;
+  }
+  /* Botón principal grande y premium sobre .btn-gold */
+  .btn-cta-hero {
+    padding: 1.05rem 1.5rem;
+    font-size: 1.05rem;
+    letter-spacing: 0.01em;
+    box-shadow: 0 12px 30px rgba(212, 175, 55, 0.28);
+  }
+  .contact-or {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+  }
   .contact-note {
     margin-top: 0.5rem;
     font-size: 0.72rem;
@@ -979,12 +986,11 @@
     text-align: center;
     line-height: 1.5;
   }
-  @media (max-width: 640px) {
-    .contact-grid { grid-template-columns: 1fr; }
-  }
 </style>
 </head>
 <body>
+
+<div class="scroll-progress" id="scrollProgress" role="progressbar" aria-label="Progreso de lectura de la página" aria-hidden="true"></div>
 
 <header>
   <div class="container header-inner" style="position:relative;">
@@ -1136,53 +1142,20 @@
         <p class="contact-intro">¿Necesitas blindar tu empresa en cumplimiento laboral o optimizar tu equipo? Escríbeme directamente y coordinamos una consulta. Respondo personalmente cada solicitud.</p>
 
         <div class="contact-card">
-          <form class="contact-form" id="contactForm" novalidate>
-            <!-- Honeypot anti-bots: invisible para humanos. Si se llena, se bloquea el envío. -->
-            <div class="contact-hp" aria-hidden="true">
-              <label for="contact_company_url">No llenar este campo</label>
-              <input type="text" id="contact_company_url" name="company_url" tabindex="-1" autocomplete="off">
-            </div>
+          <div class="contact-cta">
+            <!-- Botón principal: Solicitud de servicios vía Google Forms (nueva pestaña) -->
+            <a href="https://docs.google.com/forms/d/e/1FAIpQLScwBNQ8VcgrfOCMDrz9yCGh3ZowJfpPr-OQ34O9DSjMPvr3ug/viewform?usp=header"
+               target="_blank" rel="noopener noreferrer"
+               class="btn btn-gold btn-cta-hero" id="ctaSolicitar">Solicitar Servicios</a>
 
-            <div class="contact-grid">
-              <div class="contact-field">
-                <label for="contact_nombre">Nombre completo <span class="req">*</span></label>
-                <input type="text" id="contact_nombre" name="nombre" placeholder="Ej. Alexis Mercado" maxlength="120" autocomplete="name" required>
-              </div>
+            <span class="contact-or" aria-hidden="true">o</span>
 
-              <div class="contact-field">
-                <label for="contact_empresa">Empresa</label>
-                <input type="text" id="contact_empresa" name="empresa" placeholder="Ej. AJMC RRHH Consulting" maxlength="120" autocomplete="organization">
-              </div>
+            <!-- Botón secundario: correo directo. Sin href="mailto:..." en el HTML;
+                 el enlace se ensambla por JavaScript al hacer clic (anti-spam). -->
+            <a href="#" role="button" class="btn btn-ghost btn-cta-lg" id="ctaEscribeme">Escríbeme directamente</a>
 
-              <div class="contact-field">
-                <label for="contact_email">Correo de contacto <span class="req">*</span></label>
-                <input type="email" id="contact_email" name="email" placeholder="tucorreo@empresa.com" maxlength="140" autocomplete="email" required>
-              </div>
-
-              <div class="contact-field">
-                <label for="contact_servicio">Servicio de interés <span class="req">*</span></label>
-                <select id="contact_servicio" name="servicio" required>
-                  <option value="" disabled selected>Selecciona un servicio</option>
-                  <option value="Auditoría de Cumplimiento Laboral">Auditoría de Cumplimiento Laboral</option>
-                  <option value="Manuales y Políticas Corporativas">Manuales y Políticas Corporativas</option>
-                  <option value="Relaciones Obrero-Patronales">Relaciones Obrero-Patronales</option>
-                  <option value="Nómina y Administración de RR.HH.">Nómina y Administración de RR.HH.</option>
-                  <option value="Consulta general / Otro">Consulta general / Otro</option>
-                </select>
-              </div>
-
-              <div class="contact-field full">
-                <label for="contact_mensaje">Mensaje <span class="req">*</span></label>
-                <textarea id="contact_mensaje" name="mensaje" placeholder="Cuéntame brevemente sobre tu empresa y qué necesitas..." maxlength="1500" required></textarea>
-              </div>
-            </div>
-
-            <div class="contact-actions">
-              <button type="submit" class="btn btn-gold contact-submit btn-cta-lg" id="contactSubmit">Enviar solicitud</button>
-              <div class="contact-status" id="contactStatus" aria-live="polite"></div>
-              <p class="contact-note">Tus datos se envían de forma segura y se tratan bajo estricta confidencialidad. No compartimos tu información con terceros.</p>
-            </div>
-          </form>
+            <p class="contact-note">Respondo personalmente cada solicitud. Tu información se trata con estricta confidencialidad.</p>
+          </div>
         </div>
       </div>
     </div>
@@ -1239,48 +1212,33 @@
       <div class="panel-header-text">
         <span class="panel-badge">Servicio Premium</span>
         <h3 class="modal-title heading" id="leadModalTitle"></h3>
-        <span class="panel-step-label" id="leadModalStepLabel"><strong>Paso 1 de 2</strong> · Detalles del servicio</span>
+        <span class="panel-step-label">Todo lo que incluye este servicio</span>
       </div>
-      <button type="button" class="modal-close" id="leadModalClose" aria-label="Cerrar formulario">
+      <button type="button" class="modal-close" id="leadModalClose" aria-label="Cerrar detalle">
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
       </button>
     </div>
     <div class="panel-body" id="leadModalBody">
-      <!-- PASO 1: Detalles del servicio -->
       <div class="modal-step is-active" id="modalStep1">
         <p class="modal-description" id="leadModalDescription"></p>
+
         <span class="modal-extended-label">Lo que recibes</span>
         <div class="modal-extended" id="leadModalExtended"></div>
-      </div>
-      <!-- PASO 2: Formulario -->
-      <div class="modal-step" id="modalStep2" hidden>
-        <button type="button" class="btn-back" id="modalBackBtn">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
-          Atrás
-        </button>
-        <form id="leadModalForm">
-          <div class="hp-field" aria-hidden="true">
-            <label for="lead_website">No llenar este campo</label>
-            <input type="text" id="lead_website" name="website" tabindex="-1" autocomplete="off">
-          </div>
-          <div id="leadModalFields"></div>
-        </form>
+
+        <span class="modal-extended-label">Cómo trabajamos</span>
+        <div class="modal-extended" id="leadModalProcess"></div>
+
+        <div class="modal-ideal" id="leadModalIdeal"></div>
       </div>
     </div>
     <div class="panel-footer">
-      <!-- Footer PASO 1 -->
       <div class="modal-step is-active" id="footerStep1">
-        <button type="button" class="btn btn-gold modal-submit btn-cta-lg" id="modalToStep2">Solicitar Servicio Premium</button>
-        <p class="modal-note">Sin compromiso · Toma menos de 1 minuto</p>
-      </div>
-      <!-- Footer PASO 2 -->
-      <div class="modal-step" id="footerStep2" hidden>
-        <div class="panel-summary">
-          <span>Configuración</span>
-          <strong id="leadModalSummary">0/0 completado</strong>
-        </div>
-        <button type="submit" form="leadModalForm" class="btn btn-gold modal-submit" id="leadModalSubmit">Añadir a mi Plan</button>
-        <div class="modal-status" id="leadModalStatus" aria-live="polite"></div>
+        <a href="https://docs.google.com/forms/d/e/1FAIpQLScwBNQ8VcgrfOCMDrz9yCGh3ZowJfpPr-OQ34O9DSjMPvr3ug/viewform?usp=header"
+           target="_blank" rel="noopener noreferrer"
+           class="btn btn-gold modal-submit btn-cta-lg" id="modalRequestBtn">Solicitar este servicio</a>
+        <a href="https://wa.me/19394282820" target="_blank" rel="noopener noreferrer"
+           class="btn btn-ghost modal-submit" id="modalWhatsBtn">Consultar por WhatsApp</a>
+        <p class="modal-note">Respondo personalmente cada solicitud · Sin compromiso</p>
       </div>
     </div>
   </div>
@@ -1320,15 +1278,36 @@
 
   /* Header: se compacta y gana sombra al hacer scroll */
   var headerEl = document.querySelector('header');
+  var progressBar = document.getElementById('scrollProgress');
+  var progressTicking = false;
+
+  function updateScrollProgress() {
+    if (progressBar) {
+      var doc = document.documentElement;
+      var scrollable = (doc.scrollHeight - doc.clientHeight);
+      var ratio = scrollable > 0 ? (window.scrollY / scrollable) : 0;
+      if (ratio < 0) ratio = 0;
+      if (ratio > 1) ratio = 1;
+      progressBar.style.transform = 'scaleX(' + ratio.toFixed(4) + ')';
+    }
+    progressTicking = false;
+  }
+
   function onScroll() {
     if (window.scrollY > 20) {
       headerEl.classList.add('scrolled');
     } else {
       headerEl.classList.remove('scrolled');
     }
+    if (!progressTicking) {
+      requestAnimationFrame(updateScrollProgress);
+      progressTicking = true;
+    }
   }
   window.addEventListener('scroll', onScroll, { passive: true });
+  window.addEventListener('resize', updateScrollProgress, { passive: true });
   onScroll();
+  updateScrollProgress();
 
   /* ---------- Scroll Parallax suave (hero + .section-alt) ---------- */
   (function () {
@@ -1567,18 +1546,9 @@
       return /.+@.+\..+/.test(out) ? out : '';
     } catch (e) { return ''; }
   }
-  // Construye el endpoint de FormSubmit SOLO cuando se necesita (en el submit).
-  function _buildEndpoint() {
-    var mail = _revealMail();
-    return mail ? ('https://formsubmit.co/ajax/' + mail) : '';
-  }
-
-  /* ---------- Modal de captación por servicio ---------- */
-  // Envío del formulario con FormSubmit (todo en este mismo archivo).
-  // La PRIMERA vez que se envíe una prueba, FormSubmit mandará un correo de
-  // activación a la dirección real; solo debes pulsar "Activate" una vez.
-  var LEAD_COOLDOWN_MS = 60000; // 1 envío por minuto desde esta pestaña
-  var lastLeadSentAt = 0;
+  /* ---------- Modal de detalle por servicio (solo informativo) ---------- */
+  // Sin formularios ni FormSubmit: el modal muestra el detalle del servicio y
+  // dirige la solicitud al Google Form o a WhatsApp.
 
   // Iconos SVG reutilizados de las tarjetas de servicio (misma identidad visual)
   var SERVICE_ICONS = {
@@ -1587,9 +1557,6 @@
     relaciones: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><path d="M16 3h5v5"></path><path d="M8 3H3v5"></path><path d="M12 22V8"></path><path d="M12 8 3 3"></path><path d="m12 8 9-5"></path></svg>',
     nomina: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>'
   };
-  // Icono genérico por grupo de add-on (independiente del icono de check de selección)
-  var ADDON_ICON = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3L22 4"></path><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"></path></svg>';
-
   var LEAD_SERVICES = {
     auditoria: {
       title: 'Auditoría de Cumplimiento Laboral',
@@ -1599,10 +1566,12 @@
         '<li><strong>Revisión de expedientes y políticas</strong>Contraste contra la legislación laboral de PR y las leyes federales aplicables.</li>' +
         '<li><strong>Plan de remediación con acompañamiento</strong>Pasos concretos y priorizados, con apoyo durante la implementación.</li>' +
         '</ul>',
-      fields: [
-        { name: 'cantidad_empleados', label: 'Cantidad de empleados', type: 'pills', options: ['1-10', '11-50', '50+'] },
-        { name: 'ultima_auditoria', label: 'Última auditoría de cumplimiento', type: 'pills', options: ['Hace menos de 1 año', 'Hace más de 1 año', 'Nunca'] }
-      ]
+      proceso: '<ul>' +
+        '<li><strong>1 · Diagnóstico inicial</strong>Revisamos tu operación, expedientes y políticas actuales.</li>' +
+        '<li><strong>2 · Análisis de brechas</strong>Contrastamos todo contra la ley de PR y la federal aplicable.</li>' +
+        '<li><strong>3 · Entrega y plan</strong>Recibes el reporte por nivel de riesgo y la ruta de remediación.</li>' +
+        '</ul>',
+      ideal: 'Tienes empleados y nunca has hecho una auditoría formal, o la última fue hace más de un año.'
     },
     manuales: {
       title: 'Manuales y Políticas Corporativas',
@@ -1612,10 +1581,12 @@
         '<li><strong>Alineado con la ley vigente</strong>Redactado conforme a la legislación laboral de PR y federal aplicable.</li>' +
         '<li><strong>Listo para implementar</strong>Incluye hoja de acuse de recibo para documentar que cada empleado lo recibió.</li>' +
         '</ul>',
-      fields: [
-        { name: 'tiene_manual', label: '¿Tienen un manual de empleados actualmente?', type: 'pills', options: ['Sí, actualizado', 'Sí, desactualizado', 'No tenemos'] },
-        { name: 'sector', label: 'Sector de la empresa', type: 'pills', options: ['Retail / Comercio', 'Manufactura', 'Salud', 'Construcción', 'Servicios profesionales', 'Otro'], allowOther: true }
-      ]
+      proceso: '<ul>' +
+        '<li><strong>1 · Levantamiento</strong>Conocemos tu operación y las políticas que ya tienes.</li>' +
+        '<li><strong>2 · Redacción a la medida</strong>Escribimos el manual conforme a la ley vigente.</li>' +
+        '<li><strong>3 · Implementación</strong>Te lo entregamos listo, con hoja de acuse de recibo.</li>' +
+        '</ul>',
+      ideal: 'No tienes manual de empleados, o el que tienes está desactualizado frente a las leyes recientes.'
     },
     relaciones: {
       title: 'Relaciones Obrero-Patronales & Contratación',
@@ -1625,10 +1596,12 @@
         '<li><strong>Períodos probatorios bien manejados</strong>Guía práctica para evaluar y documentar desde el primer día.</li>' +
         '<li><strong>Clasificación exento / no exento (FLSA)</strong>Revisión de puestos para evitar reclamaciones de horas extra retroactivas.</li>' +
         '</ul>',
-      fields: [
-        { name: 'naturaleza', label: 'Naturaleza de la controversia', type: 'pills', options: ['Despido', 'Período probatorio', 'Clasificación exento/no exento', 'Otro'] },
-        { name: 'urgencia', label: 'Urgencia del caso', type: 'pills', options: ['Inmediata', 'Esta semana', 'Preventiva / sin urgencia'] }
-      ]
+      proceso: '<ul>' +
+        '<li><strong>1 · Evaluación del caso</strong>Revisamos hechos, documentación y exposición legal.</li>' +
+        '<li><strong>2 · Estrategia</strong>Definimos la ruta más segura antes de que actúes.</li>' +
+        '<li><strong>3 · Acompañamiento</strong>Te guiamos durante la ejecución de la decisión.</li>' +
+        '</ul>',
+      ideal: 'Enfrentas un despido, una clasificación de puesto o una controversia obrero-patronal y quieres actuar sin arriesgarte.'
     },
     nomina: {
       title: 'Optimización de Nómina y Capacitación Directiva',
@@ -1638,256 +1611,52 @@
         '<li><strong>Revisión de procesos de nómina</strong>Detección de errores y costos ocultos en tus procesos actuales.</li>' +
         '<li><strong>Resultados medibles</strong>Materiales de apoyo y evaluación posterior para medir el impacto.</li>' +
         '</ul>',
-      fields: [
-        { name: 'cantidad_supervisores', label: 'Cantidad de supervisores a capacitar', type: 'pills', options: ['1-5', '6-15', '16+'] },
-        { name: 'area_enfoque', label: 'Área de enfoque', type: 'pills', options: ['Liderazgo', 'Cumplimiento normativo', 'Procesos de nómina', 'Otro'] }
-      ]
+      proceso: '<ul>' +
+        '<li><strong>1 · Diagnóstico</strong>Revisamos tus procesos de nómina y las necesidades del equipo.</li>' +
+        '<li><strong>2 · Capacitación</strong>Impartimos talleres prácticos para tus supervisores.</li>' +
+        '<li><strong>3 · Medición</strong>Evaluación posterior y materiales de apoyo para medir el impacto.</li>' +
+        '</ul>',
+      ideal: 'Quieres que tus supervisores dominen cumplimiento y liderazgo, o sospechas errores y costos ocultos en tu nómina.'
     }
   };
 
   (function () {
     var overlay = document.getElementById('leadModalOverlay');
-    var panel = document.getElementById('leadModalPanel');
     var closeBtn = document.getElementById('leadModalClose');
     var iconEl = document.getElementById('leadModalIcon');
     var titleEl = document.getElementById('leadModalTitle');
     var descriptionEl = document.getElementById('leadModalDescription');
-    var fieldsEl = document.getElementById('leadModalFields');
-    var form = document.getElementById('leadModalForm');
-    var submitBtn = document.getElementById('leadModalSubmit');
-    var statusEl = document.getElementById('leadModalStatus');
-    var summaryEl = document.getElementById('leadModalSummary');
     var extendedEl = document.getElementById('leadModalExtended');
-    var stepLabelEl = document.getElementById('leadModalStepLabel');
+    var processEl = document.getElementById('leadModalProcess');
+    var idealEl = document.getElementById('leadModalIdeal');
+    var whatsBtn = document.getElementById('modalWhatsBtn');
     var bodyEl = document.getElementById('leadModalBody');
-    var step1 = document.getElementById('modalStep1');
-    var step2 = document.getElementById('modalStep2');
-    var footer1 = document.getElementById('footerStep1');
-    var footer2 = document.getElementById('footerStep2');
-    var toStep2Btn = document.getElementById('modalToStep2');
-    var backBtn = document.getElementById('modalBackBtn');
-    var STEP_MS = 280; // igual a la duración de .modal-step en el CSS
-    var isAnimating = false;
-    var stepTimer = null;
 
-    function setStepLabel(n) {
-      stepLabelEl.innerHTML = n === 1
-        ? '<strong>Paso 1 de 2</strong> · Detalles del servicio'
-        : '<strong>Paso 2 de 2</strong> · Configura tu solicitud';
-    }
-
-    // Estado inicial: siempre Paso 1 visible, Paso 2 oculto (sin animación)
-    function resetToStep1() {
-      clearTimeout(stepTimer);
-      isAnimating = false;
-      [step2, footer2].forEach(function (el) {
-        el.hidden = true;
-        el.classList.remove('is-active', 'is-leaving', 'from-left');
-      });
-      [step1, footer1].forEach(function (el) {
-        el.hidden = false;
-        el.classList.remove('is-leaving', 'from-left');
-        el.classList.add('is-active');
-      });
-      setStepLabel(1);
-      bodyEl.scrollTop = 0;
-    }
-
-    // Transición fade + slide entre pasos (body y footer a la vez)
-    function switchStep(target) {
-      if (isAnimating) return;
-      isAnimating = true;
-      var goingForward = target === 2;
-      var fromEls = goingForward ? [step1, footer1] : [step2, footer2];
-      var toEls = goingForward ? [step2, footer2] : [step1, footer1];
-
-      fromEls.forEach(function (el) {
-        el.classList.remove('is-active');
-        el.classList.add('is-leaving');
-      });
-
-      stepTimer = setTimeout(function () {
-        fromEls.forEach(function (el) {
-          el.hidden = true;
-          el.classList.remove('is-leaving');
-        });
-        toEls.forEach(function (el) {
-          el.hidden = false;
-          if (!goingForward) el.classList.add('from-left');
-        });
-        void bodyEl.offsetWidth; // fuerza reflow para que corra la transición de entrada
-        toEls.forEach(function (el) {
-          el.classList.remove('from-left');
-          el.classList.add('is-active');
-        });
-
-        setStepLabel(target);
-        bodyEl.scrollTop = 0;
-        if (goingForward) {
-          var firstInput = fieldsEl.querySelector('input:not([type="hidden"])');
-          if (firstInput) firstInput.focus({ preventScroll: true });
-        } else {
-          toStep2Btn.focus({ preventScroll: true });
-        }
-        stepTimer = setTimeout(function () { isAnimating = false; }, STEP_MS);
-      }, STEP_MS);
-    }
-
-    toStep2Btn.addEventListener('click', function () { switchStep(2); });
-    backBtn.addEventListener('click', function () { switchStep(1); });
-    var currentService = null;
-
-    function textFieldMarkup(field) {
-      // Estructura para label flotante: input primero, label después (CSS :placeholder-shown)
-      var wrap = document.createElement('div');
-      wrap.className = 'modal-field float-field';
-
-      var input = document.createElement('input');
-      input.type = 'text';
-      input.id = 'lead_' + field.name;
-      input.name = field.name;
-      input.placeholder = ' ';
-      input.maxLength = 120;
-      input.autocomplete = field.name === 'nombre' ? 'name' : field.name === 'empresa' ? 'organization' : 'on';
-      if (field.required) input.required = true;
-      input.addEventListener('input', checkComplete);
-      wrap.appendChild(input);
-
-      var label = document.createElement('label');
-      label.setAttribute('for', 'lead_' + field.name);
-      label.textContent = field.label;
-      wrap.appendChild(label);
-      return wrap;
-    }
-
-    function addonFieldMarkup(field) {
-      var wrap = document.createElement('div');
-      wrap.className = 'modal-field';
-      var label = document.createElement('label');
-      label.className = 'addon-group-label';
-      label.textContent = field.label;
-      wrap.appendChild(label);
-
-      var group = document.createElement('div');
-      group.className = 'addon-grid';
-      group.setAttribute('role', 'radiogroup');
-      group.setAttribute('aria-label', field.label);
-
-      var hidden = document.createElement('input');
-      hidden.type = 'hidden';
-      hidden.id = 'lead_' + field.name;
-      hidden.name = field.name;
-
-      var otroWrap = null;
-      if (field.allowOther) {
-        otroWrap = document.createElement('div');
-        otroWrap.className = 'addon-other-field';
-        otroWrap.style.display = 'none';
-        var otroInput = document.createElement('input');
-        otroInput.type = 'text';
-        otroInput.name = field.name + '_detalle';
-        otroInput.placeholder = 'Especifica el sector...';
-        otroWrap.appendChild(otroInput);
-      }
-
-      field.options.forEach(function (opt) {
-        var card = document.createElement('button');
-        card.type = 'button';
-        card.className = 'addon-card';
-        card.setAttribute('role', 'radio');
-        card.setAttribute('aria-checked', 'false');
-
-        var icon = document.createElement('span');
-        icon.className = 'addon-card-icon';
-        icon.innerHTML = ADDON_ICON;
-        icon.setAttribute('aria-hidden', 'true');
-
-        var text = document.createElement('span');
-        text.className = 'addon-card-label';
-        text.textContent = opt;
-
-        var check = document.createElement('span');
-        check.className = 'addon-card-check';
-        check.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>';
-
-        card.appendChild(icon);
-        card.appendChild(text);
-        card.appendChild(check);
-
-        card.addEventListener('click', function () {
-          group.querySelectorAll('.addon-card').forEach(function (p) {
-            p.classList.remove('active');
-            p.setAttribute('aria-checked', 'false');
-          });
-          card.classList.add('active');
-          card.setAttribute('aria-checked', 'true');
-          hidden.value = opt;
-          if (otroWrap) {
-            var show = opt === 'Otro';
-            otroWrap.style.display = show ? 'block' : 'none';
-            if (!show) otroWrap.querySelector('input').value = '';
-          }
-          checkComplete();
-        });
-        group.appendChild(card);
-      });
-
-      wrap.appendChild(group);
-      wrap.appendChild(hidden);
-      if (otroWrap) wrap.appendChild(otroWrap);
-      return wrap;
-    }
-
-    function fieldMarkup(field) {
-      return field.type === 'pills' ? addonFieldMarkup(field) : textFieldMarkup(field);
-    }
-
-    function requiredNamesForService(serviceKey) {
-      var service = LEAD_SERVICES[serviceKey];
-      var names = ['nombre', 'empresa', 'contacto'];
-      service.fields.forEach(function (f) { names.push(f.name); });
-      return names;
-    }
-
-    function checkComplete() {
-      if (!currentService) return;
-      var names = requiredNamesForService(currentService);
-      var doneCount = names.filter(function (name) {
-        var el = document.getElementById('lead_' + name);
-        return el && el.value && el.value.trim() !== '';
-      }).length;
-      var complete = doneCount === names.length;
-      submitBtn.disabled = !complete;
-      if (summaryEl) summaryEl.textContent = doneCount + '/' + names.length + ' completado';
-    }
-
-    function buildForm(serviceKey) {
+    // Rellena el modal con el detalle del servicio seleccionado (solo informativo).
+    function buildDetails(serviceKey) {
       var service = LEAD_SERVICES[serviceKey];
       if (!service) return;
-      currentService = serviceKey;
       iconEl.innerHTML = SERVICE_ICONS[serviceKey] || '';
       titleEl.textContent = service.title;
       descriptionEl.textContent = service.description;
       extendedEl.innerHTML = service.extended_info || '';
-      fieldsEl.innerHTML = '';
-
-      fieldsEl.appendChild(fieldMarkup({ name: 'nombre', label: 'Nombre', type: 'text', required: true }));
-      fieldsEl.appendChild(fieldMarkup({ name: 'empresa', label: 'Empresa', type: 'text', required: true }));
-      fieldsEl.appendChild(fieldMarkup({ name: 'contacto', label: 'Email o teléfono', type: 'text', required: true }));
-      service.fields.forEach(function (f) { fieldsEl.appendChild(fieldMarkup(f)); });
-
-      statusEl.textContent = '';
-      statusEl.className = 'modal-status';
-      submitBtn.textContent = 'Añadir a mi Plan';
-      checkComplete();
+      processEl.innerHTML = service.proceso || '';
+      idealEl.innerHTML = service.ideal
+        ? '<span class="modal-ideal-label">Ideal para ti si…</span>' + service.ideal
+        : '';
+      // El botón de WhatsApp ya menciona el servicio elegido.
+      if (whatsBtn) {
+        var msg = encodeURIComponent('Hola Alexis, me interesa el servicio de ' + service.title + '. ¿Podemos coordinar?');
+        whatsBtn.href = 'https://wa.me/19394282820?text=' + msg;
+      }
     }
 
     function openModal(serviceKey) {
-      buildForm(serviceKey);
-      resetToStep1();
+      buildDetails(serviceKey);
+      bodyEl.scrollTop = 0;
       overlay.classList.add('open');
       document.body.style.overflow = 'hidden';
-      toStep2Btn.focus({ preventScroll: true });
+      closeBtn.focus({ preventScroll: true });
     }
     function closeModal() {
       overlay.classList.remove('open');
@@ -1913,211 +1682,39 @@
     document.addEventListener('keydown', function (e) {
       if (e.key === 'Escape' && overlay.classList.contains('open')) closeModal();
     });
-
-    form.addEventListener('submit', function (e) {
-      e.preventDefault();
-      if (!currentService) return;
-      var service = LEAD_SERVICES[currentService];
-
-      // Honeypot: los bots llenan este campo invisible; las personas no.
-      var trap = document.getElementById('lead_website');
-      if (trap && trap.value) return;
-
-      if (Date.now() - lastLeadSentAt < LEAD_COOLDOWN_MS) {
-        statusEl.textContent = 'Ya recibimos tu solicitud. Espera un minuto antes de enviar otra.';
-        statusEl.className = 'modal-status error';
-        return;
-      }
-
-      // Payload JSON limpio: datos base + respuestas específicas del servicio
-      var detalles = {};
-      service.fields.forEach(function (f) {
-        var el = document.getElementById('lead_' + f.name);
-        if (el && el.value) detalles[f.label] = el.value.trim();
-        var otro = form.querySelector('[name="' + f.name + '_detalle"]');
-        if (otro && otro.value.trim()) detalles[f.label + ' (detalle)'] = otro.value.trim();
-      });
-      var detallesTexto = Object.keys(detalles).map(function (k) { return k + ': ' + detalles[k]; }).join('\n');
-      var payload = {
-        // Campos de control de FormSubmit
-        _subject: 'Nuevo lead — ' + service.title,
-        _template: 'table',
-        _captcha: 'false',
-        _honey: trap ? trap.value : '',
-        // Datos del cliente
-        servicio: service.title,
-        nombre: document.getElementById('lead_nombre').value.trim().slice(0, 120),
-        empresa: document.getElementById('lead_empresa').value.trim().slice(0, 120),
-        contacto: document.getElementById('lead_contacto').value.trim().slice(0, 120),
-        detalles: detallesTexto
-      };
-
-      submitBtn.disabled = true;
-      submitBtn.textContent = 'Enviando...';
-      statusEl.textContent = '';
-      statusEl.className = 'modal-status';
-
-      // El correo se desofusca aquí, en tiempo de ejecución del envío.
-      var endpoint = _buildEndpoint();
-      if (!endpoint) {
-        statusEl.textContent = 'No se pudo enviar. Escríbenos por WhatsApp.';
-        statusEl.className = 'modal-status error';
-        submitBtn.disabled = false;
-        submitBtn.textContent = 'Añadir a mi Plan';
-        return;
-      }
-
-      fetch(endpoint, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
-        body: JSON.stringify(payload)
-      })
-        .then(function (res) {
-          return res.json().catch(function () { return {}; }).then(function (data) {
-            if (res.status === 429) throw new Error('rate');
-            // FormSubmit responde { success: "true", ... } (success como texto)
-            var ok = data.success === true || data.success === 'true';
-            if (!ok) {
-              // Estado "falta activar": FormSubmit pide confirmar el correo la 1a vez.
-              var m = ((data.message || '') + '').toLowerCase();
-              if (m.indexOf('confirm') >= 0 || m.indexOf('activ') >= 0 || m.indexOf('verif') >= 0) {
-                throw new Error('activate');
-              }
-              throw new Error('server');
-            }
-            return data;
-          });
-        })
-        .then(function () {
-            lastLeadSentAt = Date.now();
-            statusEl.textContent = 'Recibido. Alexis te contactará pronto para coordinar la consulta.';
-            statusEl.className = 'modal-status success';
-            submitBtn.textContent = 'Enviado';
-            form.reset();
-            setTimeout(closeModal, 2200);
-        })
-        .catch(function (err) {
-          var msg = 'No se pudo enviar. Intenta de nuevo o escríbenos por WhatsApp.';
-          if (err && err.message === 'rate') {
-            msg = 'Demasiados intentos seguidos. Espera unos minutos o escríbenos por WhatsApp.';
-          } else if (err && err.message === 'activate') {
-            msg = 'Casi listo: falta activar el correo UNA sola vez. Revisa la bandeja (y Spam) del correo de destino, abre el mensaje de FormSubmit y pulsa "Activate Form". Luego reenvía.';
-          }
-          statusEl.textContent = msg;
-          statusEl.className = 'modal-status error';
-          submitBtn.disabled = false;
-          submitBtn.textContent = 'Añadir a mi Plan';
-        });
-    });
   })();
 
-  /* ---------- Formulario de contacto directo (sección #contacto) ---------- */
+  /* ---------- Contacto directo: botón "Escríbeme" con mailto OFUSCADO ---------- */
+  // El correo real NO está en el HTML ni como href="mailto:...". Se re-ensambla
+  // en memoria con _revealMail() (fragmentos Base64) solo al hacer clic.
   (function () {
-    var form = document.getElementById('contactForm');
-    if (!form) return;
-    var submitBtn = document.getElementById('contactSubmit');
-    var statusEl = document.getElementById('contactStatus');
-    var trap = document.getElementById('contact_company_url');
-    var COOLDOWN_MS = 60000; // 1 envío por minuto desde esta pestaña
-    var lastSentAt = 0;
+    var btn = document.getElementById('ctaEscribeme');
+    if (!btn) return;
 
-    function setStatus(msg, type) {
-      statusEl.textContent = msg || '';
-      statusEl.className = 'contact-status' + (type ? ' ' + type : '');
-    }
-
-    form.addEventListener('submit', function (e) {
+    btn.addEventListener('click', function (e) {
       e.preventDefault();
 
-      // 1) Honeypot: si un bot llenó el campo invisible, se bloquea el envío
-      //    de inmediato SIN construir ni revelar el correo real.
-      if (trap && trap.value) return;
-
-      // 2) Validación básica de campos requeridos.
-      var nombre   = document.getElementById('contact_nombre').value.trim();
-      var empresa  = document.getElementById('contact_empresa').value.trim();
-      var email    = document.getElementById('contact_email').value.trim();
-      var servicio = document.getElementById('contact_servicio').value;
-      var mensaje  = document.getElementById('contact_mensaje').value.trim();
-
-      if (!nombre || !email || !servicio || !mensaje) {
-        setStatus('Completa los campos obligatorios (*) para poder enviar.', 'error');
-        return;
-      }
-      if (!/.+@.+\..+/.test(email)) {
-        setStatus('Escribe un correo de contacto válido.', 'error');
+      // El correo de destino se DESOFUSCA aquí, únicamente en el instante del clic.
+      var mail = _revealMail();
+      if (!mail) {
+        // Respaldo si algo falla: enviamos al usuario a WhatsApp.
+        window.open('https://wa.me/19394282820', '_blank', 'noopener');
         return;
       }
 
-      // 3) Anti-flood: un envío por minuto por pestaña.
-      if (Date.now() - lastSentAt < COOLDOWN_MS) {
-        setStatus('Ya recibimos tu mensaje. Espera un minuto antes de enviar otro.', 'error');
-        return;
-      }
+      // Asunto y cuerpo prellenados para agilizar el contacto.
+      var subject = encodeURIComponent('Solicitud de servicios — AJMC RRHH Consulting');
+      var body = encodeURIComponent(
+        'Hola Alexis,\n\n' +
+        'Me gustaría más información sobre tus servicios de RR.HH.\n\n' +
+        'Nombre:\n' +
+        'Empresa:\n' +
+        'Servicio de interés:\n' +
+        'Mensaje:\n'
+      );
 
-      // 4) El correo de destino se DESOFUSCA aquí, solo durante el submit.
-      var endpoint = _buildEndpoint();
-      if (!endpoint) {
-        setStatus('No se pudo enviar ahora. Escríbenos por WhatsApp.', 'error');
-        return;
-      }
-
-      var payload = {
-        _subject: 'Nuevo contacto — ' + servicio,
-        _template: 'table',
-        _captcha: 'false',
-        _honey: trap ? trap.value : '',        // FormSubmit ignora envíos si trae valor
-        nombre: nombre.slice(0, 120),
-        empresa: empresa ? empresa.slice(0, 120) : '—',
-        email: email.slice(0, 140),
-        servicio: servicio,
-        mensaje: mensaje.slice(0, 1500)
-      };
-
-      submitBtn.disabled = true;
-      submitBtn.textContent = 'Enviando...';
-      setStatus('');
-
-      fetch(endpoint, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
-        body: JSON.stringify(payload)
-      })
-        .then(function (res) {
-          return res.json().catch(function () { return {}; }).then(function (data) {
-            if (res.status === 429) throw new Error('rate');
-            var ok = data.success === true || data.success === 'true';
-            if (!ok) {
-              var m = ((data.message || '') + '').toLowerCase();
-              if (m.indexOf('confirm') >= 0 || m.indexOf('activ') >= 0 || m.indexOf('verif') >= 0) {
-                throw new Error('activate');
-              }
-              throw new Error('server');
-            }
-            return data;
-          });
-        })
-        .then(function () {
-          lastSentAt = Date.now();
-          setStatus('¡Recibido! Alexis te contactará pronto por correo.', 'success');
-          submitBtn.textContent = 'Enviado';
-          form.reset();
-          setTimeout(function () {
-            submitBtn.disabled = false;
-            submitBtn.textContent = 'Enviar solicitud';
-          }, 4000);
-        })
-        .catch(function (err) {
-          var msg = 'No se pudo enviar. Intenta de nuevo o escríbenos por WhatsApp.';
-          if (err && err.message === 'rate') {
-            msg = 'Demasiados intentos seguidos. Espera unos minutos o escríbenos por WhatsApp.';
-          } else if (err && err.message === 'activate') {
-            msg = 'Casi listo: falta activar el correo UNA sola vez. Revisa la bandeja (y Spam) del correo de destino, abre el mensaje de FormSubmit y pulsa "Activate Form". Luego reenvía.';
-          }
-          setStatus(msg, 'error');
-          submitBtn.disabled = false;
-          submitBtn.textContent = 'Enviar solicitud';
-        });
+      // El enlace mailto se construye dinámicamente en el DOM y se dispara.
+      window.location.href = 'mailto:' + mail + '?subject=' + subject + '&body=' + body;
     });
   })();
 
