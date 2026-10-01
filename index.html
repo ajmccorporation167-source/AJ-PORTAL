@@ -591,128 +591,8 @@
   }
   .fab:hover { transform: scale(1.05); }
 
-  /* ---------- Chat IA ---------- */
-  .ai-fab {
-    position: fixed;
-    bottom: 5.5rem;
-    right: 1.5rem;
-    z-index: 51;
-    background: var(--corporate-surface);
-    color: var(--gold-base);
-    border: 1px solid rgba(197, 160, 89, 0.5);
-    border-radius: 9999px;
-    padding: 1rem;
-    box-shadow: 0 10px 25px rgba(0,0,0,0.35);
-    cursor: pointer;
-    display: inline-flex;
-    transition: transform 0.2s, border-color 0.2s;
-  }
-  .ai-fab:hover { transform: scale(1.05); border-color: var(--gold-hover); }
-
-  .ai-chat-panel {
-    position: fixed;
-    bottom: 5.5rem;
-    right: 1.5rem;
-    z-index: 52;
-    width: min(360px, calc(100vw - 2rem));
-    height: min(480px, calc(100vh - 8rem));
-    background: var(--corporate-surface);
-    border: 1px solid rgba(197, 160, 89, 0.25);
-    border-radius: 0.75rem;
-    box-shadow: 0 20px 50px rgba(0,0,0,0.45);
-    display: none;
-    flex-direction: column;
-    overflow: hidden;
-  }
-  .ai-chat-panel.open { display: flex; }
-
-  .ai-chat-header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 0.9rem 1rem;
-    background: rgba(10, 17, 40, 0.6);
-    border-bottom: 1px solid rgba(197, 160, 89, 0.2);
-  }
-  .ai-chat-header strong { font-family: 'Playfair Display', serif; font-size: 0.95rem; }
-  .ai-chat-header span { display: block; font-size: 0.7rem; color: var(--text-muted); margin-top: 0.1rem; }
-  .ai-chat-close {
-    background: none; border: none; color: var(--text-muted); cursor: pointer; padding: 0.25rem;
-  }
-  .ai-chat-close:hover { color: var(--gold-hover); }
-
-  .ai-chat-messages {
-    flex: 1;
-    overflow-y: auto;
-    padding: 1rem;
-    display: flex;
-    flex-direction: column;
-    gap: 0.75rem;
-  }
-  .ai-msg {
-    max-width: 85%;
-    padding: 0.6rem 0.85rem;
-    border-radius: 0.6rem;
-    font-size: 0.85rem;
-    line-height: 1.5;
-  }
-  .ai-msg-assistant {
-    align-self: flex-start;
-    background: rgba(148, 163, 184, 0.12);
-    color: var(--text-high);
-    border-bottom-left-radius: 0.15rem;
-  }
-  .ai-msg-user {
-    align-self: flex-end;
-    background: var(--gold-base);
-    color: var(--corporate-dark);
-    border-bottom-right-radius: 0.15rem;
-  }
-
-  .ai-chat-form {
-    display: flex;
-    gap: 0.5rem;
-    padding: 0.75rem;
-    border-top: 1px solid rgba(197, 160, 89, 0.2);
-  }
-  .ai-chat-input {
-    flex: 1;
-    background: var(--corporate-dark);
-    border: 1px solid rgba(148, 163, 184, 0.25);
-    border-radius: 0.5rem;
-    padding: 0.55rem 0.75rem;
-    color: var(--text-high);
-    font-family: 'Inter', sans-serif;
-    font-size: 0.85rem;
-    resize: none;
-  }
-  .ai-chat-input:focus { outline: none; border-color: var(--gold-hover); }
-  .ai-chat-send {
-    background: var(--gold-base);
-    color: var(--corporate-dark);
-    border: none;
-    border-radius: 0.5rem;
-    padding: 0 0.9rem;
-    cursor: pointer;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    transition: background-color 0.2s;
-  }
-  .ai-chat-send:hover { background-color: var(--gold-hover); }
-  .ai-chat-send:disabled { opacity: 0.5; cursor: not-allowed; }
-
-  .ai-chat-disclaimer {
-    padding: 0.5rem 1rem 0.75rem;
-    font-size: 0.65rem;
-    color: var(--text-muted);
-    text-align: center;
-  }
-
   @media (max-width: 480px) {
-    .ai-fab, .fab { bottom: 1rem; right: 1rem; }
-    .ai-fab { bottom: 4.75rem; }
-    .ai-chat-panel { bottom: 4.75rem; right: 0.75rem; }
+    .fab { bottom: 1rem; right: 1rem; }
   }
 
   @media (prefers-reduced-motion: reduce) {
@@ -951,32 +831,6 @@
   <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path></svg>
 </a>
 
-<button type="button" class="ai-fab" id="aiChatToggle" aria-label="Abrir asistente de IA">
-  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a5 5 0 0 0-5 5v1a5 5 0 0 0 10 0V7a5 5 0 0 0-5-5z"></path><path d="M8 13v1a4 4 0 0 0 8 0v-1"></path><path d="M12 21v-3"></path><circle cx="9" cy="7" r="0.6" fill="currentColor" stroke="none"></circle><circle cx="15" cy="7" r="0.6" fill="currentColor" stroke="none"></circle></svg>
-</button>
-
-<div class="ai-chat-panel" id="aiChatPanel" role="dialog" aria-label="Asistente Ejecutivo IA de AJMC">
-  <div class="ai-chat-header">
-    <div>
-      <strong>Asistente AJMC</strong>
-      <span>Consultas de RRHH y cumplimiento laboral</span>
-    </div>
-    <button type="button" class="ai-chat-close" id="aiChatClose" aria-label="Cerrar chat">
-      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
-    </button>
-  </div>
-  <div class="ai-chat-messages" id="aiChatMessages">
-    <div class="ai-msg ai-msg-assistant">Hola, soy el asistente ejecutivo de AJMC RRHH Consulting. ¿En qué duda de cumplimiento laboral o RRHH puedo orientarte?</div>
-  </div>
-  <form class="ai-chat-form" id="aiChatForm">
-    <textarea class="ai-chat-input" id="aiChatInput" rows="1" placeholder="Escribe tu pregunta..." maxlength="4000" required></textarea>
-    <button type="submit" class="ai-chat-send" id="aiChatSend" aria-label="Enviar mensaje">
-      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
-    </button>
-  </form>
-  <div class="ai-chat-disclaimer">Respuestas generadas por IA. No sustituyen asesoría legal formal.</div>
-</div>
-
 <script>
   // ============================================================
   // AÑO ACTUAL
@@ -1098,21 +952,6 @@
         answer.style.maxHeight = answer.scrollHeight + 'px';
       }
     });
-  });
-
-  // ============================================================
-  // AI CHAT TOGGLE
-  // ============================================================
-  var aiChatToggle = document.getElementById('aiChatToggle');
-  var aiChatPanel = document.getElementById('aiChatPanel');
-  var aiChatClose = document.getElementById('aiChatClose');
-
-  aiChatToggle.addEventListener('click', function () {
-    aiChatPanel.classList.toggle('open');
-  });
-
-  aiChatClose.addEventListener('click', function () {
-    aiChatPanel.classList.remove('open');
   });
 
   // ============================================================
