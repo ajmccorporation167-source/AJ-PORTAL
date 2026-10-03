@@ -3,19 +3,20 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>AJMC | RRHH Consulting — Cumplimiento Laboral en Puerto Rico</title>
+<title>AJCM | RRHH Consulting — Cumplimiento Laboral en Puerto Rico</title>
 <meta name="description" content="Protección jurídico-laboral y optimización de talento para empresas en Puerto Rico. Auditorías de cumplimiento, manuales corporativos y relaciones obrero-patronales sin la burocracia de las grandes agencias.">
 <meta name="robots" content="index, follow">
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400;0,6..96,700&family=Cinzel:wght@400;500&display=swap" rel="stylesheet">
 
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
   "@type": "ProfessionalService",
-  "name": "AJMC | RRHH Consulting",
+  "name": "AJCM | RRHH Consulting",
   "areaServed": "Puerto Rico",
   "sameAs": ["https://www.linkedin.com/in/alexis-mercado-58899b395"],
   "contactPoint": {
@@ -229,6 +230,86 @@
   }
   @media (min-width: 640px) {
     .hero-actions { flex-direction: row; }
+  }
+
+  /* ---------- Portada Intro (Full-Screen Background) ---------- */
+  #portada-intro {
+    position: relative;
+    height: 100vh;
+    width: 100%;
+    padding: 0;
+    background: var(--corporate-dark);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+  }
+  .splash-texture {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: 1;
+  }
+  .splash-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 2;
+    background: rgba(10, 17, 40, 0.4);
+    background: linear-gradient(180deg, rgba(10, 17, 40, 0.55), rgba(10, 17, 40, 0.3) 50%, rgba(10, 17, 40, 0.65));
+  }
+  .splash-word {
+    position: relative;
+    z-index: 3;
+    margin: 0;
+    font-family: 'Cinzel', serif;
+    font-weight: 400;
+    font-size: clamp(6rem, 18vw, 16rem);
+    letter-spacing: 0.03em;
+    line-height: 0.9;
+    color: #F8F9FA;
+    white-space: nowrap;
+    text-shadow: 0 20px 50px rgba(0, 0, 0, 0.7);
+    user-select: none;
+    -webkit-user-select: none;
+  }
+  .splash-corner {
+    position: absolute;
+    bottom: 2rem;
+    z-index: 4;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.7rem;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    line-height: 1.6;
+    text-transform: uppercase;
+    color: var(--text-muted);
+  }
+  .splash-corner--left { left: 1.75rem; text-align: left; }
+  .splash-corner--right { right: 1.75rem; text-align: right; }
+  .splash-scroll-cue {
+    display: block;
+    margin-top: 0.3rem;
+    color: var(--gold-base);
+    animation: splash-bounce 1.8s ease-in-out infinite;
+  }
+  .splash-corner--right .splash-scroll-cue { margin-left: auto; width: 14px; }
+  @keyframes splash-bounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(4px); }
+  }
+  @media (max-width: 600px) {
+    .splash-corner { font-size: 0.58rem; bottom: 1.25rem; letter-spacing: 0.1em; }
+    .splash-corner--left { left: 1rem; }
+    .splash-corner--right { right: 1rem; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .splash-scroll-cue { animation: none; }
   }
 
   /* ---------- Reveal al hacer scroll ---------- */
@@ -607,7 +688,7 @@
 
 <header>
   <div class="container header-inner" style="position:relative;">
-    <a href="#top" class="logo">AJMC <span>| RRHH Consulting</span></a>
+    <a href="#top" class="logo">AJCM <span>| RRHH Consulting</span></a>
 
     <nav class="desktop-nav">
       <a href="#servicios">Servicios</a>
@@ -635,6 +716,25 @@
 </header>
 
 <main id="top">
+
+  <!-- ==================== PORTADA INTRO (SPLASH 3D ENTRELAZADO) ==================== -->
+  <section id="portada-intro" aria-label="Portada AJCM">
+    <img class="splash-texture" src="textura.jpg" alt="Textura AJCM">
+    <div class="splash-overlay" aria-hidden="true"></div>
+
+    <div class="splash-corner splash-corner--left">
+      TU SOCIO ESTRATÉGICO<br>EN CUMPLIMIENTO LABORAL
+    </div>
+
+    <h1 class="splash-word">AJCM</h1>
+
+    <div class="splash-corner splash-corner--right">
+      SCROLL PARA DESCUBRIR<br>+ INFO
+      <span class="splash-scroll-cue" aria-hidden="true">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+      </span>
+    </div>
+  </section>
 
   <section class="hero">
     <div class="parallax-layer" data-speed="0.12" aria-hidden="true"></div>
@@ -701,7 +801,7 @@
   <section id="perfil">
     <div class="container trust-section">
       <h2 class="section-title reveal reveal-text" style="margin-bottom:1.5rem;"><span class="rt-inner">Sobre Alexis Joel Mercado Colón</span></h2>
-      <p class="reveal reveal-d1">Formación en Administración de Empresas con concentración en Recursos Humanos por la Universidad de Puerto Rico, combinada con experiencia directa en coordinación financiera y administrativa en organizaciones de Puerto Rico. AJMC RRHH Consulting nace de esa base: conocimiento cercano de la normativa laboral local y un enfoque práctico y tecnológico, pensado para las necesidades reales de las PYMES — sin la burocracia ni el costo de las grandes agencias.</p>
+      <p class="reveal reveal-d1">Formación en Administración de Empresas con concentración en Recursos Humanos por la Universidad de Puerto Rico, combinada con experiencia directa en coordinación financiera y administrativa en organizaciones de Puerto Rico. AJCM RRHH Consulting nace de esa base: conocimiento cercano de la normativa laboral local y un enfoque práctico y tecnológico, pensado para las necesidades reales de las PYMES — sin la burocracia ni el costo de las grandes agencias.</p>
     </div>
   </section>
 
@@ -817,7 +917,7 @@
 
 <footer>
   <div class="container footer-inner">
-    <p>&copy; <span id="year"></span> AJMC | RRHH Consulting. Todos los derechos reservados.</p>
+    <p>&copy; <span id="year"></span> AJCM | RRHH Consulting. Todos los derechos reservados.</p>
     <div class="footer-links">
       <a href="https://wa.me/19394282820" target="_blank" rel="noopener noreferrer">Escríbenos</a>
       <a href="#contacto">Contacto</a>
