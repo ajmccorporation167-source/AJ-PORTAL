@@ -680,6 +680,174 @@
     body::after { animation: none; }
     .reveal-text .rt-inner { transform: none; clip-path: none; transition: none; }
   }
+
+  /* ========== Modal Presentación de Servicios (Slider) ========== */
+  .service-modal {
+    --sm-bg: #F8F9FA;
+    --sm-ink: var(--corporate-dark);
+    --sm-ink-soft: #3a4461;
+    --sm-accent: var(--gold-base);
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: clamp(0.75rem, 3vw, 2rem);
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.4s ease, visibility 0.4s ease;
+  }
+  .service-modal.open { opacity: 1; visibility: visible; }
+  .sm-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(5, 9, 22, 0.78);
+    -webkit-backdrop-filter: blur(4px);
+    backdrop-filter: blur(4px);
+  }
+  .sm-dialog {
+    position: relative;
+    width: min(1040px, 100%);
+    height: min(640px, 92vh);
+    background: var(--sm-bg);
+    border-radius: 1rem;
+    box-shadow: 0 40px 100px rgba(0, 0, 0, 0.5);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    transform: translateY(18px) scale(0.98);
+    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .service-modal.open .sm-dialog { transform: translateY(0) scale(1); }
+  .sm-close {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    z-index: 5;
+    width: 2.5rem;
+    height: 2.5rem;
+    border-radius: 9999px;
+    border: 1px solid rgba(10, 17, 40, 0.15);
+    background: #fff;
+    color: var(--sm-ink);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: transform 0.3s ease, background-color 0.3s ease, color 0.3s ease;
+  }
+  .sm-close:hover { background: var(--sm-ink); color: #fff; transform: rotate(90deg); }
+  .sm-close:focus-visible { outline: 2px solid var(--sm-accent); outline-offset: 2px; }
+  .sm-viewport { flex: 1; overflow: hidden; position: relative; }
+  .sm-track {
+    display: flex;
+    height: 100%;
+    will-change: transform;
+    transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .sm-slide {
+    min-width: 100%;
+    height: 100%;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: clamp(1rem, 4vw, 3rem);
+    align-items: center;
+    padding: clamp(2.5rem, 5vw, 3.5rem);
+    padding-top: clamp(3.75rem, 6vw, 4rem);
+  }
+  .sm-art {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--sm-ink);
+  }
+  .sm-art svg { width: 100%; max-width: 300px; height: auto; }
+  .sm-kicker {
+    display: inline-block;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--sm-accent);
+    margin-bottom: 1rem;
+  }
+  .sm-title {
+    font-family: 'Cinzel', serif;
+    font-weight: 500;
+    font-size: clamp(1.45rem, 3.2vw, 2.3rem);
+    line-height: 1.18;
+    color: var(--sm-ink);
+    margin-bottom: 1.1rem;
+  }
+  .sm-text {
+    font-family: 'Inter', sans-serif;
+    font-size: clamp(0.95rem, 1.5vw, 1.05rem);
+    line-height: 1.75;
+    color: var(--sm-ink-soft);
+  }
+  .sm-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 1rem clamp(1.25rem, 4vw, 2.5rem);
+    border-top: 1px solid rgba(10, 17, 40, 0.08);
+    background: #fff;
+  }
+  .sm-nav {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 600;
+    padding: 0.7rem 1.3rem;
+    border-radius: 0.4rem;
+    border: 1px solid rgba(10, 17, 40, 0.18);
+    background: #fff;
+    color: var(--sm-ink);
+    cursor: pointer;
+    transition: transform 0.25s ease, border-color 0.25s ease, color 0.25s ease, filter 0.25s ease, box-shadow 0.25s ease;
+  }
+  .sm-nav:hover:not(:disabled) { border-color: var(--sm-accent); color: var(--sm-accent); transform: translateY(-1px); }
+  .sm-nav:focus-visible { outline: 2px solid var(--sm-accent); outline-offset: 2px; }
+  .sm-next {
+    background-image: linear-gradient(135deg, var(--gold-hover), var(--gold-base));
+    color: var(--corporate-dark);
+    border-color: transparent;
+  }
+  .sm-next:hover:not(:disabled) { filter: brightness(1.06); color: var(--corporate-dark); box-shadow: 0 8px 20px rgba(212, 175, 55, 0.3); transform: translateY(-1px); }
+  .sm-nav:disabled { opacity: 0.35; cursor: not-allowed; }
+  .sm-dots { display: flex; gap: 0.5rem; }
+  .sm-dot {
+    width: 9px;
+    height: 9px;
+    border-radius: 9999px;
+    background: rgba(10, 17, 40, 0.18);
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    transition: background-color 0.3s ease, width 0.3s ease;
+  }
+  .sm-dot.active { background: var(--sm-accent); width: 26px; }
+  body.sm-open { overflow: hidden; }
+
+  @media (max-width: 760px) {
+    .sm-dialog { height: 92vh; width: 100%; }
+    .sm-slide {
+      grid-template-columns: 1fr;
+      align-content: center;
+      gap: 1.25rem;
+      overflow-y: auto;
+      padding: 3.5rem 1.5rem 1.5rem;
+    }
+    .sm-art { order: -1; }
+    .sm-art svg { max-width: 160px; }
+    .sm-footer { padding: 0.85rem 1rem; }
+    .sm-nav { padding: 0.8rem 1rem; font-size: 0.8rem; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .service-modal, .sm-dialog, .sm-track, .sm-dot, .sm-nav, .sm-close { transition: none !important; }
+  }
 </style>
 </head>
 <body>
@@ -912,6 +1080,26 @@
       </div>
     </div>
   </section>
+
+  <!-- ==================== MODAL PRESENTACIÓN DE SERVICIOS ==================== -->
+  <div id="service-modal" class="service-modal" role="dialog" aria-modal="true" aria-labelledby="sm-title" aria-hidden="true">
+    <div class="sm-overlay" data-close="true"></div>
+    <div class="sm-dialog">
+      <button type="button" class="sm-close" id="smClose" aria-label="Cerrar presentación">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+      </button>
+
+      <div class="sm-viewport">
+        <div class="sm-track" id="smTrack"><!-- slides inyectados por JS --></div>
+      </div>
+
+      <div class="sm-footer">
+        <button type="button" class="sm-nav sm-prev" id="smPrev" aria-label="Diapositiva anterior">&lt; Atrás</button>
+        <div class="sm-dots" id="smDots" role="tablist" aria-label="Progreso de la presentación"></div>
+        <button type="button" class="sm-nav sm-next" id="smNext" aria-label="Siguiente diapositiva">Siguiente &gt;</button>
+      </div>
+    </div>
+  </div>
 
 </main>
 
@@ -1153,6 +1341,271 @@
     });
   }
 
+</script>
+
+<script>
+  // ============================================================
+  // MODAL PRESENTACIÓN DE SERVICIOS (Slider Vanilla JS)
+  // ============================================================
+  (function () {
+    // ---- Arte geométrico (SVG inline, sin imágenes externas) ----
+    const ART = {
+      hexagons: `<svg viewBox="0 0 200 200" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round">
+        <line x1="60" y1="70" x2="140" y2="70" stroke="#C5A059" stroke-width="1.5"/>
+        <line x1="60" y1="70" x2="100" y2="130" stroke="#C5A059" stroke-width="1.5"/>
+        <line x1="140" y1="70" x2="100" y2="130" stroke="#C5A059" stroke-width="1.5"/>
+        <polygon points="84,70 72,90.8 48,90.8 36,70 48,49.2 72,49.2"/>
+        <polygon points="164,70 152,90.8 128,90.8 116,70 128,49.2 152,49.2"/>
+        <polygon points="124,130 112,150.8 88,150.8 76,130 88,109.2 112,109.2"/>
+        <circle cx="60" cy="70" r="4" fill="#C5A059" stroke="none"/>
+        <circle cx="140" cy="70" r="4" fill="#C5A059" stroke="none"/>
+        <circle cx="100" cy="130" r="4" fill="#C5A059" stroke="none"/>
+      </svg>`,
+      cubes: `<svg viewBox="0 0 200 200" stroke="#0a1128" stroke-width="1.5" stroke-linejoin="round">
+        <polygon points="70,127 100,144 100,178 70,161" fill="#16203a"/>
+        <polygon points="130,127 100,144 100,178 130,161" fill="#22304f"/>
+        <polygon points="100,110 130,127 100,144 70,127" fill="#C5A059"/>
+        <polygon points="70,93 100,110 100,144 70,127" fill="#16203a"/>
+        <polygon points="130,93 100,110 100,144 130,127" fill="#22304f"/>
+        <polygon points="100,76 130,93 100,110 70,93" fill="#CBA75E"/>
+        <polygon points="70,59 100,76 100,110 70,93" fill="#16203a"/>
+        <polygon points="130,59 100,76 100,110 130,93" fill="#22304f"/>
+        <polygon points="100,42 130,59 100,76 70,59" fill="#D4AF37"/>
+      </svg>`,
+      shield: `<svg viewBox="0 0 200 200" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round">
+        <path d="M100 28 L158 52 L158 98 C158 138 128 165 100 176 C72 165 42 138 42 98 L42 52 Z"/>
+        <path d="M74 100 L92 120 L128 76" stroke="#C5A059" stroke-width="6"/>
+      </svg>`,
+      docs: `<svg viewBox="0 0 200 200" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round">
+        <rect x="62" y="48" width="78" height="104" rx="6" transform="rotate(-6 101 100)" fill="#ffffff"/>
+        <rect x="62" y="48" width="78" height="104" rx="6" fill="#ffffff"/>
+        <path d="M62 54 a6 6 0 0 1 6 -6 h66 a6 6 0 0 1 6 6 v10 h-78 Z" fill="#C5A059" stroke="none"/>
+        <line x1="74" y1="84" x2="128" y2="84" stroke="#0a1128" stroke-width="3"/>
+        <line x1="74" y1="100" x2="128" y2="100" stroke="#AEB9CE" stroke-width="3"/>
+        <line x1="74" y1="116" x2="128" y2="116" stroke="#AEB9CE" stroke-width="3"/>
+        <line x1="74" y1="132" x2="110" y2="132" stroke="#AEB9CE" stroke-width="3"/>
+      </svg>`,
+      gears: `<svg viewBox="0 0 200 200" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round">
+        <g transform="translate(76,84)">
+          <circle r="32"/>
+          <circle r="13" fill="#C5A059" stroke="none"/>
+          <g stroke="currentColor" stroke-width="9" stroke-linecap="round">
+            <line x1="0" y1="-32" x2="0" y2="-44"/>
+            <line x1="0" y1="32" x2="0" y2="44"/>
+            <line x1="-32" y1="0" x2="-44" y2="0"/>
+            <line x1="32" y1="0" x2="44" y2="0"/>
+            <line x1="-23" y1="-23" x2="-31" y2="-31"/>
+            <line x1="23" y1="23" x2="31" y2="31"/>
+            <line x1="-23" y1="23" x2="-31" y2="31"/>
+            <line x1="23" y1="-23" x2="31" y2="-31"/>
+          </g>
+        </g>
+        <path d="M130 94 L158 106 L158 130 C158 148 144 160 130 166 C116 160 102 148 102 130 L102 106 Z" fill="#ffffff" stroke-width="2.5"/>
+        <path d="M116 130 L126 140 L144 118" stroke="#C5A059" stroke-width="4" stroke-linecap="round" fill="none"/>
+      </svg>`,
+      gridcheck: `<svg viewBox="0 0 200 200" fill="none" stroke="#0a1128" stroke-width="2">
+        <rect x="52" y="52" width="38" height="38" rx="6"/>
+        <rect x="98" y="52" width="38" height="38" rx="6"/>
+        <rect x="144" y="52" width="38" height="38" rx="6"/>
+        <rect x="52" y="98" width="38" height="38" rx="6"/>
+        <rect x="98" y="98" width="38" height="38" rx="6" fill="#C5A059" stroke="none"/>
+        <path d="M106 117 l8 8 l14 -16" stroke="#ffffff" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+        <rect x="144" y="98" width="38" height="38" rx="6"/>
+        <rect x="52" y="144" width="38" height="38" rx="6"/>
+        <rect x="98" y="144" width="38" height="38" rx="6"/>
+        <rect x="144" y="144" width="38" height="38" rx="6"/>
+      </svg>`,
+      venn: `<svg viewBox="0 0 200 200" fill="none" stroke-width="2.5">
+        <circle cx="80" cy="108" r="46" fill="#0a1128" fill-opacity="0.06" stroke="#0a1128"/>
+        <circle cx="120" cy="108" r="46" fill="#C5A059" fill-opacity="0.12" stroke="#0a1128"/>
+        <circle cx="100" cy="74" r="34" fill="#C5A059" fill-opacity="0.12" stroke="#C5A059"/>
+      </svg>`,
+      nodes: `<svg viewBox="0 0 200 200" fill="none" stroke="#C5A059" stroke-width="1.5">
+        <line x1="100" y1="100" x2="52" y2="54"/>
+        <line x1="100" y1="100" x2="150" y2="56"/>
+        <line x1="100" y1="100" x2="46" y2="142"/>
+        <line x1="100" y1="100" x2="156" y2="142"/>
+        <line x1="100" y1="100" x2="100" y2="40"/>
+        <circle cx="52" cy="54" r="9" fill="#0a1128" stroke="none"/>
+        <circle cx="150" cy="56" r="9" fill="#0a1128" stroke="none"/>
+        <circle cx="46" cy="142" r="9" fill="#0a1128" stroke="none"/>
+        <circle cx="156" cy="142" r="9" fill="#0a1128" stroke="none"/>
+        <circle cx="100" cy="40" r="9" fill="#C5A059" stroke="none"/>
+        <circle cx="100" cy="100" r="16" fill="#0a1128" stroke="none"/>
+      </svg>`,
+      leadership: `<svg viewBox="0 0 200 200" fill="none" stroke="#0a1128" stroke-width="2" stroke-linejoin="round">
+        <rect x="44" y="130" width="34" height="40" fill="#16203a"/>
+        <rect x="83" y="104" width="34" height="66" fill="#22304f"/>
+        <rect x="122" y="74" width="34" height="96" fill="#C5A059" stroke="none"/>
+        <path d="M60 96 L100 64 L140 42" stroke="#C5A059" stroke-width="3" fill="none"/>
+        <path d="M140 42 l-15 1 l7 -13 z" fill="#C5A059" stroke="none"/>
+      </svg>`,
+      bars: `<svg viewBox="0 0 200 200" fill="none" stroke="#0a1128" stroke-width="2" stroke-linejoin="round">
+        <line x1="40" y1="166" x2="172" y2="166"/>
+        <rect x="52" y="130" width="22" height="36" fill="#16203a"/>
+        <rect x="86" y="108" width="22" height="58" fill="#22304f"/>
+        <rect x="120" y="84" width="22" height="82" fill="#33456b"/>
+        <rect x="154" y="56" width="22" height="110" fill="#C5A059"/>
+        <path d="M58 120 L92 100 L126 78 L162 48" stroke="#C5A059" stroke-width="2.5" fill="none"/>
+        <path d="M162 48 l-14 1 l7 -12 z" fill="#C5A059" stroke="none"/>
+      </svg>`,
+      pyramids: `<svg viewBox="0 0 200 200" stroke="#0a1128" stroke-width="1.5" stroke-linejoin="round">
+        <polygon points="100,113 154,140 100,167 46,140" fill="#16203a"/>
+        <polygon points="100,92 140,112 100,132 60,112" fill="#22304f"/>
+        <polygon points="100,73 126,86 100,99 74,86" fill="#C5A059"/>
+      </svg>`,
+      roi: `<svg viewBox="0 0 200 200" fill="none" stroke="#0a1128" stroke-width="2" stroke-linejoin="round">
+        <ellipse cx="68" cy="152" rx="30" ry="11" fill="#C5A059"/>
+        <ellipse cx="68" cy="138" rx="30" ry="11" fill="#CBA75E"/>
+        <ellipse cx="68" cy="124" rx="30" ry="11" fill="#D4AF37"/>
+        <path d="M120 152 L120 80" stroke="#0a1128" stroke-width="6" stroke-linecap="round"/>
+        <path d="M120 70 L100 100 L140 100 Z" fill="#C5A059" stroke="none"/>
+      </svg>`
+    };
+
+    // ---- Matriz de contenido: 4 servicios x 3 slides ----
+    const SERVICES_DATA = {
+      auditoria: {
+        label: "Auditorías de Cumplimiento Laboral",
+        slides: [
+          { art: "hexagons", title: "Diagnóstico Profundo de Cumplimiento", text: "Analizamos cada rincón de su estructura laboral. Identificamos brechas normativas antes de que se conviertan en multas del Departamento del Trabajo. Una auditoría no es un gasto, es el seguro de vida de su empresa." },
+          { art: "cubes", title: "Metodología de Mapeo de Riesgos", text: "Revisamos expedientes, clasificación de empleados (exentos vs. no exentos), protocolos de nómina y cumplimiento de leyes locales en Puerto Rico. Documentamos cada hallazgo con precisión quirúrgica." },
+          { art: "shield", title: "Tranquilidad y Blindaje Legal", text: "Elimine la incertidumbre. El cliente obtiene un reporte ejecutivo claro con pasos de acción inmediatos. Proteja sus activos, evite litigios costosos y opere con la confianza de que su negocio está 100% blindado." }
+        ]
+      },
+      manuales: {
+        label: "Manuales y Políticas Corporativas",
+        slides: [
+          { art: "docs", title: "El ADN de su Cultura Organizacional", text: "Un manual de empleados no es solo un libro de reglas; es el marco legal que protege a la gerencia y alinea al equipo. Diseñamos políticas a medida, claras, modernas y 100% actualizadas a las leyes de PR." },
+          { art: "gears", title: "Protección en Cada Página", text: "Integramos protocolos críticos: prevención de hostigamiento laboral, uso correcto de tecnología y redes sociales, gestión de licencias (enfermedad, vacaciones) y escalas de disciplina progresiva." },
+          { art: "gridcheck", title: "Claridad que Previene Demandas", text: "Al tener reglas claras y firmadas, se eliminan las zonas grises. Usted gana autoridad documentada para tomar decisiones disciplinarias sin miedo a represalias legales. Estandarizamos el comportamiento de su empresa." }
+        ]
+      },
+      relaciones: {
+        label: "Relaciones Obrero-Patronales & Contratación",
+        slides: [
+          { art: "venn", title: "Contratación y Desvinculación Estratégica", text: "Las relaciones laborales son el motor de su operación. Le guiamos desde el diseño del periodo probatorio hasta el manejo de situaciones delicadas de despido, garantizando el cumplimiento de la Ley 80." },
+          { art: "nodes", title: "Navegando el Día a Día", text: "Asesoría preventiva en tiempo real. Clasificación correcta bajo FLSA, manejo de querellas internas, mediación de conflictos y estructuración de ofertas de empleo blindadas contra malentendidos." },
+          { art: "leadership", title: "Liderazgo sin Riesgos", text: "Transformamos la gestión de personal de un 'dolor de cabeza' a una ventaja competitiva. Tome decisiones difíciles respaldado por expertos, minimizando la exposición a demandas por despido injustificado o discrimen." }
+        ]
+      },
+      nomina: {
+        label: "Optimización de Nómina y Capacitación Directiva",
+        slides: [
+          { art: "bars", title: "Eficiencia Financiera y Operativa", text: "La nómina suele ser el mayor gasto de una empresa. Ayudamos a optimizar estructuras de compensación y formamos a sus líderes para que administren el talento con eficiencia y bajo estricto cumplimiento normativo." },
+          { art: "pyramids", title: "Empoderando a sus Supervisores", text: "Ofrecemos talleres intensivos para mandos medios y alta gerencia. Les enseñamos a aplicar la disciplina progresiva, evaluar el desempeño objetivamente y manejar ausentismos de forma legal y efectiva." },
+          { art: "roi", title: "Retorno de Inversión Inmediato", text: "Una nómina optimizada reduce fugas de capital por horas extras mal calculadas o penalidades. Supervisores bien capacitados reducen la rotación de personal, aumentan la productividad y evitan errores legales que cuestan miles de dólares." }
+        ]
+      }
+    };
+
+    const modal    = document.getElementById('service-modal');
+    const track    = document.getElementById('smTrack');
+    const dotsWrap = document.getElementById('smDots');
+    const prevBtn  = document.getElementById('smPrev');
+    const nextBtn  = document.getElementById('smNext');
+    const closeBtn = document.getElementById('smClose');
+
+    if (!modal || !track) return;
+
+    let current = 0;
+    let slideCount = 0;
+    let lastFocused = null;
+
+    function escapeHtml(str) {
+      return String(str).replace(/[&<>"]/g, function (c) {
+        return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c];
+      });
+    }
+
+    function buildSlides(key) {
+      const data = SERVICES_DATA[key];
+      if (!data) return false;
+      track.innerHTML = '';
+      dotsWrap.innerHTML = '';
+      data.slides.forEach(function (s, i) {
+        const slide = document.createElement('div');
+        slide.className = 'sm-slide';
+        slide.innerHTML =
+          '<div class="sm-art" aria-hidden="true">' + (ART[s.art] || '') + '</div>' +
+          '<div class="sm-content">' +
+            '<span class="sm-kicker">' + escapeHtml(data.label) + ' &middot; Paso ' + (i + 1) + ' de ' + data.slides.length + '</span>' +
+            '<h2 class="sm-title"' + (i === 0 ? ' id="sm-title"' : '') + '>' + escapeHtml(s.title) + '</h2>' +
+            '<p class="sm-text">' + escapeHtml(s.text) + '</p>' +
+          '</div>';
+        track.appendChild(slide);
+
+        const dot = document.createElement('button');
+        dot.type = 'button';
+        dot.className = 'sm-dot';
+        dot.setAttribute('role', 'tab');
+        dot.setAttribute('aria-label', 'Ir al paso ' + (i + 1));
+        dot.addEventListener('click', function () { goTo(i); });
+        dotsWrap.appendChild(dot);
+      });
+      slideCount = data.slides.length;
+      goTo(0);
+      return true;
+    }
+
+    function goTo(i) {
+      if (slideCount === 0) return;
+      current = Math.max(0, Math.min(i, slideCount - 1));
+      track.style.transform = 'translateX(' + (-current * 100) + '%)';
+      Array.prototype.forEach.call(dotsWrap.children, function (d, idx) {
+        d.classList.toggle('active', idx === current);
+        d.setAttribute('aria-selected', idx === current ? 'true' : 'false');
+      });
+      prevBtn.disabled = current === 0;
+      nextBtn.disabled = current === slideCount - 1;
+    }
+
+    function openModal(key) {
+      if (!buildSlides(key)) return;
+      lastFocused = document.activeElement;
+      modal.classList.add('open');
+      modal.setAttribute('aria-hidden', 'false');
+      document.body.classList.add('sm-open');
+      closeBtn.focus();
+    }
+
+    function closeModal() {
+      modal.classList.remove('open');
+      modal.setAttribute('aria-hidden', 'true');
+      document.body.classList.remove('sm-open');
+      if (lastFocused && typeof lastFocused.focus === 'function') lastFocused.focus();
+    }
+
+    // Abrir desde cada tarjeta de servicio
+    document.querySelectorAll('.service-card').forEach(function (card) {
+      const key = card.getAttribute('data-service');
+      card.addEventListener('click', function () { openModal(key); });
+      card.addEventListener('keydown', function (e) {
+        if (e.key === 'Enter' || e.key === ' ' || e.key === 'Spacebar') {
+          e.preventDefault();
+          openModal(key);
+        }
+      });
+    });
+
+    // Navegación
+    prevBtn.addEventListener('click', function () { goTo(current - 1); });
+    nextBtn.addEventListener('click', function () { goTo(current + 1); });
+    closeBtn.addEventListener('click', closeModal);
+
+    // Cerrar al hacer clic fuera de la caja
+    modal.addEventListener('click', function (e) {
+      if (e.target && e.target.hasAttribute('data-close')) closeModal();
+    });
+
+    // Teclado: Escape cierra, flechas navegan
+    document.addEventListener('keydown', function (e) {
+      if (!modal.classList.contains('open')) return;
+      if (e.key === 'Escape') closeModal();
+      else if (e.key === 'ArrowRight') goTo(current + 1);
+      else if (e.key === 'ArrowLeft') goTo(current - 1);
+    });
+  })();
 </script>
 
 </body>
