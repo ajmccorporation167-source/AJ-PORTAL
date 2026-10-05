@@ -1836,34 +1836,117 @@
     let messages = [];
     let isLoading = false;
 
-    // Knowledge base sobre AJCM
+    // SYSTEM PROMPT MAESTRO - Knowledge Base AJCM Completa
+    const SYSTEM_PROMPT = `Actúas como el Asistente Ejecutivo Virtual y Primer Contacto Oficial de "AJCM | RRHH Consulting", una firma consultora boutique especializada en protección jurídico-laboral y optimización de talento para PYMES en Puerto Rico.
+
+Tu misión: recibir visitantes, calificar necesidades, perfilar clientes potenciales (patronos, dueños, gerentes, HR) y guiar hacia la conversión (agendar consulta o contacto directo).
+
+FUNDADOR: Alexis Joel Mercado Colón
+- Graduado en Administración de Empresas con concentración en Recursos Humanos (UPR)
+- Experiencia directa en coordinación financiera y administrativa en Puerto Rico
+- Filosofía: conocimiento cercano de normativa local + enfoque práctico + tecnología
+- Diferenciador: ágil, directo, confidencial, sin burocracia de grandes agencias
+
+ADAPTABILIDAD: Responde al tono del usuario (formal = ejecutivo; informal = cercano). NUNCA corrijas errores ortográficos. Valida estrés, canaliza hacia solución.`;
+
+    // Knowledge base sobre AJCM - EXPANDIDA CON CONTEXTO COMPLETO
     const AJCM_KB = {
-      auditorias: "Las auditorías de cumplimiento laboral mapean riesgos, identifican brechas normativas en Puerto Rico y ante el Departamento del Trabajo. Incluye revisión de expedientes, clasificación de empleados (exentos vs no exentos) y protocolos de nómina. El resultado es un reporte ejecutivo con pasos de acción inmediatos.",
-      manuales: "Los manuales y políticas corporativas son el ADN de tu cultura. Diseñamos handbooks a medida con políticas de hostigamiento, uso de tecnología, gestión de licencias y disciplina progresiva. Todo actualizado a las leyes de Puerto Rico.",
-      relaciones: "Asesoría en relaciones obrero-patronales: contratación estratégica, periodos probatorios, clasificación FLSA, despidos bajo Ley 80 y mediación de conflictos. Te guiamos sin riesgos legales.",
-      nomina: "Optimización de nómina y capacitación directiva. Estructuramos compensación eficiente, formamos supervisores en disciplina progresiva y evaluación de desempeño. Reducimos rotación y errores legales.",
-      contacto: "Puedes contactar a Alexis en:\n📞 +1 939-428-2820\n💬 WhatsApp: https://wa.me/19394282820\n📅 Agendar: https://calendar.app.google/vEu1C9fPBmbVUhWY7\n💼 LinkedIn: https://www.linkedin.com/in/alexis-mercado-58899b395",
-      alexis: "Alexis Joel Mercado Colón es graduado en Administración de Empresas con concentración en Recursos Humanos por la Universidad de Puerto Rico. Fundó AJCM RRHH Consulting combinando conocimiento local normativo con un enfoque práctico y tecnológico para PYMES en Puerto Rico.",
-      precio: "Los modelos de tarificación son flexibles: proyecto puntual o retención mensual. La tarifa se define según el alcance durante la consulta inicial. Contacta para una evaluación gratuita.",
-      metodologia: "La metodología tiene 4 pasos:\n1️⃣ Diagnóstico\n2️⃣ Diseño Normativo\n3️⃣ Implementación\n4️⃣ Soporte Continuo\nEsto asegura un blindaje legal completo."
+      auditorias: "🔍 AUDITORÍAS DE CUMPLIMIENTO LABORAL\n\n¿Qué es? Un análisis exhaustivo como un examen médico completo de tu empresa.\n\n¿Qué incluye?\n• Mapeo detallado de riesgos operativos\n• Detección de brechas normativas específicas (Leyes de Puerto Rico + Departamento del Trabajo)\n• Revisión de expedientes de empleados\n• Auditoría de clasificación (exento vs no exento FLSA)\n• Protocolos de nómina\n\n¿El dolor que resuelve?\n• Miedo a inspecciones sorpresas del Departamento del Trabajo\n• Multas paralizantes por incumplimiento\n• Operar sin saber si cumples la ley\n\nResultado: Reporte ejecutivo claro + pasos de acción inmediatos para blindar tu empresa.",
+
+      manuales: "📋 MANUALES Y POLÍTICAS CORPORATIVAS\n\n¿Qué es? El ADN escrito de tu empresa. Creación de Handbooks de empleados completamente a la medida.\n\n¿Qué incluye?\n• Políticas contra hostigamiento laboral\n• Protocolos de uso de tecnología de la empresa\n• Gestión de licencias (enfermedad, vacaciones)\n• Estructuras de disciplina progresiva\n• Políticas adaptadas a tu industria\n\n¿El dolor que resuelve?\n• Empleados haciendo lo que quieren por falta de reglas claras\n• Riesgo legal al sancionar sin documentación\n• Falta de consistencia en decisiones disciplinarias\n\nBeneficio: Documento firmado que te protege en cualquier acción futura. Total certeza legal.",
+
+      relaciones: "👥 RELACIONES OBRERO-PATRONALES & CONTRATACIÓN\n\n¿Qué es? Asesoría estratégica para el ciclo de vida del empleado (entrada → salida).\n\n¿Qué incluye?\n• Asesoría preventiva en despidos (Ley 80)\n• Manejo correcto de periodos probatorios\n• Auditoría de clasificación FLSA (exento/no exento)\n• Mediación de conflictos laborales\n• Estructuración de ofertas de empleo blindadas\n\n¿El dolor que resuelve?\n• Temor a demandas por despido injustificado\n• Demandas por horas extras no pagadas (mala clasificación)\n• Conflictos laborales que escalan\n\nBeneficio: Tomas decisiones difíciles respaldado por expertos. Riesgo legal minimizado.",
+
+      nomina: "💰 OPTIMIZACIÓN DE NÓMINA Y CAPACITACIÓN DIRECTIVA\n\n¿Qué es? Eficiencia financiera + empoderamiento de líderes.\n\n¿Qué incluye?\n• Alineación de procesos de nómina (evita fugas de capital)\n• Talleres intensivos para supervisores y mandos medios\n• Capacitación en disciplina progresiva\n• Entrenamiento en evaluación de desempeño objetiva\n• Manejo legal de ausentismos\n\n¿El dolor que resuelve?\n• Nómina como gasto descontrolado (horas extras mal calculadas, penalidades)\n• Supervisores que no saben gestionar personal\n• Mal clima laboral por mala gestión\n• Riesgos legales por falta de capacitación\n\nBeneficio: Reduce fugas de capital + rotación de personal + errores legales. ROI inmediato.",
+
+      metodologia: "🛠️ NUESTRA METODOLOGÍA DE 4 FASES\n\n1️⃣ DIAGNÓSTICO\n→ Entendemos el estado actual de tu empresa\n→ Identificamos el tamaño del problema\n→ Definimos cronograma claro\n\n2️⃣ DISEÑO NORMATIVO\n→ Creamos soluciones a la medida\n→ Redactamos políticas personalizadas\n→ Estructuramos correcciones necesarias\n\n3️⃣ IMPLEMENTACIÓN\n→ Ponemos en marcha las nuevas reglas\n→ Capacitamos al personal si es necesario\n→ Aseguramos una transición suave\n\n4️⃣ SOPORTE CONTINUO\n→ NO te abandonamos\n→ Acompañamiento para mantener la estructura\n→ Ajustes según necesidad\n\nResultado: Blindaje legal completo + operación segura.",
+
+      alexis: "👤 ALEXIS JOEL MERCADO COLÓN - Fundador\n\n📚 FORMACIÓN ACADÉMICA\nGraduado en Administración de Empresas con concentración en Recursos Humanos (Universidad de Puerto Rico). Conocimiento técnico, profundo y actualizado de teorías y prácticas de gestión de talento.\n\n💼 EXPERIENCIA PRÁCTICA\nExperiencia directa en coordinación financiera y administrativa en organizaciones de Puerto Rico. Entiende RRHH desde la perspectiva del impacto financiero: nóminas, costos de rotación, impacto de multas.\n\n🎯 LA FILOSOFÍA DE AJCM\nConocimiento cercano e íntimo de la normativa laboral local de Puerto Rico + enfoque sumamente práctico + apalancamiento en tecnología.\n\n⚡ EL DIFERENCIADOR\nAJCM está diseñado EXCLUSIVAMENTE para PYMES. Blindaje corporativo de primer nivel SIN la burocracia, lentitud y costos excesivos de las grandes agencias o bufetes.",
+
+      precio: "💵 ESTRUCTURA DE COSTOS Y TARIFICACIÓN\n\nSomos FLEXIBLES. Ofrecemos:\n\n📌 MODELO 1: PROYECTO PUNTUAL\n• Pagar por un proyecto específico (ej: hacer un manual)\n• Ideal para necesidades concretas\n\n📌 MODELO 2: RETENCIÓN MENSUAL (IGUALAS)\n• Soporte continuo mes a mes\n• Ideal para empresas que necesitan acompañamiento regular\n\n💬 ¿CÓMO SE COTIZA?\nLas tarifas se definen a la medida DESPUÉS de la consulta inicial, cuando evaluamos:\n• Tamaño de tu empresa\n• Magnitud del alcance\n• Complejidad de la solución\n\n✅ GARANTÍA: Sin sorpresas. Todo es claro y a la medida. Para una cotización exacta y sin compromisos, agende una breve llamada de diagnóstico.",
+
+      faq_tiempo: "⏱️ ¿CUÁNTO TIEMPO TOMA UN PROYECTO?\n\nEl tiempo exacto depende de:\n• Tamaño de tu empresa\n• Magnitud del alcance\n• Complejidad de las soluciones\n\n✅ LO IMPORTANTE: Todo se estructura en un CRONOGRAMA CLARO durante la fase de Diagnóstico, ANTES de iniciar el trabajo formal. Nunca hay sorpresas.",
+
+      faq_ubicacion: "📍 ¿TRABAJAN FUERA DEL ÁREA METRO (SAN JUAN/BAYAMÓN)?\n\n✅ SÍ. Operamos a nivel de TODO Puerto Rico. Nos adaptamos a tu necesidad:\n• Reuniones REMOTAS (virtuales) si lo prefieres\n• Reuniones PRESENCIALES en tus facilidades\n\nLa consultoría de AJCM es accesible donde quiera que estés en la isla.",
+
+      faq_confidencialidad: "🔒 ¿MI INFORMACIÓN ESTÁ SEGURA?\n\n✅ ABSOLUTAMENTE. La confidencialidad es nuestro PILAR.\n\nToda la información que compartas:\n• Datos de tu empresa\n• Casos sensibles\n• Nombres de empleados\n• Datos financieros\n\n→ Se maneja bajo ESTRICTOS ACUERDOS DE CONFIDENCIALIDAD\n→ NUNCA se expone públicamente\n→ Protección total garantizada",
+
+      faq_empleados: "⚠️ ¿ATIENDEN A EMPLEADOS?\n\n❌ No. AJCM se especializa en CONSULTORÍA PATRONAL exclusivamente.\n\nNos dedicamos a:\n✅ Estructuración corporativa\n✅ Asesoría a patronos y empresas\n✅ Protección empresarial\n\nSi un empleado necesita representación legal contra su empresa, debe contactar a un bufete de representación litigante.",
+
+      contacto: "📞 CANALES DE CONTACTO Y HORARIOS\n\n💬 WhatsApp (Respuesta RÁPIDA)\n+1 939-428-2820\n→ Ideal si necesitas respuesta ágil o prefieres mensajería\n\n📧 CORREO ELECTRÓNICO\najmccorporation167@gmail.com\n→ Ideal si tienes un caso largo o quieres enviar documentos\n\n📅 AGENDAR CONSULTA (TU OPCIÓN PRINCIPAL)\nhttps://calendar.app.google/vEu1C9fPBmbVUhWY7\n→ Elige horario que te convenga\n→ Consulta exploratoria directa con Alexis\n\n⏰ HORARIOS\nLunes a viernes disponibles.\nSi escribes fin de semana/madrugada: tu mensaje es importante y será el primero atendido el próximo día laborable. Pero puedes asegurar tu espacio INMEDIATAMENTE usando el calendario.",
+
+      prevencion: "🛡️ ¿POR QUÉ PREVENIR ES MÁS ECONÓMICO QUE REMEDIAR?\n\nUna demanda laboral puede costarle a tu empresa:\n• Honorarios legales: $5,000 - $50,000+\n• Multas del Departamento del Trabajo: $10,000+\n• Liquidación legal obligatoria\n• Tiempo de gerencia desviado\n• Daño a la reputación\n\nCON AJCM:\n→ Una auditoría y un manual bien hecho: inversión única\n→ Protección legal total por años\n→ Tranquilidad operativa garantizada"
     };
 
     function getSmartResponse(userText) {
       const lower = userText.toLowerCase();
 
-      // Palabras clave inteligentes
-      if (lower.includes('auditoria') || lower.includes('auditoría')) return AJCM_KB.auditorias;
-      if (lower.includes('manual') || lower.includes('política') || lower.includes('handbook')) return AJCM_KB.manuales;
-      if (lower.includes('relacion') || lower.includes('contratacion') || lower.includes('despido') || lower.includes('ley 80')) return AJCM_KB.relaciones;
-      if (lower.includes('nomina') || lower.includes('nómina') || lower.includes('capacitacion') || lower.includes('supervisor')) return AJCM_KB.nomina;
-      if (lower.includes('contacto') || lower.includes('llamar') || lower.includes('whatsapp') || lower.includes('email') || lower.includes('agendar')) return AJCM_KB.contacto;
-      if (lower.includes('alexis') || lower.includes('quien') || lower.includes('perfil') || lower.includes('sobre ti') || lower.includes('acerca')) return AJCM_KB.alexis;
-      if (lower.includes('precio') || lower.includes('costo') || lower.includes('tarifa') || lower.includes('cuanto cuesta')) return AJCM_KB.precio;
-      if (lower.includes('metodologia') || lower.includes('proceso') || lower.includes('pasos')) return AJCM_KB.metodologia;
-      if (lower.includes('hola') || lower.includes('hey') || lower.includes('ayuda') || lower.includes('que')) return "¡Hola! 👋 Soy el asistente de AJCM.\n\nPuedo ayudarte con:\n🔍 Auditorías de cumplimiento\n📋 Manuales corporativos\n👥 Relaciones laborales\n💰 Nómina y capacitación\n📞 Contactar a Alexis\n\n¿Con qué te puedo ayudar?";
+      // AUDITORÍAS
+      if (lower.includes('auditoria') || lower.includes('auditoría') || lower.includes('riesgo') || lower.includes('inspeccio'))
+        return AJCM_KB.auditorias;
 
-      // Default response
-      return "No entendí bien. Pregúntame sobre auditorías, manuales, relaciones laborales, nómina, o cómo contactar a Alexis. 🤔";
+      // MANUALES
+      if (lower.includes('manual') || lower.includes('política') || lower.includes('handbook') || lower.includes('regla') || lower.includes('disciplina'))
+        return AJCM_KB.manuales;
+
+      // RELACIONES LABORALES Y DESPIDOS
+      if (lower.includes('relacion') || lower.includes('contratacion') || lower.includes('despido') || lower.includes('ley 80') ||
+          lower.includes('empleado') || lower.includes('conflicto') || lower.includes('demanda'))
+        return AJCM_KB.relaciones;
+
+      // NÓMINA
+      if (lower.includes('nomina') || lower.includes('nómina') || lower.includes('capacitacion') || lower.includes('supervisor') ||
+          lower.includes('sueldo') || lower.includes('payroll') || lower.includes('extra'))
+        return AJCM_KB.nomina;
+
+      // CONTACTO Y CTA
+      if (lower.includes('contacto') || lower.includes('llamar') || lower.includes('whatsapp') || lower.includes('email') ||
+          lower.includes('agendar') || lower.includes('consulta') || lower.includes('comunicar'))
+        return AJCM_KB.contacto;
+
+      // ALEXIS Y PERFIL
+      if (lower.includes('alexis') || lower.includes('quien') || lower.includes('perfil') || lower.includes('sobre ti') ||
+          lower.includes('acerca') || lower.includes('experiencia') || lower.includes('founder'))
+        return AJCM_KB.alexis;
+
+      // PRECIOS Y COSTOS
+      if (lower.includes('precio') || lower.includes('costo') || lower.includes('tarifa') || lower.includes('cuanto cuesta') ||
+          lower.includes('inversion') || lower.includes('pago') || lower.includes('cotiación'))
+        return AJCM_KB.precio;
+
+      // METODOLOGÍA
+      if (lower.includes('metodologia') || lower.includes('proceso') || lower.includes('pasos') || lower.includes('como funciona') ||
+          lower.includes('cómo funciona'))
+        return AJCM_KB.metodologia;
+
+      // FAQ - TIEMPO
+      if (lower.includes('cuanto tiempo') || lower.includes('cuánto tiempo') || lower.includes('duracion') || lower.includes('duración'))
+        return AJCM_KB.faq_tiempo;
+
+      // FAQ - UBICACIÓN
+      if (lower.includes('fuera') || lower.includes('remote') || lower.includes('ubicacion') || lower.includes('ubicación') ||
+          lower.includes('san juan') || lower.includes('bayamon') || lower.includes('presencial'))
+        return AJCM_KB.faq_ubicacion;
+
+      // FAQ - CONFIDENCIALIDAD
+      if (lower.includes('confidencia') || lower.includes('segur') || lower.includes('privac') || lower.includes('proteg'))
+        return AJCM_KB.faq_confidencialidad;
+
+      // FAQ - EMPLEADOS
+      if (lower.includes('soy empleado') || lower.includes('trabajador') || lower.includes('me despidieron'))
+        return AJCM_KB.faq_empleados;
+
+      // PREVENCIÓN
+      if (lower.includes('prevenir') || lower.includes('economico') || lower.includes('económico') || lower.includes('demanda'))
+        return AJCM_KB.prevencion;
+
+      // SALUDOS
+      if (lower.includes('hola') || lower.includes('hey') || lower.includes('buenos') || lower.includes('ayuda') ||
+          lower.includes('que') || lower.includes('info'))
+        return "¡Hola! 👋 Bienvenido a AJCM | RRHH Consulting.\n\nSoy tu asistente virtual. Puedo orientarte sobre:\n\n🔍 Auditorías de Cumplimiento Laboral\n📋 Manuales y Políticas Corporativas\n👥 Relaciones Obrero-Patronales\n💰 Nómina y Capacitación Directiva\n💼 Quién es Alexis (fundador)\n💵 Precios y modelos\n📞 Cómo contactarnos\n\n¿En qué te puedo ayudar hoy?";
+
+      // RESPUESTA POR DEFECTO
+      return "Entiendo que tienes una consulta. Para brindarte la mejor orientación, cuéntame más específicamente:\n\n- ¿Tienes un problema específico con empleados?\n- ¿Quieres blindar tu empresa legalmente?\n- ¿Necesitas un manual o políticas corporativas?\n- ¿Tienes dudas sobre nómina o clasificación de puestos?\n\nO simplemente escribe 'contacto' y te paso los datos para hablar directamente con Alexis. 😊";
     }
 
     // Abrir/Cerrar chat
