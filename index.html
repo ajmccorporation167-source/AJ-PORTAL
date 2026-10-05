@@ -694,6 +694,8 @@
     align-items: center;
     justify-content: center;
     padding: clamp(0.75rem, 3vw, 2rem);
+    padding-top: max(clamp(0.75rem, 3vw, 2rem), env(safe-area-inset-top));
+    padding-bottom: max(clamp(0.75rem, 3vw, 2rem), env(safe-area-inset-bottom));
     opacity: 0;
     visibility: hidden;
     transition: opacity 0.4s ease, visibility 0.4s ease;
@@ -710,6 +712,8 @@
     position: relative;
     width: min(1040px, 100%);
     height: min(640px, 92vh);
+    height: min(640px, 92dvh);
+    max-height: 100%;
     background: var(--sm-bg);
     border-radius: 1rem;
     box-shadow: 0 40px 100px rgba(0, 0, 0, 0.5);
@@ -739,7 +743,7 @@
   }
   .sm-close:hover { background: var(--sm-ink); color: #fff; transform: rotate(90deg); }
   .sm-close:focus-visible { outline: 2px solid var(--sm-accent); outline-offset: 2px; }
-  .sm-viewport { flex: 1; overflow: hidden; position: relative; }
+  .sm-viewport { flex: 1; min-height: 0; overflow: hidden; position: relative; }
   .sm-track {
     display: flex;
     height: 100%;
@@ -795,6 +799,7 @@
     padding: 1rem clamp(1.25rem, 4vw, 2.5rem);
     border-top: 1px solid rgba(10, 17, 40, 0.08);
     background: #fff;
+    flex-shrink: 0;
   }
   .sm-nav {
     font-family: 'Inter', sans-serif;
@@ -832,18 +837,19 @@
   body.sm-open { overflow: hidden; }
 
   @media (max-width: 760px) {
-    .sm-dialog { height: 92vh; width: 100%; }
+    .sm-dialog { height: 100%; width: 100%; }
     .sm-slide {
       grid-template-columns: 1fr;
-      align-content: center;
+      align-content: start;
       gap: 1.25rem;
       overflow-y: auto;
+      -webkit-overflow-scrolling: touch;
       padding: 3.5rem 1.5rem 1.5rem;
     }
     .sm-art { order: -1; }
     .sm-art svg { max-width: 160px; }
     .sm-footer { padding: 0.85rem 1rem; }
-    .sm-nav { padding: 0.8rem 1rem; font-size: 0.8rem; }
+    .sm-nav { padding: 0.8rem 1rem; font-size: 0.85rem; min-height: 44px; white-space: nowrap; }
   }
   @media (prefers-reduced-motion: reduce) {
     .service-modal, .sm-dialog, .sm-track, .sm-dot, .sm-nav, .sm-close { transition: none !important; }
@@ -1659,7 +1665,7 @@
     visibility: hidden;
     transform: translateY(20px) scale(0.95);
     transition: opacity 0.3s ease, visibility 0.3s ease, transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-    z-index: 50;
+    z-index: 60;
   }
   .chat-widget.open {
     opacity: 1;
@@ -1721,7 +1727,10 @@
     font-size: 0.9rem;
     line-height: 1.4;
     word-wrap: break-word;
+    overflow-wrap: anywhere;
+    white-space: pre-line;
   }
+  .msg-bubble a { color: var(--gold-hover); text-decoration: underline; }
   .msg.user .msg-bubble {
     background: linear-gradient(135deg, var(--gold-hover), var(--gold-base));
     color: var(--corporate-dark);
@@ -1783,10 +1792,33 @@
     font-size: 0.85rem;
   }
 
-  @media (max-width: 480px) {
-    .chat-widget { width: 100vw; height: 100vh; bottom: 0; right: 0; border-radius: 0; }
-    .chat-fab { bottom: 2rem; right: 2rem; }
-    .msg-bubble { max-width: 85%; }
+  /* Telefono: los dos botones flotantes se apilan (antes el de WhatsApp tapaba al del chat) */
+  @media (max-width: 600px) {
+    .fab {
+      right: calc(1rem + env(safe-area-inset-right));
+      bottom: calc(1rem + env(safe-area-inset-bottom));
+    }
+    .chat-fab {
+      right: calc(1rem + env(safe-area-inset-right));
+      bottom: calc(1rem + 54px + 0.75rem + env(safe-area-inset-bottom));
+    }
+    .chat-btn { width: 54px; height: 54px; font-size: 22px; }
+    /* El texto "Scroll para descubrir" de la portada queda por encima de los botones */
+    .splash-corner--right { bottom: calc(1rem + 54px + 0.75rem + 54px + 1rem); }
+
+    /* Chat a pantalla completa, medido contra la pantalla visible (no 100vh) */
+    .chat-widget {
+      top: 0; right: 0; bottom: 0; left: 0;
+      width: auto; height: auto;
+      border: none; border-radius: 0;
+    }
+    .chat-header { padding-top: calc(1rem + env(safe-area-inset-top)); }
+    .chat-close { width: 44px; height: 44px; font-size: 22px; }
+    .chat-input-wrap { padding-bottom: calc(1rem + env(safe-area-inset-bottom)); }
+    /* 16px evita que iOS haga zoom al tocar el campo */
+    .chat-input { font-size: 16px; }
+    .chat-send { width: 44px; height: 44px; flex-shrink: 0; }
+    .msg-bubble { max-width: 88%; }
   }
 </style>
 
@@ -1842,7 +1874,7 @@
 Tu misión: recibir visitantes, calificar necesidades, perfilar clientes potenciales (patronos, dueños, gerentes, HR) y guiar hacia la conversión (agendar consulta o contacto directo).
 
 FUNDADOR: Alexis Joel Mercado Colón
-- Graduado en Administración de Empresas con concentración en Recursos Humanos (UPR)
+- Formación en Administración de Empresas con concentración en Recursos Humanos (UPR)
 - Experiencia directa en coordinación financiera y administrativa en Puerto Rico
 - Filosofía: conocimiento cercano de normativa local + enfoque práctico + tecnología
 - Diferenciador: ágil, directo, confidencial, sin burocracia de grandes agencias
@@ -1861,7 +1893,7 @@ ADAPTABILIDAD: Responde al tono del usuario (formal = ejecutivo; informal = cerc
 
       metodologia: "🛠️ NUESTRA METODOLOGÍA DE 4 FASES\n\n1️⃣ DIAGNÓSTICO\n→ Entendemos el estado actual de tu empresa\n→ Identificamos el tamaño del problema\n→ Definimos cronograma claro\n\n2️⃣ DISEÑO NORMATIVO\n→ Creamos soluciones a la medida\n→ Redactamos políticas personalizadas\n→ Estructuramos correcciones necesarias\n\n3️⃣ IMPLEMENTACIÓN\n→ Ponemos en marcha las nuevas reglas\n→ Capacitamos al personal si es necesario\n→ Aseguramos una transición suave\n\n4️⃣ SOPORTE CONTINUO\n→ NO te abandonamos\n→ Acompañamiento para mantener la estructura\n→ Ajustes según necesidad\n\nResultado: Blindaje legal completo + operación segura.",
 
-      alexis: "👤 ALEXIS JOEL MERCADO COLÓN - Fundador\n\n📚 FORMACIÓN ACADÉMICA\nGraduado en Administración de Empresas con concentración en Recursos Humanos (Universidad de Puerto Rico). Conocimiento técnico, profundo y actualizado de teorías y prácticas de gestión de talento.\n\n💼 EXPERIENCIA PRÁCTICA\nExperiencia directa en coordinación financiera y administrativa en organizaciones de Puerto Rico. Entiende RRHH desde la perspectiva del impacto financiero: nóminas, costos de rotación, impacto de multas.\n\n🎯 LA FILOSOFÍA DE AJCM\nConocimiento cercano e íntimo de la normativa laboral local de Puerto Rico + enfoque sumamente práctico + apalancamiento en tecnología.\n\n⚡ EL DIFERENCIADOR\nAJCM está diseñado EXCLUSIVAMENTE para PYMES. Blindaje corporativo de primer nivel SIN la burocracia, lentitud y costos excesivos de las grandes agencias o bufetes.",
+      alexis: "👤 ALEXIS JOEL MERCADO COLÓN - Fundador\n\n📚 FORMACIÓN ACADÉMICA\nFormación en Administración de Empresas con concentración en Recursos Humanos por la Universidad de Puerto Rico. Conocimiento técnico, profundo y actualizado de teorías y prácticas de gestión de talento.\n\n💼 EXPERIENCIA PRÁCTICA\nExperiencia directa en coordinación financiera y administrativa en organizaciones de Puerto Rico. Entiende RRHH desde la perspectiva del impacto financiero: nóminas, costos de rotación, impacto de multas.\n\n🎯 LA FILOSOFÍA DE AJCM\nConocimiento cercano e íntimo de la normativa laboral local de Puerto Rico + enfoque sumamente práctico + apalancamiento en tecnología.\n\n⚡ EL DIFERENCIADOR\nAJCM está diseñado EXCLUSIVAMENTE para PYMES. Blindaje corporativo de primer nivel SIN la burocracia, lentitud y costos excesivos de las grandes agencias o bufetes.",
 
       precio: "💵 ESTRUCTURA DE COSTOS Y TARIFICACIÓN\n\nSomos FLEXIBLES. Ofrecemos:\n\n📌 MODELO 1: PROYECTO PUNTUAL\n• Pagar por un proyecto específico (ej: hacer un manual)\n• Ideal para necesidades concretas\n\n📌 MODELO 2: RETENCIÓN MENSUAL (IGUALAS)\n• Soporte continuo mes a mes\n• Ideal para empresas que necesitan acompañamiento regular\n\n💬 ¿CÓMO SE COTIZA?\nLas tarifas se definen a la medida DESPUÉS de la consulta inicial, cuando evaluamos:\n• Tamaño de tu empresa\n• Magnitud del alcance\n• Complejidad de la solución\n\n✅ GARANTÍA: Sin sorpresas. Todo es claro y a la medida. Para una cotización exacta y sin compromisos, agende una breve llamada de diagnóstico.",
 
@@ -1875,7 +1907,7 @@ ADAPTABILIDAD: Responde al tono del usuario (formal = ejecutivo; informal = cerc
 
       contacto: "📞 CANALES DE CONTACTO Y HORARIOS\n\n💬 WhatsApp (Respuesta RÁPIDA)\n+1 939-428-2820\n→ Ideal si necesitas respuesta ágil o prefieres mensajería\n\n📧 CORREO ELECTRÓNICO\najmccorporation167@gmail.com\n→ Ideal si tienes un caso largo o quieres enviar documentos\n\n📅 AGENDAR CONSULTA (TU OPCIÓN PRINCIPAL)\nhttps://calendar.app.google/vEu1C9fPBmbVUhWY7\n→ Elige horario que te convenga\n→ Consulta exploratoria directa con Alexis\n\n⏰ HORARIOS\nLunes a viernes disponibles.\nSi escribes fin de semana/madrugada: tu mensaje es importante y será el primero atendido el próximo día laborable. Pero puedes asegurar tu espacio INMEDIATAMENTE usando el calendario.",
 
-      prevencion: "🛡️ ¿POR QUÉ PREVENIR ES MÁS ECONÓMICO QUE REMEDIAR?\n\nUna demanda laboral puede costarle a tu empresa:\n• Honorarios legales: $5,000 - $50,000+\n• Multas del Departamento del Trabajo: $10,000+\n• Liquidación legal obligatoria\n• Tiempo de gerencia desviado\n• Daño a la reputación\n\nCON AJCM:\n→ Una auditoría y un manual bien hecho: inversión única\n→ Protección legal total por años\n→ Tranquilidad operativa garantizada"
+      prevencion: "🛡️ PREVENIR ES MÁS ECONÓMICO QUE REMEDIAR\n\nUn problema laboral atendido tarde suele costar más que atenderlo a tiempo: tiempo de la gerencia, posibles reclamaciones y desgaste del equipo.\n\nPor eso el trabajo de AJCM es preventivo: auditorías, manuales y asesoría antes de que el problema escale.\n\n¿Te gustaría coordinar una consulta con Alexis?\nhttps://calendar.app.google/vEu1C9fPBmbVUhWY7"
     };
 
     function getSmartResponse(userText) {
@@ -1982,7 +2014,7 @@ ADAPTABILIDAD: Responde al tono del usuario (formal = ejecutivo; informal = cerc
     function addMessageBubble(role, content) {
       const msg = document.createElement('div');
       msg.className = `msg ${role === 'user' ? 'user' : 'bot'}`;
-      msg.innerHTML = `<div class="msg-bubble">${escapeHtml(content)}</div>`;
+      msg.innerHTML = `<div class="msg-bubble">${linkify(escapeHtml(content))}</div>`;
       chatMessages.appendChild(msg);
       chatMessages.scrollTop = chatMessages.scrollHeight;
     }
@@ -1991,6 +2023,13 @@ ADAPTABILIDAD: Responde al tono del usuario (formal = ejecutivo; informal = cerc
       const div = document.createElement('div');
       div.textContent = str;
       return div.innerHTML;
+    }
+
+    // Convierte URLs (ya escapadas) en enlaces que se pueden tocar
+    function linkify(html) {
+      return html.replace(/https?:\/\/[^\s<]+[^\s<.,;:!?)]/g, function (url) {
+        return '<a href="' + url + '" target="_blank" rel="noopener noreferrer">' + url + '</a>';
+      });
     }
 
     chatSendBtn.addEventListener('click', sendMessage);
