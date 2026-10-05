@@ -6,6 +6,8 @@
 <title>AJCM | RRHH Consulting — Cumplimiento Laboral en Puerto Rico</title>
 <meta name="description" content="Protección jurídico-laboral y optimización de talento para empresas en Puerto Rico. Auditorías de cumplimiento, manuales corporativos y relaciones obrero-patronales sin la burocracia de las grandes agencias.">
 <meta name="robots" content="index, follow">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data:; connect-src 'self' https://wxxazkkxwvprsginjtjb.supabase.co https://aj-portal-lovat.vercel.app; object-src 'none'; base-uri 'self'; form-action 'self'">
+<meta name="referrer" content="strict-origin-when-cross-origin">
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -1032,23 +1034,23 @@
         <div class="contact-card">
           <form id="contactForm" class="contact-form">
             <!-- Honeypot anti-bots -->
-            <input type="text" name="hp_message" class="hp-field" tabindex="-1" aria-hidden="true">
+            <input type="text" name="hp_message" class="hp-field" tabindex="-1" aria-hidden="true" autocomplete="off">
 
             <!-- Nombre -->
             <div class="float-field">
-              <input type="text" id="nombre" name="nombre" placeholder=" " required aria-label="Tu nombre">
+              <input type="text" id="nombre" name="nombre" placeholder=" " required maxlength="120" autocomplete="name" aria-label="Tu nombre">
               <label for="nombre">Nombre completo</label>
             </div>
 
             <!-- Empresa -->
             <div class="float-field">
-              <input type="text" id="empresa" name="empresa" placeholder=" " aria-label="Nombre de tu empresa (opcional)">
+              <input type="text" id="empresa" name="empresa" placeholder=" " maxlength="160" autocomplete="organization" aria-label="Nombre de tu empresa (opcional)">
               <label for="empresa">Nombre de la empresa (opcional)</label>
             </div>
 
             <!-- Correo -->
             <div class="float-field">
-              <input type="email" id="correo" name="correo" placeholder=" " required aria-label="Tu correo electrónico">
+              <input type="email" id="correo" name="correo" placeholder=" " required maxlength="254" autocomplete="email" aria-label="Tu correo electrónico">
               <label for="correo">Correo electrónico</label>
             </div>
 
@@ -1068,7 +1070,7 @@
             <!-- Mensaje -->
             <div class="modal-field">
               <label for="mensaje">Cuéntame más sobre tu situación</label>
-              <textarea id="mensaje" name="mensaje" rows="4" placeholder="Describe brevemente tu necesidad, tamaño de empresa, o cualquier detalle que consideres importante..." aria-label="Cuéntame más sobre tu situación"></textarea>
+              <textarea id="mensaje" name="mensaje" rows="4" maxlength="2000" placeholder="Describe brevemente tu necesidad, tamaño de empresa, o cualquier detalle que consideres importante..." aria-label="Cuéntame más sobre tu situación"></textarea>
             </div>
 
             <!-- Botón de envío -->
@@ -1304,10 +1306,10 @@
         // Payload
         const payload = {
           nombre,
-          empresa: empresa || null,
+          empresa: empresa,
           correo,
           servicio,
-          mensaje: mensaje || null
+          mensaje: mensaje
         };
 
         // POST a Supabase
@@ -2045,14 +2047,15 @@
     }
 
     function escapeHtml(str) {
-      const div = document.createElement('div');
-      div.textContent = str;
-      return div.innerHTML;
+      return String(str).replace(/[&<>"']/g, function (c) {
+        return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c];
+      });
     }
 
     // Convierte URLs (ya escapadas) en enlaces que se pueden tocar
     function linkify(html) {
-      return html.replace(/https?:\/\/[^\s<]+[^\s<.,;:!?)]/g, function (url) {
+      return html.replace(/https?:\/\/[^\s<>"'`]+[^\s<>"'`.,;:!?)]/g, function (url) {
+        if (/&(quot|#39|lt|gt);/.test(url)) return url;
         return '<a href="' + url + '" target="_blank" rel="noopener noreferrer">' + url + '</a>';
       });
     }
