@@ -1846,6 +1846,7 @@
         id="chatInput"
         placeholder="Escribe tu pregunta..."
         aria-label="Mensaje"
+        maxlength="2000"
       />
       <button class="chat-send" id="chatSendBtn" aria-label="Enviar">➤</button>
     </div>
@@ -1868,20 +1869,7 @@
     let messages = [];
     let isLoading = false;
 
-    // SYSTEM PROMPT MAESTRO - Knowledge Base AJCM Completa
-    const SYSTEM_PROMPT = `Actúas como el Asistente Ejecutivo Virtual y Primer Contacto Oficial de "AJCM | RRHH Consulting", una firma consultora boutique especializada en protección jurídico-laboral y optimización de talento para PYMES en Puerto Rico.
-
-Tu misión: recibir visitantes, calificar necesidades, perfilar clientes potenciales (patronos, dueños, gerentes, HR) y guiar hacia la conversión (agendar consulta o contacto directo).
-
-FUNDADOR: Alexis Joel Mercado Colón
-- Formación en Administración de Empresas con concentración en Recursos Humanos (UPR)
-- Experiencia directa en coordinación financiera y administrativa en Puerto Rico
-- Filosofía: conocimiento cercano de normativa local + enfoque práctico + tecnología
-- Diferenciador: ágil, directo, confidencial, sin burocracia de grandes agencias
-
-ADAPTABILIDAD: Responde al tono del usuario (formal = ejecutivo; informal = cercano). NUNCA corrijas errores ortográficos. Valida estrés, canaliza hacia solución.`;
-
-    // Knowledge base sobre AJCM - EXPANDIDA CON CONTEXTO COMPLETO
+    // Respuestas de respaldo: solo se usan si el asistente de IA no responde
     const AJCM_KB = {
       auditorias: "🔍 AUDITORÍAS DE CUMPLIMIENTO LABORAL\n\n¿Qué es? Un análisis exhaustivo como un examen médico completo de tu empresa.\n\n¿Qué incluye?\n• Mapeo detallado de riesgos operativos\n• Detección de brechas normativas específicas (Leyes de Puerto Rico + Departamento del Trabajo)\n• Revisión de expedientes de empleados\n• Auditoría de clasificación (exento vs no exento FLSA)\n• Protocolos de nómina\n\n¿El dolor que resuelve?\n• Miedo a inspecciones sorpresas del Departamento del Trabajo\n• Multas paralizantes por incumplimiento\n• Operar sin saber si cumples la ley\n\nResultado: Reporte ejecutivo claro + pasos de acción inmediatos para blindar tu empresa.",
 
@@ -1989,26 +1977,62 @@ ADAPTABILIDAD: Responde al tono del usuario (formal = ejecutivo; informal = cerc
     });
     chatClose.addEventListener('click', () => chatWidget.classList.remove('open'));
 
-    // Enviar mensaje
-    function sendMessage() {
-      const text = chatInput.value.trim();
+    // Enviar mensaje: primero el asistente de IA; si falla, respuesta de respaldo
+    async function sendMessage() {
+      const text = chatInput.value.trim().slice(0, 2000);
       if (!text || isLoading) return;
 
-      // Mensaje del usuario
       chatInput.value = '';
       addMessageBubble('user', text);
+      messages.push({ role: 'user', content: text });
       chatSendBtn.disabled = true;
       isLoading = true;
 
-      // Usar respuesta offline inteligente
-      const smartReply = getSmartResponse(text);
-      addMessageBubble('bot', smartReply);
+      const bubble = addMessageBubble('bot', '…');
+      let reply = '';
+      const controller = new AbortController();
+      const timer = setTimeout(() => controller.abort(), 25000);
 
-      messages.push({ role: 'user', content: text }, { role: 'assistant', content: smartReply });
+      try {
+        // El servidor acepta hasta 21 mensajes y exige empezar y terminar en "user"
+        let history = messages.slice(-19);
+        while (history.length && history[0].role !== 'user') history.shift();
 
+        const res = await fetch(API_URL, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ messages: history }),
+          signal: controller.signal
+        });
+        if (!res.ok || !res.body) throw new Error('HTTP ' + res.status);
+
+        const reader = res.body.getReader();
+        const decoder = new TextDecoder();
+        while (true) {
+          const { done, value } = await reader.read();
+          if (done) break;
+          reply += decoder.decode(value, { stream: true });
+          setBubble(bubble, reply);
+        }
+        reply = reply.trim();
+        if (!reply) throw new Error('respuesta vacía');
+      } catch (err) {
+        console.warn('Asistente de IA no disponible, usando respuesta de respaldo:', err);
+        if (!reply.trim()) reply = getSmartResponse(text);
+      } finally {
+        clearTimeout(timer);
+      }
+
+      setBubble(bubble, reply);
+      messages.push({ role: 'assistant', content: reply });
       chatSendBtn.disabled = false;
       isLoading = false;
-      chatInput.focus();
+      if (window.matchMedia('(min-width: 601px)').matches) chatInput.focus();
+    }
+
+    function setBubble(bubble, content) {
+      bubble.innerHTML = linkify(escapeHtml(content));
+      chatMessages.scrollTop = chatMessages.scrollHeight;
     }
 
     function addMessageBubble(role, content) {
@@ -2017,6 +2041,7 @@ ADAPTABILIDAD: Responde al tono del usuario (formal = ejecutivo; informal = cerc
       msg.innerHTML = `<div class="msg-bubble">${linkify(escapeHtml(content))}</div>`;
       chatMessages.appendChild(msg);
       chatMessages.scrollTop = chatMessages.scrollHeight;
+      return msg.querySelector('.msg-bubble');
     }
 
     function escapeHtml(str) {
