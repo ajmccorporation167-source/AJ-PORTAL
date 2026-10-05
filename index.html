@@ -1707,7 +1707,11 @@
 
   .chat-messages {
     flex: 1;
+    min-height: 0;
     overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior: contain;
+    touch-action: pan-y;
     padding: 1.25rem;
     display: flex;
     flex-direction: column;
@@ -1744,6 +1748,9 @@
     border: 1px solid var(--hairline);
   }
 
+  .chat-header, .chat-input-wrap { flex-shrink: 0; }
+  /* Con el chat abierto en teléfono, la página de atrás no se mueve */
+  body.chat-locked { position: fixed; left: 0; right: 0; width: 100%; overflow: hidden; }
   .chat-input-wrap {
     border-top: 1px solid var(--hairline);
     padding: 1rem;
@@ -1916,12 +1923,76 @@
     }
 
     // Abrir/Cerrar chat
-    chatFab.addEventListener('click', () => {
-      chatWidget.classList.toggle('open');
+    const isPhone = () => window.matchMedia('(max-width: 600px)').matches;
+    const vv = window.visualViewport;
+    let lockedY = 0;
+    let isLocked = false;
+
+    // En teléfono el chat ocupa exactamente el área visible. Cuando sale el
+    // teclado esa área se achica: sin este ajuste, parte de la conversación
+    // queda debajo del teclado y el dedo mueve la página en vez del chat.
+    function fitToViewport() {
+      if (!chatWidget.classList.contains('open') || !isPhone() || !vv) {
+        chatWidget.style.top = chatWidget.style.bottom = chatWidget.style.height = '';
+        return;
+      }
+      chatWidget.style.top = vv.offsetTop + 'px';
+      chatWidget.style.bottom = 'auto';
+      chatWidget.style.height = vv.height + 'px';
+    }
+    if (vv) {
+      vv.addEventListener('resize', fitToViewport);
+      vv.addEventListener('scroll', fitToViewport);
+    }
+    window.addEventListener('resize', fitToViewport);
+
+    function lockPage() {
+      if (isLocked || !isPhone()) return;
+      lockedY = window.scrollY;
+      document.body.style.top = (-lockedY) + 'px';
+      document.body.classList.add('chat-locked');
+      isLocked = true;
+    }
+    function unlockPage() {
+      if (!isLocked) return;
+      document.body.classList.remove('chat-locked');
+      document.body.style.top = '';
+      const root = document.documentElement;
+      const prev = root.style.scrollBehavior;
+      root.style.scrollBehavior = 'auto';
+      window.scrollTo(0, lockedY);
+      root.style.scrollBehavior = prev;
+      isLocked = false;
+    }
+
+    function openChat() {
+      chatWidget.classList.add('open');
       chatBadge.classList.remove('active');
-      if (chatWidget.classList.contains('open')) chatInput.focus();
+      lockPage();
+      fitToViewport();
+      chatMessages.scrollTop = chatMessages.scrollHeight;
+      // En teléfono no se abre el teclado solo: primero se lee, luego se toca el campo
+      if (!isPhone()) setTimeout(() => { if (chatWidget.classList.contains('open')) chatInput.focus(); }, 320);
+    }
+    function closeChat() {
+      chatWidget.classList.remove('open');
+      chatInput.blur();
+      unlockPage();
+      fitToViewport();
+    }
+    chatFab.addEventListener('click', () => {
+      if (chatWidget.classList.contains('open')) closeChat(); else openChat();
     });
-    chatClose.addEventListener('click', () => chatWidget.classList.remove('open'));
+    chatClose.addEventListener('click', closeChat);
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && chatWidget.classList.contains('open')) closeChat();
+    });
+
+    // Solo se baja sola la conversación si la persona ya estaba al final.
+    // Si subió a leer algo anterior, no se le mueve.
+    function nearBottom() {
+      return chatMessages.scrollHeight - chatMessages.scrollTop - chatMessages.clientHeight < 80;
+    }
 
     // Enviar mensaje: primero el asistente de IA; si falla, respuesta de respaldo
     async function sendMessage() {
@@ -1977,8 +2048,9 @@
     }
 
     function setBubble(bubble, content) {
+      const stick = nearBottom();
       bubble.innerHTML = linkify(escapeHtml(content));
-      chatMessages.scrollTop = chatMessages.scrollHeight;
+      if (stick) chatMessages.scrollTop = chatMessages.scrollHeight;
     }
 
     function addMessageBubble(role, content) {
