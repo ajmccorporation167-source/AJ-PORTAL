@@ -1885,28 +1885,11 @@
       chatSendBtn.disabled = true;
       isLoading = true;
 
-      // Usar respuesta offline inteligente (fallback a API si está disponible)
+      // Usar respuesta offline inteligente
       const smartReply = getSmartResponse(text);
       addMessageBubble('bot', smartReply);
 
       messages.push({ role: 'user', content: text }, { role: 'assistant', content: smartReply });
-
-      // Intentar API en background (no bloquea)
-      fetch(API_URL, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ messages }),
-        signal: AbortSignal.timeout(3000)
-      })
-      .then(res => res.text())
-      .then(apiResponse => {
-        if (apiResponse.trim() && apiResponse.length > 10) {
-          // Reemplazar respuesta con la de la API si es mejor
-          messages[messages.length - 1].content = apiResponse;
-          chatMessages.children[chatMessages.children.length - 1].querySelector('.msg-bubble').textContent = apiResponse;
-        }
-      })
-      .catch(() => {/* silenciosamente, usa la offline */});
 
       chatSendBtn.disabled = false;
       isLoading = false;
