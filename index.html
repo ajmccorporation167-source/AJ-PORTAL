@@ -1123,8 +1123,8 @@
   </div>
 </footer>
 
-<a href="https://wa.me/19394282820" target="_blank" rel="noopener noreferrer" class="fab" aria-label="Escríbenos por WhatsApp">
-  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path></svg>
+<a href="https://wa.me/19394282820" target="_blank" rel="noopener noreferrer" class="fab" aria-label="Escríbenos por WhatsApp" title="WhatsApp">
+  <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38a9.9 9.9 0 0 0 4.74 1.21h.01c5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.82 9.82 0 0 0 12.04 2Zm0 1.67c2.2 0 4.26.86 5.82 2.42a8.2 8.2 0 0 1 2.41 5.82c0 4.54-3.7 8.23-8.24 8.23a8.2 8.2 0 0 1-4.19-1.15l-.3-.18-3.12.82.83-3.04-.2-.31a8.2 8.2 0 0 1-1.26-4.38c0-4.54 3.7-8.23 8.25-8.23Zm-3.4 4.4c-.17 0-.44.06-.67.31-.23.25-.87.85-.87 2.07 0 1.22.89 2.4 1.01 2.57.13.17 1.75 2.67 4.24 3.74.59.26 1.05.41 1.41.52.59.19 1.13.16 1.56.1.48-.07 1.47-.6 1.67-1.18.21-.58.21-1.07.15-1.18-.06-.1-.23-.17-.48-.29-.25-.13-1.47-.73-1.7-.81-.23-.08-.39-.13-.56.12-.17.25-.64.81-.79.98-.14.17-.29.19-.54.06-.25-.12-1.05-.39-2-1.23-.74-.66-1.24-1.47-1.38-1.72-.15-.25-.02-.38.11-.5.11-.11.25-.29.37-.44.13-.14.17-.25.25-.41.08-.17.04-.31-.02-.44-.06-.12-.56-1.35-.77-1.85-.2-.48-.41-.42-.56-.42h-.43Z"/></svg>
 </a>
 
 <script>
@@ -1653,10 +1653,10 @@
 
   .chat-widget {
     position: fixed;
-    bottom: 2rem;
-    right: 2rem;
+    bottom: 6.25rem;
+    right: 1.5rem;
     width: min(400px, 90vw);
-    height: min(600px, 70vh);
+    height: min(600px, calc(100vh - 8.5rem));
     background: var(--corporate-surface);
     border: 1px solid var(--hairline);
     border-radius: 1rem;
@@ -1794,11 +1794,51 @@
   .chat-send:hover { transform: scale(1.05); filter: brightness(1.1); }
   .chat-send:disabled { opacity: 0.5; cursor: not-allowed; }
 
-  .chat-welcome {
-    text-align: center;
-    color: var(--text-muted);
-    padding: 1rem;
-    font-size: 0.85rem;
+  .chat-sub { font-family: 'Inter', sans-serif; font-size: 0.75rem; color: var(--text-muted); margin-top: 0.1rem; }
+  .chat-header-actions { display: flex; align-items: center; gap: 0.25rem; }
+  .chat-reset {
+    background: none; border: none; cursor: pointer;
+    font-family: 'Inter', sans-serif; font-size: 0.78rem; color: var(--text-muted);
+    padding: 0.4rem 0.5rem; border-radius: 0.375rem;
+  }
+  .chat-reset:hover { color: var(--text-high); }
+  .chat-btn:focus-visible, .chat-close:focus-visible, .chat-reset:focus-visible,
+  .chat-send:focus-visible, .chat-chip:focus-visible { outline: 2px solid var(--gold-hover); outline-offset: 2px; }
+
+  /* Sugerencias para empezar */
+  .chat-chips { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+  .chat-chips[hidden], .chat-reset[hidden] { display: none; }
+  .chat-chip {
+    background: transparent;
+    border: 1px solid rgba(197, 160, 89, 0.45);
+    color: var(--text-high);
+    font-family: 'Inter', sans-serif; font-size: 0.82rem; line-height: 1.2;
+    padding: 0.55rem 0.8rem; border-radius: 9999px; cursor: pointer; text-align: left;
+    transition: border-color 0.2s, background-color 0.2s;
+  }
+  .chat-chip:hover { border-color: var(--gold-hover); background: rgba(197, 160, 89, 0.1); }
+
+  /* "Escribiendo..." */
+  .typing-dots { display: inline-flex; gap: 4px; align-items: center; height: 1.2em; }
+  .typing-dots span {
+    width: 6px; height: 6px; border-radius: 50%; background: var(--text-muted);
+    animation: typing-bounce 1.2s ease-in-out infinite;
+  }
+  .typing-dots span:nth-child(2) { animation-delay: 0.15s; }
+  .typing-dots span:nth-child(3) { animation-delay: 0.3s; }
+  @keyframes typing-bounce { 0%, 60%, 100% { opacity: 0.35; transform: translateY(0); } 30% { opacity: 1; transform: translateY(-3px); } }
+
+  .chat-input-group { align-items: flex-end; }
+  textarea.chat-input { resize: none; line-height: 1.4; min-height: 40px; max-height: 120px; overflow-y: auto; display: block; }
+  .chat-note { font-family: 'Inter', sans-serif; font-size: 0.68rem; color: var(--text-muted); text-align: center; margin-top: 0.5rem; line-height: 1.35; }
+  .msg.bot .msg-bubble a { word-break: break-word; }
+  .msg-bubble a.nw { white-space: nowrap; }
+  .chat-widget.compact .chat-note, .chat-widget.compact .chat-sub { display: none; }
+  .chat-widget.compact .chat-header { padding-top: 0.6rem; padding-bottom: 0.6rem; }
+  .msg.user .msg-bubble a { color: var(--corporate-dark); }
+
+  @media (prefers-reduced-motion: reduce) {
+    .chat-widget, .msg, .typing-dots span, .chat-btn { animation: none !important; transition: none !important; }
   }
 
   /* Telefono: los dos botones flotantes se apilan (antes el de WhatsApp tapaba al del chat) */
@@ -1823,6 +1863,9 @@
     }
     .chat-header { padding-top: calc(1rem + env(safe-area-inset-top)); }
     .chat-close { width: 44px; height: 44px; font-size: 22px; }
+    .chat-reset { min-height: 44px; }
+    .chat-chip { font-size: 0.88rem; padding: 0.65rem 0.9rem; }
+    textarea.chat-input { min-height: 44px; }
     .chat-input-wrap { padding-bottom: calc(1rem + env(safe-area-inset-bottom)); }
     /* 16px evita que iOS haga zoom al tocar el campo */
     .chat-input { font-size: 16px; }
@@ -1833,32 +1876,53 @@
 
 <!-- Chat Widget HTML -->
 <div class="chat-fab">
-  <button class="chat-btn" id="chatFab" aria-label="Abrir chat">💬</button>
-  <div class="chat-badge" id="chatBadge">1</div>
+  <button class="chat-btn" id="chatFab" type="button" aria-label="Abrir chat con el asistente" title="Chat con el asistente" aria-expanded="false" aria-controls="chatWidget">
+    <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12a8 8 0 0 1-11.6 7.1L4 20.5l1.4-4.6A8 8 0 1 1 21 12Z"/><circle cx="9" cy="12" r=".6" fill="currentColor"/><circle cx="13" cy="12" r=".6" fill="currentColor"/><circle cx="17" cy="12" r=".6" fill="currentColor"/></svg>
+  </button>
+  <div class="chat-badge" id="chatBadge" aria-hidden="true">1</div>
 </div>
 
-<div class="chat-widget" id="chatWidget">
+<div class="chat-widget" id="chatWidget" role="dialog" aria-label="Chat con el asistente de AJCM" aria-hidden="true">
   <div class="chat-header">
-    <h2 class="chat-title">Preguntas sobre AJCM</h2>
-    <button class="chat-close" id="chatClose" aria-label="Cerrar chat">✕</button>
+    <div>
+      <h2 class="chat-title">Preguntas sobre AJCM</h2>
+      <p class="chat-sub">Asistente virtual</p>
+    </div>
+    <div class="chat-header-actions">
+      <button class="chat-reset" id="chatReset" type="button" hidden>Borrar</button>
+      <button class="chat-close" id="chatClose" type="button" aria-label="Cerrar chat">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+    </div>
   </div>
-  <div class="chat-messages" id="chatMessages">
+  <div class="chat-messages" id="chatMessages" role="log" aria-live="polite">
     <div class="msg bot">
       <div class="msg-bubble">Hola, soy el asistente de AJCM. Cuéntame qué necesita tu empresa y te oriento.</div>
+    </div>
+    <div class="chat-chips" id="chatChips">
+      <button type="button" class="chat-chip">¿Qué servicios ofrecen?</button>
+      <button type="button" class="chat-chip">¿Cuánto cuesta?</button>
+      <button type="button" class="chat-chip">Tengo una situación urgente</button>
+      <button type="button" class="chat-chip">Quiero agendar una consulta</button>
     </div>
   </div>
   <div class="chat-input-wrap">
     <div class="chat-input-group">
-      <input
-        type="text"
+      <textarea
         class="chat-input"
         id="chatInput"
+        rows="1"
         placeholder="Escribe tu pregunta..."
         aria-label="Mensaje"
         maxlength="2000"
-      />
-      <button class="chat-send" id="chatSendBtn" aria-label="Enviar">➤</button>
+        enterkeyhint="send"
+        autocomplete="off"
+      ></textarea>
+      <button class="chat-send" id="chatSendBtn" type="button" aria-label="Enviar">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="13 6 19 12 13 18"/></svg>
+      </button>
     </div>
+    <p class="chat-note">Asistente con inteligencia artificial. Orienta, pero no sustituye una consulta.</p>
   </div>
 </div>
 
@@ -1877,6 +1941,31 @@
 
     let messages = [];
     let isLoading = false;
+    const chatChips = document.getElementById('chatChips');
+    const chatReset = document.getElementById('chatReset');
+    const STORE_KEY = 'ajcm_chat_v1';
+
+    // La conversación se conserva si la persona recarga la página (se borra al cerrar la pestaña)
+    function saveChat() {
+      try { sessionStorage.setItem(STORE_KEY, JSON.stringify(messages.slice(-40))); } catch (e) { /* almacenamiento no disponible */ }
+    }
+    function loadChat() {
+      try {
+        const saved = JSON.parse(sessionStorage.getItem(STORE_KEY) || '[]');
+        if (!Array.isArray(saved)) return;
+        saved.forEach(function (m) {
+          if (!m || typeof m.content !== 'string' || (m.role !== 'user' && m.role !== 'assistant')) return;
+          messages.push({ role: m.role, content: m.content });
+          addMessageBubble(m.role === 'user' ? 'user' : 'bot', m.content);
+        });
+      } catch (e) { /* datos dañados: se empieza de cero */ }
+      syncStartState();
+    }
+    function syncStartState() {
+      const started = messages.length > 0;
+      if (chatChips) chatChips.hidden = started;
+      if (chatReset) chatReset.hidden = !started;
+    }
 
     // Respuestas de respaldo: solo se usan si el asistente de IA no responde
     const CAL = 'https://calendar.app.google/vEu1C9fPBmbVUhWY7';
@@ -1934,8 +2023,11 @@
     function fitToViewport() {
       if (!chatWidget.classList.contains('open') || !isPhone() || !vv) {
         chatWidget.style.top = chatWidget.style.bottom = chatWidget.style.height = '';
+        chatWidget.classList.remove('compact');
         return;
       }
+      // Con el teclado abierto se esconden los textos secundarios para dejar más conversación a la vista
+      chatWidget.classList.toggle('compact', vv.height < 480);
       chatWidget.style.top = vv.offsetTop + 'px';
       chatWidget.style.bottom = 'auto';
       chatWidget.style.height = vv.height + 'px';
@@ -1967,6 +2059,8 @@
 
     function openChat() {
       chatWidget.classList.add('open');
+      chatWidget.setAttribute('aria-hidden', 'false');
+      chatFab.setAttribute('aria-expanded', 'true');
       chatBadge.classList.remove('active');
       lockPage();
       fitToViewport();
@@ -1976,6 +2070,8 @@
     }
     function closeChat() {
       chatWidget.classList.remove('open');
+      chatWidget.setAttribute('aria-hidden', 'true');
+      chatFab.setAttribute('aria-expanded', 'false');
       chatInput.blur();
       unlockPage();
       fitToViewport();
@@ -1995,17 +2091,21 @@
     }
 
     // Enviar mensaje: primero el asistente de IA; si falla, respuesta de respaldo
-    async function sendMessage() {
-      const text = chatInput.value.trim().slice(0, 2000);
+    async function sendMessage(preset) {
+      const text = (typeof preset === 'string' ? preset : chatInput.value).trim().slice(0, 2000);
       if (!text || isLoading) return;
 
-      chatInput.value = '';
+      if (typeof preset !== 'string') { chatInput.value = ''; autoGrow(); }
       addMessageBubble('user', text);
       messages.push({ role: 'user', content: text });
+      syncStartState();
+      saveChat();
       chatSendBtn.disabled = true;
       isLoading = true;
 
-      const bubble = addMessageBubble('bot', '…');
+      const bubble = addMessageBubble('bot', '');
+      bubble.innerHTML = '<span class="typing-dots" role="status" aria-label="El asistente está escribiendo"><span></span><span></span><span></span></span>';
+      chatMessages.scrollTop = chatMessages.scrollHeight;
       let reply = '';
       const controller = new AbortController();
       const timer = setTimeout(() => controller.abort(), 25000);
@@ -2042,6 +2142,7 @@
 
       setBubble(bubble, reply);
       messages.push({ role: 'assistant', content: reply });
+      saveChat();
       chatSendBtn.disabled = false;
       isLoading = false;
       if (window.matchMedia('(min-width: 601px)').matches) chatInput.focus();
@@ -2068,21 +2169,49 @@
       });
     }
 
-    // Convierte URLs (ya escapadas) en enlaces que se pueden tocar
+    // Convierte enlaces, correos y el teléfono de AJCM (texto ya escapado) en algo que se puede tocar
+    const LINK_RE = /(https?:\/\/[^\s<>"'`]+[^\s<>"'`.,;:!?)])|([A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,})|(\+?1?[ -]?\(?939\)?[ -]?428[ -]?2820)/g;
     function linkify(html) {
-      return html.replace(/https?:\/\/[^\s<>"'`]+[^\s<>"'`.,;:!?)]/g, function (url) {
-        if (/&(quot|#39|lt|gt);/.test(url)) return url;
-        return '<a href="' + url + '" target="_blank" rel="noopener noreferrer">' + url + '</a>';
+      return html.replace(LINK_RE, function (m, url, mail, tel) {
+        if (/&(quot|#39|lt|gt);/.test(m)) return m;
+        if (url) return '<a href="' + url + '" target="_blank" rel="noopener noreferrer">' + url + '</a>';
+        if (mail) return '<a href="mailto:' + mail + '">' + mail + '</a>';
+        return '<a class="nw" href="https://wa.me/19394282820" target="_blank" rel="noopener noreferrer">' + tel + '</a>';
       });
     }
 
-    chatSendBtn.addEventListener('click', sendMessage);
-    chatInput.addEventListener('keypress', e => {
-      if (e.key === 'Enter' && !e.shiftKey) {
+    // El campo crece con el texto, hasta unas 4 líneas
+    function autoGrow() {
+      chatInput.style.height = 'auto';
+      chatInput.style.height = Math.min(chatInput.scrollHeight, 120) + 'px';
+    }
+    chatInput.addEventListener('input', autoGrow);
+
+    chatSendBtn.addEventListener('click', () => sendMessage());
+    chatInput.addEventListener('keydown', e => {
+      // Enter envía; Shift+Enter hace salto de línea. No se envía a mitad de una composición (acentos, autocorrector)
+      if (e.key === 'Enter' && !e.shiftKey && !e.isComposing && e.keyCode !== 229) {
         e.preventDefault();
         sendMessage();
       }
     });
+    if (chatChips) {
+      chatChips.addEventListener('click', e => {
+        const chip = e.target.closest('.chat-chip');
+        if (chip) sendMessage(chip.textContent);
+      });
+    }
+    if (chatReset) {
+      chatReset.addEventListener('click', () => {
+        if (isLoading) return;
+        messages = [];
+        try { sessionStorage.removeItem(STORE_KEY); } catch (e) { /* sin almacenamiento */ }
+        chatMessages.querySelectorAll('.msg').forEach((m, idx) => { if (idx > 0) m.remove(); });
+        syncStartState();
+        chatMessages.scrollTop = 0;
+      });
+    }
+    loadChat();
   })();
 </script>
 
