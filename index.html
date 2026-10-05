@@ -1836,6 +1836,36 @@
     let messages = [];
     let isLoading = false;
 
+    // Knowledge base sobre AJCM
+    const AJCM_KB = {
+      auditorias: "Las auditorías de cumplimiento laboral mapean riesgos, identifican brechas normativas en Puerto Rico y ante el Departamento del Trabajo. Incluye revisión de expedientes, clasificación de empleados (exentos vs no exentos) y protocolos de nómina. El resultado es un reporte ejecutivo con pasos de acción inmediatos.",
+      manuales: "Los manuales y políticas corporativas son el ADN de tu cultura. Diseñamos handbooks a medida con políticas de hostigamiento, uso de tecnología, gestión de licencias y disciplina progresiva. Todo actualizado a las leyes de Puerto Rico.",
+      relaciones: "Asesoría en relaciones obrero-patronales: contratación estratégica, periodos probatorios, clasificación FLSA, despidos bajo Ley 80 y mediación de conflictos. Te guiamos sin riesgos legales.",
+      nomina: "Optimización de nómina y capacitación directiva. Estructuramos compensación eficiente, formamos supervisores en disciplina progresiva y evaluación de desempeño. Reducimos rotación y errores legales.",
+      contacto: "Puedes contactar a Alexis en:\n📞 +1 939-428-2820\n💬 WhatsApp: https://wa.me/19394282820\n📅 Agendar: https://calendar.app.google/vEu1C9fPBmbVUhWY7\n💼 LinkedIn: https://www.linkedin.com/in/alexis-mercado-58899b395",
+      alexis: "Alexis Joel Mercado Colón es graduado en Administración de Empresas con concentración en Recursos Humanos por la Universidad de Puerto Rico. Fundó AJCM RRHH Consulting combinando conocimiento local normativo con un enfoque práctico y tecnológico para PYMES en Puerto Rico.",
+      precio: "Los modelos de tarificación son flexibles: proyecto puntual o retención mensual. La tarifa se define según el alcance durante la consulta inicial. Contacta para una evaluación gratuita.",
+      metodologia: "La metodología tiene 4 pasos:\n1️⃣ Diagnóstico\n2️⃣ Diseño Normativo\n3️⃣ Implementación\n4️⃣ Soporte Continuo\nEsto asegura un blindaje legal completo."
+    };
+
+    function getSmartResponse(userText) {
+      const lower = userText.toLowerCase();
+
+      // Palabras clave inteligentes
+      if (lower.includes('auditoria') || lower.includes('auditoría')) return AJCM_KB.auditorias;
+      if (lower.includes('manual') || lower.includes('política') || lower.includes('handbook')) return AJCM_KB.manuales;
+      if (lower.includes('relacion') || lower.includes('contratacion') || lower.includes('despido') || lower.includes('ley 80')) return AJCM_KB.relaciones;
+      if (lower.includes('nomina') || lower.includes('nómina') || lower.includes('capacitacion') || lower.includes('supervisor')) return AJCM_KB.nomina;
+      if (lower.includes('contacto') || lower.includes('llamar') || lower.includes('whatsapp') || lower.includes('email') || lower.includes('agendar')) return AJCM_KB.contacto;
+      if (lower.includes('alexis') || lower.includes('quien') || lower.includes('perfil') || lower.includes('sobre ti') || lower.includes('acerca')) return AJCM_KB.alexis;
+      if (lower.includes('precio') || lower.includes('costo') || lower.includes('tarifa') || lower.includes('cuanto cuesta')) return AJCM_KB.precio;
+      if (lower.includes('metodologia') || lower.includes('proceso') || lower.includes('pasos')) return AJCM_KB.metodologia;
+      if (lower.includes('hola') || lower.includes('hey') || lower.includes('ayuda') || lower.includes('que')) return "¡Hola! 👋 Soy el asistente de AJCM.\n\nPuedo ayudarte con:\n🔍 Auditorías de cumplimiento\n📋 Manuales corporativos\n👥 Relaciones laborales\n💰 Nómina y capacitación\n📞 Contactar a Alexis\n\n¿Con qué te puedo ayudar?";
+
+      // Default response
+      return "No entendí bien. Pregúntame sobre auditorías, manuales, relaciones laborales, nómina, o cómo contactar a Alexis. 🤔";
+    }
+
     // Abrir/Cerrar chat
     chatFab.addEventListener('click', () => {
       chatWidget.classList.toggle('open');
@@ -1851,31 +1881,36 @@
 
       // Mensaje del usuario
       chatInput.value = '';
-      messages.push({ role: 'user', content: text });
       addMessageBubble('user', text);
       chatSendBtn.disabled = true;
       isLoading = true;
 
-      // Llamar a la API
+      // Usar respuesta offline inteligente (fallback a API si está disponible)
+      const smartReply = getSmartResponse(text);
+      addMessageBubble('bot', smartReply);
+
+      messages.push({ role: 'user', content: text }, { role: 'assistant', content: smartReply });
+
+      // Intentar API en background (no bloquea)
       fetch(API_URL, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ messages })
+        body: JSON.stringify({ messages }),
+        signal: AbortSignal.timeout(3000)
       })
       .then(res => res.text())
-      .then(text => {
-        messages.push({ role: 'assistant', content: text });
-        addMessageBubble('bot', text);
+      .then(apiResponse => {
+        if (apiResponse.trim() && apiResponse.length > 10) {
+          // Reemplazar respuesta con la de la API si es mejor
+          messages[messages.length - 1].content = apiResponse;
+          chatMessages.children[chatMessages.children.length - 1].querySelector('.msg-bubble').textContent = apiResponse;
+        }
       })
-      .catch(err => {
-        console.error(err);
-        addMessageBubble('bot', 'Disculpa, hubo un error. Intenta nuevamente.');
-      })
-      .finally(() => {
-        chatSendBtn.disabled = false;
-        isLoading = false;
-        chatInput.focus();
-      });
+      .catch(() => {/* silenciosamente, usa la offline */});
+
+      chatSendBtn.disabled = false;
+      isLoading = false;
+      chatInput.focus();
     }
 
     function addMessageBubble(role, content) {
