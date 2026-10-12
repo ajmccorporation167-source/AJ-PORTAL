@@ -40,6 +40,8 @@
     --text-high: #F8F9FA;
     --text-muted: #AEB9CE;
     --hairline: rgba(197, 160, 89, 0.12);
+    --cream: #F2EBDD;
+    --navy-light: #1E2A47;
   }
 
   * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -435,30 +437,98 @@
     color: var(--gold-hover);
   }
 
-  /* ---------- Metodología ---------- */
-  .steps-grid {
+  /* ---------- Metodología (mosaico) ---------- */
+  .metodo-mosaic {
     display: grid;
     grid-template-columns: 1fr;
-    gap: 2rem;
-    text-align: center;
+    gap: 0;
+    border-radius: 4px;
+    overflow: hidden;
   }
-  @media (min-width: 640px) {
-    .steps-grid { grid-template-columns: 1fr 1fr; }
+  @media (min-width: 760px) {
+    .metodo-mosaic { grid-template-columns: 1.15fr 1fr; }
+    .mm-title { grid-column: 1 / -1; }
+    .mm-1 { grid-column: 1; grid-row: 2 / 4; }
+    .mm-2 { grid-column: 2; grid-row: 2; }
+    .mm-3 { grid-column: 2; grid-row: 3; }
+    .mm-4 { grid-column: 1 / -1; }
   }
-  @media (min-width: 900px) {
-    .steps-grid { grid-template-columns: repeat(4, 1fr); }
+  .mm-cell {
+    padding: clamp(1.5rem, 3.5vw, 2.5rem);
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
   }
-  .step-number {
+  .mm-num {
+    font-family: 'Cinzel', serif;
+    font-size: 0.74rem;
+    letter-spacing: 0.24em;
+    opacity: 0.65;
+    margin-bottom: auto;
+    padding-bottom: 2.25rem;
+  }
+  .mm-cell h3 {
     font-family: 'Playfair Display', serif;
-    font-size: 2.5rem;
     font-weight: 700;
-    color: rgba(197, 160, 89, 0.3);
+    font-size: clamp(1.25rem, 2.6vw, 1.7rem);
+    margin: 0 0 0.4rem;
+    line-height: 1.15;
+    text-wrap: balance;
   }
-  .step-title { margin-top: 0.5rem; font-size: 1.1rem; }
+  .mm-cell p {
+    margin: 0;
+    font-size: 0.88rem;
+    line-height: 1.55;
+    opacity: 0.82;
+    max-width: 46ch;
+  }
+  .mm-title {
+    background: var(--corporate-surface);
+    color: var(--text-high);
+    justify-content: center;
+    padding-block: clamp(2.25rem, 5vw, 3.5rem);
+  }
+  .mm-title h2 {
+    font-family: 'Playfair Display', serif;
+    font-weight: 700;
+    font-size: clamp(1.75rem, 4.5vw, 2.75rem);
+    margin: 0 0 0.5rem;
+    line-height: 1;
+  }
+  .mm-title .mm-sub {
+    font-family: 'Cinzel', serif;
+    font-size: 0.72rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    opacity: 0.8;
+  }
+  .mm-1 { background: var(--corporate-dark); color: var(--text-high); min-height: 220px; }
+  .mm-2 { background: var(--gold-base); color: var(--corporate-dark); min-height: 150px; }
+  .mm-3 { background: var(--cream); color: var(--corporate-dark); min-height: 150px; }
+  .mm-4 { background: var(--navy-light); color: var(--text-high); min-height: 150px; }
 
   /* ---------- Perfil ---------- */
-  .trust-section { max-width: 44rem; margin: 0 auto; text-align: center; }
-  .trust-section p { color: var(--text-muted); }
+  .perfil-band {
+    background: var(--navy-light);
+    color: var(--text-high);
+    border-radius: 4px;
+    text-align: center;
+    padding: clamp(2rem, 4.5vw, 3rem) clamp(1.5rem, 3.5vw, 2.5rem);
+  }
+  .perfil-band h2 {
+    font-family: 'Playfair Display', serif;
+    font-weight: 700;
+    font-size: clamp(1.5rem, 3.6vw, 2.2rem);
+    margin: 0 0 0.6rem;
+    text-wrap: balance;
+  }
+  .perfil-band .perfil-role {
+    font-family: 'Cinzel', serif;
+    font-size: 0.72rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    opacity: 0.72;
+  }
 
   /* ---------- FAQ ---------- */
   .faq-list { max-width: 44rem; margin: 0 auto; display: flex; flex-direction: column; gap: 0.75rem; }
@@ -964,20 +1034,41 @@
   <section id="metodologia" class="section-alt">
     <div class="parallax-layer" data-speed="0.18" aria-hidden="true"></div>
     <div class="container">
-      <h2 class="section-title reveal reveal-text"><span class="rt-inner">Metodología</span></h2>
-      <div class="steps-grid">
-        <div class="reveal"><div class="step-number">01</div><div class="step-title">Diagnóstico</div></div>
-        <div class="reveal reveal-d1"><div class="step-number">02</div><div class="step-title">Diseño Normativo</div></div>
-        <div class="reveal reveal-d2"><div class="step-number">03</div><div class="step-title">Implementación</div></div>
-        <div class="reveal reveal-d3"><div class="step-number">04</div><div class="step-title">Soporte Continuo</div></div>
+      <div class="metodo-mosaic reveal">
+        <div class="mm-cell mm-title">
+          <h2>Metodología</h2>
+          <div class="mm-sub">Cuatro etapas · AJCM RRHH Consulting</div>
+        </div>
+        <div class="mm-cell mm-1">
+          <span class="mm-num">01</span>
+          <h3>Diagnóstico</h3>
+          <p>Expedientes, nómina y clasificación de empleados. Dónde está el riesgo real antes de tocar nada.</p>
+        </div>
+        <div class="mm-cell mm-2">
+          <span class="mm-num">02</span>
+          <h3>Diseño Normativo</h3>
+          <p>Manual y políticas escritas para tu operación.</p>
+        </div>
+        <div class="mm-cell mm-3">
+          <span class="mm-num">03</span>
+          <h3>Implementación</h3>
+          <p>Del documento al día a día del supervisor.</p>
+        </div>
+        <div class="mm-cell mm-4">
+          <span class="mm-num">04</span>
+          <h3>Soporte Continuo</h3>
+          <p>Acompañamiento cuando cambia la ley o crece la plantilla.</p>
+        </div>
       </div>
     </div>
   </section>
 
   <section id="perfil">
-    <div class="container trust-section">
-      <h2 class="section-title reveal reveal-text" style="margin-bottom:1.5rem;"><span class="rt-inner">Sobre Alexis Joel Mercado Colón</span></h2>
-      <p class="reveal reveal-d1">Formación en Administración de Empresas con concentración en Recursos Humanos por la Universidad de Puerto Rico, combinada con experiencia directa en coordinación financiera y administrativa en organizaciones de Puerto Rico. AJCM RRHH Consulting nace de esa base: conocimiento cercano de la normativa laboral local y un enfoque práctico y tecnológico, pensado para las necesidades reales de las PYMES — sin la burocracia ni el costo de las grandes agencias.</p>
+    <div class="container">
+      <div class="perfil-band reveal">
+        <h2>Alexis Joel Mercado Colón</h2>
+        <div class="perfil-role">Consultor de Recursos Humanos · Puerto Rico</div>
+      </div>
     </div>
   </section>
 
@@ -986,6 +1077,14 @@
     <div class="container">
       <h2 class="section-title reveal reveal-text"><span class="rt-inner">Preguntas Frecuentes</span></h2>
       <div class="faq-list reveal" id="faqList">
+
+        <div class="faq-item">
+          <button class="faq-question">
+            <span>¿Quién trabajará mi caso?</span>
+            <svg class="chevron" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg>
+          </button>
+          <p class="faq-answer">Alexis Joel Mercado Colón, directamente. Formación en Administración de Empresas con concentración en Recursos Humanos por la Universidad de Puerto Rico, combinada con experiencia directa en coordinación financiera y administrativa en organizaciones de Puerto Rico. AJCM RRHH Consulting nace de esa base: conocimiento cercano de la normativa laboral local y un enfoque práctico y tecnológico, pensado para las necesidades reales de las PYMES, sin la burocracia ni el costo de las grandes agencias.</p>
+        </div>
 
         <div class="faq-item">
           <button class="faq-question">
