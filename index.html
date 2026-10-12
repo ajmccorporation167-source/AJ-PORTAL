@@ -2,7 +2,7 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>AJCM | RRHH Consulting — Cumplimiento Laboral en Puerto Rico</title>
 <meta name="description" content="Protección jurídico-laboral y optimización de talento para empresas en Puerto Rico. Auditorías de cumplimiento, manuales corporativos y relaciones obrero-patronales sin la burocracia de las grandes agencias.">
 <meta name="robots" content="index, follow">
@@ -46,7 +46,7 @@
 
   * { box-sizing: border-box; margin: 0; padding: 0; }
 
-  html { scroll-behavior: smooth; }
+  html { scroll-behavior: smooth; scroll-padding-top: 5rem; }
 
   body {
     background-color: var(--corporate-dark);
@@ -98,6 +98,7 @@
     backdrop-filter: blur(6px);
     border-bottom: 1px solid rgba(197, 160, 89, 0.1);
     transition: box-shadow 0.3s ease, border-color 0.3s ease;
+    padding-top: env(safe-area-inset-top, 0px);
   }
   header.scrolled {
     box-shadow: 0 8px 24px rgba(0,0,0,0.25);
@@ -240,6 +241,7 @@
   #portada-intro {
     position: relative;
     height: 100vh;
+    height: 100svh;
     width: 100%;
     padding: 0;
     background: var(--corporate-dark);
@@ -530,46 +532,79 @@
     opacity: 0.72;
   }
 
-  /* ---------- FAQ ---------- */
-  .faq-list { max-width: 44rem; margin: 0 auto; display: flex; flex-direction: column; gap: 0.75rem; }
-  .faq-item {
-    border: 1px solid rgba(197, 160, 89, 0.2);
-    border-radius: 0.5rem;
-    background: var(--corporate-dark);
-    overflow: hidden;
-  }
-  .faq-question {
-    width: 100%;
+  /* ---------- FAQ (diapositivas con scroll horizontal propio) ---------- */
+  .faqd { position: relative; max-width: 60rem; margin: 0 auto; }
+  .faqd-track {
     display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 1rem;
-    background: none;
-    border: none;
-    color: var(--text-high);
-    font-family: 'Inter', sans-serif;
-    font-size: 0.95rem;
-    font-weight: 500;
-    text-align: left;
-    padding: 1rem 1.25rem;
-    cursor: pointer;
+    overflow-x: auto;
+    overflow-y: hidden;
+    scroll-snap-type: x mandatory;
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior-x: contain;
+    scrollbar-width: none;
+    border-radius: 4px;
   }
-  .faq-question .chevron {
-    flex-shrink: 0;
-    transition: transform 0.2s;
-    color: var(--gold-base);
+  .faqd-track::-webkit-scrollbar { display: none; }
+  .faqd-slide { flex: 0 0 100%; scroll-snap-align: start; min-width: 0; }
+
+  .faqd-card { display: flex; flex-direction: column; min-height: clamp(360px, 46vw, 460px); }
+  .faqd-main {
+    flex: 1 1 auto; position: relative;
+    padding: clamp(2rem, 5vw, 3.75rem) clamp(1.5rem, 5vw, 4rem);
+    display: flex; flex-direction: column; justify-content: center; align-items: center;
+    text-align: center; min-width: 0;
   }
-  .faq-item.open .chevron { transform: rotate(180deg); }
-  .faq-answer {
-    max-height: 0;
-    overflow: hidden;
-    padding: 0 1.25rem;
-    font-size: 0.9rem;
-    color: var(--text-muted);
-    line-height: 1.6;
-    transition: max-height 0.4s ease, padding 0.4s ease;
+  .faqd-num {
+    position: absolute; top: clamp(1rem, 2.5vw, 1.6rem); right: clamp(1rem, 2.5vw, 1.6rem);
+    font-family: 'Cinzel', serif; font-size: 0.72rem; letter-spacing: 0.2em; opacity: 0.55;
+    font-variant-numeric: tabular-nums;
   }
-  .faq-item.open .faq-answer { padding: 0 1.25rem 1rem; }
+  .faqd-q {
+    font-family: 'Playfair Display', serif; font-weight: 700;
+    font-size: clamp(1.6rem, 4.6vw, 3.1rem); line-height: 1.14; margin: 0;
+    max-width: 20ch; text-wrap: balance;
+  }
+  .faqd-q .accent { color: var(--gold-base); }
+  .faqd-foot {
+    flex: 0 0 auto; background: var(--cream); color: var(--corporate-dark);
+    padding: clamp(1.4rem, 3vw, 2.1rem) clamp(1.5rem, 4vw, 3rem);
+    display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between;
+    gap: 0.75rem 2rem;
+  }
+  .faqd-note { font-size: clamp(1rem, 1.7vw, 1.3rem); line-height: 1.5; max-width: 54ch; min-width: 0; margin: 0; }
+  .faqd-brand { font-family: 'Cinzel', serif; font-size: 0.72rem; letter-spacing: 0.18em; opacity: 0.6; white-space: nowrap; }
+
+  /* Rotación de color, solo colores de marca */
+  .faqd-s1 .faqd-main { background: var(--corporate-dark); color: var(--text-high); }
+  .faqd-s2 .faqd-main { background: var(--gold-base); color: var(--corporate-dark); }
+  .faqd-s2 .faqd-q .accent { color: var(--corporate-surface); }
+  .faqd-s3 .faqd-main { background: var(--corporate-surface); color: var(--text-high); }
+  .faqd-s4 .faqd-main { background: var(--cream); color: var(--corporate-dark); }
+  .faqd-s4 .faqd-q .accent { color: var(--corporate-surface); }
+  .faqd-s4 .faqd-foot { background: var(--corporate-dark); color: var(--text-high); }
+  .faqd-s5 .faqd-main { background: var(--navy-light); color: var(--text-high); }
+
+  .faqd-bar { display: flex; align-items: center; gap: 1rem; margin-top: 1rem; }
+  .faqd-dots { display: flex; gap: 0.4rem; flex: 1 1 auto; }
+  .faqd-dots button {
+    width: 26px; height: 4px; border: none; border-radius: 2px; padding: 0; cursor: pointer;
+    background: rgba(197, 160, 89, 0.25); transition: background 0.2s;
+  }
+  .faqd-dots button[aria-current="true"] { background: var(--gold-base); }
+  .faqd-dots button:focus-visible { outline: 2px solid var(--gold-hover); outline-offset: 3px; }
+  .faqd-counter { font-family: 'Cinzel', serif; font-size: 0.74rem; letter-spacing: 0.16em; color: var(--text-muted); flex: 0 0 auto; font-variant-numeric: tabular-nums; }
+  .faqd-arrows { display: flex; gap: 0.5rem; flex: 0 0 auto; }
+  .faqd-arrows button {
+    width: 40px; height: 40px; border-radius: 50%; cursor: pointer;
+    border: 1px solid rgba(197, 160, 89, 0.35); background: transparent; color: var(--gold-base);
+    display: grid; place-items: center; transition: background-color 0.18s, color 0.18s, border-color 0.18s;
+  }
+  .faqd-arrows button:hover:not(:disabled) { background: var(--gold-base); color: var(--corporate-dark); border-color: var(--gold-base); }
+  .faqd-arrows button:disabled { opacity: 0.3; cursor: default; }
+  .faqd-arrows button:focus-visible { outline: 2px solid var(--gold-hover); outline-offset: 2px; }
+  .faqd-hint { margin-top: 0.75rem; font-size: 0.76rem; color: var(--text-muted); text-align: center; }
+  @media (prefers-reduced-motion: reduce) { .faqd-track { scroll-behavior: auto; } }
 
   /* ---------- Campos flotantes premium ---------- */
   .float-field { position: relative; margin-bottom: 1.25rem; }
@@ -1076,48 +1111,86 @@
     <div class="parallax-layer" data-speed="0.18" aria-hidden="true"></div>
     <div class="container">
       <h2 class="section-title reveal reveal-text"><span class="rt-inner">Preguntas Frecuentes</span></h2>
-      <div class="faq-list reveal" id="faqList">
 
-        <div class="faq-item">
-          <button class="faq-question">
-            <span>¿Quién trabajará mi caso?</span>
-            <svg class="chevron" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg>
-          </button>
-          <p class="faq-answer">Alexis Joel Mercado Colón, directamente. Formación en Administración de Empresas con concentración en Recursos Humanos por la Universidad de Puerto Rico, combinada con experiencia directa en coordinación financiera y administrativa en organizaciones de Puerto Rico. AJCM RRHH Consulting nace de esa base: conocimiento cercano de la normativa laboral local y un enfoque práctico y tecnológico, pensado para las necesidades reales de las PYMES, sin la burocracia ni el costo de las grandes agencias.</p>
+      <div class="faqd reveal" id="faqDeck">
+        <div class="faqd-track" tabindex="0" role="group" aria-label="Preguntas frecuentes, se recorren de izquierda a derecha">
+
+          <article class="faqd-slide faqd-s1">
+            <div class="faqd-card">
+              <div class="faqd-main">
+                <span class="faqd-num">01 / 05</span>
+                <p class="faqd-q">¿Quién trabajará <span class="accent">tu caso</span>?</p>
+              </div>
+              <div class="faqd-foot">
+                <p class="faqd-note">Alexis Mercado, directamente. Un solo consultor responsable del expediente, de principio a fin.</p>
+                <span class="faqd-brand">AJCM RRHH Consulting.</span>
+              </div>
+            </div>
+          </article>
+
+          <article class="faqd-slide faqd-s2">
+            <div class="faqd-card">
+              <div class="faqd-main">
+                <span class="faqd-num">02 / 05</span>
+                <p class="faqd-q">¿Cuánto <span class="accent">toma</span> un proyecto?</p>
+              </div>
+              <div class="faqd-foot">
+                <p class="faqd-note">El cronograma se define en el Diagnóstico, antes de comenzar, según el alcance y el tamaño de la empresa.</p>
+                <span class="faqd-brand">AJCM RRHH Consulting.</span>
+              </div>
+            </div>
+          </article>
+
+          <article class="faqd-slide faqd-s3">
+            <div class="faqd-card">
+              <div class="faqd-main">
+                <span class="faqd-num">03 / 05</span>
+                <p class="faqd-q">¿Trabajan fuera de <span class="accent">San Juan</span> y Bayamón?</p>
+              </div>
+              <div class="faqd-foot">
+                <p class="faqd-note">Toda la isla. Reuniones remotas o presenciales, según la necesidad de la empresa.</p>
+                <span class="faqd-brand">AJCM RRHH Consulting.</span>
+              </div>
+            </div>
+          </article>
+
+          <article class="faqd-slide faqd-s4">
+            <div class="faqd-card">
+              <div class="faqd-main">
+                <span class="faqd-num">04 / 05</span>
+                <p class="faqd-q">¿Cómo manejan la <span class="accent">confidencialidad</span>?</p>
+              </div>
+              <div class="faqd-foot">
+                <p class="faqd-note">Estricta confidencialidad. Casos, nombres de empleados y datos sensibles nunca se exponen en canales públicos.</p>
+                <span class="faqd-brand">AJCM RRHH Consulting.</span>
+              </div>
+            </div>
+          </article>
+
+          <article class="faqd-slide faqd-s5">
+            <div class="faqd-card">
+              <div class="faqd-main">
+                <span class="faqd-num">05 / 05</span>
+                <p class="faqd-q">¿Cobran por proyecto o por <span class="accent">retención</span>?</p>
+              </div>
+              <div class="faqd-foot">
+                <p class="faqd-note">Ambos modelos. La tarifa se define según el alcance durante la consulta inicial.</p>
+                <span class="faqd-brand">AJCM RRHH Consulting.</span>
+              </div>
+            </div>
+          </article>
+
         </div>
 
-        <div class="faq-item">
-          <button class="faq-question">
-            <span>¿Cuánto tiempo toma un proyecto de auditoría o manual corporativo?</span>
-            <svg class="chevron" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg>
-          </button>
-          <p class="faq-answer">El tiempo de entrega depende del alcance y tamaño de la empresa. Durante la etapa de Diagnóstico se define un cronograma específico para tu caso antes de comenzar cualquier trabajo.</p>
+        <div class="faqd-bar">
+          <div class="faqd-dots" role="tablist" aria-label="Ir a pregunta"></div>
+          <span class="faqd-counter"></span>
+          <div class="faqd-arrows">
+            <button type="button" data-dir="-1" aria-label="Pregunta anterior"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"></polyline></svg></button>
+            <button type="button" data-dir="1" aria-label="Pregunta siguiente"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"></polyline></svg></button>
+          </div>
         </div>
-
-        <div class="faq-item">
-          <button class="faq-question">
-            <span>¿Trabajan con empresas fuera de San Juan y Bayamón?</span>
-            <svg class="chevron" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg>
-          </button>
-          <p class="faq-answer">Sí. La consultoría opera a nivel de Puerto Rico, con reuniones remotas o presenciales según la necesidad de la empresa.</p>
-        </div>
-
-        <div class="faq-item">
-          <button class="faq-question">
-            <span>¿Cómo manejan la confidencialidad de la información de mi empresa?</span>
-            <svg class="chevron" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg>
-          </button>
-          <p class="faq-answer">Toda la información compartida (casos, nombres de empleados, datos sensibles) se trata bajo estricta confidencialidad y nunca se expone en canales públicos.</p>
-        </div>
-
-        <div class="faq-item">
-          <button class="faq-question">
-            <span>¿Cobran por proyecto o por retención mensual?</span>
-            <svg class="chevron" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg>
-          </button>
-          <p class="faq-answer">Ambos modelos están disponibles — proyecto puntual o retención mensual para soporte continuo. La tarifa se define según el alcance durante la consulta inicial.</p>
-        </div>
-
+        <p class="faqd-hint">Desliza con el dedo, arrastra con el ratón o usa las flechas.</p>
       </div>
     </div>
   </section>
@@ -1331,23 +1404,79 @@
   });
 
   // ============================================================
-  // FAQ ACCORDION
+  // FAQ — CARRUSEL DE DIAPOSITIVAS (scroll horizontal propio)
   // ============================================================
-  document.querySelectorAll('.faq-item').forEach(function (item) {
-    var question = item.querySelector('.faq-question');
-    var answer = item.querySelector('.faq-answer');
-    question.addEventListener('click', function () {
-      var isOpen = item.classList.contains('open');
-      document.querySelectorAll('.faq-item').forEach(function (i) {
-        i.classList.remove('open');
-        i.querySelector('.faq-answer').style.maxHeight = null;
-      });
-      if (!isOpen) {
-        item.classList.add('open');
-        answer.style.maxHeight = answer.scrollHeight + 'px';
-      }
+  (function () {
+    var deck = document.getElementById('faqDeck');
+    if (!deck) return;
+    var track = deck.querySelector('.faqd-track');
+    var slides = Array.prototype.slice.call(track.querySelectorAll('.faqd-slide'));
+    var dots = deck.querySelector('.faqd-dots');
+    var counter = deck.querySelector('.faqd-counter');
+    var arrows = Array.prototype.slice.call(deck.querySelectorAll('.faqd-arrows button'));
+
+    dots.innerHTML = slides.map(function (_, i) {
+      return '<button type="button" role="tab" aria-label="Pregunta ' + (i + 1) +
+             '" aria-current="' + (i === 0 ? 'true' : 'false') + '"></button>';
+    }).join('');
+    var dotBtns = Array.prototype.slice.call(dots.children);
+
+    function index() {
+      var w = track.clientWidth || 1;
+      return Math.round(track.scrollLeft / w);
+    }
+    function go(i) {
+      var n = Math.max(0, Math.min(slides.length - 1, i));
+      track.scrollTo({ left: n * track.clientWidth, behavior: 'smooth' });
+    }
+    function sync() {
+      var i = index();
+      dotBtns.forEach(function (d, j) { d.setAttribute('aria-current', String(j === i)); });
+      counter.textContent = String(i + 1).padStart(2, '0') + ' / ' + String(slides.length).padStart(2, '0');
+      arrows[0].disabled = i <= 0;
+      arrows[1].disabled = i >= slides.length - 1;
+    }
+
+    var t;
+    track.addEventListener('scroll', function () {
+      window.clearTimeout(t);
+      t = window.setTimeout(sync, 80);
     });
-  });
+    arrows.forEach(function (b) {
+      b.addEventListener('click', function () { go(index() + Number(b.dataset.dir)); });
+    });
+    dotBtns.forEach(function (d, j) { d.addEventListener('click', function () { go(j); }); });
+    track.addEventListener('keydown', function (e) {
+      if (e.key === 'ArrowRight') { e.preventDefault(); go(index() + 1); }
+      if (e.key === 'ArrowLeft') { e.preventDefault(); go(index() - 1); }
+    });
+
+    // Arrastrar con el ratón (el dedo usa scroll nativo)
+    var down = false, startX = 0, startLeft = 0, moved = false;
+    track.addEventListener('pointerdown', function (e) {
+      if (e.pointerType === 'touch') return;
+      down = true; moved = false; startX = e.clientX; startLeft = track.scrollLeft;
+      track.style.scrollBehavior = 'auto'; track.style.cursor = 'grabbing';
+    });
+    track.addEventListener('pointermove', function (e) {
+      if (!down) return;
+      var dx = e.clientX - startX;
+      if (Math.abs(dx) > 4) moved = true;
+      track.scrollLeft = startLeft - dx;
+    });
+    function release() {
+      if (!down) return;
+      down = false; track.style.cursor = '';
+      track.style.scrollBehavior = 'smooth';
+      if (moved) go(index());
+    }
+    track.addEventListener('pointerup', release);
+    track.addEventListener('pointercancel', release);
+    track.addEventListener('pointerleave', release);
+
+    window.addEventListener('resize', sync);
+    sync();
+  })();
 
   // ============================================================
   // FORMULARIO CONTACTO + SUPABASE
