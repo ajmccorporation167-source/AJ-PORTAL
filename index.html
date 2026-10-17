@@ -6,16 +6,16 @@
 <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data:; connect-src 'self' https://wxxazkkxwvprsginjtjb.supabase.co; object-src 'none'; base-uri 'self'; form-action 'self'">
 <title>AJCM | RRHH Consulting</title>
 <meta name="description" content="Consultoría de recursos humanos y cumplimiento laboral para PYMES en Puerto Rico: contratos de empleo, verificación de empleo, clasificación exento y no exento, nómina y políticas.">
-<meta name="theme-color" content="#0A1128">
+<meta name="theme-color" content="#000000">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500&family=Inter:wght@400;500&family=Playfair+Display:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&family=Space+Grotesk:wght@400;500&display=swap" rel="stylesheet">
 <style>
 :root{
-  --navy:#0A1128; --navy-2:#16203A; --navy-3:#1E2A47; --ink-soft:#3A4461;
-  --gold:#C5A059; --gold-2:#D4AF37; --cream:#F2EBDD; --paper:#F8F9FA; --muted:#AEB9CE;
-  --rule:#D9CFBC;
-  --f-display:'Playfair Display',Georgia,serif; --f-label:'Cinzel',Georgia,serif; --f-body:'Inter',system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;
+  --navy:#0C0C0C; --navy-2:#000000; --navy-3:#262626; --ink-soft:#6D6D6D;
+  --gold:#6D6D6D; --gold-2:#0C0C0C; --cream:#FFFFFF; --paper:#FFFFFF; --muted:#A3A3A3;
+  --rule:#CECECE;
+  --f-display:'Space Grotesk',ui-sans-serif,system-ui,sans-serif; --f-label:'Space Grotesk',ui-sans-serif,system-ui,sans-serif; --f-body:'Inter',system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;
   --axis:42%; --gut:clamp(16px,4vw,56px);
 }
 *{box-sizing:border-box;margin:0;padding:0}
@@ -157,7 +157,7 @@ form.f{display:grid;grid-template-columns:1fr 1fr;gap:28px 32px}
 .fld.full{grid-column:1/-1}
 .fld label{font:500 12px/1 var(--f-label);letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-bottom:10px}
 .fld input,.fld select,.fld textarea{background:transparent;border:0;border-bottom:1px solid var(--ink-soft);border-radius:0;color:var(--paper);font:400 17px/1.5 var(--f-body);padding:8px 0;outline:0;width:100%}
-.fld select{appearance:none;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8'%3E%3Cpath d='M1 1l5 5 5-5' fill='none' stroke='%23C5A059' stroke-width='1.5'/%3E%3C/svg%3E") no-repeat right 4px center;padding-right:24px}
+.fld select{appearance:none;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8'%3E%3Cpath d='M1 1l5 5 5-5' fill='none' stroke='%23FFFFFF' stroke-width='1.5'/%3E%3C/svg%3E") no-repeat right 4px center;padding-right:24px}
 .fld select option{color:var(--navy)}
 .fld textarea{resize:vertical;min-height:110px}
 .fld input:focus,.fld select:focus,.fld textarea:focus{border-bottom-color:var(--gold)}
@@ -194,6 +194,44 @@ footer.ft{background:var(--navy-2);color:var(--muted);padding-block:40px calc(40
 .chat-f button{border:0;background:var(--navy);color:var(--paper);padding:0 20px;font:500 14px var(--f-body);cursor:pointer}
 .chat-f button:disabled{opacity:.5;cursor:default}
 .chat-legal{font-size:11px;color:var(--ink-soft);padding:8px 20px 12px;border-top:1px solid var(--rule)} /* taste-skill-ignore: regla de documento (riel técnico FigureAI / expediente) */
+
+/* ===== Sistema FigureAI ===== */
+body{font-feature-settings:"ss12"}
+.label,nav.menu a,.fld label,.menu-toggle{font-family:var(--f-label);font-weight:400;font-size:14px;letter-spacing:.28px;text-transform:uppercase}
+h1,h2,.mast-title h1,.s-head h2,.sign .name,.wordmark,.rail-row .v,.clause .num b,.folio b{font-family:var(--f-display);font-weight:400;text-transform:uppercase}
+.mast-title h1{font-size:clamp(46px,8.5vw,122px);line-height:1;letter-spacing:-.01em}
+.mast-title h1 em{font-style:normal;color:var(--ink-soft)}
+.s-head h2{font-size:clamp(34px,4.6vw,64px);line-height:1.04;letter-spacing:-.01em}
+.wordmark{letter-spacing:-.02em}
+.brand{font-family:var(--f-display);font-weight:500;letter-spacing:.02em}
+.brand span{color:var(--muted)}
+header.top{background:#000}
+.mast-band,.field-navy{background:#000}
+.wordmark span{color:var(--muted)}
+.folio div{background:#111}
+.folio b,.field-navy .rail-row .v{color:#FFFFFF}
+.field-navy .s-head .label,.contact-side .label,.rail-row .v small{color:var(--muted)}
+.clause .body h3,.step h3,.faq summary h3{font-family:var(--f-body);font-weight:400;font-size:22px;line-height:1.1;letter-spacing:-.22px}
+.clause .num b{color:var(--navy);font-size:clamp(40px,4.4vw,52px)}
+.clause .body li::before{color:var(--ink-soft)}
+.sign .name{font-size:clamp(34px,4.4vw,56px)}
+.sign .rule-sig .label{color:var(--ink-soft)}
+.step{background:#F4F4F4}
+.step:nth-child(2){background:#000}
+.step:nth-child(4){background:#0C0C0C;color:#fff}.step:nth-child(4) p{color:var(--muted)}.step:nth-child(4) .label{color:var(--muted)}
+.btn.gold{background:var(--navy);border-color:var(--navy);color:#fff}
+.btn.gold:hover{background:#262626;border-color:#262626}
+header.top .btn.gold,.field-navy .btn.gold{background:#fff;border-color:#fff;color:#0C0C0C}
+header.top .btn.gold:hover,.field-navy .btn.gold:hover{background:#E6E6E6;border-color:#E6E6E6}
+.fld input,.fld select,.fld textarea{border-bottom-color:#4A4A4A;font-size:16px}
+.fld input:focus,.fld select:focus,.fld textarea:focus{border-bottom-color:#fff}
+.status.ok{color:#fff}
+:focus-visible{outline-color:#0C0C0C}.field-navy :focus-visible,header.top :focus-visible{outline-color:#fff}
+.chat-fab{background:#0C0C0C;border-color:#0C0C0C;color:#fff}.chat-fab:hover{background:#262626}
+.chat{border-color:#0C0C0C}.chat-h{background:#000}
+.msg.bot{border-left-color:#0C0C0C}
+footer.ft{background:#000;border-top:1px solid #262626} /* taste-skill-ignore: separador FigureAI */
+.faq summary i{color:var(--navy)}
 </style>
 </head>
 <body>
