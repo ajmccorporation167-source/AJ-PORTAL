@@ -1,2399 +1,611 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="es">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<title>AJCM | RRHH Consulting — Cumplimiento Laboral en Puerto Rico</title>
-<meta name="description" content="Protección jurídico-laboral y optimización de talento para empresas en Puerto Rico. Auditorías de cumplimiento, manuales corporativos y relaciones obrero-patronales sin la burocracia de las grandes agencias.">
-<meta name="robots" content="index, follow">
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data:; connect-src 'self' https://wxxazkkxwvprsginjtjb.supabase.co https://aj-portal-lovat.vercel.app; object-src 'none'; base-uri 'self'; form-action 'self'">
-<meta name="referrer" content="strict-origin-when-cross-origin">
-
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data:; connect-src 'self' https://wxxazkkxwvprsginjtjb.supabase.co; object-src 'none'; base-uri 'self'; form-action 'self'">
+<title>AJCM | RRHH Consulting</title>
+<meta name="description" content="Consultoría de recursos humanos y cumplimiento laboral para PYMES en Puerto Rico: contratos de empleo, verificación de empleo, clasificación exento y no exento, nómina y políticas.">
+<meta name="theme-color" content="#0A1128">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Inter:wght@400;500&display=swap" rel="stylesheet">
-<link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400;0,6..96,700&family=Cinzel:wght@400;500&display=swap" rel="stylesheet">
-
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "ProfessionalService",
-  "name": "AJCM | RRHH Consulting",
-  "areaServed": "Puerto Rico",
-  "sameAs": ["https://www.linkedin.com/in/alexis-mercado-58899b395"],
-  "contactPoint": {
-    "@type": "ContactPoint",
-    "contactType": "customer service",
-    "telephone": "+1 939-428-2820",
-    "areaServed": "PR",
-    "availableLanguage": ["Spanish", "English"]
-  }
-}
-</script>
-
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500&family=Inter:wght@400;500&family=Playfair+Display:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
 <style>
-  :root {
-    --corporate-dark: #0a1128;
-    --corporate-surface: #16203a;
-    --gold-base: #C5A059;
-    --gold-hover: #D4AF37;
-    --text-high: #F8F9FA;
-    --text-muted: #AEB9CE;
-    --hairline: rgba(197, 160, 89, 0.12);
-    --cream: #F2EBDD;
-    --navy-light: #1E2A47;
-  }
+:root{
+  --navy:#0A1128; --navy-2:#16203A; --navy-3:#1E2A47; --ink-soft:#3A4461;
+  --gold:#C5A059; --gold-2:#D4AF37; --cream:#F2EBDD; --paper:#F8F9FA; --muted:#AEB9CE;
+  --rule:#D9CFBC;
+  --f-display:'Playfair Display',Georgia,serif; --f-label:'Cinzel',Georgia,serif; --f-body:'Inter',system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;
+  --axis:42%; --gut:clamp(16px,4vw,56px);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;scroll-padding-top:72px;-webkit-text-size-adjust:100%}
+body{background:var(--cream);color:var(--navy);font:400 17px/1.6 var(--f-body);letter-spacing:-.17px;overflow-x:hidden}
+a{color:inherit}
+img{max-width:100%;display:block}
+:focus-visible{outline:2px solid var(--gold);outline-offset:3px}
+.label{font:500 13px/1 var(--f-label);letter-spacing:.14em;text-transform:uppercase}
+.wrap{padding-inline:var(--gut)}
+.axis{display:grid;grid-template-columns:var(--axis) 1fr;column-gap:clamp(20px,3vw,48px)}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{transition:none!important;animation:none!important}}
 
-  * { box-sizing: border-box; margin: 0; padding: 0; }
+/* ---------- Header ---------- */
+header.top{position:fixed;inset:0 0 auto;z-index:50;background:var(--navy);color:var(--paper);padding-top:env(safe-area-inset-top)}
+.top-in{display:flex;align-items:center;justify-content:space-between;height:64px}
+.brand{font:500 20px/1 var(--f-label);letter-spacing:.12em;text-decoration:none}
+.brand span{color:var(--gold)}
+nav.menu{display:flex;gap:28px}
+nav.menu a{font:500 13px/1 var(--f-label);letter-spacing:.14em;text-transform:uppercase;text-decoration:none;color:var(--muted);padding:8px 0}
+nav.menu a:hover{color:var(--paper)}
+.top .btn{min-height:40px}
+.menu-toggle{display:none;background:none;border:1px solid var(--ink-soft);color:var(--paper);border-radius:24px;padding:0 16px;height:40px;font:500 13px var(--f-label);letter-spacing:.14em}
+@media (max-width:900px){
+  nav.menu{display:none;position:absolute;top:100%;left:0;right:0;background:var(--navy);flex-direction:column;gap:0;padding:8px var(--gut) 20px;border-top:1px solid var(--navy-3)} /* taste-skill-ignore: regla de documento (riel técnico FigureAI / expediente) */
+  nav.menu.open{display:flex}
+  nav.menu a{padding:16px 0;border-bottom:1px solid var(--navy-3)} /* taste-skill-ignore: regla de documento (riel técnico FigureAI / expediente) */
+  .menu-toggle{display:inline-block}
+  .top .btn{display:none}
+}
 
-  html { scroll-behavior: smooth; scroll-padding-top: 5rem; }
+/* ---------- Buttons ---------- */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;min-height:48px;padding:0 32px;border-radius:24px;font:500 14px/1.2 var(--f-body);text-decoration:none;border:1px solid var(--navy);background:var(--navy);color:var(--paper);cursor:pointer;transition:background .2s,color .2s,border-color .2s}
+.btn:hover{background:var(--navy-3)}
+.btn.gold{background:var(--gold);border-color:var(--gold);color:var(--navy)}
+.btn.gold:hover{background:var(--gold-2);border-color:var(--gold-2)}
+.btn.line{background:transparent;color:inherit;border-color:currentColor}
+.btn.line:hover{background:var(--navy);color:var(--paper);border-color:var(--navy)}
+.link-u{font:500 14px/1.2 var(--f-body);text-decoration:none;border-bottom:1px solid currentColor;padding-bottom:3px} /* taste-skill-ignore: control subrayado FigureAI */
 
-  body {
-    background-color: var(--corporate-dark);
-    color: var(--text-high);
-    font-family: 'Inter', sans-serif;
-    font-weight: 400;
-    line-height: 1.5;
-  }
+/* ---------- Masthead ---------- */
+.mast{padding-top:calc(64px + env(safe-area-inset-top))}
+.mast-band{background:var(--navy);color:var(--paper);min-height:min(46svh,520px);display:flex;flex-direction:column;justify-content:space-between;padding-block:clamp(28px,5vw,56px)}
+.mast-meta{display:flex;justify-content:space-between;gap:16px;color:var(--muted);flex-wrap:wrap}
+.wordmark{font:400 clamp(72px,17vw,260px)/.9 var(--f-label);letter-spacing:.06em;margin-top:28px;color:var(--paper)}
+.wordmark span{color:var(--gold)}
+.folio{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:40px}
+.folio div{background:var(--navy-2);padding:18px 18px 20px}
+.folio b{display:block;font:400 clamp(22px,2.6vw,34px)/1.1 var(--f-display);color:var(--gold)}
+.folio small{display:block;margin-top:6px;font-size:13px;color:var(--muted);letter-spacing:0}
+.mast-title{padding-block:clamp(40px,7vw,96px) clamp(32px,5vw,64px);border-bottom:1px solid var(--rule)} /* taste-skill-ignore: regla de documento (riel técnico FigureAI / expediente) */
+.mast-title h1{grid-column:2;font:400 clamp(48px,8.2vw,128px)/.98 var(--f-display);letter-spacing:-.02em}
+.mast-title h1 em{font-style:italic;color:var(--ink-soft)}
+.mast-side{grid-column:1;grid-row:1/span 2;align-self:end;color:var(--ink-soft);font-size:14px;max-width:30ch}
+.standfirst{grid-column:2;margin-top:32px;font:400 clamp(19px,1.8vw,23px)/1.5 var(--f-body);letter-spacing:-.2px;max-width:40ch}
+.mast-cta{grid-column:2;margin-top:36px;display:flex;gap:24px;align-items:center;flex-wrap:wrap}
+@media (max-width:800px){
+  .folio{grid-template-columns:repeat(2,1fr)}
+  .axis{grid-template-columns:1fr}
+  .mast-title h1,.standfirst,.mast-cta,.mast-side{grid-column:1;grid-row:auto}
+  .mast-side{margin-top:32px;order:5}
+}
 
-  h1, h2, h3, .heading {
-    font-family: 'Playfair Display', serif;
-    font-weight: 700;
-  }
+/* ---------- Section frame ---------- */
+section.s{padding-block:clamp(64px,9vw,128px)}
+.s-head{margin-bottom:clamp(36px,5vw,64px)}
+.s-head .label{grid-column:1;color:var(--ink-soft);padding-top:12px}
+.s-head h2{grid-column:2;font:400 clamp(38px,5.4vw,80px)/1.02 var(--f-display);letter-spacing:-.015em}
+.s-head p{grid-column:2;margin-top:20px;max-width:52ch;color:var(--ink-soft)}
+@media (max-width:800px){.s-head .label,.s-head h2,.s-head p{grid-column:1}.s-head h2{margin-top:14px}}
 
-  img { max-width: 100%; height: auto; display: block; }
+/* ---------- Clauses (services) ---------- */
+.clauses{border-top:2px solid var(--navy)} /* taste-skill-ignore: regla de documento (riel técnico FigureAI / expediente) */
+.clause{border-bottom:1px solid var(--rule);padding-block:clamp(28px,3.5vw,44px)} /* taste-skill-ignore: regla de documento (riel técnico FigureAI / expediente) */
+.clause .num{grid-column:1;display:flex;gap:20px;align-items:baseline}
+.clause .num b{font:400 clamp(44px,5vw,72px)/1 var(--f-display);color:var(--gold)}
+.clause .num span{color:var(--ink-soft)}
+.clause .body h3{font:400 clamp(26px,2.6vw,38px)/1.12 var(--f-display);letter-spacing:-.01em}
+.clause .body p{margin-top:14px;max-width:58ch}
+.clause .body ul{list-style:none;margin-top:20px;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px 32px;max-width:720px}
+.clause .body li{font-size:15px;color:var(--navy-2)}
+.clause .body li::before{content:"— ";color:var(--gold)}
+@media (max-width:800px){.clause .num{margin-bottom:12px}.clause .body ul{grid-template-columns:1fr}}
 
-  a { color: inherit; text-decoration: none; }
+/* ---------- Spec rail (navy field) ---------- */
+.field-navy{background:var(--navy);color:var(--paper)}
+.field-navy .s-head .label{color:var(--gold)}
+.field-navy .s-head p{color:var(--muted)}
+.rail{border-top:1px solid var(--navy-3)} /* taste-skill-ignore: regla de documento (riel técnico FigureAI / expediente) */
+.rail-row{display:grid;grid-template-columns:var(--axis) 1fr auto;column-gap:clamp(20px,3vw,48px);align-items:baseline;padding-block:22px;border-bottom:1px solid var(--navy-3)} /* taste-skill-ignore: regla de documento (riel técnico FigureAI / expediente) */
+.rail-row .k{color:var(--muted);font-size:14px}
+.rail-row .d{font-size:16px;max-width:46ch}
+.rail-row .v{font:400 clamp(40px,4.6vw,64px)/1.05 var(--f-display);color:var(--gold);text-align:right;white-space:nowrap}
+.rail-row .v small{font:500 12px var(--f-label);letter-spacing:.14em;color:var(--muted);margin-left:8px}
+.rail-note{margin-top:20px;font-size:13px;color:var(--muted)}
+@media (max-width:800px){.rail-row{grid-template-columns:1fr auto}.rail-row .k{grid-column:1/-1;margin-bottom:6px}}
 
-  .container {
-    max-width: 1280px;
-    margin: 0 auto;
-    padding: 0 1.5rem;
-  }
+/* ---------- Method (ledger) ---------- */
+.ledger{display:grid;grid-template-columns:repeat(4,1fr);gap:4px}
+.step{background:var(--paper);padding:32px 28px 36px}
+.step:nth-child(2){background:var(--navy);color:var(--paper)}.step:nth-child(2) p{color:var(--muted)}
+.step:nth-child(4){background:var(--gold)}.step:nth-child(4) .label{color:var(--navy)}
+.step .label{color:var(--gold)}
+.step h3{margin-top:16px;font:400 28px/1.1 var(--f-display)}
+.step p{margin-top:12px;font-size:15px;color:var(--navy-2)}
+@media (max-width:900px){.ledger{grid-template-columns:1fr 1fr}}
+@media (max-width:560px){.ledger{grid-template-columns:1fr}}
 
-  /* ---------- Barra de progreso de scroll ---------- */
-  .scroll-progress {
-    position: fixed;
-    top: 0; left: 0;
-    height: 3px;
-    width: 100%;
-    z-index: 101;
-    transform: scaleX(0);
-    transform-origin: 0 50%;
-    background: linear-gradient(90deg, var(--gold-base), var(--gold-hover) 55%, #F0D98A);
-    box-shadow: 0 0 12px rgba(212, 175, 55, 0.55), 0 1px 2px rgba(0, 0, 0, 0.3);
-    will-change: transform;
-    pointer-events: none;
-  }
-  @media (prefers-reduced-motion: reduce) {
-    .scroll-progress { display: none; }
-  }
+/* ---------- Signature block ---------- */
+.sign{background:var(--paper)}
+.sign .name{grid-column:2;font:400 clamp(36px,4.8vw,68px)/1.04 var(--f-display)}
+.sign .role{grid-column:2;margin-top:12px;color:var(--ink-soft)}
+.sign .rule-sig{grid-column:2;margin-top:40px;border-top:1px solid var(--navy);padding-top:16px;display:grid;grid-template-columns:1fr 1fr;gap:32px;max-width:760px} /* taste-skill-ignore: regla de documento (riel técnico FigureAI / expediente) */
+.sign .rule-sig p{font-size:15px}
+.sign .rule-sig .label{display:block;margin-bottom:10px;color:var(--gold)}
+.sign aside{grid-column:1;grid-row:1/span 3;align-self:start;color:var(--ink-soft);font-size:14px;max-width:30ch;padding-top:14px}
+@media (max-width:800px){.sign .name,.sign .role,.sign .rule-sig,.sign aside{grid-column:1;grid-row:auto}.sign aside{margin-top:28px}.sign .rule-sig{grid-template-columns:1fr}}
 
-  /* ---------- Header ---------- */
-  header {
-    position: fixed;
-    top: 0; left: 0; right: 0;
-    z-index: 50;
-    background: var(--corporate-dark);
-    border-bottom: 1px solid rgba(197, 160, 89, 0.1);
-    transition: box-shadow 0.3s ease, border-color 0.3s ease;
-    padding-top: env(safe-area-inset-top, 0px);
-  }
-  header.scrolled {
-    box-shadow: 0 8px 24px rgba(0,0,0,0.25);
-    border-bottom-color: rgba(197, 160, 89, 0.25);
-  }
+/* ---------- FAQ ---------- */
+.faq{border-top:2px solid var(--navy)} /* taste-skill-ignore: regla de documento (riel técnico FigureAI / expediente) */
+.faq details{border-bottom:1px solid var(--rule)} /* taste-skill-ignore: regla de documento (riel técnico FigureAI / expediente) */
+.faq summary{list-style:none;cursor:pointer;display:grid;grid-template-columns:var(--axis) 1fr auto;column-gap:clamp(20px,3vw,48px);align-items:baseline;padding-block:24px}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary .label{color:var(--ink-soft)}
+.faq summary h3{font:400 clamp(22px,2.2vw,30px)/1.2 var(--f-display)}
+.faq summary i{font-style:normal;font:400 28px/1 var(--f-display);color:var(--gold);transition:transform .2s}
+.faq details[open] summary i{transform:rotate(45deg)}
+.faq .ans{display:grid;grid-template-columns:var(--axis) 1fr;column-gap:clamp(20px,3vw,48px);padding-bottom:28px}
+.faq .ans p{grid-column:2;max-width:60ch;color:var(--navy-2)}
+@media (max-width:800px){.faq summary{grid-template-columns:1fr auto}.faq summary .label{grid-column:1/-1;margin-bottom:8px}.faq .ans{grid-template-columns:1fr}.faq .ans p{grid-column:1}}
 
-  .header-inner {
-    height: 4rem;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    transition: height 0.3s ease;
-  }
-  header.scrolled .header-inner { height: 3.5rem; }
+/* ---------- Contact ---------- */
+.contact .axis{align-items:start}
+.contact-side{color:var(--muted);font-size:15px}
+.contact-side a{color:var(--paper)}
+.contact-side .label{color:var(--gold);display:block;margin:28px 0 10px}
+form.f{display:grid;grid-template-columns:1fr 1fr;gap:28px 32px}
+.fld{display:flex;flex-direction:column}
+.fld.full{grid-column:1/-1}
+.fld label{font:500 12px/1 var(--f-label);letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-bottom:10px}
+.fld input,.fld select,.fld textarea{background:transparent;border:0;border-bottom:1px solid var(--ink-soft);border-radius:0;color:var(--paper);font:400 17px/1.5 var(--f-body);padding:8px 0;outline:0;width:100%}
+.fld select{appearance:none;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8'%3E%3Cpath d='M1 1l5 5 5-5' fill='none' stroke='%23C5A059' stroke-width='1.5'/%3E%3C/svg%3E") no-repeat right 4px center;padding-right:24px}
+.fld select option{color:var(--navy)}
+.fld textarea{resize:vertical;min-height:110px}
+.fld input:focus,.fld select:focus,.fld textarea:focus{border-bottom-color:var(--gold)}
+.hp{position:absolute;left:-9999px;width:1px;height:1px;opacity:0} /* taste-skill-ignore: honeypot oculto */
+.f-foot{grid-column:1/-1;display:flex;gap:24px;align-items:center;flex-wrap:wrap}
+.status{font-size:15px;min-height:24px}
+.status.ok{color:var(--gold)} .status.err{color:#F2A7A0}
+.legal-note{grid-column:1/-1;font-size:13px;color:var(--muted)}
+@media (max-width:800px){form.f{grid-template-columns:1fr;margin-top:40px}}
 
-  .logo {
-    font-family: 'Playfair Display', serif;
-    font-weight: 600;
-    font-size: 1.125rem;
-  }
-  .logo span { color: var(--gold-base); }
+/* ---------- Footer ---------- */
+footer.ft{background:var(--navy-2);color:var(--muted);padding-block:40px calc(40px + env(safe-area-inset-bottom));font-size:14px}
+.ft-in{display:flex;justify-content:space-between;gap:24px;flex-wrap:wrap}
+.ft-in a{color:var(--paper);text-decoration:none}
 
-  nav.desktop-nav {
-    display: flex;
-    gap: 2rem;
-  }
-  nav.desktop-nav a {
-    position: relative;
-    font-size: 0.875rem;
-    font-weight: 500;
-    color: var(--text-muted);
-    transition: color 0.2s;
-    padding-bottom: 0.3rem;
-  }
-  nav.desktop-nav a::after {
-    content: '';
-    position: absolute;
-    left: 0; bottom: 0;
-    width: 0;
-    height: 1px;
-    background: var(--gold-hover);
-    transition: width 0.3s ease;
-  }
-  nav.desktop-nav a:hover { color: var(--gold-hover); }
-  nav.desktop-nav a:hover::after { width: 100%; }
-
-  .btn {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 0.375rem;
-    font-size: 0.875rem;
-    font-weight: 600;
-    padding: 0.65rem 1.25rem;
-    transition: transform 0.2s ease, background-color 0.2s ease, border-color 0.2s ease, filter 0.2s ease, box-shadow 0.2s ease;
-    cursor: pointer;
-    border: none;
-  }
-  .btn-gold {
-    background-image: linear-gradient(135deg, var(--gold-hover), var(--gold-base));
-    background-color: var(--gold-base);
-    color: var(--corporate-dark);
-  }
-  .btn-gold:hover { filter: brightness(1.08); transform: scale(1.05); box-shadow: 0 10px 24px rgba(212, 175, 55, 0.35); }
-  .btn-ghost {
-    background: transparent;
-    color: var(--text-high);
-    border: 1px solid rgba(197, 160, 89, 0.4);
-  }
-  .btn-ghost:hover { border-color: var(--gold-hover); transform: scale(1.05); }
-  .btn:focus-visible { outline: 2px solid var(--gold-hover); outline-offset: 2px; }
-
-  .header-cta { display: none; }
-  .mobile-toggle {
-    display: inline-flex;
-    background: none;
-    border: none;
-    color: var(--text-high);
-    cursor: pointer;
-    padding: 0.5rem;
-  }
-
-  .mobile-nav {
-    display: none;
-    position: absolute;
-    left: 0; right: 0; top: 100%;
-    background: var(--corporate-surface);
-    border-top: 1px solid rgba(197, 160, 89, 0.2);
-    padding: 1rem 1.5rem;
-    flex-direction: column;
-    gap: 1rem;
-  }
-  .mobile-nav.open { display: flex; }
-
-  @media (min-width: 768px) {
-    nav.desktop-nav { display: flex; }
-    .header-cta { display: inline-flex; }
-    .mobile-toggle { display: none; }
-    .mobile-nav { display: none !important; }
-  }
-  @media (max-width: 767px) {
-    nav.desktop-nav { display: none; }
-  }
-
-  /* ---------- Hero ---------- */
-  .hero {
-    padding: 10rem 0 6rem;
-    text-align: center;
-    position: relative;
-    overflow: hidden;
-  }
-  .hero > .container { position: relative; z-index: 1; }
-  .hero h1 {
-    font-size: clamp(1.9rem, 5vw, 3.25rem);
-    line-height: 1.2;
-    max-width: 46rem;
-    margin: 0 auto;
-  }
-  .hero p {
-    margin-top: 1.5rem;
-    color: var(--text-muted);
-    max-width: 42rem;
-    margin-left: auto;
-    margin-right: auto;
-    font-size: 1rem;
-  }
-  .hero-actions {
-    margin-top: 2.5rem;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 1rem;
-  }
-  @media (min-width: 640px) {
-    .hero-actions { flex-direction: row; }
-  }
-
-  /* ---------- Portada Intro (Full-Screen Background) ---------- */
-  #portada-intro {
-    position: relative;
-    height: 100vh;
-    height: 100svh;
-    width: 100%;
-    padding: 0;
-    background: var(--corporate-dark);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    overflow: hidden;
-  }
-  .splash-texture {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    z-index: 1;
-  }
-  .splash-overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: 2;
-    background: rgba(10, 17, 40, 0.4);
-    background: linear-gradient(180deg, rgba(10, 17, 40, 0.55), rgba(10, 17, 40, 0.3) 50%, rgba(10, 17, 40, 0.65));
-  }
-  .splash-word {
-    position: relative;
-    z-index: 3;
-    margin: 0;
-    font-family: 'Cinzel', serif;
-    font-weight: 400;
-    font-size: clamp(6rem, 18vw, 16rem);
-    letter-spacing: 0.03em;
-    line-height: 0.9;
-    color: #F8F9FA;
-    white-space: nowrap;
-    text-shadow: 0 20px 50px rgba(0, 0, 0, 0.7);
-    user-select: none;
-    -webkit-user-select: none;
-  }
-
-  /* ---------- Reveal al hacer scroll ---------- */
-  .reveal {
-    opacity: 0;
-    transform: translateY(28px);
-    transition: opacity 0.8s cubic-bezier(0.16,1,0.3,1), transform 0.8s cubic-bezier(0.16,1,0.3,1);
-  }
-  .reveal.is-visible { opacity: 1; transform: translateY(0); }
-  .reveal-d1 { transition-delay: 0.1s; }
-  .reveal-d2 { transition-delay: 0.2s; }
-  .reveal-d3 { transition-delay: 0.3s; }
-
-  /* ---------- Section headings ---------- */
-  section { padding: clamp(4rem, 8vw, 7rem) 0; }
-  section h2.section-title {
-    font-size: 1.5rem;
-    text-align: center;
-    margin-bottom: 3.5rem;
-  }
-  @media (min-width: 768px) {
-    section h2.section-title { font-size: 1.875rem; }
-  }
-  .section-alt {
-    background: rgba(22, 32, 58, 0.55);
-    border-top: 1px solid var(--hairline);
-    border-bottom: 1px solid var(--hairline);
-    position: relative;
-    overflow: hidden;
-  }
-  .section-alt > .container { position: relative; z-index: 1; }
-
-  /* ---------- Capa de fondo con parallax (hero + .section-alt) ---------- */
-  .parallax-layer {
-    position: absolute;
-    inset: -15% -10%;
-    z-index: 0;
-    pointer-events: none;
-    will-change: transform;
-    background:
-      radial-gradient(circle at 22% 25%, rgba(197, 160, 89, 0.14), transparent 55%),
-      radial-gradient(circle at 82% 75%, rgba(212, 175, 55, 0.10), transparent 55%);
-  }
-
-  /* ---------- Servicios ---------- */
-  .services-grid {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 1.5rem;
-    perspective: 1200px;
-  }
-  @media (min-width: 768px) {
-    .services-grid { grid-template-columns: 1fr 1fr; }
-  }
-  .service-card {
-    background: linear-gradient(155deg, rgba(22, 32, 58, 0.72), rgba(10, 17, 40, 0.85));
-    -webkit-backdrop-filter: blur(14px);
-    backdrop-filter: blur(14px);
-    border: 1px solid rgba(212, 175, 55, 0.22);
-    border-radius: 0.85rem;
-    padding: 2rem;
-    cursor: pointer;
-    position: relative;
-    overflow: hidden;
-    transform-style: preserve-3d;
-    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.04), 0 10px 30px rgba(0, 0, 0, 0.35);
-    transition: transform 0.3s ease, box-shadow 0.35s ease, border-color 0.35s ease;
-  }
-  .service-card::before {
-    content: "";
-    position: absolute;
-    top: 0; left: 0; right: 0;
-    height: 2px;
-    background: linear-gradient(90deg, transparent, var(--gold-hover), transparent);
-    opacity: 0;
-    transition: opacity 0.35s ease;
-  }
-  .service-card:hover, .service-card:focus-visible {
-    border-color: rgba(212, 175, 55, 0.65);
-    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.06), 0 22px 46px rgba(0, 0, 0, 0.5), 0 0 26px rgba(212, 175, 55, 0.28);
-  }
-  .service-card:hover::before, .service-card:focus-visible::before { opacity: 1; }
-  .service-card:focus-visible { outline: 2px solid var(--gold-hover); outline-offset: 3px; }
-  .services-grid .service-card.reveal {
-    transform: translateY(28px) scale(0.95);
-    transition: opacity 0.7s cubic-bezier(0.25, 1, 0.5, 1), transform 0.7s cubic-bezier(0.25, 1, 0.5, 1);
-  }
-  .services-grid .service-card.reveal.is-visible {
-    transform: translateY(0) scale(1);
-  }
-  @media (prefers-reduced-motion: reduce) {
-    .service-card, .parallax-layer { transition: none !important; transform: none !important; }
-  }
-  .service-card .icon {
-    width: 28px; height: 28px;
-    color: var(--gold-base);
-    margin-bottom: 1.25rem;
-    transition: color 0.3s ease;
-  }
-  .service-card:hover .icon, .service-card:focus-visible .icon { color: var(--gold-hover); }
-  .service-card h3 {
-    font-size: 1.125rem;
-    margin-bottom: 0.5rem;
-    color: var(--text-high);
-    padding-right: 1.5rem;
-  }
-  .service-card p {
-    font-size: 0.9rem;
-    color: var(--text-muted);
-    line-height: 1.55;
-  }
-  .service-card-arrow {
-    position: absolute;
-    top: 1.75rem;
-    right: 1.5rem;
-    color: var(--gold-base);
-    transition: transform 0.3s ease, color 0.3s ease;
-  }
-  .service-card:hover .service-card-arrow, .service-card:focus-visible .service-card-arrow {
-    transform: translateX(3px);
-    color: var(--gold-hover);
-  }
-
-  /* ---------- Metodología (mosaico) ---------- */
-  .metodo-mosaic {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 0;
-    border-radius: 4px;
-    overflow: hidden;
-  }
-  @media (min-width: 760px) {
-    .metodo-mosaic { grid-template-columns: 1.15fr 1fr; }
-    .mm-title { grid-column: 1 / -1; }
-    .mm-1 { grid-column: 1; grid-row: 2 / 4; }
-    .mm-2 { grid-column: 2; grid-row: 2; }
-    .mm-3 { grid-column: 2; grid-row: 3; }
-    .mm-4 { grid-column: 1 / -1; }
-  }
-  .mm-cell {
-    padding: clamp(1.5rem, 3.5vw, 2.5rem);
-    min-width: 0;
-    display: flex;
-    flex-direction: column;
-  }
-  .mm-num {
-    font-family: 'Cinzel', serif;
-    font-size: 0.74rem;
-    letter-spacing: 0.24em;
-    opacity: 0.65;
-    margin-bottom: auto;
-    padding-bottom: 2.25rem;
-  }
-  .mm-cell h3 {
-    font-family: 'Playfair Display', serif;
-    font-weight: 700;
-    font-size: clamp(1.25rem, 2.6vw, 1.7rem);
-    margin: 0 0 0.4rem;
-    line-height: 1.15;
-    text-wrap: balance;
-  }
-  .mm-cell p {
-    margin: 0;
-    font-size: 0.88rem;
-    line-height: 1.55;
-    opacity: 0.82;
-    max-width: 46ch;
-  }
-  .mm-title {
-    background: var(--corporate-surface);
-    color: var(--text-high);
-    justify-content: center;
-    padding-block: clamp(2.25rem, 5vw, 3.5rem);
-  }
-  .mm-title h2 {
-    font-family: 'Playfair Display', serif;
-    font-weight: 700;
-    font-size: clamp(1.75rem, 4.5vw, 2.75rem);
-    margin: 0 0 0.5rem;
-    line-height: 1;
-  }
-  .mm-title .mm-sub {
-    font-family: 'Cinzel', serif;
-    font-size: 0.72rem;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    opacity: 0.8;
-  }
-  .mm-1 { background: var(--corporate-dark); color: var(--text-high); min-height: 220px; }
-  .mm-2 { background: var(--gold-base); color: var(--corporate-dark); min-height: 150px; }
-  .mm-3 { background: var(--cream); color: var(--corporate-dark); min-height: 150px; }
-  .mm-4 { background: var(--navy-light); color: var(--text-high); min-height: 150px; }
-
-  /* ---------- Perfil ---------- */
-  .perfil-band {
-    background: var(--navy-light);
-    color: var(--text-high);
-    border-radius: 4px;
-    text-align: center;
-    padding: clamp(2rem, 4.5vw, 3rem) clamp(1.5rem, 3.5vw, 2.5rem);
-  }
-  .perfil-band h2 {
-    font-family: 'Playfair Display', serif;
-    font-weight: 700;
-    font-size: clamp(1.5rem, 3.6vw, 2.2rem);
-    margin: 0 0 0.6rem;
-    text-wrap: balance;
-  }
-  .perfil-band .perfil-role {
-    font-family: 'Cinzel', serif;
-    font-size: 0.72rem;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    opacity: 0.72;
-  }
-
-  /* ---------- FAQ (diapositivas con scroll horizontal propio) ---------- */
-  .faqd { position: relative; max-width: 60rem; margin: 0 auto; }
-  .faqd-track {
-    display: flex;
-    overflow-x: auto;
-    overflow-y: hidden;
-    scroll-snap-type: x mandatory;
-    scroll-behavior: smooth;
-    -webkit-overflow-scrolling: touch;
-    overscroll-behavior-x: contain;
-    scrollbar-width: none;
-    border-radius: 4px;
-  }
-  .faqd-track::-webkit-scrollbar { display: none; }
-  .faqd-slide { flex: 0 0 100%; scroll-snap-align: start; min-width: 0; }
-
-  .faqd-card { display: flex; flex-direction: column; min-height: clamp(360px, 46vw, 460px); }
-  .faqd-main {
-    flex: 1 1 auto; position: relative;
-    padding: clamp(2rem, 5vw, 3.75rem) clamp(1.5rem, 5vw, 4rem);
-    display: flex; flex-direction: column; justify-content: center; align-items: center;
-    text-align: center; min-width: 0;
-  }
-  .faqd-num {
-    position: absolute; top: clamp(1rem, 2.5vw, 1.6rem); right: clamp(1rem, 2.5vw, 1.6rem);
-    font-family: 'Cinzel', serif; font-size: 0.72rem; letter-spacing: 0.2em; opacity: 0.55;
-    font-variant-numeric: tabular-nums;
-  }
-  .faqd-q {
-    font-family: 'Playfair Display', serif; font-weight: 700;
-    font-size: clamp(1.6rem, 4.6vw, 3.1rem); line-height: 1.14; margin: 0;
-    max-width: 20ch; text-wrap: balance;
-  }
-  .faqd-q .accent { color: var(--gold-base); }
-  .faqd-foot {
-    flex: 0 0 auto; background: var(--cream); color: var(--corporate-dark);
-    padding: clamp(1.4rem, 3vw, 2.1rem) clamp(1.5rem, 4vw, 3rem);
-    display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between;
-    gap: 0.75rem 2rem;
-  }
-  .faqd-note { font-size: clamp(1rem, 1.7vw, 1.3rem); line-height: 1.5; max-width: 54ch; min-width: 0; margin: 0; }
-  .faqd-brand { font-family: 'Cinzel', serif; font-size: 0.72rem; letter-spacing: 0.18em; opacity: 0.6; white-space: nowrap; }
-
-  /* Rotación de color, solo colores de marca */
-  .faqd-s1 .faqd-main { background: var(--corporate-dark); color: var(--text-high); }
-  .faqd-s2 .faqd-main { background: var(--gold-base); color: var(--corporate-dark); }
-  .faqd-s2 .faqd-q .accent { color: var(--corporate-surface); }
-  .faqd-s3 .faqd-main { background: var(--corporate-surface); color: var(--text-high); }
-  .faqd-s4 .faqd-main { background: var(--cream); color: var(--corporate-dark); }
-  .faqd-s4 .faqd-q .accent { color: var(--corporate-surface); }
-  .faqd-s4 .faqd-foot { background: var(--corporate-dark); color: var(--text-high); }
-  .faqd-s5 .faqd-main { background: var(--navy-light); color: var(--text-high); }
-
-  .faqd-bar { display: flex; align-items: center; gap: 1rem; margin-top: 1rem; }
-  .faqd-dots { display: flex; gap: 0.4rem; flex: 1 1 auto; }
-  .faqd-dots button {
-    width: 26px; height: 4px; border: none; border-radius: 2px; padding: 0; cursor: pointer;
-    background: rgba(197, 160, 89, 0.25); transition: background 0.2s;
-  }
-  .faqd-dots button[aria-current="true"] { background: var(--gold-base); }
-  .faqd-dots button:focus-visible { outline: 2px solid var(--gold-hover); outline-offset: 3px; }
-  .faqd-counter { font-family: 'Cinzel', serif; font-size: 0.74rem; letter-spacing: 0.16em; color: var(--text-muted); flex: 0 0 auto; font-variant-numeric: tabular-nums; }
-  .faqd-arrows { display: flex; gap: 0.5rem; flex: 0 0 auto; }
-  .faqd-arrows button {
-    width: 40px; height: 40px; border-radius: 50%; cursor: pointer;
-    border: 1px solid rgba(197, 160, 89, 0.35); background: transparent; color: var(--gold-base);
-    display: grid; place-items: center; transition: background-color 0.18s, color 0.18s, border-color 0.18s;
-  }
-  .faqd-arrows button:hover:not(:disabled) { background: var(--gold-base); color: var(--corporate-dark); border-color: var(--gold-base); }
-  .faqd-arrows button:disabled { opacity: 0.3; cursor: default; }
-  .faqd-arrows button:focus-visible { outline: 2px solid var(--gold-hover); outline-offset: 2px; }
-  .faqd-hint { margin-top: 0.75rem; font-size: 0.76rem; color: var(--text-muted); text-align: center; }
-  @media (prefers-reduced-motion: reduce) { .faqd-track { scroll-behavior: auto; } }
-
-  /* ---------- Campos flotantes premium ---------- */
-  .float-field { position: relative; margin-bottom: 1.25rem; }
-  .float-field input {
-    width: 100%;
-    padding: 1.3rem 0.8rem 0.45rem;
-    border: 1px solid transparent;
-    background:
-      linear-gradient(var(--corporate-dark), var(--corporate-dark)) padding-box,
-      linear-gradient(135deg, rgba(148, 163, 184, 0.25), rgba(148, 163, 184, 0.25)) border-box;
-    color: var(--text-high);
-    font-family: 'Inter', sans-serif;
-    font-size: 0.9rem;
-    border-radius: 0.4rem;
-    transition: background 0.3s ease, box-shadow 0.3s ease;
-  }
-  .float-field input:focus {
-    outline: none;
-    border-color: transparent;
-    background:
-      linear-gradient(var(--corporate-dark), var(--corporate-dark)) padding-box,
-      linear-gradient(135deg, var(--gold-hover), var(--gold-base) 50%, rgba(197, 160, 89, 0.25)) border-box;
-    box-shadow: 0 0 0 3px rgba(197, 160, 89, 0.12), 0 8px 24px rgba(197, 160, 89, 0.08);
-  }
-  .float-field label {
-    position: absolute;
-    left: 0.85rem;
-    top: 0.9rem;
-    margin: 0;
-    pointer-events: none;
-    transform-origin: left top;
-    font-size: 0.9rem;
-    color: var(--text-muted);
-    transition: transform 0.22s cubic-bezier(0.16, 1, 0.3, 1), color 0.22s ease;
-  }
-  .float-field input:focus + label,
-  .float-field input:not(:placeholder-shown) + label {
-    transform: translateY(-0.6rem) scale(0.78);
-    color: var(--gold-base);
-  }
-
-  /* ---------- Modal fields ---------- */
-  .modal-field { margin-bottom: 1.25rem; }
-  .modal-field label { display: block; font-size: 0.8rem; color: var(--text-muted); margin-bottom: 0.5rem; font-weight: 500; }
-  .modal-field input, .modal-field select, .modal-field textarea {
-    width: 100%;
-    background: var(--corporate-dark);
-    border: 1px solid rgba(148, 163, 184, 0.25);
-    border-radius: 0.4rem;
-    padding: 0.75rem;
-    color: var(--text-high);
-    font-family: 'Inter', sans-serif;
-    font-size: 0.9rem;
-  }
-  .modal-field textarea { resize: vertical; }
-  .modal-field input:focus, .modal-field select:focus, .modal-field textarea:focus { outline: none; border-color: var(--gold-hover); }
-
-  /* ---------- Honeypot anti-bots ---------- */
-  .hp-field { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
-
-  /* ---------- Estado del formulario ---------- */
-  .form-status { font-size: 0.85rem; margin-top: 1rem; min-height: 1.1rem; line-height: 1.4; text-align: center; }
-  .form-status.error { color: #FCA5A5; }
-  .form-status.success { color: #86efac; }
-
-  /* ---------- Contact Section ---------- */
-  .contact-wrap {
-    max-width: 60rem;
-    margin: 0 auto;
-  }
-  .contact-intro {
-    text-align: center;
-    max-width: 42rem;
-    margin: 0 auto 2.5rem;
-    color: var(--text-muted);
-    font-size: 0.95rem;
-    line-height: 1.6;
-  }
-  .contact-card {
-    background: var(--corporate-surface);
-    border: 1px solid rgba(197, 160, 89, 0.22);
-    border-radius: 1rem;
-    padding: clamp(1.5rem, 4vw, 2.75rem);
-    box-shadow: 0 24px 60px rgba(0, 0, 0, 0.35);
-  }
-  .contact-form { max-width: 44rem; margin: 0 auto; }
-  .btn-cta-hero {
-    padding: 1.05rem 1.5rem;
-    font-size: 1.05rem;
-    letter-spacing: 0.01em;
-    box-shadow: 0 12px 30px rgba(212, 175, 55, 0.28);
-    width: 100%;
-  }
-  .contact-note {
-    margin-top: 0.75rem;
-    font-size: 0.72rem;
-    color: var(--text-muted);
-    text-align: center;
-    line-height: 1.5;
-  }
-
-  /* ---------- Grano animado ---------- */
-  body::after {
-    content: '';
-    position: fixed;
-    inset: -50%;
-    z-index: 100;
-    pointer-events: none;
-    opacity: 0.045;
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-    animation: grain-shift 1.2s steps(6) infinite;
-  }
-  @keyframes grain-shift {
-    0%   { transform: translate(0, 0); }
-    20%  { transform: translate(-3%, 2%); }
-    40%  { transform: translate(2%, -3%); }
-    60%  { transform: translate(-2%, -1%); }
-    80%  { transform: translate(3%, 3%); }
-    100% { transform: translate(0, 0); }
-  }
-
-  /* ---------- Reveal text ---------- */
-  .reveal.reveal-text { opacity: 1; transform: none; }
-  .reveal-text .rt-inner {
-    display: inline-block;
-    transform: translateY(35%);
-    clip-path: polygon(0 100%, 100% 100%, 100% 100%, 0% 100%);
-    transition: clip-path 1.1s cubic-bezier(0.77, 0, 0.18, 1), transform 1.1s cubic-bezier(0.16, 1, 0.3, 1);
-    transition-delay: inherit;
-  }
-  .reveal-text.is-visible .rt-inner {
-    transform: translateY(0);
-    clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
-  }
-
-  /* ---------- Footer ---------- */
-  footer {
-    border-top: 1px solid rgba(197, 160, 89, 0.1);
-    padding: 2.5rem 0;
-  }
-  .footer-inner {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: space-between;
-    gap: 1rem;
-    font-size: 0.875rem;
-    color: var(--text-muted);
-    text-align: center;
-  }
-  @media (min-width: 768px) {
-    .footer-inner { flex-direction: row; text-align: left; }
-  }
-  .footer-links { display: flex; align-items: center; gap: 1.5rem; }
-  .footer-links a:hover { color: var(--gold-hover); }
-
-  /* ---------- WhatsApp FAB ---------- */
-  .fab {
-    position: fixed;
-    bottom: 1.5rem;
-    right: 1.5rem;
-    z-index: 50;
-    background: var(--gold-base);
-    color: var(--corporate-dark);
-    border-radius: 9999px;
-    padding: 1rem;
-    border: none;
-    box-shadow: 0 10px 25px rgba(0,0,0,0.35);
-    cursor: pointer;
-    display: inline-flex;
-    transition: transform 0.2s;
-  }
-  .fab:hover { transform: scale(1.05); }
-
-  @media (max-width: 480px) {
-    .fab { bottom: 1rem; right: 1rem; }
-  }
-
-  @media (prefers-reduced-motion: reduce) {
-    body::after { animation: none; }
-    .reveal-text .rt-inner { transform: none; clip-path: none; transition: none; }
-  }
-
-  /* ========== Modal Presentación de Servicios (Slider) ========== */
-  .service-modal {
-    --sm-bg: #F8F9FA;
-    --sm-ink: var(--corporate-dark);
-    --sm-ink-soft: #3a4461;
-    --sm-accent: var(--gold-base);
-    position: fixed;
-    inset: 0;
-    z-index: 9999;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: clamp(0.75rem, 3vw, 2rem);
-    padding-top: max(clamp(0.75rem, 3vw, 2rem), env(safe-area-inset-top));
-    padding-bottom: max(clamp(0.75rem, 3vw, 2rem), env(safe-area-inset-bottom));
-    opacity: 0;
-    visibility: hidden;
-    transition: opacity 0.4s ease, visibility 0.4s ease;
-  }
-  .service-modal.open { opacity: 1; visibility: visible; }
-  .sm-overlay {
-    position: absolute;
-    inset: 0;
-    background: rgba(5, 9, 22, 0.78);
-    -webkit-backdrop-filter: blur(4px);
-    backdrop-filter: blur(4px);
-  }
-  .sm-dialog {
-    position: relative;
-    width: min(1040px, 100%);
-    height: min(640px, 92vh);
-    height: min(640px, 92dvh);
-    max-height: 100%;
-    background: var(--sm-bg);
-    border-radius: 1rem;
-    box-shadow: 0 40px 100px rgba(0, 0, 0, 0.5);
-    display: flex;
-    flex-direction: column;
-    overflow: hidden;
-    transform: translateY(18px) scale(0.98);
-    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-  }
-  .service-modal.open .sm-dialog { transform: translateY(0) scale(1); }
-  .sm-close {
-    position: absolute;
-    top: 1rem;
-    right: 1rem;
-    z-index: 5;
-    width: 2.5rem;
-    height: 2.5rem;
-    border-radius: 9999px;
-    border: 1px solid rgba(10, 17, 40, 0.15);
-    background: #fff;
-    color: var(--sm-ink);
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    transition: transform 0.3s ease, background-color 0.3s ease, color 0.3s ease;
-  }
-  .sm-close:hover { background: var(--sm-ink); color: #fff; transform: rotate(90deg); }
-  .sm-close:focus-visible { outline: 2px solid var(--sm-accent); outline-offset: 2px; }
-  .sm-viewport { flex: 1; min-height: 0; overflow: hidden; position: relative; }
-  .sm-track {
-    display: flex;
-    height: 100%;
-    will-change: transform;
-    transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
-  }
-  .sm-slide {
-    min-width: 100%;
-    height: 100%;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: clamp(1rem, 4vw, 3rem);
-    align-items: center;
-    padding: clamp(2.5rem, 5vw, 3.5rem);
-    padding-top: clamp(3.75rem, 6vw, 4rem);
-  }
-  .sm-art {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: var(--sm-ink);
-  }
-  .sm-art svg { width: 100%; max-width: 300px; height: auto; }
-  .sm-kicker {
-    display: inline-block;
-    font-family: 'Inter', sans-serif;
-    font-size: 0.72rem;
-    font-weight: 600;
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
-    color: var(--sm-accent);
-    margin-bottom: 1rem;
-  }
-  .sm-title {
-    font-family: 'Cinzel', serif;
-    font-weight: 500;
-    font-size: clamp(1.45rem, 3.2vw, 2.3rem);
-    line-height: 1.18;
-    color: var(--sm-ink);
-    margin-bottom: 1.1rem;
-  }
-  .sm-text {
-    font-family: 'Inter', sans-serif;
-    font-size: clamp(0.95rem, 1.5vw, 1.05rem);
-    line-height: 1.75;
-    color: var(--sm-ink-soft);
-  }
-  .sm-footer {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 1rem;
-    padding: 1rem clamp(1.25rem, 4vw, 2.5rem);
-    border-top: 1px solid rgba(10, 17, 40, 0.08);
-    background: #fff;
-    flex-shrink: 0;
-  }
-  .sm-nav {
-    font-family: 'Inter', sans-serif;
-    font-size: 0.85rem;
-    font-weight: 600;
-    padding: 0.7rem 1.3rem;
-    border-radius: 0.4rem;
-    border: 1px solid rgba(10, 17, 40, 0.18);
-    background: #fff;
-    color: var(--sm-ink);
-    cursor: pointer;
-    transition: transform 0.25s ease, border-color 0.25s ease, color 0.25s ease, filter 0.25s ease, box-shadow 0.25s ease;
-  }
-  .sm-nav:hover:not(:disabled) { border-color: var(--sm-accent); color: var(--sm-accent); transform: translateY(-1px); }
-  .sm-nav:focus-visible { outline: 2px solid var(--sm-accent); outline-offset: 2px; }
-  .sm-next {
-    background-image: linear-gradient(135deg, var(--gold-hover), var(--gold-base));
-    color: var(--corporate-dark);
-    border-color: transparent;
-  }
-  .sm-next:hover:not(:disabled) { filter: brightness(1.06); color: var(--corporate-dark); box-shadow: 0 8px 20px rgba(212, 175, 55, 0.3); transform: translateY(-1px); }
-  .sm-nav:disabled { opacity: 0.35; cursor: not-allowed; }
-  .sm-dots { display: flex; gap: 0.5rem; }
-  .sm-dot {
-    width: 9px;
-    height: 9px;
-    border-radius: 9999px;
-    background: rgba(10, 17, 40, 0.18);
-    border: none;
-    padding: 0;
-    cursor: pointer;
-    transition: background-color 0.3s ease, width 0.3s ease;
-  }
-  .sm-dot.active { background: var(--sm-accent); width: 26px; }
-  body.sm-open { overflow: hidden; }
-
-  @media (max-width: 760px) {
-    .sm-dialog { height: 100%; width: 100%; }
-    .sm-slide {
-      grid-template-columns: 1fr;
-      align-content: start;
-      gap: 1.25rem;
-      overflow-y: auto;
-      -webkit-overflow-scrolling: touch;
-      padding: 3.5rem 1.5rem 1.5rem;
-    }
-    .sm-art { order: -1; }
-    .sm-art svg { max-width: 160px; }
-    .sm-footer { padding: 0.85rem 1rem; }
-    .sm-nav { padding: 0.8rem 1rem; font-size: 0.85rem; min-height: 44px; white-space: nowrap; }
-  }
-  @media (prefers-reduced-motion: reduce) {
-    .service-modal, .sm-dialog, .sm-track, .sm-dot, .sm-nav, .sm-close { transition: none !important; }
-  }
+/* ---------- Chat ---------- */
+.chat-fab{position:fixed;right:max(16px,env(safe-area-inset-right));bottom:max(16px,env(safe-area-inset-bottom));z-index:60;height:52px;padding:0 24px;border-radius:24px;border:1px solid var(--gold);background:var(--gold);color:var(--navy);font:500 14px var(--f-body);cursor:pointer}
+.chat-fab:hover{background:var(--gold-2)}
+.chat{position:fixed;right:max(16px,env(safe-area-inset-right));bottom:max(80px,calc(64px + env(safe-area-inset-bottom)));z-index:61;width:min(400px,calc(100vw - 32px));height:min(580px,calc(100svh - 120px));background:var(--paper);border:1px solid var(--navy);border-radius:12px;display:none;flex-direction:column;overflow:hidden}
+.chat.open{display:flex}
+.chat-h{background:var(--navy);color:var(--paper);padding:16px 20px;display:flex;justify-content:space-between;align-items:center}
+.chat-h b{font:500 14px var(--f-label);letter-spacing:.12em}
+.chat-h small{display:block;color:var(--muted);font-size:12px;margin-top:4px}
+.chat-x{background:none;border:0;color:var(--paper);font-size:26px;line-height:1;cursor:pointer;padding:4px 8px}
+.chat-log{flex:1;overflow-y:auto;padding:20px;display:flex;flex-direction:column;gap:14px}
+.msg{max-width:88%;font-size:15px;line-height:1.5;white-space:pre-wrap;word-wrap:break-word}
+.msg.bot{align-self:flex-start;border-left:2px solid var(--gold);padding-left:12px;color:var(--navy)}
+.msg.me{align-self:flex-end;background:var(--navy);color:var(--paper);padding:10px 14px;border-radius:12px 12px 2px 12px}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chips button{border:1px solid var(--rule);background:transparent;border-radius:24px;padding:8px 14px;font:400 13px var(--f-body);color:var(--navy);cursor:pointer}
+.chips button:hover{border-color:var(--navy)}
+.chat-f{display:flex;border-top:1px solid var(--rule)} /* taste-skill-ignore: regla de documento (riel técnico FigureAI / expediente) */
+.chat-f input{flex:1;border:0;background:transparent;padding:16px 20px;font:400 16px var(--f-body);color:var(--navy);outline:0;min-width:0}
+.chat-f button{border:0;background:var(--navy);color:var(--paper);padding:0 20px;font:500 14px var(--f-body);cursor:pointer}
+.chat-f button:disabled{opacity:.5;cursor:default}
+.chat-legal{font-size:11px;color:var(--ink-soft);padding:8px 20px 12px;border-top:1px solid var(--rule)} /* taste-skill-ignore: regla de documento (riel técnico FigureAI / expediente) */
 </style>
 </head>
 <body>
 
-<div class="scroll-progress" id="scrollProgress" role="progressbar" aria-label="Progreso de lectura de la página" aria-hidden="true"></div>
-
-<header>
-  <div class="container header-inner" style="position:relative;">
-    <a href="#top" class="logo">AJCM <span>| RRHH Consulting</span></a>
-
-    <nav class="desktop-nav">
+<header class="top">
+  <div class="wrap top-in">
+    <a class="brand" href="#inicio" aria-label="AJCM, inicio">AJ<span>CM</span></a>
+    <nav class="menu" id="menu" aria-label="Principal">
       <a href="#servicios">Servicios</a>
-      <a href="#metodologia">Metodología</a>
+      <a href="#referencia">Referencia</a>
+      <a href="#metodo">Método</a>
       <a href="#perfil">Perfil</a>
-      <a href="#faq">FAQ</a>
+      <a href="#preguntas">Preguntas</a>
       <a href="#contacto">Contacto</a>
     </nav>
-
-    <a href="https://calendar.app.google/vEu1C9fPBmbVUhWY7" target="_blank" rel="noopener noreferrer" class="btn btn-gold header-cta">Agendar Consulta</a>
-
-    <button class="mobile-toggle" id="mobileToggle" aria-label="Abrir menú" aria-expanded="false">
-      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
-    </button>
-
-    <nav class="mobile-nav" id="mobileNav">
-      <a href="#servicios">Servicios</a>
-      <a href="#metodologia">Metodología</a>
-      <a href="#perfil">Perfil</a>
-      <a href="#faq">FAQ</a>
-      <a href="#contacto">Contacto</a>
-      <a href="https://calendar.app.google/vEu1C9fPBmbVUhWY7" target="_blank" rel="noopener noreferrer" class="btn btn-gold" style="align-self:flex-start;">Agendar Consulta</a>
-    </nav>
+    <a class="btn gold" href="#contacto">Solicitar consulta</a>
+    <button class="menu-toggle" id="menuBtn" aria-expanded="false" aria-controls="menu">Menú</button>
   </div>
 </header>
 
-<main id="top">
-
-  <!-- ==================== PORTADA INTRO (SPLASH 3D ENTRELAZADO) ==================== -->
-  <section id="portada-intro" aria-label="Portada AJCM">
-    <img class="splash-texture" src="textura.jpg" alt="Textura AJCM">
-    <div class="splash-overlay" aria-hidden="true"></div>
-
-    <h1 class="splash-word">AJCM</h1>
-  </section>
-
-  <section class="hero">
-    <div class="parallax-layer" data-speed="0.12" aria-hidden="true"></div>
-    <div class="container">
-      <h1 class="reveal reveal-text"><span class="rt-inner">Protección Jurídico-Laboral y Optimización de Talento para Empresas en Puerto Rico.</span></h1>
-      <p class="reveal reveal-d1">Consultoría especializada en cumplimiento normativo, auditorías y manuales corporativos sin la burocracia de las grandes agencias.</p>
-      <div class="hero-actions reveal reveal-d2">
-        <a href="https://calendar.app.google/vEu1C9fPBmbVUhWY7" target="_blank" rel="noopener noreferrer" class="btn btn-gold">Agendar Consulta</a>
-        <a href="https://wa.me/19394282820" target="_blank" rel="noopener noreferrer" class="btn btn-ghost">Consultar por WhatsApp</a>
+<main id="inicio">
+  <!-- ===== MASTHEAD ===== -->
+  <section class="mast" aria-labelledby="t-h1">
+    <div class="mast-band wrap">
+      <div class="mast-meta label">
+        <span>Expediente laboral · Puerto Rico</span>
+        <span>AJCM | RRHH Consulting</span>
+      </div>
+      <p class="wordmark" aria-hidden="true">AJ<span>CM</span></p>
+      <div class="folio" aria-label="Áreas del expediente">
+        <div><b>§1</b><small>Contratos de empleo</small></div>
+        <div><b>§2</b><small>Verificación de empleo</small></div>
+        <div><b>§3</b><small>Exento y no exento</small></div>
+        <div><b>§4</b><small>Nómina</small></div>
+      </div>
+    </div>
+    <div class="mast-title wrap axis">
+      <p class="mast-side">Consultoría boutique de recursos humanos y cumplimiento laboral para pequeñas y medianas empresas en Puerto Rico.</p>
+      <h1 id="t-h1">Tu empresa,<br><em>en regla</em> desde<br>el primer empleado.</h1>
+      <p class="standfirst">Redactamos tus contratos, verificamos la elegibilidad de empleo, clasificamos correctamente cada puesto y ordenamos tu nómina. Documentos claros que resisten una auditoría.</p>
+      <div class="mast-cta">
+        <a class="btn" href="#contacto">Solicitar consulta</a>
+        <a class="link-u" href="#servicios">Ver el expediente</a>
       </div>
     </div>
   </section>
 
-  <section id="servicios">
-    <div class="container">
-      <h2 class="section-title reveal reveal-text"><span class="rt-inner">Servicios</span></h2>
-      <div class="services-grid">
+  <!-- ===== SERVICIOS ===== -->
+  <section class="s wrap" id="servicios" aria-labelledby="t-serv">
+    <div class="s-head axis">
+      <span class="label">Cláusulas</span>
+      <h2 id="t-serv">Lo que firmamos contigo.</h2>
+      <p>Cada servicio responde a una obligación concreta del patrono bajo la ley de Puerto Rico y la ley federal aplicable.</p>
+    </div>
+    <div class="clauses">
+      <article class="clause axis">
+        <div class="num"><b>§1</b><span class="label">Contratos</span></div>
+        <div class="body">
+          <h3>Contratos de empleo</h3>
+          <p>Contratos redactados a la medida del puesto y de tu operación, alineados con la legislación laboral de Puerto Rico.</p>
+          <ul>
+            <li>Contrato por tiempo indeterminado</li>
+            <li>Contrato a término fijo o por proyecto</li>
+            <li>Período probatorio</li>
+            <li>Confidencialidad y no competencia</li>
+            <li>Ofertas de empleo y descripciones de puesto</li>
+            <li>Acuerdos de separación</li>
+          </ul>
+        </div>
+      </article>
+      <article class="clause axis">
+        <div class="num"><b>§2</b><span class="label">Verificación</span></div>
+        <div class="body">
+          <h3>Verificación de empleo</h3>
+          <p>Proceso ordenado para confirmar la elegibilidad de empleo de cada contratación y mantener los expedientes listos para inspección.</p>
+          <ul>
+            <li>Formulario I-9 completo y a tiempo</li>
+            <li>Orientación sobre E-Verify</li>
+            <li>Expediente de personal organizado</li>
+            <li>Calendario de reverificación</li>
+            <li>Auditoría interna de I-9 existentes</li>
+            <li>Verificación de empleo para terceros</li>
+          </ul>
+        </div>
+      </article>
+      <article class="clause axis">
+        <div class="num"><b>§3</b><span class="label">Clasificación</span></div>
+        <div class="body">
+          <h3>Empleados exentos y no exentos</h3>
+          <p>Análisis de cada puesto según sus deberes reales y su salario, para determinar si tiene derecho a horas extra bajo FLSA y la Ley 379.</p>
+          <ul>
+            <li>Análisis de deberes por puesto</li>
+            <li>Pruebas de salario y de deberes</li>
+            <li>Ejecutivo, administrativo y profesional</li>
+            <li>Cómputo de horas extra</li>
+            <li>Registro de asistencia</li>
+            <li>Corrección de clasificaciones erróneas</li>
+          </ul>
+        </div>
+      </article>
+      <article class="clause axis">
+        <div class="num"><b>§4</b><span class="label">Nómina</span></div>
+        <div class="body">
+          <h3>Nómina</h3>
+          <p>Soporte para que cada pago sea correcto, puntual y esté documentado: salarios, retenciones, licencias y bono de Navidad.</p>
+          <ul>
+            <li>Estructura y calendario de pago</li>
+            <li>Retenciones y aportaciones</li>
+            <li>Vacaciones y licencia por enfermedad</li>
+            <li>Bono de Navidad</li>
+            <li>Liquidación final</li>
+            <li>Revisión de talonarios</li>
+          </ul>
+        </div>
+      </article>
+      <article class="clause axis">
+        <div class="num"><b>§5</b><span class="label">Políticas</span></div>
+        <div class="body">
+          <h3>Manuales y políticas</h3>
+          <p>El manual del empleado y las políticas que la ley exige o que tu operación necesita, escritas en un lenguaje que tu equipo entienda.</p>
+          <ul>
+            <li>Manual del empleado</li>
+            <li>Política contra el hostigamiento</li>
+            <li>Disciplina progresiva</li>
+            <li>Asistencia y uso de tecnología</li>
+          </ul>
+        </div>
+      </article>
+      <article class="clause axis">
+        <div class="num"><b>§6</b><span class="label">Auditoría</span></div>
+        <div class="body">
+          <h3>Auditoría de cumplimiento</h3>
+          <p>Revisamos tus expedientes, contratos, clasificaciones y nómina, y te entregamos un informe con los riesgos ordenados por prioridad.</p>
+          <ul>
+            <li>Diagnóstico de riesgos</li>
+            <li>Informe con plan de corrección</li>
+            <li>Carteles y avisos obligatorios</li>
+            <li>Seguimiento de acciones</li>
+          </ul>
+        </div>
+      </article>
+    </div>
+  </section>
 
-        <article class="service-card reveal" data-service="auditoria" role="button" tabindex="0" aria-haspopup="dialog">
-          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
-          <h3>Auditorías de Cumplimiento Laboral</h3>
-          <p>Mapeo de riesgos, brechas normativas en PR y Departamento del Trabajo.</p>
-          <svg class="service-card-arrow" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg>
-        </article>
+  <!-- ===== RIEL DE REFERENCIA ===== -->
+  <section class="s field-navy" id="referencia" aria-labelledby="t-ref">
+    <div class="wrap">
+      <div class="s-head axis">
+        <span class="label">Referencia rápida</span>
+        <h2 id="t-ref">Las cifras que todo patrono debe saber.</h2>
+        <p>Algunas de las reglas que revisamos en cada expediente.</p>
+      </div>
+      <div class="rail">
+        <div class="rail-row"><span class="k">Jornada · Ley 379</span><span class="d">Horas diarias de trabajo regular. Lo que pase de ahí, en un empleado no exento, es hora extra.</span><span class="v">8<small>horas</small></span></div>
+        <div class="rail-row"><span class="k">Semana · FLSA y Ley 379</span><span class="d">Horas semanales de trabajo regular antes de pagar tiempo extra.</span><span class="v">40<small>horas</small></span></div>
+        <div class="rail-row"><span class="k">Formulario I-9 · Sección 1</span><span class="d">El empleado la completa no más tarde de su primer día de trabajo.</span><span class="v">1<small>día</small></span></div>
+        <div class="rail-row"><span class="k">Formulario I-9 · Sección 2</span><span class="d">Días laborables que tiene el patrono para examinar los documentos.</span><span class="v">3<small>días</small></span></div>
+        <div class="rail-row"><span class="k">Retención del I-9</span><span class="d">Años desde la contratación, o un año después de la separación, lo que ocurra más tarde.</span><span class="v">3<small>años</small></span></div>
+      </div>
+      <p class="rail-note">Información general, no asesoría legal. La aplicación depende de cada caso; algunas reglas tienen excepciones.</p>
+    </div>
+  </section>
 
-        <article class="service-card reveal" data-service="manuales" role="button" tabindex="0" aria-haspopup="dialog">
-          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path></svg>
-          <h3>Manuales y Políticas Corporativas</h3>
-          <p>Handbooks de empleados a medida (políticas de hostigamiento, licencias, uso de tecnología, disciplina progresiva).</p>
-          <svg class="service-card-arrow" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg>
-        </article>
+  <!-- ===== MÉTODO ===== -->
+  <section class="s wrap" id="metodo" aria-labelledby="t-met">
+    <div class="s-head axis">
+      <span class="label">Método</span>
+      <h2 id="t-met">Cuatro pasos, un expediente completo.</h2>
+    </div>
+    <div class="ledger">
+      <div class="step"><span class="label">Paso 01</span><h3>Diagnóstico</h3><p>Conversamos sobre tu empresa, tus empleados y lo que ya tienes documentado.</p></div>
+      <div class="step"><span class="label">Paso 02</span><h3>Plan</h3><p>Te entregamos una propuesta clara: qué se hace, en qué orden y en cuánto tiempo.</p></div>
+      <div class="step"><span class="label">Paso 03</span><h3>Documentos</h3><p>Redactamos, corregimos y organizamos contratos, formularios, políticas y nómina.</p></div>
+      <div class="step"><span class="label">Paso 04</span><h3>Seguimiento</h3><p>Acompañamos la implementación y actualizamos cuando cambian la ley o tu operación.</p></div>
+    </div>
+  </section>
 
-        <article class="service-card reveal" data-service="relaciones" role="button" tabindex="0" aria-haspopup="dialog">
-          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><path d="M16 3h5v5"></path><path d="M8 3H3v5"></path><path d="M12 22V8"></path><path d="M12 8 3 3"></path><path d="m12 8 9-5"></path></svg>
-          <h3>Relaciones Obrero-Patronales &amp; Contratación</h3>
-          <p>Asesoría preventiva en despidos (Ley 80), periodos probatorios y clasificación exento/no exento (FLSA).</p>
-          <svg class="service-card-arrow" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg>
-        </article>
-
-        <article class="service-card reveal" data-service="nomina" role="button" tabindex="0" aria-haspopup="dialog">
-          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
-          <h3>Optimización de Nómina y Capacitación Directiva</h3>
-          <p>Talleres a supervisores y alineación de procesos.</p>
-          <svg class="service-card-arrow" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg>
-        </article>
-
+  <!-- ===== PERFIL ===== -->
+  <section class="s sign" id="perfil" aria-labelledby="t-perfil">
+    <div class="wrap axis">
+      <aside>Firmado por quien trabaja tu caso. Sin intermediarios.</aside>
+      <h2 class="name" id="t-perfil">Alexis Joel Mercado Colón</h2>
+      <p class="role">Fundador · AJCM | RRHH Consulting</p>
+      <div class="rule-sig">
+        <p><span class="label">Qué hacemos</span>Recursos humanos y cumplimiento laboral preventivo para PYMES: documentos, procesos y orientación práctica.</p>
+        <p><span class="label">Qué no hacemos</span>No somos un bufete de abogados. Si tu caso requiere representación legal, te lo decimos y te referimos.</p>
       </div>
     </div>
   </section>
 
-  <section id="metodologia" class="section-alt">
-    <div class="parallax-layer" data-speed="0.18" aria-hidden="true"></div>
-    <div class="container">
-      <div class="metodo-mosaic reveal">
-        <div class="mm-cell mm-title">
-          <h2>Metodología</h2>
-          <div class="mm-sub">Cuatro etapas · AJCM RRHH Consulting</div>
-        </div>
-        <div class="mm-cell mm-1">
-          <span class="mm-num">01</span>
-          <h3>Diagnóstico</h3>
-          <p>Expedientes, nómina y clasificación de empleados. Dónde está el riesgo real antes de tocar nada.</p>
-        </div>
-        <div class="mm-cell mm-2">
-          <span class="mm-num">02</span>
-          <h3>Diseño Normativo</h3>
-          <p>Manual y políticas escritas para tu operación.</p>
-        </div>
-        <div class="mm-cell mm-3">
-          <span class="mm-num">03</span>
-          <h3>Implementación</h3>
-          <p>Del documento al día a día del supervisor.</p>
-        </div>
-        <div class="mm-cell mm-4">
-          <span class="mm-num">04</span>
-          <h3>Soporte Continuo</h3>
-          <p>Acompañamiento cuando cambia la ley o crece la plantilla.</p>
-        </div>
-      </div>
+  <!-- ===== FAQ ===== -->
+  <section class="s wrap" id="preguntas" aria-labelledby="t-faq">
+    <div class="s-head axis">
+      <span class="label">Preguntas</span>
+      <h2 id="t-faq">Antes de firmar.</h2>
+    </div>
+    <div class="faq">
+      <details><summary><span class="label">Clasificación</span><h3>¿Cómo sé si un empleado es exento o no exento?</h3><i aria-hidden="true">+</i></summary><div class="ans"><p>No depende del título ni de si cobra por salario. Depende de los deberes reales del puesto y de que el salario cumpla el mínimo que establece la ley. Analizamos cada puesto y te decimos cuál aplica.</p></div></details>
+      <details><summary><span class="label">Contratos</span><h3>¿Necesito contrato escrito para cada empleado?</h3><i aria-hidden="true">+</i></summary><div class="ans"><p>No siempre es obligatorio, pero hay contratos que sí deben constar por escrito, como los de término fijo o los períodos probatorios. Un contrato claro te protege a ti y a tu empleado.</p></div></details>
+      <details><summary><span class="label">Verificación</span><h3>¿Qué pasa si mis formularios I-9 tienen errores?</h3><i aria-hidden="true">+</i></summary><div class="ans"><p>Muchos errores se pueden corregir siguiendo el procedimiento correcto. Hacemos una auditoría interna, identificamos los fallos y te guiamos en la corrección antes de que llegue una inspección.</p></div></details>
+      <details><summary><span class="label">Nómina</span><h3>¿Ustedes procesan la nómina?</h3><i aria-hidden="true">+</i></summary><div class="ans"><p>Damos soporte de nómina: estructura, cálculos, retenciones, licencias, bono de Navidad y revisión. Te ayudamos a que el proceso sea correcto y esté documentado.</p></div></details>
+      <details><summary><span class="label">Perfil</span><h3>¿Quién trabajará mi caso?</h3><i aria-hidden="true">+</i></summary><div class="ans"><p>Alexis Joel Mercado Colón, fundador de AJCM, atiende personalmente cada solicitud desde el diagnóstico hasta el seguimiento.</p></div></details>
+      <details><summary><span class="label">Costo</span><h3>¿Cuánto cuesta?</h3><i aria-hidden="true">+</i></summary><div class="ans"><p>Depende del tamaño de tu empresa y de lo que necesites. Después del diagnóstico recibes una propuesta con el alcance y el costo, sin compromiso.</p></div></details>
     </div>
   </section>
 
-  <section id="perfil">
-    <div class="container">
-      <div class="perfil-band reveal">
-        <h2>Alexis Joel Mercado Colón</h2>
-        <div class="perfil-role">Consultor de Recursos Humanos · Puerto Rico</div>
+  <!-- ===== CONTACTO ===== -->
+  <section class="s field-navy contact" id="contacto" aria-labelledby="t-con">
+    <div class="wrap">
+      <div class="s-head axis">
+        <span class="label">Contacto</span>
+        <h2 id="t-con">Abramos tu expediente.</h2>
+        <p>Cuéntanos qué necesitas. Respondemos personalmente cada solicitud.</p>
       </div>
-    </div>
-  </section>
-
-  <section id="faq" class="section-alt">
-    <div class="parallax-layer" data-speed="0.18" aria-hidden="true"></div>
-    <div class="container">
-      <h2 class="section-title reveal reveal-text"><span class="rt-inner">Preguntas Frecuentes</span></h2>
-
-      <div class="faqd reveal" id="faqDeck">
-        <div class="faqd-track" tabindex="0" role="group" aria-label="Preguntas frecuentes, se recorren de izquierda a derecha">
-
-          <article class="faqd-slide faqd-s1">
-            <div class="faqd-card">
-              <div class="faqd-main">
-                <span class="faqd-num">01 / 05</span>
-                <p class="faqd-q">¿Quién trabajará <span class="accent">tu caso</span>?</p>
-              </div>
-              <div class="faqd-foot">
-                <p class="faqd-note">Alexis Mercado, directamente. Un solo consultor responsable del expediente, de principio a fin.</p>
-                <span class="faqd-brand">AJCM RRHH Consulting.</span>
-              </div>
-            </div>
-          </article>
-
-          <article class="faqd-slide faqd-s2">
-            <div class="faqd-card">
-              <div class="faqd-main">
-                <span class="faqd-num">02 / 05</span>
-                <p class="faqd-q">¿Cuánto <span class="accent">toma</span> un proyecto?</p>
-              </div>
-              <div class="faqd-foot">
-                <p class="faqd-note">El cronograma se define en el Diagnóstico, antes de comenzar, según el alcance y el tamaño de la empresa.</p>
-                <span class="faqd-brand">AJCM RRHH Consulting.</span>
-              </div>
-            </div>
-          </article>
-
-          <article class="faqd-slide faqd-s3">
-            <div class="faqd-card">
-              <div class="faqd-main">
-                <span class="faqd-num">03 / 05</span>
-                <p class="faqd-q">¿Trabajan fuera de <span class="accent">San Juan</span> y Bayamón?</p>
-              </div>
-              <div class="faqd-foot">
-                <p class="faqd-note">Toda la isla. Reuniones remotas o presenciales, según la necesidad de la empresa.</p>
-                <span class="faqd-brand">AJCM RRHH Consulting.</span>
-              </div>
-            </div>
-          </article>
-
-          <article class="faqd-slide faqd-s4">
-            <div class="faqd-card">
-              <div class="faqd-main">
-                <span class="faqd-num">04 / 05</span>
-                <p class="faqd-q">¿Cómo manejan la <span class="accent">confidencialidad</span>?</p>
-              </div>
-              <div class="faqd-foot">
-                <p class="faqd-note">Estricta confidencialidad. Casos, nombres de empleados y datos sensibles nunca se exponen en canales públicos.</p>
-                <span class="faqd-brand">AJCM RRHH Consulting.</span>
-              </div>
-            </div>
-          </article>
-
-          <article class="faqd-slide faqd-s5">
-            <div class="faqd-card">
-              <div class="faqd-main">
-                <span class="faqd-num">05 / 05</span>
-                <p class="faqd-q">¿Cobran por proyecto o por <span class="accent">retención</span>?</p>
-              </div>
-              <div class="faqd-foot">
-                <p class="faqd-note">Ambos modelos. La tarifa se define según el alcance durante la consulta inicial.</p>
-                <span class="faqd-brand">AJCM RRHH Consulting.</span>
-              </div>
-            </div>
-          </article>
-
+      <div class="axis">
+        <div class="contact-side">
+          <span class="label">Correo</span>
+          <a href="mailto:ajmccorporation167@gmail.com">ajmccorporation167@gmail.com</a>
+          <span class="label">Servicio</span>
+          <p>Empresas en todo Puerto Rico.</p>
+          <span class="label">Asistente</span>
+          <p>¿Una duda rápida? Usa el asistente virtual en la esquina inferior.</p>
         </div>
-
-        <div class="faqd-bar">
-          <div class="faqd-dots" role="tablist" aria-label="Ir a pregunta"></div>
-          <span class="faqd-counter"></span>
-          <div class="faqd-arrows">
-            <button type="button" data-dir="-1" aria-label="Pregunta anterior"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"></polyline></svg></button>
-            <button type="button" data-dir="1" aria-label="Pregunta siguiente"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"></polyline></svg></button>
+        <form class="f" id="leadForm" novalidate>
+          <input class="hp" type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true">
+          <div class="fld"><label for="f-nombre">Nombre completo</label><input id="f-nombre" name="nombre" required maxlength="120" autocomplete="name"></div>
+          <div class="fld"><label for="f-empresa">Empresa</label><input id="f-empresa" name="empresa" maxlength="160" autocomplete="organization"></div>
+          <div class="fld"><label for="f-correo">Correo electrónico</label><input id="f-correo" name="correo" type="email" required maxlength="254" autocomplete="email"></div>
+          <div class="fld"><label for="f-tel">Teléfono</label><input id="f-tel" name="telefono" type="tel" maxlength="30" autocomplete="tel"></div>
+          <div class="fld"><label for="f-serv">Servicio</label>
+            <select id="f-serv" name="servicio" required>
+              <option value="">Selecciona</option>
+              <option value="contratos">Contratos de empleo</option>
+              <option value="verificacion">Verificación de empleo (I-9)</option>
+              <option value="clasificacion">Exento / no exento</option>
+              <option value="nomina">Nómina</option>
+              <option value="politicas">Manuales y políticas</option>
+              <option value="auditoria">Auditoría de cumplimiento</option>
+              <option value="otro">Otro</option>
+            </select></div>
+          <div class="fld"><label for="f-emp">Cantidad de empleados</label>
+            <select id="f-emp" name="empleados">
+              <option value="">Selecciona</option>
+              <option>1–5</option><option>6–15</option><option>16–50</option><option>51 o más</option>
+            </select></div>
+          <div class="fld full"><label for="f-msg">Tu situación</label><textarea id="f-msg" name="mensaje" maxlength="1800"></textarea></div>
+          <div class="f-foot">
+            <button class="btn gold" type="submit" id="f-btn">Enviar solicitud</button>
+            <p class="status" id="f-status" role="status" aria-live="polite"></p>
           </div>
-        </div>
-        <p class="faqd-hint">Desliza con el dedo, arrastra con el ratón o usa las flechas.</p>
+          <p class="legal-note">Tu información se trata con confidencialidad y solo se usa para responder tu solicitud.</p>
+        </form>
       </div>
     </div>
   </section>
-
-  <!-- ==================== CONTACTO CON FORMULARIO SUPABASE ==================== -->
-  <section id="contacto" class="section-alt">
-    <div class="parallax-layer" data-speed="0.18" aria-hidden="true"></div>
-    <div class="container">
-      <h2 class="section-title reveal reveal-text"><span class="rt-inner">Contáctanos</span></h2>
-      <div class="contact-wrap reveal reveal-d1">
-        <p class="contact-intro">¿Necesitas blindar tu empresa en cumplimiento laboral o optimizar tu equipo? Completa el formulario y coordinamos una consulta. Respondo personalmente cada solicitud.</p>
-
-        <div class="contact-card">
-          <form id="contactForm" class="contact-form">
-            <!-- Honeypot anti-bots -->
-            <input type="text" name="hp_message" class="hp-field" tabindex="-1" aria-hidden="true" autocomplete="off">
-
-            <!-- Nombre -->
-            <div class="float-field">
-              <input type="text" id="nombre" name="nombre" placeholder=" " required maxlength="120" autocomplete="name" aria-label="Tu nombre">
-              <label for="nombre">Nombre completo</label>
-            </div>
-
-            <!-- Empresa -->
-            <div class="float-field">
-              <input type="text" id="empresa" name="empresa" placeholder=" " maxlength="160" autocomplete="organization" aria-label="Nombre de tu empresa (opcional)">
-              <label for="empresa">Nombre de la empresa (opcional)</label>
-            </div>
-
-            <!-- Correo -->
-            <div class="float-field">
-              <input type="email" id="correo" name="correo" placeholder=" " required maxlength="254" autocomplete="email" aria-label="Tu correo electrónico">
-              <label for="correo">Correo electrónico</label>
-            </div>
-
-            <!-- Servicio -->
-            <div class="modal-field">
-              <label for="servicio">¿Qué servicio te interesa?</label>
-              <select id="servicio" name="servicio" required aria-label="Selecciona el servicio que te interesa">
-                <option value="">-- Selecciona un servicio --</option>
-                <option value="auditoria">Auditorías de Cumplimiento Laboral</option>
-                <option value="manuales">Manuales y Políticas Corporativas</option>
-                <option value="relaciones">Relaciones Obrero-Patronales & Contratación</option>
-                <option value="nomina">Optimización de Nómina y Capacitación Directiva</option>
-                <option value="otro">Otro (especificar en mensaje)</option>
-              </select>
-            </div>
-
-            <!-- Mensaje -->
-            <div class="modal-field">
-              <label for="mensaje">Cuéntame más sobre tu situación</label>
-              <textarea id="mensaje" name="mensaje" rows="4" maxlength="2000" placeholder="Describe brevemente tu necesidad, tamaño de empresa, o cualquier detalle que consideres importante..." aria-label="Cuéntame más sobre tu situación"></textarea>
-            </div>
-
-            <!-- Botón de envío -->
-            <button type="submit" class="btn btn-gold btn-cta-hero" id="submitBtn" aria-label="Enviar solicitud">
-              Enviar solicitud
-            </button>
-
-            <!-- Mensaje de estado -->
-            <div id="formStatus" class="form-status"></div>
-
-            <!-- Nota de privacidad -->
-            <p class="contact-note">Respondo personalmente cada solicitud. Tu información se trata con estricta confidencialidad.</p>
-          </form>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ==================== MODAL PRESENTACIÓN DE SERVICIOS ==================== -->
-  <div id="service-modal" class="service-modal" role="dialog" aria-modal="true" aria-labelledby="sm-title" aria-hidden="true">
-    <div class="sm-overlay" data-close="true"></div>
-    <div class="sm-dialog">
-      <button type="button" class="sm-close" id="smClose" aria-label="Cerrar presentación">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
-      </button>
-
-      <div class="sm-viewport">
-        <div class="sm-track" id="smTrack"><!-- slides inyectados por JS --></div>
-      </div>
-
-      <div class="sm-footer">
-        <button type="button" class="sm-nav sm-prev" id="smPrev" aria-label="Diapositiva anterior">&lt; Atrás</button>
-        <div class="sm-dots" id="smDots" role="tablist" aria-label="Progreso de la presentación"></div>
-        <button type="button" class="sm-nav sm-next" id="smNext" aria-label="Siguiente diapositiva">Siguiente &gt;</button>
-      </div>
-    </div>
-  </div>
-
 </main>
 
-<footer>
-  <div class="container footer-inner">
-    <p>&copy; <span id="year"></span> AJCM | RRHH Consulting. Todos los derechos reservados.</p>
-    <div class="footer-links">
-      <a href="https://wa.me/19394282820" target="_blank" rel="noopener noreferrer">Escríbenos</a>
-      <a href="#contacto">Contacto</a>
-      <a href="#servicios">Solicitar servicio</a>
-      <a href="https://www.linkedin.com/in/alexis-mercado-58899b395" target="_blank" rel="noopener noreferrer">LinkedIn</a>
-    </div>
+<footer class="ft">
+  <div class="wrap ft-in">
+    <span>© <span id="yr"></span> AJCM | RRHH Consulting · Puerto Rico</span>
+    <span>No somos un bufete de abogados. El contenido de este sitio es informativo.</span>
+    <a href="mailto:ajmccorporation167@gmail.com">ajmccorporation167@gmail.com</a>
   </div>
 </footer>
 
-<a href="https://wa.me/19394282820" target="_blank" rel="noopener noreferrer" class="fab" aria-label="Escríbenos por WhatsApp" title="WhatsApp">
-  <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38a9.9 9.9 0 0 0 4.74 1.21h.01c5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.82 9.82 0 0 0 12.04 2Zm0 1.67c2.2 0 4.26.86 5.82 2.42a8.2 8.2 0 0 1 2.41 5.82c0 4.54-3.7 8.23-8.24 8.23a8.2 8.2 0 0 1-4.19-1.15l-.3-.18-3.12.82.83-3.04-.2-.31a8.2 8.2 0 0 1-1.26-4.38c0-4.54 3.7-8.23 8.25-8.23Zm-3.4 4.4c-.17 0-.44.06-.67.31-.23.25-.87.85-.87 2.07 0 1.22.89 2.4 1.01 2.57.13.17 1.75 2.67 4.24 3.74.59.26 1.05.41 1.41.52.59.19 1.13.16 1.56.1.48-.07 1.47-.6 1.67-1.18.21-.58.21-1.07.15-1.18-.06-.1-.23-.17-.48-.29-.25-.13-1.47-.73-1.7-.81-.23-.08-.39-.13-.56.12-.17.25-.64.81-.79.98-.14.17-.29.19-.54.06-.25-.12-1.05-.39-2-1.23-.74-.66-1.24-1.47-1.38-1.72-.15-.25-.02-.38.11-.5.11-.11.25-.29.37-.44.13-.14.17-.25.25-.41.08-.17.04-.31-.02-.44-.06-.12-.56-1.35-.77-1.85-.2-.48-.41-.42-.56-.42h-.43Z"/></svg>
-</a>
-
-<script>
-  // ============================================================
-  // AÑO ACTUAL
-  // ============================================================
-  document.getElementById('year').textContent = new Date().getFullYear();
-
-  // ============================================================
-  // MENÚ MÓVIL
-  // ============================================================
-  var toggle = document.getElementById('mobileToggle');
-  var mobileNav = document.getElementById('mobileNav');
-  toggle.addEventListener('click', function () {
-    var isOpen = mobileNav.classList.toggle('open');
-    toggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
-  });
-  mobileNav.querySelectorAll('a').forEach(function (link) {
-    link.addEventListener('click', function () {
-      mobileNav.classList.remove('open');
-      toggle.setAttribute('aria-expanded', 'false');
-    });
-  });
-
-  // ============================================================
-  // SCROLL PROGRESS BAR
-  // ============================================================
-  var headerEl = document.querySelector('header');
-  var progressBar = document.getElementById('scrollProgress');
-  var progressTicking = false;
-
-  function updateScrollProgress() {
-    if (progressBar) {
-      var doc = document.documentElement;
-      var scrollable = (doc.scrollHeight - doc.clientHeight);
-      var ratio = scrollable > 0 ? (window.scrollY / scrollable) : 0;
-      if (ratio < 0) ratio = 0;
-      if (ratio > 1) ratio = 1;
-      progressBar.style.transform = 'scaleX(' + ratio.toFixed(4) + ')';
-    }
-    progressTicking = false;
-  }
-
-  function onScroll() {
-    if (window.scrollY > 20) {
-      headerEl.classList.add('scrolled');
-    } else {
-      headerEl.classList.remove('scrolled');
-    }
-    if (!progressTicking) {
-      requestAnimationFrame(updateScrollProgress);
-      progressTicking = true;
-    }
-  }
-  window.addEventListener('scroll', onScroll, { passive: true });
-  window.addEventListener('resize', updateScrollProgress, { passive: true });
-  onScroll();
-  updateScrollProgress();
-
-  // ============================================================
-  // PARALLAX
-  // ============================================================
-  (function () {
-    var reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    var layers = document.querySelectorAll('.parallax-layer');
-    if (reduceMotion || !layers.length) return;
-    var ticking = false;
-    function updateParallax() {
-      layers.forEach(function (layer) {
-        var section = layer.parentElement;
-        var rect = section.getBoundingClientRect();
-        var speed = parseFloat(layer.getAttribute('data-speed')) || 0.15;
-        var offset = rect.top * speed;
-        layer.style.transform = 'translate3d(0,' + (-offset).toFixed(1) + 'px,0)';
-      });
-      ticking = false;
-    }
-    window.addEventListener('scroll', function () {
-      if (!ticking) {
-        requestAnimationFrame(updateParallax);
-        ticking = true;
-      }
-    }, { passive: true });
-    updateParallax();
-  })();
-
-  // ============================================================
-  // REVEAL ANIMATIONS
-  // ============================================================
-  var revealElements = document.querySelectorAll('.reveal');
-  var revealOptions = {
-    threshold: 0.15,
-    rootMargin: '0px 0px -100px 0px'
-  };
-  var revealOnScroll = new IntersectionObserver(function (entries) {
-    entries.forEach(function (entry) {
-      if (entry.isIntersecting) {
-        entry.target.classList.add('is-visible');
-        revealOnScroll.unobserve(entry.target);
-      }
-    });
-  }, revealOptions);
-  revealElements.forEach(function (element) {
-    revealOnScroll.observe(element);
-  });
-
-  // ============================================================
-  // FAQ — CARRUSEL DE DIAPOSITIVAS (scroll horizontal propio)
-  // ============================================================
-  (function () {
-    var deck = document.getElementById('faqDeck');
-    if (!deck) return;
-    var track = deck.querySelector('.faqd-track');
-    var slides = Array.prototype.slice.call(track.querySelectorAll('.faqd-slide'));
-    var dots = deck.querySelector('.faqd-dots');
-    var counter = deck.querySelector('.faqd-counter');
-    var arrows = Array.prototype.slice.call(deck.querySelectorAll('.faqd-arrows button'));
-
-    dots.innerHTML = slides.map(function (_, i) {
-      return '<button type="button" role="tab" aria-label="Pregunta ' + (i + 1) +
-             '" aria-current="' + (i === 0 ? 'true' : 'false') + '"></button>';
-    }).join('');
-    var dotBtns = Array.prototype.slice.call(dots.children);
-
-    function index() {
-      var w = track.clientWidth || 1;
-      return Math.round(track.scrollLeft / w);
-    }
-    function go(i) {
-      var n = Math.max(0, Math.min(slides.length - 1, i));
-      track.scrollTo({ left: n * track.clientWidth, behavior: 'smooth' });
-    }
-    function sync() {
-      var i = index();
-      dotBtns.forEach(function (d, j) { d.setAttribute('aria-current', String(j === i)); });
-      counter.textContent = String(i + 1).padStart(2, '0') + ' / ' + String(slides.length).padStart(2, '0');
-      arrows[0].disabled = i <= 0;
-      arrows[1].disabled = i >= slides.length - 1;
-    }
-
-    var t;
-    track.addEventListener('scroll', function () {
-      window.clearTimeout(t);
-      t = window.setTimeout(sync, 80);
-    });
-    arrows.forEach(function (b) {
-      b.addEventListener('click', function () { go(index() + Number(b.dataset.dir)); });
-    });
-    dotBtns.forEach(function (d, j) { d.addEventListener('click', function () { go(j); }); });
-    track.addEventListener('keydown', function (e) {
-      if (e.key === 'ArrowRight') { e.preventDefault(); go(index() + 1); }
-      if (e.key === 'ArrowLeft') { e.preventDefault(); go(index() - 1); }
-    });
-
-    // Arrastrar con el ratón (el dedo usa scroll nativo)
-    var down = false, startX = 0, startLeft = 0, moved = false;
-    track.addEventListener('pointerdown', function (e) {
-      if (e.pointerType === 'touch') return;
-      down = true; moved = false; startX = e.clientX; startLeft = track.scrollLeft;
-      track.style.scrollBehavior = 'auto'; track.style.cursor = 'grabbing';
-    });
-    track.addEventListener('pointermove', function (e) {
-      if (!down) return;
-      var dx = e.clientX - startX;
-      if (Math.abs(dx) > 4) moved = true;
-      track.scrollLeft = startLeft - dx;
-    });
-    function release() {
-      if (!down) return;
-      down = false; track.style.cursor = '';
-      track.style.scrollBehavior = 'smooth';
-      if (moved) go(index());
-    }
-    track.addEventListener('pointerup', release);
-    track.addEventListener('pointercancel', release);
-    track.addEventListener('pointerleave', release);
-
-    window.addEventListener('resize', sync);
-    sync();
-  })();
-
-  // ============================================================
-  // FORMULARIO CONTACTO + SUPABASE
-  // ============================================================
-
-  // ============================================================
-  // 🔑 CONFIGURACIÓN SUPABASE
-  // Dashboard > Project Settings > API Keys
-  //   - "Project URL"        -> SUPABASE_URL
-  //   - "Publishable key"    -> SUPABASE_ANON_KEY  (sb_publishable_...)
-  // La Publishable key es SEGURA de exponer aquí SIEMPRE que tengas RLS
-  // activado con política de solo-INSERT (ver schema.sql).
-  // ============================================================
-  const SUPABASE_URL = 'https://wxxazkkxwvprsginjtjb.supabase.co'; // ✅ tu URL de proyecto
-  const SUPABASE_ANON_KEY = 'sb_publishable_Pr78iurFjcCLGECy0brLtg_CcYLc4pJ'; // ✅ tu Publishable key (segura para el navegador)
-
-  const LEADS_TABLE = SUPABASE_URL + '/rest/v1/leads';
-
-  const contactForm = document.getElementById('contactForm');
-  const submitBtn = document.getElementById('submitBtn');
-  const formStatus = document.getElementById('formStatus');
-
-  if (contactForm) {
-    contactForm.addEventListener('submit', async function (e) {
-      e.preventDefault();
-
-      // Anti-bots honeypot
-      const honeypot = document.querySelector('.hp-field');
-      if (honeypot && honeypot.value) {
-        console.warn('Honeypot triggered');
-        return;
-      }
-
-      // Extraer valores
-      const nombre = document.getElementById('nombre').value.trim();
-      const empresa = document.getElementById('empresa').value.trim();
-      const correo = document.getElementById('correo').value.trim();
-      const servicio = document.getElementById('servicio').value.trim();
-      const mensaje = document.getElementById('mensaje').value.trim();
-
-      // Validación
-      if (!nombre || !correo || !servicio) {
-        formStatus.textContent = '❌ Por favor completa los campos obligatorios.';
-        formStatus.className = 'form-status error';
-        return;
-      }
-
-      // Cambiar estado del botón
-      submitBtn.disabled = true;
-      submitBtn.textContent = 'Enviando...';
-      formStatus.textContent = '';
-      formStatus.className = 'form-status';
-
-      try {
-        // Payload
-        const payload = {
-          nombre,
-          empresa: empresa,
-          correo,
-          servicio,
-          mensaje: mensaje
-        };
-
-        // POST a Supabase
-        const response = await fetch(LEADS_TABLE, {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            'apikey': SUPABASE_ANON_KEY,
-            'Authorization': 'Bearer ' + SUPABASE_ANON_KEY,
-            'Prefer': 'return=minimal'
-          },
-          body: JSON.stringify(payload)
-        });
-
-        if (!response.ok) {
-          throw new Error(`Error ${response.status}`);
-        }
-
-        // Éxito
-        formStatus.textContent = '✅ ¡Solicitud enviada! Te contactaré dentro de 24 horas.';
-        formStatus.className = 'form-status success';
-        contactForm.reset();
-        submitBtn.textContent = 'Enviar solicitud';
-        submitBtn.disabled = false;
-
-        setTimeout(() => {
-          formStatus.textContent = '';
-        }, 5000);
-
-      } catch (error) {
-        console.error('Error:', error);
-        formStatus.textContent = '❌ Error al enviar. Intenta nuevamente o usa WhatsApp.';
-        formStatus.className = 'form-status error';
-        submitBtn.textContent = 'Enviar solicitud';
-        submitBtn.disabled = false;
-      }
-    });
-  }
-
-</script>
-
-<script>
-  // ============================================================
-  // MODAL PRESENTACIÓN DE SERVICIOS (Slider Vanilla JS)
-  // ============================================================
-  (function () {
-    // ---- Arte geométrico (SVG inline, sin imágenes externas) ----
-    const ART = {
-      hexagons: `<svg viewBox="0 0 200 200" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round">
-        <line x1="60" y1="70" x2="140" y2="70" stroke="#C5A059" stroke-width="1.5"/>
-        <line x1="60" y1="70" x2="100" y2="130" stroke="#C5A059" stroke-width="1.5"/>
-        <line x1="140" y1="70" x2="100" y2="130" stroke="#C5A059" stroke-width="1.5"/>
-        <polygon points="84,70 72,90.8 48,90.8 36,70 48,49.2 72,49.2"/>
-        <polygon points="164,70 152,90.8 128,90.8 116,70 128,49.2 152,49.2"/>
-        <polygon points="124,130 112,150.8 88,150.8 76,130 88,109.2 112,109.2"/>
-        <circle cx="60" cy="70" r="4" fill="#C5A059" stroke="none"/>
-        <circle cx="140" cy="70" r="4" fill="#C5A059" stroke="none"/>
-        <circle cx="100" cy="130" r="4" fill="#C5A059" stroke="none"/>
-      </svg>`,
-      cubes: `<svg viewBox="0 0 200 200" stroke="#0a1128" stroke-width="1.5" stroke-linejoin="round">
-        <polygon points="70,127 100,144 100,178 70,161" fill="#16203a"/>
-        <polygon points="130,127 100,144 100,178 130,161" fill="#22304f"/>
-        <polygon points="100,110 130,127 100,144 70,127" fill="#C5A059"/>
-        <polygon points="70,93 100,110 100,144 70,127" fill="#16203a"/>
-        <polygon points="130,93 100,110 100,144 130,127" fill="#22304f"/>
-        <polygon points="100,76 130,93 100,110 70,93" fill="#CBA75E"/>
-        <polygon points="70,59 100,76 100,110 70,93" fill="#16203a"/>
-        <polygon points="130,59 100,76 100,110 130,93" fill="#22304f"/>
-        <polygon points="100,42 130,59 100,76 70,59" fill="#D4AF37"/>
-      </svg>`,
-      shield: `<svg viewBox="0 0 200 200" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round">
-        <path d="M100 28 L158 52 L158 98 C158 138 128 165 100 176 C72 165 42 138 42 98 L42 52 Z"/>
-        <path d="M74 100 L92 120 L128 76" stroke="#C5A059" stroke-width="6"/>
-      </svg>`,
-      docs: `<svg viewBox="0 0 200 200" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round">
-        <rect x="62" y="48" width="78" height="104" rx="6" transform="rotate(-6 101 100)" fill="#ffffff"/>
-        <rect x="62" y="48" width="78" height="104" rx="6" fill="#ffffff"/>
-        <path d="M62 54 a6 6 0 0 1 6 -6 h66 a6 6 0 0 1 6 6 v10 h-78 Z" fill="#C5A059" stroke="none"/>
-        <line x1="74" y1="84" x2="128" y2="84" stroke="#0a1128" stroke-width="3"/>
-        <line x1="74" y1="100" x2="128" y2="100" stroke="#AEB9CE" stroke-width="3"/>
-        <line x1="74" y1="116" x2="128" y2="116" stroke="#AEB9CE" stroke-width="3"/>
-        <line x1="74" y1="132" x2="110" y2="132" stroke="#AEB9CE" stroke-width="3"/>
-      </svg>`,
-      gears: `<svg viewBox="0 0 200 200" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round">
-        <g transform="translate(76,84)">
-          <circle r="32"/>
-          <circle r="13" fill="#C5A059" stroke="none"/>
-          <g stroke="currentColor" stroke-width="9" stroke-linecap="round">
-            <line x1="0" y1="-32" x2="0" y2="-44"/>
-            <line x1="0" y1="32" x2="0" y2="44"/>
-            <line x1="-32" y1="0" x2="-44" y2="0"/>
-            <line x1="32" y1="0" x2="44" y2="0"/>
-            <line x1="-23" y1="-23" x2="-31" y2="-31"/>
-            <line x1="23" y1="23" x2="31" y2="31"/>
-            <line x1="-23" y1="23" x2="-31" y2="31"/>
-            <line x1="23" y1="-23" x2="31" y2="-31"/>
-          </g>
-        </g>
-        <path d="M130 94 L158 106 L158 130 C158 148 144 160 130 166 C116 160 102 148 102 130 L102 106 Z" fill="#ffffff" stroke-width="2.5"/>
-        <path d="M116 130 L126 140 L144 118" stroke="#C5A059" stroke-width="4" stroke-linecap="round" fill="none"/>
-      </svg>`,
-      gridcheck: `<svg viewBox="0 0 200 200" fill="none" stroke="#0a1128" stroke-width="2">
-        <rect x="52" y="52" width="38" height="38" rx="6"/>
-        <rect x="98" y="52" width="38" height="38" rx="6"/>
-        <rect x="144" y="52" width="38" height="38" rx="6"/>
-        <rect x="52" y="98" width="38" height="38" rx="6"/>
-        <rect x="98" y="98" width="38" height="38" rx="6" fill="#C5A059" stroke="none"/>
-        <path d="M106 117 l8 8 l14 -16" stroke="#ffffff" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
-        <rect x="144" y="98" width="38" height="38" rx="6"/>
-        <rect x="52" y="144" width="38" height="38" rx="6"/>
-        <rect x="98" y="144" width="38" height="38" rx="6"/>
-        <rect x="144" y="144" width="38" height="38" rx="6"/>
-      </svg>`,
-      venn: `<svg viewBox="0 0 200 200" fill="none" stroke-width="2.5">
-        <circle cx="80" cy="108" r="46" fill="#0a1128" fill-opacity="0.06" stroke="#0a1128"/>
-        <circle cx="120" cy="108" r="46" fill="#C5A059" fill-opacity="0.12" stroke="#0a1128"/>
-        <circle cx="100" cy="74" r="34" fill="#C5A059" fill-opacity="0.12" stroke="#C5A059"/>
-      </svg>`,
-      nodes: `<svg viewBox="0 0 200 200" fill="none" stroke="#C5A059" stroke-width="1.5">
-        <line x1="100" y1="100" x2="52" y2="54"/>
-        <line x1="100" y1="100" x2="150" y2="56"/>
-        <line x1="100" y1="100" x2="46" y2="142"/>
-        <line x1="100" y1="100" x2="156" y2="142"/>
-        <line x1="100" y1="100" x2="100" y2="40"/>
-        <circle cx="52" cy="54" r="9" fill="#0a1128" stroke="none"/>
-        <circle cx="150" cy="56" r="9" fill="#0a1128" stroke="none"/>
-        <circle cx="46" cy="142" r="9" fill="#0a1128" stroke="none"/>
-        <circle cx="156" cy="142" r="9" fill="#0a1128" stroke="none"/>
-        <circle cx="100" cy="40" r="9" fill="#C5A059" stroke="none"/>
-        <circle cx="100" cy="100" r="16" fill="#0a1128" stroke="none"/>
-      </svg>`,
-      leadership: `<svg viewBox="0 0 200 200" fill="none" stroke="#0a1128" stroke-width="2" stroke-linejoin="round">
-        <rect x="44" y="130" width="34" height="40" fill="#16203a"/>
-        <rect x="83" y="104" width="34" height="66" fill="#22304f"/>
-        <rect x="122" y="74" width="34" height="96" fill="#C5A059" stroke="none"/>
-        <path d="M60 96 L100 64 L140 42" stroke="#C5A059" stroke-width="3" fill="none"/>
-        <path d="M140 42 l-15 1 l7 -13 z" fill="#C5A059" stroke="none"/>
-      </svg>`,
-      bars: `<svg viewBox="0 0 200 200" fill="none" stroke="#0a1128" stroke-width="2" stroke-linejoin="round">
-        <line x1="40" y1="166" x2="172" y2="166"/>
-        <rect x="52" y="130" width="22" height="36" fill="#16203a"/>
-        <rect x="86" y="108" width="22" height="58" fill="#22304f"/>
-        <rect x="120" y="84" width="22" height="82" fill="#33456b"/>
-        <rect x="154" y="56" width="22" height="110" fill="#C5A059"/>
-        <path d="M58 120 L92 100 L126 78 L162 48" stroke="#C5A059" stroke-width="2.5" fill="none"/>
-        <path d="M162 48 l-14 1 l7 -12 z" fill="#C5A059" stroke="none"/>
-      </svg>`,
-      pyramids: `<svg viewBox="0 0 200 200" stroke="#0a1128" stroke-width="1.5" stroke-linejoin="round">
-        <polygon points="100,113 154,140 100,167 46,140" fill="#16203a"/>
-        <polygon points="100,92 140,112 100,132 60,112" fill="#22304f"/>
-        <polygon points="100,73 126,86 100,99 74,86" fill="#C5A059"/>
-      </svg>`,
-      roi: `<svg viewBox="0 0 200 200" fill="none" stroke="#0a1128" stroke-width="2" stroke-linejoin="round">
-        <ellipse cx="68" cy="152" rx="30" ry="11" fill="#C5A059"/>
-        <ellipse cx="68" cy="138" rx="30" ry="11" fill="#CBA75E"/>
-        <ellipse cx="68" cy="124" rx="30" ry="11" fill="#D4AF37"/>
-        <path d="M120 152 L120 80" stroke="#0a1128" stroke-width="6" stroke-linecap="round"/>
-        <path d="M120 70 L100 100 L140 100 Z" fill="#C5A059" stroke="none"/>
-      </svg>`
-    };
-
-    // ---- Matriz de contenido: 4 servicios x 3 slides ----
-    const SERVICES_DATA = {
-      auditoria: {
-        label: "Auditorías de Cumplimiento Laboral",
-        slides: [
-          { art: "hexagons", title: "Diagnóstico Profundo de Cumplimiento", text: "Analizamos cada rincón de su estructura laboral. Identificamos brechas normativas antes de que se conviertan en multas del Departamento del Trabajo. Una auditoría no es un gasto, es el seguro de vida de su empresa." },
-          { art: "cubes", title: "Metodología de Mapeo de Riesgos", text: "Revisamos expedientes, clasificación de empleados (exentos vs. no exentos), protocolos de nómina y cumplimiento de leyes locales en Puerto Rico. Documentamos cada hallazgo con precisión quirúrgica." },
-          { art: "shield", title: "Tranquilidad y Blindaje Legal", text: "Elimine la incertidumbre. El cliente obtiene un reporte ejecutivo claro con pasos de acción inmediatos. Proteja sus activos, evite litigios costosos y opere con la confianza de que su negocio está 100% blindado." }
-        ]
-      },
-      manuales: {
-        label: "Manuales y Políticas Corporativas",
-        slides: [
-          { art: "docs", title: "El ADN de su Cultura Organizacional", text: "Un manual de empleados no es solo un libro de reglas; es el marco legal que protege a la gerencia y alinea al equipo. Diseñamos políticas a medida, claras, modernas y 100% actualizadas a las leyes de PR." },
-          { art: "gears", title: "Protección en Cada Página", text: "Integramos protocolos críticos: prevención de hostigamiento laboral, uso correcto de tecnología y redes sociales, gestión de licencias (enfermedad, vacaciones) y escalas de disciplina progresiva." },
-          { art: "gridcheck", title: "Claridad que Previene Demandas", text: "Al tener reglas claras y firmadas, se eliminan las zonas grises. Usted gana autoridad documentada para tomar decisiones disciplinarias sin miedo a represalias legales. Estandarizamos el comportamiento de su empresa." }
-        ]
-      },
-      relaciones: {
-        label: "Relaciones Obrero-Patronales & Contratación",
-        slides: [
-          { art: "venn", title: "Contratación y Desvinculación Estratégica", text: "Las relaciones laborales son el motor de su operación. Le guiamos desde el diseño del periodo probatorio hasta el manejo de situaciones delicadas de despido, garantizando el cumplimiento de la Ley 80." },
-          { art: "nodes", title: "Navegando el Día a Día", text: "Asesoría preventiva en tiempo real. Clasificación correcta bajo FLSA, manejo de querellas internas, mediación de conflictos y estructuración de ofertas de empleo blindadas contra malentendidos." },
-          { art: "leadership", title: "Liderazgo sin Riesgos", text: "Transformamos la gestión de personal de un 'dolor de cabeza' a una ventaja competitiva. Tome decisiones difíciles respaldado por expertos, minimizando la exposición a demandas por despido injustificado o discrimen." }
-        ]
-      },
-      nomina: {
-        label: "Optimización de Nómina y Capacitación Directiva",
-        slides: [
-          { art: "bars", title: "Eficiencia Financiera y Operativa", text: "La nómina suele ser el mayor gasto de una empresa. Ayudamos a optimizar estructuras de compensación y formamos a sus líderes para que administren el talento con eficiencia y bajo estricto cumplimiento normativo." },
-          { art: "pyramids", title: "Empoderando a sus Supervisores", text: "Ofrecemos talleres intensivos para mandos medios y alta gerencia. Les enseñamos a aplicar la disciplina progresiva, evaluar el desempeño objetivamente y manejar ausentismos de forma legal y efectiva." },
-          { art: "roi", title: "Retorno de Inversión Inmediato", text: "Una nómina optimizada reduce fugas de capital por horas extras mal calculadas o penalidades. Supervisores bien capacitados reducen la rotación de personal, aumentan la productividad y evitan errores legales que cuestan miles de dólares." }
-        ]
-      }
-    };
-
-    const modal    = document.getElementById('service-modal');
-    const track    = document.getElementById('smTrack');
-    const dotsWrap = document.getElementById('smDots');
-    const prevBtn  = document.getElementById('smPrev');
-    const nextBtn  = document.getElementById('smNext');
-    const closeBtn = document.getElementById('smClose');
-
-    if (!modal || !track) return;
-
-    let current = 0;
-    let slideCount = 0;
-    let lastFocused = null;
-
-    function escapeHtml(str) {
-      return String(str).replace(/[&<>"]/g, function (c) {
-        return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c];
-      });
-    }
-
-    function buildSlides(key) {
-      const data = SERVICES_DATA[key];
-      if (!data) return false;
-      track.innerHTML = '';
-      dotsWrap.innerHTML = '';
-      data.slides.forEach(function (s, i) {
-        const slide = document.createElement('div');
-        slide.className = 'sm-slide';
-        slide.innerHTML =
-          '<div class="sm-art" aria-hidden="true">' + (ART[s.art] || '') + '</div>' +
-          '<div class="sm-content">' +
-            '<span class="sm-kicker">' + escapeHtml(data.label) + ' &middot; Paso ' + (i + 1) + ' de ' + data.slides.length + '</span>' +
-            '<h2 class="sm-title"' + (i === 0 ? ' id="sm-title"' : '') + '>' + escapeHtml(s.title) + '</h2>' +
-            '<p class="sm-text">' + escapeHtml(s.text) + '</p>' +
-          '</div>';
-        track.appendChild(slide);
-
-        const dot = document.createElement('button');
-        dot.type = 'button';
-        dot.className = 'sm-dot';
-        dot.setAttribute('role', 'tab');
-        dot.setAttribute('aria-label', 'Ir al paso ' + (i + 1));
-        dot.addEventListener('click', function () { goTo(i); });
-        dotsWrap.appendChild(dot);
-      });
-      slideCount = data.slides.length;
-      goTo(0);
-      return true;
-    }
-
-    function goTo(i) {
-      if (slideCount === 0) return;
-      current = Math.max(0, Math.min(i, slideCount - 1));
-      track.style.transform = 'translateX(' + (-current * 100) + '%)';
-      Array.prototype.forEach.call(dotsWrap.children, function (d, idx) {
-        d.classList.toggle('active', idx === current);
-        d.setAttribute('aria-selected', idx === current ? 'true' : 'false');
-      });
-      prevBtn.disabled = current === 0;
-      nextBtn.disabled = current === slideCount - 1;
-    }
-
-    function openModal(key) {
-      if (!buildSlides(key)) return;
-      lastFocused = document.activeElement;
-      modal.classList.add('open');
-      modal.setAttribute('aria-hidden', 'false');
-      document.body.classList.add('sm-open');
-      closeBtn.focus();
-    }
-
-    function closeModal() {
-      modal.classList.remove('open');
-      modal.setAttribute('aria-hidden', 'true');
-      document.body.classList.remove('sm-open');
-      if (lastFocused && typeof lastFocused.focus === 'function') lastFocused.focus();
-    }
-
-    // Abrir desde cada tarjeta de servicio
-    document.querySelectorAll('.service-card').forEach(function (card) {
-      const key = card.getAttribute('data-service');
-      card.addEventListener('click', function () { openModal(key); });
-      card.addEventListener('keydown', function (e) {
-        if (e.key === 'Enter' || e.key === ' ' || e.key === 'Spacebar') {
-          e.preventDefault();
-          openModal(key);
-        }
-      });
-    });
-
-    // Navegación
-    prevBtn.addEventListener('click', function () { goTo(current - 1); });
-    nextBtn.addEventListener('click', function () { goTo(current + 1); });
-    closeBtn.addEventListener('click', closeModal);
-
-    // Cerrar al hacer clic fuera de la caja
-    modal.addEventListener('click', function (e) {
-      if (e.target && e.target.hasAttribute('data-close')) closeModal();
-    });
-
-    // Teclado: Escape cierra, flechas navegan
-    document.addEventListener('keydown', function (e) {
-      if (!modal.classList.contains('open')) return;
-      if (e.key === 'Escape') closeModal();
-      else if (e.key === 'ArrowRight') goTo(current + 1);
-      else if (e.key === 'ArrowLeft') goTo(current - 1);
-    });
-  })();
-</script>
-
-<!-- ==================== CHATBOT WIDGET AJMC ==================== -->
-<style>
-  /* ========== Chat Widget Styles ========== */
-  .chat-fab { position: fixed; bottom: 1.5rem; right: 5.5rem; z-index: 49; }
-  .chat-btn {
-    width: 60px; height: 60px;
-    border-radius: 50%;
-    background: linear-gradient(135deg, var(--gold-hover), var(--gold-base));
-    border: none;
-    color: var(--corporate-dark);
-    font-size: 24px;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    box-shadow: 0 10px 25px rgba(0,0,0,0.35);
-    transition: transform 0.2s, box-shadow 0.2s;
-  }
-  .chat-btn:hover { transform: scale(1.08); box-shadow: 0 12px 30px rgba(212, 175, 55, 0.5); }
-  .chat-badge {
-    position: absolute;
-    top: -5px; right: -5px;
-    width: 24px; height: 24px;
-    border-radius: 50%;
-    background: #FF6B6B;
-    color: white;
-    font-size: 12px;
-    font-weight: 700;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    display: none;
-  }
-  .chat-badge.active { display: flex; }
-
-  .chat-widget {
-    position: fixed;
-    bottom: 6.25rem;
-    right: 1.5rem;
-    width: min(400px, 90vw);
-    height: min(600px, calc(100vh - 8.5rem));
-    background: var(--corporate-surface);
-    border: 1px solid var(--hairline);
-    border-radius: 1rem;
-    box-shadow: 0 40px 100px rgba(0,0,0,0.4);
-    display: flex;
-    flex-direction: column;
-    opacity: 0;
-    visibility: hidden;
-    transform: translateY(20px) scale(0.95);
-    transition: opacity 0.3s ease, visibility 0.3s ease, transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-    z-index: 60;
-  }
-  .chat-widget.open {
-    opacity: 1;
-    visibility: visible;
-    transform: translateY(0) scale(1);
-  }
-
-  .chat-header {
-    background: linear-gradient(135deg, rgba(212, 175, 55, 0.1), rgba(197, 160, 89, 0.06));
-    border-bottom: 1px solid var(--hairline);
-    padding: 1.25rem;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-  .chat-title {
-    font-family: 'Playfair Display', serif;
-    font-size: 1.125rem;
-    font-weight: 600;
-    color: var(--text-high);
-  }
-  .chat-close {
-    background: none;
-    border: none;
-    color: var(--text-muted);
-    font-size: 20px;
-    cursor: pointer;
-    transition: color 0.2s;
-    padding: 0;
-    width: 32px;
-    height: 32px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-  .chat-close:hover { color: var(--text-high); }
-
-  .chat-messages {
-    flex: 1;
-    min-height: 0;
-    overflow-y: auto;
-    -webkit-overflow-scrolling: touch;
-    overscroll-behavior: contain;
-    touch-action: pan-y;
-    padding: 1.25rem;
-    display: flex;
-    flex-direction: column;
-    gap: 0.75rem;
-  }
-
-  .msg {
-    display: flex;
-    gap: 0.75rem;
-    animation: slideIn 0.3s ease;
-  }
-  .msg.user { justify-content: flex-end; }
-  @keyframes slideIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
-
-  .msg-bubble {
-    max-width: 75%;
-    padding: 0.75rem 1rem;
-    border-radius: 0.75rem;
-    font-size: 0.9rem;
-    line-height: 1.4;
-    word-wrap: break-word;
-    overflow-wrap: anywhere;
-    white-space: pre-line;
-  }
-  .msg-bubble a { color: var(--gold-hover); text-decoration: underline; }
-  .msg.user .msg-bubble {
-    background: linear-gradient(135deg, var(--gold-hover), var(--gold-base));
-    color: var(--corporate-dark);
-    font-weight: 500;
-  }
-  .msg.bot .msg-bubble {
-    background: rgba(22, 32, 58, 0.8);
-    color: var(--text-high);
-    border: 1px solid var(--hairline);
-  }
-
-  .chat-header, .chat-input-wrap { flex-shrink: 0; }
-  /* Con el chat abierto en teléfono, la página de atrás no se mueve */
-  body.chat-locked { position: fixed; left: 0; right: 0; width: 100%; overflow: hidden; }
-  .chat-input-wrap {
-    border-top: 1px solid var(--hairline);
-    padding: 1rem;
-    background: var(--corporate-dark);
-  }
-  .chat-input-group {
-    display: flex;
-    gap: 0.5rem;
-  }
-  .chat-input {
-    flex: 1;
-    background: rgba(22, 32, 58, 0.8);
-    border: 1px solid var(--hairline);
-    border-radius: 0.5rem;
-    padding: 0.75rem;
-    color: var(--text-high);
-    font-family: 'Inter', sans-serif;
-    font-size: 0.9rem;
-    transition: border-color 0.2s;
-  }
-  .chat-input:focus {
-    outline: none;
-    border-color: var(--gold-base);
-  }
-  .chat-input::placeholder { color: var(--text-muted); }
-
-  .chat-send {
-    background: linear-gradient(135deg, var(--gold-hover), var(--gold-base));
-    border: none;
-    border-radius: 0.5rem;
-    color: var(--corporate-dark);
-    width: 40px;
-    height: 40px;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: transform 0.2s, filter 0.2s;
-    font-weight: 600;
-  }
-  .chat-send:hover { transform: scale(1.05); filter: brightness(1.1); }
-  .chat-send:disabled { opacity: 0.5; cursor: not-allowed; }
-
-  .chat-sub { font-family: 'Inter', sans-serif; font-size: 0.75rem; color: var(--text-muted); margin-top: 0.1rem; }
-  .chat-header-actions { display: flex; align-items: center; gap: 0.25rem; }
-  .chat-reset {
-    background: none; border: none; cursor: pointer;
-    font-family: 'Inter', sans-serif; font-size: 0.78rem; color: var(--text-muted);
-    padding: 0.4rem 0.5rem; border-radius: 0.375rem;
-  }
-  .chat-reset:hover { color: var(--text-high); }
-  .chat-btn:focus-visible, .chat-close:focus-visible, .chat-reset:focus-visible,
-  .chat-send:focus-visible, .chat-chip:focus-visible { outline: 2px solid var(--gold-hover); outline-offset: 2px; }
-
-  /* Sugerencias para empezar */
-  .chat-chips { display: flex; flex-wrap: wrap; gap: 0.5rem; }
-  .chat-chips[hidden], .chat-reset[hidden] { display: none; }
-  .chat-chip {
-    background: transparent;
-    border: 1px solid rgba(197, 160, 89, 0.45);
-    color: var(--text-high);
-    font-family: 'Inter', sans-serif; font-size: 0.82rem; line-height: 1.2;
-    padding: 0.55rem 0.8rem; border-radius: 9999px; cursor: pointer; text-align: left;
-    transition: border-color 0.2s, background-color 0.2s;
-  }
-  .chat-chip:hover { border-color: var(--gold-hover); background: rgba(197, 160, 89, 0.1); }
-
-  /* "Escribiendo..." */
-  .typing-dots { display: inline-flex; gap: 4px; align-items: center; height: 1.2em; }
-  .typing-dots span {
-    width: 6px; height: 6px; border-radius: 50%; background: var(--text-muted);
-    animation: typing-bounce 1.2s ease-in-out infinite;
-  }
-  .typing-dots span:nth-child(2) { animation-delay: 0.15s; }
-  .typing-dots span:nth-child(3) { animation-delay: 0.3s; }
-  @keyframes typing-bounce { 0%, 60%, 100% { opacity: 0.35; transform: translateY(0); } 30% { opacity: 1; transform: translateY(-3px); } }
-
-  .chat-input-group { align-items: flex-end; }
-  textarea.chat-input { resize: none; line-height: 1.4; min-height: 40px; max-height: 120px; overflow-y: auto; display: block; }
-  .chat-note { font-family: 'Inter', sans-serif; font-size: 0.68rem; color: var(--text-muted); text-align: center; margin-top: 0.5rem; line-height: 1.35; }
-  .msg.bot .msg-bubble a { word-break: break-word; }
-  .msg-bubble a.nw { white-space: nowrap; }
-  .chat-widget.compact .chat-note, .chat-widget.compact .chat-sub { display: none; }
-  .chat-widget.compact .chat-header { padding-top: 0.6rem; padding-bottom: 0.6rem; }
-  .msg.user .msg-bubble a { color: var(--corporate-dark); }
-
-  @media (prefers-reduced-motion: reduce) {
-    .chat-widget, .msg, .typing-dots span, .chat-btn { animation: none !important; transition: none !important; }
-  }
-
-  /* Telefono: los dos botones flotantes se apilan (antes el de WhatsApp tapaba al del chat) */
-  @media (max-width: 600px) {
-    .fab {
-      right: calc(1rem + env(safe-area-inset-right));
-      bottom: calc(1rem + env(safe-area-inset-bottom));
-    }
-    .chat-fab {
-      right: calc(1rem + env(safe-area-inset-right));
-      bottom: calc(1rem + 54px + 0.75rem + env(safe-area-inset-bottom));
-    }
-    .chat-btn { width: 54px; height: 54px; font-size: 22px; }
-    /* Chat a pantalla completa, medido contra la pantalla visible (no 100vh) */
-    .chat-widget {
-      top: 0; right: 0; bottom: 0; left: 0;
-      width: auto; height: auto;
-      border: none; border-radius: 0;
-    }
-    .chat-header { padding-top: calc(1rem + env(safe-area-inset-top)); }
-    .chat-close { width: 44px; height: 44px; font-size: 22px; }
-    .chat-reset { min-height: 44px; }
-    .chat-chip { font-size: 0.88rem; padding: 0.65rem 0.9rem; }
-    textarea.chat-input { min-height: 44px; }
-    .chat-input-wrap { padding-bottom: calc(1rem + env(safe-area-inset-bottom)); }
-    /* 16px evita que iOS haga zoom al tocar el campo */
-    .chat-input { font-size: 16px; }
-    .chat-send { width: 44px; height: 44px; flex-shrink: 0; }
-    .msg-bubble { max-width: 88%; }
-  }
-</style>
-
-<!-- Chat Widget HTML -->
-<div class="chat-fab">
-  <button class="chat-btn" id="chatFab" type="button" aria-label="Abrir chat con el asistente" title="Chat con el asistente" aria-expanded="false" aria-controls="chatWidget">
-    <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12a8 8 0 0 1-11.6 7.1L4 20.5l1.4-4.6A8 8 0 1 1 21 12Z"/><circle cx="9" cy="12" r=".6" fill="currentColor"/><circle cx="13" cy="12" r=".6" fill="currentColor"/><circle cx="17" cy="12" r=".6" fill="currentColor"/></svg>
-  </button>
-  <div class="chat-badge" id="chatBadge" aria-hidden="true">1</div>
-</div>
-
-<div class="chat-widget" id="chatWidget" role="dialog" aria-label="Chat con el asistente de AJCM" aria-hidden="true">
-  <div class="chat-header">
-    <div>
-      <h2 class="chat-title">Preguntas sobre AJCM</h2>
-      <p class="chat-sub">Asistente virtual</p>
-    </div>
-    <div class="chat-header-actions">
-      <button class="chat-reset" id="chatReset" type="button" hidden>Borrar</button>
-      <button class="chat-close" id="chatClose" type="button" aria-label="Cerrar chat">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
-      </button>
-    </div>
+<!-- ===== ASISTENTE VIRTUAL ===== -->
+<button class="chat-fab" id="chatFab" aria-controls="chat" aria-expanded="false">Asistente AJCM</button>
+<div class="chat" id="chat" role="dialog" aria-label="Asistente virtual AJCM">
+  <div class="chat-h">
+    <div><b>ASISTENTE AJCM</b><small>Respuestas generales · no es asesoría legal</small></div>
+    <button class="chat-x" id="chatX" aria-label="Cerrar asistente">×</button>
   </div>
-  <div class="chat-messages" id="chatMessages" role="log" aria-live="polite">
-    <div class="msg bot">
-      <div class="msg-bubble">Hola, soy el asistente de AJCM. Cuéntame qué necesita tu empresa y te oriento.</div>
-    </div>
-    <div class="chat-chips" id="chatChips">
-      <button type="button" class="chat-chip">¿Qué servicios ofrecen?</button>
-      <button type="button" class="chat-chip">¿Cuánto cuesta?</button>
-      <button type="button" class="chat-chip">Tengo una situación urgente</button>
-      <button type="button" class="chat-chip">Quiero agendar una consulta</button>
-    </div>
-  </div>
-  <div class="chat-input-wrap">
-    <div class="chat-input-group">
-      <textarea
-        class="chat-input"
-        id="chatInput"
-        rows="1"
-        placeholder="Escribe tu pregunta..."
-        aria-label="Mensaje"
-        maxlength="2000"
-        enterkeyhint="send"
-        autocomplete="off"
-      ></textarea>
-      <button class="chat-send" id="chatSendBtn" type="button" aria-label="Enviar">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="13 6 19 12 13 18"/></svg>
-      </button>
-    </div>
-    <p class="chat-note">Asistente con inteligencia artificial. Orienta, pero no sustituye una consulta.</p>
-  </div>
+  <div class="chat-log" id="chatLog" aria-live="polite"></div>
+  <form class="chat-f" id="chatForm">
+    <input id="chatIn" maxlength="1500" placeholder="Escribe tu pregunta…" aria-label="Tu pregunta" autocomplete="off">
+    <button id="chatSend" type="submit">Enviar</button>
+  </form>
+  <p class="chat-legal">Las conversaciones se procesan con un modelo de IA. No compartas datos sensibles.</p>
 </div>
 
 <script>
-  // ========== CHATBOT LOGIC ==========
-  (function() {
-    const chatFab = document.getElementById('chatFab');
-    const chatClose = document.getElementById('chatClose');
-    const chatWidget = document.getElementById('chatWidget');
-    const chatInput = document.getElementById('chatInput');
-    const chatSendBtn = document.getElementById('chatSendBtn');
-    const chatMessages = document.getElementById('chatMessages');
-    const chatBadge = document.getElementById('chatBadge');
+(function(){
+  'use strict';
+  document.getElementById('yr').textContent = new Date().getFullYear();
 
-    const API_URL = 'https://aj-portal-lovat.vercel.app/api/chat';
+  /* Menú móvil */
+  var menu = document.getElementById('menu'), menuBtn = document.getElementById('menuBtn');
+  menuBtn.addEventListener('click', function(){
+    var open = menu.classList.toggle('open');
+    menuBtn.setAttribute('aria-expanded', String(open));
+  });
+  menu.addEventListener('click', function(e){
+    if (e.target.tagName === 'A') { menu.classList.remove('open'); menuBtn.setAttribute('aria-expanded','false'); }
+  });
 
-    let messages = [];
-    let isLoading = false;
-    const chatChips = document.getElementById('chatChips');
-    const chatReset = document.getElementById('chatReset');
-    const STORE_KEY = 'ajcm_chat_v1';
+  /* ===== Formulario → Supabase (tabla leads, solo inserción por RLS) ===== */
+  var SUPABASE_URL = 'https://wxxazkkxwvprsginjtjb.supabase.co';
+  var SUPABASE_KEY = 'sb_publishable_Pr78iurFjcCLGECy0brLtg_CcYLc4pJ';
+  var form = document.getElementById('leadForm'), btn = document.getElementById('f-btn'), st = document.getElementById('f-status');
+  var lastSent = 0;
+  function setStatus(t, cls){ st.textContent = t; st.className = 'status ' + (cls || ''); }
 
-    // La conversación se conserva si la persona recarga la página (se borra al cerrar la pestaña)
-    function saveChat() {
-      try { sessionStorage.setItem(STORE_KEY, JSON.stringify(messages.slice(-40))); } catch (e) { /* almacenamiento no disponible */ }
-    }
-    function loadChat() {
-      try {
-        const saved = JSON.parse(sessionStorage.getItem(STORE_KEY) || '[]');
-        if (!Array.isArray(saved)) return;
-        saved.forEach(function (m) {
-          if (!m || typeof m.content !== 'string' || (m.role !== 'user' && m.role !== 'assistant')) return;
-          messages.push({ role: m.role, content: m.content });
-          addMessageBubble(m.role === 'user' ? 'user' : 'bot', m.content);
-        });
-      } catch (e) { /* datos dañados: se empieza de cero */ }
-      syncStartState();
-    }
-    function syncStartState() {
-      const started = messages.length > 0;
-      if (chatChips) chatChips.hidden = started;
-      if (chatReset) chatReset.hidden = !started;
-    }
+  form.addEventListener('submit', function(e){
+    e.preventDefault();
+    var d = new FormData(form);
+    if (d.get('website')) return; // bot
+    var nombre = String(d.get('nombre')||'').trim();
+    var correo = String(d.get('correo')||'').trim();
+    var servicio = String(d.get('servicio')||'').trim();
+    if (nombre.length < 2) return setStatus('Escribe tu nombre completo.', 'err');
+    if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(correo)) return setStatus('Escribe un correo válido.', 'err');
+    if (!servicio) return setStatus('Selecciona un servicio.', 'err');
+    if (Date.now() - lastSent < 30000) return setStatus('Ya recibimos tu solicitud. Espera unos segundos.', 'err');
 
-    // Respuestas de respaldo: solo se usan si el asistente de IA no responde
-    const CAL = 'https://calendar.app.google/vEu1C9fPBmbVUhWY7';
-    const AJCM_KB = {
-      auditorias: "La auditoría es una revisión completa de tu empresa: expedientes, clasificación de empleados, nómina y cumplimiento con las leyes de Puerto Rico. Al final recibes un reporte claro con los pasos a seguir. ¿Quieres coordinar una consulta?\n" + CAL,
-      manuales: "Hacemos el manual del empleado a la medida de tu negocio: hostigamiento, licencias, uso de tecnología y disciplina progresiva. Te da reglas claras y un documento firmado que respalda tus decisiones. ¿Quieres coordinar una consulta?\n" + CAL,
-      relaciones: "Te acompañamos en el manejo de empleados: contratación, periodos probatorios, despidos y clasificación de puestos. Como cada caso depende de sus detalles, lo mejor es que Alexis lo revise contigo.\nWhatsApp: +1 939-428-2820\nAgendar: " + CAL,
-      nomina: "Ayudamos a ordenar los procesos de nómina para evitar pérdidas de dinero, y damos talleres a supervisores sobre disciplina, evaluación y manejo de ausencias. ¿Quieres coordinar una consulta?\n" + CAL,
-      metodologia: "Trabajamos en 4 pasos:\n- Diagnóstico: entender cómo está tu empresa.\n- Diseño: crear las políticas a la medida.\n- Implementación: ponerlas en marcha.\n- Soporte continuo: acompañarte después.",
-      alexis: "Alexis Joel Mercado Colón dirige AJCM. Tiene formación en Administración de Empresas con concentración en Recursos Humanos por la Universidad de Puerto Rico y experiencia en coordinación financiera y administrativa. Él responde personalmente cada solicitud.",
-      precio: "No hay un precio fijo: depende del tamaño de tu empresa y de lo que necesites. Se puede trabajar por proyecto o con una iguala mensual. En una consulta corta Alexis te da la cotización, sin compromiso.\n" + CAL,
-      faq_tiempo: "Depende del tamaño de tu empresa y del alcance. El calendario se define en el diagnóstico, antes de empezar.",
-      faq_ubicacion: "Atendemos en todo Puerto Rico, de forma virtual o presencial, según te convenga.",
-      faq_confidencialidad: "Sí. La información de tu empresa y de tus empleados se maneja con estricta confidencialidad.",
-      faq_empleados: "AJCM trabaja solo con patronos y empresas, así que no podemos representarte. Te recomiendo acudir al Departamento del Trabajo y Recursos Humanos o a un abogado laboral.",
-      contacto: "Puedes comunicarte así:\n- WhatsApp o teléfono: +1 939-428-2820\n- Correo: ajmccorporation167@gmail.com\n- Agendar consulta: " + CAL + "\nAtendemos de lunes a viernes.",
-      urgente: "Entiendo, eso hay que atenderlo rápido. Escríbele ahora a Alexis por WhatsApp al +1 939-428-2820 para que revise tu caso en privado. También puedes agendar aquí:\n" + CAL,
-      saludo: "¡Hola! Soy el asistente de AJCM. ¿En qué te puedo ayudar con tu empresa?",
-      gracias: "Con gusto. Cuando estés listo, puedes escribir por WhatsApp al +1 939-428-2820.",
-      otro: "¿Me das un poco más de detalle? Por ejemplo, si es sobre un empleado, sobre un manual o reglas, o sobre nómina. Si prefieres hablar directo con Alexis, escríbele por WhatsApp al +1 939-428-2820."
+    var extras = [];
+    var tel = String(d.get('telefono')||'').trim(), emp = String(d.get('empleados')||'').trim();
+    if (tel) extras.push('Teléfono: ' + tel);
+    if (emp) extras.push('Empleados: ' + emp);
+    var msg = String(d.get('mensaje')||'').trim();
+    var mensaje = (extras.length ? extras.join(' | ') + '\n\n' : '') + msg;
+
+    var payload = {
+      nombre: nombre.slice(0,120),
+      empresa: String(d.get('empresa')||'').trim().slice(0,160) || null,
+      correo: correo.slice(0,254),
+      servicio: servicio,
+      mensaje: mensaje.slice(0,2000) || null
     };
+    btn.disabled = true; btn.textContent = 'Enviando…'; setStatus('');
+    fetch(SUPABASE_URL + '/rest/v1/leads', {
+      method: 'POST',
+      headers: { 'apikey': SUPABASE_KEY, 'Content-Type': 'application/json', 'Prefer': 'return=minimal' },
+      body: JSON.stringify(payload)
+    }).then(function(r){
+      if (!r.ok) throw new Error(r.status);
+      lastSent = Date.now(); form.reset();
+      setStatus('Solicitud recibida. Te escribiremos pronto.', 'ok');
+    }).catch(function(){
+      setStatus('No se pudo enviar. Escríbenos a ajmccorporation167@gmail.com.', 'err');
+    }).finally(function(){ btn.disabled = false; btn.textContent = 'Enviar solicitud'; });
+  });
 
-    // Respaldo por palabras clave. Se comparan sin acentos y en minúsculas.
-    function getSmartResponse(userText) {
-      const t = userText.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '');
-      const has = function () { for (let k = 0; k < arguments.length; k++) if (t.includes(arguments[k])) return true; return false; };
+  /* ===== Asistente virtual → /api/chat (Gemini, llave en Vercel) ===== */
+  var chat = document.getElementById('chat'), fab = document.getElementById('chatFab');
+  var log = document.getElementById('chatLog'), cf = document.getElementById('chatForm');
+  var cin = document.getElementById('chatIn'), csend = document.getElementById('chatSend');
+  var history = [], busy = false, greeted = false;
 
-      if (has('soy empleado', 'soy emplead', 'mi jefe', 'mi patrono', 'me despidieron', 'me botaron', 'no me pagan', 'no me quieren pagar')) return AJCM_KB.faq_empleados;
-      if (has('urgente', 'urgencia', 'emergencia', 'demanda', 'amenaz', 'querella', 'inspeccion', 'me van a llevar', 'departamento del trabajo')) return AJCM_KB.urgente;
-      if (has('precio', 'costo', 'cuesta', 'cobran', 'tarifa', 'cotiza', 'iguala', 'pago mensual')) return AJCM_KB.precio;
-      if (has('contact', 'llamar', 'telefono', 'whatsapp', 'correo', 'email', 'agendar', 'cita', 'horario', 'reunion')) return AJCM_KB.contacto;
-      if (has('auditoria', 'cumplimiento', 'multa', 'riesgo')) return AJCM_KB.auditorias;
-      if (has('manual', 'politica', 'handbook', 'reglamento', 'reglas', 'hostigamiento', 'disciplina')) return AJCM_KB.manuales;
-      if (has('nomina', 'payroll', 'taller', 'capacitacion', 'supervisor', 'horas extra')) return AJCM_KB.nomina;
-      if (has('despido', 'despedir', 'botar', 'bote', 'ley 80', 'mesada', 'probatorio', 'exento', 'flsa', 'contrat', 'empleado', 'conflicto')) return AJCM_KB.relaciones;
-      if (has('cuanto tiempo', 'cuanto tarda', 'cuanto demora', 'duracion', 'plazo')) return AJCM_KB.faq_tiempo;
-      if (has('donde', 'ubicacion', 'presencial', 'virtual', 'remoto', 'san juan', 'bayamon', 'ponce', 'mayaguez', 'isla')) return AJCM_KB.faq_ubicacion;
-      if (has('confidencial', 'privacidad', 'segurid', 'datos de mi empresa')) return AJCM_KB.faq_confidencialidad;
-      if (has('metodologia', 'proceso', 'pasos', 'como trabajan', 'como funciona')) return AJCM_KB.metodologia;
-      if (has('alexis', 'quien es', 'quienes son', 'fundador', 'experiencia', 'dueno')) return AJCM_KB.alexis;
-      if (has('gracias', 'lo pienso', 'lo voy a pensar', 'luego', 'despues')) return AJCM_KB.gracias;
-      if (/^(hola|hey|hi|hello|saludos|buenas|buenos dias|buen dia)\b/.test(t.trim())) return AJCM_KB.saludo;
-      return AJCM_KB.otro;
-    }
-
-    // Abrir/Cerrar chat
-    const isPhone = () => window.matchMedia('(max-width: 600px)').matches;
-    const vv = window.visualViewport;
-    let lockedY = 0;
-    let isLocked = false;
-
-    // En teléfono el chat ocupa exactamente el área visible. Cuando sale el
-    // teclado esa área se achica: sin este ajuste, parte de la conversación
-    // queda debajo del teclado y el dedo mueve la página en vez del chat.
-    function fitToViewport() {
-      if (!chatWidget.classList.contains('open') || !isPhone() || !vv) {
-        chatWidget.style.top = chatWidget.style.bottom = chatWidget.style.height = '';
-        chatWidget.classList.remove('compact');
-        return;
-      }
-      // Con el teclado abierto se esconden los textos secundarios para dejar más conversación a la vista
-      chatWidget.classList.toggle('compact', vv.height < 480);
-      chatWidget.style.top = vv.offsetTop + 'px';
-      chatWidget.style.bottom = 'auto';
-      chatWidget.style.height = vv.height + 'px';
-    }
-    if (vv) {
-      vv.addEventListener('resize', fitToViewport);
-      vv.addEventListener('scroll', fitToViewport);
-    }
-    window.addEventListener('resize', fitToViewport);
-
-    function lockPage() {
-      if (isLocked || !isPhone()) return;
-      lockedY = window.scrollY;
-      document.body.style.top = (-lockedY) + 'px';
-      document.body.classList.add('chat-locked');
-      isLocked = true;
-    }
-    function unlockPage() {
-      if (!isLocked) return;
-      document.body.classList.remove('chat-locked');
-      document.body.style.top = '';
-      const root = document.documentElement;
-      const prev = root.style.scrollBehavior;
-      root.style.scrollBehavior = 'auto';
-      window.scrollTo(0, lockedY);
-      root.style.scrollBehavior = prev;
-      isLocked = false;
-    }
-
-    function openChat() {
-      chatWidget.classList.add('open');
-      chatWidget.setAttribute('aria-hidden', 'false');
-      chatFab.setAttribute('aria-expanded', 'true');
-      chatBadge.classList.remove('active');
-      lockPage();
-      fitToViewport();
-      chatMessages.scrollTop = chatMessages.scrollHeight;
-      // En teléfono no se abre el teclado solo: primero se lee, luego se toca el campo
-      if (!isPhone()) setTimeout(() => { if (chatWidget.classList.contains('open')) chatInput.focus(); }, 320);
-    }
-    function closeChat() {
-      chatWidget.classList.remove('open');
-      chatWidget.setAttribute('aria-hidden', 'true');
-      chatFab.setAttribute('aria-expanded', 'false');
-      chatInput.blur();
-      unlockPage();
-      fitToViewport();
-    }
-    chatFab.addEventListener('click', () => {
-      if (chatWidget.classList.contains('open')) closeChat(); else openChat();
+  function bubble(text, who){
+    var el = document.createElement('div');
+    el.className = 'msg ' + who; el.textContent = text;
+    log.appendChild(el); log.scrollTop = log.scrollHeight; return el;
+  }
+  function chips(){
+    var box = document.createElement('div'); box.className = 'chips';
+    ['¿Cómo clasifico a un empleado exento?','Necesito un contrato de empleo','¿Qué es el formulario I-9?','Quiero una consulta'].forEach(function(q){
+      var b = document.createElement('button'); b.type = 'button'; b.textContent = q;
+      b.addEventListener('click', function(){ box.remove(); send(q); });
+      box.appendChild(b);
     });
-    chatClose.addEventListener('click', closeChat);
-    document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape' && chatWidget.classList.contains('open')) closeChat();
-    });
-
-    // Solo se baja sola la conversación si la persona ya estaba al final.
-    // Si subió a leer algo anterior, no se le mueve.
-    function nearBottom() {
-      return chatMessages.scrollHeight - chatMessages.scrollTop - chatMessages.clientHeight < 80;
+    log.appendChild(box);
+  }
+  function toggle(open){
+    chat.classList.toggle('open', open); fab.setAttribute('aria-expanded', String(open));
+    fab.textContent = open ? 'Cerrar asistente' : 'Asistente AJCM';
+    if (open){
+      if (!greeted){ greeted = true; bubble('Hola, soy el asistente de AJCM. Puedo orientarte sobre contratos, verificación de empleo, clasificación de empleados y nómina. ¿En qué te ayudo?', 'bot'); chips(); }
+      setTimeout(function(){ cin.focus(); }, 50);
     }
+  }
+  fab.addEventListener('click', function(){ toggle(!chat.classList.contains('open')); });
+  document.getElementById('chatX').addEventListener('click', function(){ toggle(false); fab.focus(); });
+  document.addEventListener('keydown', function(e){ if (e.key === 'Escape' && chat.classList.contains('open')) toggle(false); });
 
-    // Enviar mensaje: primero el asistente de IA; si falla, respuesta de respaldo
-    async function sendMessage(preset) {
-      const text = (typeof preset === 'string' ? preset : chatInput.value).trim().slice(0, 2000);
-      if (!text || isLoading) return;
-
-      if (typeof preset !== 'string') { chatInput.value = ''; autoGrow(); }
-      addMessageBubble('user', text);
-      messages.push({ role: 'user', content: text });
-      syncStartState();
-      saveChat();
-      chatSendBtn.disabled = true;
-      isLoading = true;
-
-      const bubble = addMessageBubble('bot', '');
-      bubble.innerHTML = '<span class="typing-dots" role="status" aria-label="El asistente está escribiendo"><span></span><span></span><span></span></span>';
-      chatMessages.scrollTop = chatMessages.scrollHeight;
-      let reply = '';
-      const controller = new AbortController();
-      const timer = setTimeout(() => controller.abort(), 25000);
-
-      try {
-        // El servidor acepta hasta 21 mensajes y exige empezar y terminar en "user"
-        let history = messages.slice(-19);
-        while (history.length && history[0].role !== 'user') history.shift();
-
-        const res = await fetch(API_URL, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ messages: history }),
-          signal: controller.signal
-        });
-        if (!res.ok || !res.body) throw new Error('HTTP ' + res.status);
-
-        const reader = res.body.getReader();
-        const decoder = new TextDecoder();
-        while (true) {
-          const { done, value } = await reader.read();
-          if (done) break;
-          reply += decoder.decode(value, { stream: true });
-          setBubble(bubble, reply);
+  function send(text){
+    text = String(text||'').trim();
+    if (!text || busy) return;
+    busy = true; csend.disabled = true;
+    bubble(text, 'me');
+    history.push({ role:'user', content:text.slice(0,1500) });
+    if (history.length > 20) history = history.slice(-20);
+    while (history.length && history[0].role !== 'user') history.shift();
+    var out = bubble('…', 'bot'), acc = '';
+    fetch('/api/chat', { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({ messages: history }) })
+      .then(function(r){
+        if (!r.ok) return r.text().then(function(t){ throw new Error(t || 'Error'); });
+        if (!r.body || !r.body.getReader) return r.text().then(function(t){ acc = t; out.textContent = t; });
+        var reader = r.body.getReader(), dec = new TextDecoder();
+        function pump(){
+          return reader.read().then(function(x){
+            if (x.done) return;
+            acc += dec.decode(x.value, { stream:true });
+            out.textContent = acc; log.scrollTop = log.scrollHeight;
+            return pump();
+          });
         }
-        reply = reply.trim();
-        if (!reply) throw new Error('respuesta vacía');
-      } catch (err) {
-        console.warn('Asistente de IA no disponible, usando respuesta de respaldo:', err);
-        if (!reply.trim()) reply = getSmartResponse(text);
-      } finally {
-        clearTimeout(timer);
-      }
-
-      setBubble(bubble, reply);
-      messages.push({ role: 'assistant', content: reply });
-      saveChat();
-      chatSendBtn.disabled = false;
-      isLoading = false;
-      if (window.matchMedia('(min-width: 601px)').matches) chatInput.focus();
-    }
-
-    function setBubble(bubble, content) {
-      const stick = nearBottom();
-      bubble.innerHTML = linkify(escapeHtml(content));
-      if (stick) chatMessages.scrollTop = chatMessages.scrollHeight;
-    }
-
-    function addMessageBubble(role, content) {
-      const msg = document.createElement('div');
-      msg.className = `msg ${role === 'user' ? 'user' : 'bot'}`;
-      msg.innerHTML = `<div class="msg-bubble">${linkify(escapeHtml(content))}</div>`;
-      chatMessages.appendChild(msg);
-      chatMessages.scrollTop = chatMessages.scrollHeight;
-      return msg.querySelector('.msg-bubble');
-    }
-
-    function escapeHtml(str) {
-      return String(str).replace(/[&<>"']/g, function (c) {
-        return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c];
-      });
-    }
-
-    // Convierte enlaces, correos y el teléfono de AJCM (texto ya escapado) en algo que se puede tocar
-    const LINK_RE = /(https?:\/\/[^\s<>"'`]+[^\s<>"'`.,;:!?)])|([A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,})|(\+?1?[ -]?\(?939\)?[ -]?428[ -]?2820)/g;
-    function linkify(html) {
-      return html.replace(LINK_RE, function (m, url, mail, tel) {
-        if (/&(quot|#39|lt|gt);/.test(m)) return m;
-        if (url) return '<a href="' + url + '" target="_blank" rel="noopener noreferrer">' + url + '</a>';
-        if (mail) return '<a href="mailto:' + mail + '">' + mail + '</a>';
-        return '<a class="nw" href="https://wa.me/19394282820" target="_blank" rel="noopener noreferrer">' + tel + '</a>';
-      });
-    }
-
-    // El campo crece con el texto, hasta unas 4 líneas
-    function autoGrow() {
-      chatInput.style.height = 'auto';
-      chatInput.style.height = Math.min(chatInput.scrollHeight, 120) + 'px';
-    }
-    chatInput.addEventListener('input', autoGrow);
-
-    chatSendBtn.addEventListener('click', () => sendMessage());
-    chatInput.addEventListener('keydown', e => {
-      // Enter envía; Shift+Enter hace salto de línea. No se envía a mitad de una composición (acentos, autocorrector)
-      if (e.key === 'Enter' && !e.shiftKey && !e.isComposing && e.keyCode !== 229) {
-        e.preventDefault();
-        sendMessage();
-      }
-    });
-    if (chatChips) {
-      chatChips.addEventListener('click', e => {
-        const chip = e.target.closest('.chat-chip');
-        if (chip) sendMessage(chip.textContent);
-      });
-    }
-    if (chatReset) {
-      chatReset.addEventListener('click', () => {
-        if (isLoading) return;
-        messages = [];
-        try { sessionStorage.removeItem(STORE_KEY); } catch (e) { /* sin almacenamiento */ }
-        chatMessages.querySelectorAll('.msg').forEach((m, idx) => { if (idx > 0) m.remove(); });
-        syncStartState();
-        chatMessages.scrollTop = 0;
-      });
-    }
-    loadChat();
-  })();
+        return pump();
+      })
+      .then(function(){
+        acc = acc.trim();
+        if (!acc){ out.textContent = 'No recibí respuesta. Intenta de nuevo o escríbenos por el formulario.'; history.pop(); return; }
+        history.push({ role:'assistant', content: acc.slice(0,4000) });
+      })
+      .catch(function(err){
+        var m = String(err && err.message || '');
+        out.textContent = (m && m.length < 140 ? m : 'El asistente no está disponible ahora.') + ' También puedes escribirnos por el formulario de contacto.';
+        history.pop();
+      })
+      .finally(function(){ busy = false; csend.disabled = false; cin.focus(); });
+  }
+  cf.addEventListener('submit', function(e){ e.preventDefault(); var t = cin.value; cin.value = ''; send(t); });
+})();
 </script>
-
 </body>
 </html>
