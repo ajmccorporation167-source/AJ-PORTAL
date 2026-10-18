@@ -140,7 +140,7 @@ module.exports = async function handler(req, res) {
     // La key va como query parameter — es el método oficial para API keys de
     // AI Studio contra el endpoint REST. La URL nunca se expone al navegador
     // porque esta función corre en el servidor de Vercel.
-    const upstream = await fetch(`${GEMINI_BASE}?key=${apiKey}`, {
+    const upstream = await fetch(`${GEMINI_BASE}?key=${encodeURIComponent(apiKey)}`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(geminiBody),

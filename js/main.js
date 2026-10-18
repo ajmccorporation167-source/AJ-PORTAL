@@ -1,5 +1,5 @@
 /* =========================================================================
-   AJCM | RRHH CONSULTING — FASE 1: INTERACCIONES DEL FRONTEND
+   AJCM | RRHH CONSULTING — INTERACCIONES DEL FRONTEND
    Sin dependencias externas. Respeta prefers-reduced-motion en cada efecto.
    ========================================================================= */
 (() => {
@@ -159,9 +159,9 @@
   }
 
   /* -----------------------------------------------------------------------
-     7. VALIDACIÓN DEL FORMULARIO DE CONTACTO (maqueta visual — Fase 2
-        conectará el envío real a Supabase; aquí solo validamos en cliente
-        y mostramos un estado claro, sin fingir que los datos se guardaron).
+     7. VALIDACIÓN DEL FORMULARIO DE CONTACTO
+        Este listener solo valida. Si falla, stopImmediatePropagation() impide
+        que el listener de js/supabase.js envíe datos vacíos o inválidos.
      ----------------------------------------------------------------------- */
   const leadForm = document.getElementById('leadForm');
   const formStatus = document.getElementById('formStatus');

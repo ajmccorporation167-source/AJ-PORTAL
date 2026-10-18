@@ -67,7 +67,6 @@
     const nombre   = (document.getElementById('fieldName')?.value || '').trim();
     const empresa  = (document.getElementById('fieldCompany')?.value || '').trim();
     const correo   = (document.getElementById('fieldEmail')?.value || '').trim();
-    const telefono = (document.getElementById('fieldPhone')?.value || '').trim();
     const servicio = (document.getElementById('fieldService')?.value || '').trim();
     const mensaje  = (document.getElementById('fieldMessage')?.value || '').trim();
 

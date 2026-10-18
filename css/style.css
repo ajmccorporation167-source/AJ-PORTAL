@@ -1,5 +1,5 @@
 /* =========================================================================
-   AJCM | RRHH CONSULTING — FASE 1: FRONTEND VISUAL
+   AJCM | RRHH CONSULTING — FRONTEND VISUAL
    Paleta y tipografía controladas por variables CSS (:root) para que el
    equipo pueda ajustar colores/tamaños sin tocar cada selector.
    ========================================================================= */
@@ -59,7 +59,12 @@ html { scroll-behavior: smooth; }
 
 body {
   margin: 0;
-  background: var(--color-navy);
+  /* Textura como fondo principal: un velo navy encima la oscurece y le da
+     profundidad 3D envolvente; fixed para que el contenido "flote" sobre ella. */
+  background:
+    linear-gradient(180deg, rgba(11, 19, 43, 0.86), rgba(6, 10, 24, 0.94)),
+    url('../textura.jpg') center / cover fixed,
+    var(--color-navy);
   color: var(--color-text-body);
   font-family: var(--font-body);
   font-size: 16px;
@@ -324,10 +329,10 @@ textarea:focus-visible,
   /* Escala arquitectónica extrema: tipografía pesada, editorial, casi monumental.
      Tracking negativo fuerte y line-height ajustado para que el bloque de texto
      se sienta como un objeto tipográfico, no como un párrafo. */
-  font-size: clamp(3rem, 7vw, 5.8rem);
-  font-weight: 800;
+  font-size: clamp(3.5rem, 10vw, 9rem);
+  font-weight: 900;
   letter-spacing: -0.04em;
-  line-height: 1.0;
+  line-height: 0.92;
 }
 .hero__subtitle {
   max-width: 600px;
@@ -433,10 +438,10 @@ section { padding: var(--space-2xl) var(--space-md); }
   /* Sin sombras difusas: la elevación se lee por el cambio de superficie
      (fondo + borde), no por un drop-shadow — regla tomada de la referencia
      de composición (DESIGN.md: "elevation through surface color shifts,
-     not drop shadows"). El único box-shadow es un anillo sin blur (0px). */
+     not drop shadows"). Cero box-shadow en tarjetas. */
   border-color: var(--glass-border-hover);
   background: var(--glass-bg-hover);
-  box-shadow: 0 0 0 1px rgba(212, 175, 55, 0.35);
+  box-shadow: none;
 }
 .service-card__icon {
   width: 52px; height: 52px;
@@ -505,6 +510,7 @@ section { padding: var(--space-2xl) var(--space-md); }
   background: var(--glass-bg);
   border: 1px solid var(--glass-border);
   border-radius: 0px;
+  box-shadow: none;
   padding: var(--space-sm);
   display: flex;
   align-items: baseline;
