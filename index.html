@@ -107,20 +107,23 @@
       <div class="hero__content">
         <p class="eyebrow">Consultoría en Recursos Humanos · San Juan &amp; Bayamón, Puerto Rico</p>
 
-        <h1 class="hero__title" style="font-size: clamp(3.25rem, 12vw, 187px); line-height: var(--leading-hero-massive); letter-spacing: var(--tracking-hero-massive);">
-          Autoridad, cumplimiento y orden.<br />
-          Así se protege el <span class="text-gold">talento</span> de tu empresa.
+        <!-- Titular editorial: la frase principal a escala monumental y el "deck" desplazado a la derecha -->
+        <h1 class="hero__title">
+          <span class="hero__title-main">Autoridad, cumplimiento y orden.</span>
+          <span class="hero__title-deck">Así se protege el <span class="text-gold">talento</span> de tu empresa.</span>
         </h1>
 
-        <p class="hero__subtitle">
-          Acompañamos a patronos, pequeñas y medianas empresas en Puerto Rico con auditorías de cumplimiento laboral,
-          manuales corporativos, administración de nómina y relaciones obrero-patronales — con la cercanía de un
-          consultor experto, no el trato de una agencia grande.
-        </p>
+        <div class="hero__footer">
+          <p class="hero__subtitle">
+            Acompañamos a patronos, pequeñas y medianas empresas en Puerto Rico con auditorías de cumplimiento laboral,
+            manuales corporativos, administración de nómina y relaciones obrero-patronales — con la cercanía de un
+            consultor experto, no el trato de una agencia grande.
+          </p>
 
-        <div class="hero__actions">
-          <a href="#contacto" class="btn btn--gold btn--lg" data-magnetic>Agenda tu Auditoría Inicial</a>
-          <a href="#servicios" class="btn btn--ghost btn--lg">Ver Servicios</a>
+          <div class="hero__actions">
+            <a href="#contacto" class="btn btn--gold btn--lg" data-magnetic>Agenda tu Auditoría Inicial</a>
+            <a href="#servicios" class="btn btn--ghost btn--lg">Ver Servicios</a>
+          </div>
         </div>
 
         <ul class="hero__trust" aria-label="Áreas de cumplimiento laboral que cubrimos">
@@ -139,19 +142,29 @@
 
     <!-- ============================= SERVICIOS ============================= -->
     <section class="services" id="servicios">
-      <div class="section__head" data-reveal>
-        <p class="eyebrow">Lo que hacemos</p>
-        <h2 class="section__title">Servicios Core</h2>
-        <p class="section__intro">
-          Seis áreas donde la mayoría de los patronos en Puerto Rico enfrenta más riesgo legal — y más oportunidad
-          de estructura y profesionalización.
-        </p>
-      </div>
+      <!-- Layout asimétrico: columna editorial fija a la izquierda, índice de servicios a la derecha -->
+      <div class="services__layout">
+        <div class="services__aside">
+          <div class="section__head" data-reveal>
+            <p class="eyebrow">Lo que hacemos</p>
+            <h2 class="section__title">Servicios Core</h2>
+            <p class="section__intro">
+              Seis áreas donde la mayoría de los patronos en Puerto Rico enfrenta más riesgo legal — y más oportunidad
+              de estructura y profesionalización.
+            </p>
+          </div>
+
+          <div class="services__metric" data-reveal>
+            <span class="services__metric-number">06</span>
+            <span class="services__metric-label">Frentes de cumplimiento laboral cubiertos por un solo consultor</span>
+          </div>
+        </div>
 
       <!-- data-reveal va en el contenedor (no en cada tarjeta) para no chocar con el transform del tilt -->
       <div class="services__grid" id="servicesGrid" data-reveal>
 
         <article class="service-card" data-tilt>
+          <span class="service-card__index" aria-hidden="true">01</span>
           <span class="service-card__icon" aria-hidden="true">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/></svg>
           </span>
@@ -161,6 +174,7 @@
         </article>
 
         <article class="service-card" data-tilt>
+          <span class="service-card__index" aria-hidden="true">02</span>
           <span class="service-card__icon" aria-hidden="true">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path stroke-linecap="round" stroke-linejoin="round" d="M6.75 4.5h7.5l3 3v12a1.5 1.5 0 0 1-1.5 1.5h-9A1.5 1.5 0 0 1 5.25 19.5V6A1.5 1.5 0 0 1 6.75 4.5Z"/><path stroke-linecap="round" stroke-linejoin="round" d="M9 10.5h6M9 13.5h6M9 16.5h3.5"/></svg>
           </span>
@@ -170,6 +184,7 @@
         </article>
 
         <article class="service-card" data-tilt>
+          <span class="service-card__index" aria-hidden="true">03</span>
           <span class="service-card__icon" aria-hidden="true">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path stroke-linecap="round" stroke-linejoin="round" d="M12 2.25 3.75 6v6c0 5.25 4.5 8.4 8.25 9.75 3.75-1.35 8.25-4.5 8.25-9.75V6L12 2.25Z"/><path stroke-linecap="round" stroke-linejoin="round" d="M9.5 12.25 11.5 14.25 15 10"/></svg>
           </span>
@@ -179,6 +194,7 @@
         </article>
 
         <article class="service-card" data-tilt>
+          <span class="service-card__index" aria-hidden="true">04</span>
           <span class="service-card__icon" aria-hidden="true">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path stroke-linecap="round" stroke-linejoin="round" d="M3 9.75h18M3 14.25h18M6.75 4.5h10.5A2.25 2.25 0 0 1 19.5 6.75v10.5a2.25 2.25 0 0 1-2.25 2.25H6.75a2.25 2.25 0 0 1-2.25-2.25V6.75A2.25 2.25 0 0 1 6.75 4.5Z"/></svg>
           </span>
@@ -188,6 +204,7 @@
         </article>
 
         <article class="service-card" data-tilt>
+          <span class="service-card__index" aria-hidden="true">05</span>
           <span class="service-card__icon" aria-hidden="true">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="9" cy="8.25" r="3"/><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 19.5a5.25 5.25 0 0 1 10.5 0M15.75 8.25a3 3 0 1 1 3.248 2.994M17.25 19.5a4.5 4.5 0 0 0-3-4.246"/></svg>
           </span>
@@ -197,6 +214,7 @@
         </article>
 
         <article class="service-card" data-tilt>
+          <span class="service-card__index" aria-hidden="true">06</span>
           <span class="service-card__icon" aria-hidden="true">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 19.5v-15A1.5 1.5 0 0 1 6 3h8.379a1.5 1.5 0 0 1 1.06.44l3.122 3.12a1.5 1.5 0 0 1 .439 1.061V19.5A1.5 1.5 0 0 1 17.5 21H6a1.5 1.5 0 0 1-1.5-1.5Z"/><path stroke-linecap="round" stroke-linejoin="round" d="M9 15.75h6M9 11.25h6"/></svg>
           </span>
@@ -205,6 +223,7 @@
           <button type="button" class="btn btn--gold btn--sm service-card__cta" data-service="adiestramiento" data-magnetic aria-haspopup="dialog">Agendar diagnóstico <span aria-hidden="true">→</span></button>
         </article>
 
+      </div>
       </div>
     </section>
 
@@ -227,7 +246,7 @@
           </p>
         </div>
         <ul class="about__stats" aria-label="Datos de la firma">
-          <li><span class="about__stat-number">1:1</span><span class="about__stat-label">Consultor dedicado, no un call center</span></li>
+          <li class="about__stat--featured"><span class="about__stat-number">1:1</span><span class="about__stat-label">Consultor dedicado, no un call center</span></li>
           <li><span class="about__stat-number">PR</span><span class="about__stat-label">Enfoque 100% en legislación local y federal</span></li>
           <li><span class="about__stat-number">AI</span><span class="about__stat-label">Procesos apoyados en tecnología moderna</span></li>
         </ul>
@@ -236,7 +255,7 @@
 
     <!-- ============================= MÓDULO DE CONTACTO Y AGENDAMIENTO ============================= -->
     <section class="contact" id="contacto">
-      <div class="section__head" data-reveal>
+      <div class="section__head section__head--split" data-reveal>
         <p class="eyebrow">Hablemos de tu empresa</p>
         <h2 class="section__title">Agenda, escribe o llama — como prefieras</h2>
         <p class="section__intro">
@@ -395,6 +414,7 @@
 
     <!-- ============================= CTA FINAL ============================= -->
     <section class="cta-final" data-reveal>
+      <p class="eyebrow">Siguiente paso</p>
       <h2 class="cta-final__title">¿Tu empresa está lista para operar sin sorpresas laborales?</h2>
       <a href="#contacto" class="btn btn--gold btn--lg" data-magnetic>Agenda tu Auditoría Inicial</a>
     </section>
