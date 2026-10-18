@@ -23,34 +23,39 @@
   --surface-panel-hover: rgba(255, 255, 255, 0.04);
 
   /* =========================================
-     2. TYPOGRAPHY (monotipográfica: Inter 300–900)
+     2. TYPOGRAPHY — sistema de tres voces
+     · The Seasons → titulares masivos (h1, h2, hero, cifras). Fuente
+       premium con licencia: se usa si está instalada o se sube con
+       @font-face; mientras tanto cae en Alice, que sí se carga.
+     · Alice → subtítulos, h3 y acentos clásicos.
+     · Montserrat → párrafos, botones, eyebrows, menú y formularios.
      ========================================= */
-  /* MONOTIPOGRAFÍA: una sola familia para toda la página. La jerarquía se
-     construye únicamente con tamaño, peso y tracking. */
-  --font-family: 'Inter', system-ui, -apple-system, 'Helvetica Neue', Arial, sans-serif;
+  --font-display: 'The Seasons', 'Alice', Georgia, serif;
+  --font-accent: 'Alice', Georgia, serif;
+  --font-body: 'Montserrat', system-ui, -apple-system, 'Helvetica Neue', Arial, sans-serif;
 
-  --text-body: 18px;
-  --leading-body: 1.7;
+  --text-body: 17px;
+  --leading-body: 1.75;
   --weight-body: 400;
 
   --text-eyebrow: 12px;
   --tracking-eyebrow: 3px;
-  --weight-eyebrow: 400;
+  --weight-eyebrow: 500;
 
-  --text-heading-sm: clamp(22px, 2vw, 28px);
+  --text-heading-sm: clamp(23px, 2vw, 30px);
   --leading-heading-sm: 1.25;
-  --tracking-heading: -0.025em;
-  --weight-heading: 700;
+  --tracking-heading: 0;
+  --weight-heading: 400;
 
-  --text-display: clamp(2.5rem, 4.4vw, 60px);
-  --leading-display: 1;
-  --tracking-display: -0.03em;
-  --weight-display: 700;
+  --text-display: clamp(2.75rem, 5vw, 72px);
+  --leading-display: 1.02;
+  --tracking-display: -0.015em;
+  --weight-display: 400;
 
-  --text-hero-massive: clamp(3.25rem, 10.4vw, 187px);
-  --leading-hero-massive: 0.86;
-  --tracking-hero-massive: -0.04em;
-  --font-weight-hero: 900;
+  --text-hero-massive: clamp(3.25rem, 10vw, 187px);
+  --leading-hero-massive: 0.92;
+  --tracking-hero-massive: -0.03em;
+  --font-weight-hero: 400;
 
   /* =========================================
      3. SPACING & RHYTHM
@@ -82,8 +87,7 @@
   --color-navy: var(--color-deep-navy);
   --color-gold: var(--color-featured-gold);
   --color-text-on-gold: var(--color-deep-navy);
-  --font-body: var(--font-family);   /* alias usado por css/chat.css */
-  --font-display: var(--font-family);
+  /* --font-body y --font-display (usadas por css/chat.css) se definen en la sección 2 */
   --radius-pill: var(--radius-buttons);
   --color-navy-deep: #060a18;
   --color-navy-raised: #121c3d;
@@ -121,16 +125,17 @@ body {
     radial-gradient(ellipse 120% 90% at 50% 40%, var(--color-deep-navy) 55%, var(--color-abyss) 100%) fixed,
     var(--color-deep-navy);
   color: var(--color-pure-white);
-  font-family: var(--font-family); /* única familia: todo el documento la hereda */
+  font-family: var(--font-body); /* Montserrat por defecto; titulares y acentos la sobrescriben */
   font-size: var(--text-body);
   font-weight: var(--weight-body);
   line-height: var(--leading-body);
   -webkit-font-smoothing: antialiased;
-  font-feature-settings: "ss01", "cv11"; /* alternas de Inter más limpias */
   overflow-x: hidden;
 }
 
-h1, h2, h3 { font-family: inherit; color: #fff; margin: 0; line-height: 1.1; }
+h1, h2, h3 { color: #fff; margin: 0; line-height: 1.1; font-weight: 400; }
+h1, h2 { font-family: var(--font-display); }
+h3 { font-family: var(--font-accent); }
 p { margin: 0; }
 a { color: inherit; text-decoration: none; }
 ul { margin: 0; padding: 0; list-style: none; }
@@ -271,9 +276,10 @@ textarea:focus-visible,
   padding: 18px var(--gutter);
 }
 .nav__logo {
-  font-weight: 800;
-  font-size: 20px;
-  letter-spacing: -0.04em;
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: 22px;
+  letter-spacing: 0.01em;
   color: #fff;
   display: flex;
   align-items: center;
@@ -351,46 +357,11 @@ textarea:focus-visible,
   filter: blur(120px);
   will-change: transform;
 }
-.hero__glow--gold { background: var(--color-featured-gold); top: -30%; right: -20%; opacity: 0.035; }
-.hero__glow--navy { background: #1a2a5e; bottom: -35%; left: -20%; opacity: 0.35; }
-.hero__grid { display: none; }
-
-/* Wordmark arquitectónico: el monograma como objeto visual en el espacio
-   negativo superior derecho. Solo trazo, casi invisible. */
-.hero__wordmark {
-  position: absolute;
-  top: 120px;
-  right: calc(var(--gutter) - 0.04em);
-  z-index: 0;
-  margin: 0;
-  font-weight: 900;
-  font-size: clamp(6rem, 22vw, 22rem);
-  line-height: 0.8;
-  letter-spacing: -0.07em;
-  color: transparent;
-  -webkit-text-stroke: 1px rgba(255, 255, 255, 0.07);
-  text-stroke: 1px rgba(255, 255, 255, 0.07);
-  user-select: none;
-  pointer-events: none;
-}
-.hero__wordmark sup { font-size: 0.18em; vertical-align: top; }
-@media (max-width: 760px) { .hero__wordmark { display: none; } }
-
-/* Sello de cumplimiento: flota en blanco ceniza, como marca de agua. */
-.hero__seal {
-  position: absolute;
-  top: clamp(140px, 22vh, 220px);
-  right: calc(var(--gutter) + 2vw);
-  z-index: 0;
-  width: clamp(90px, 9vw, 140px);
-  color: #fff;
-  opacity: 0.14;
-  animation: sealFloat 9s ease-in-out infinite;
-}
-.hero__seal svg { width: 100%; height: 100%; }
-@keyframes sealFloat { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-12px); } }
-@media (prefers-reduced-motion: reduce) { .hero__seal { animation: none; } }
-@media (max-width: 760px) { .hero__seal { top: 96px; width: 72px; opacity: 0.1; } }
+.hero__glow--gold { background: var(--color-featured-gold); top: -30%; right: -20%; }
+.hero__glow--navy { background: #1a2a5e; bottom: -35%; left: -20%; }
+/* Fondo del hero limpio y oscuro, listo para recibir imágenes 3D. Las capas
+   siguen en el DOM porque js/main.js las referencia, pero no se pintan. */
+.hero__glow, .hero__grid { display: none; }
 
 .hero__content {
   position: relative;
@@ -415,21 +386,22 @@ textarea:focus-visible,
   line-height: var(--leading-hero-massive);
   letter-spacing: var(--tracking-hero-massive);
 }
-/* "Deck" editorial: segunda voz en peso ligero, desplazada hacia la derecha para
+/* "Deck" editorial: segunda voz (Alice), desplazada hacia la derecha para
    romper la simetría del bloque principal. */
 .hero__title-deck {
   display: block;
   max-width: 17ch;
   margin: clamp(28px, 3.5vw, 48px) 0 0 clamp(0px, 33%, 520px);
-  font-size: clamp(1.75rem, 3.4vw, 3.4rem);
-  font-weight: 300;
-  line-height: 1.08;
-  letter-spacing: -0.035em;
+  font-family: var(--font-accent);
+  font-size: clamp(1.75rem, 3.2vw, 3.2rem);
+  font-weight: 400;
+  line-height: 1.15;
+  letter-spacing: -0.005em;
   color: rgba(255, 255, 255, 0.82);
 }
-/* En el hero el énfasis es tipográfico (peso 700 sobre 300), no cromático:
+/* Énfasis por luminosidad (blanco pleno sobre blanco al 82%), no cromático:
    el único oro de la portada es el CTA principal. */
-.hero .text-gold { color: #fff; font-weight: 700; }
+.hero .text-gold { color: #fff; }
 
 .hero__footer {
   display: grid;
@@ -573,10 +545,11 @@ main > section { padding: var(--section-space) var(--gutter); }
   padding-top: var(--spacing-34);
 }
 .services__metric-number {
-  font-weight: 900;
+  font-family: var(--font-display);
+  font-weight: 400;
   font-size: clamp(72px, 9vw, 140px);
   line-height: 0.9;
-  letter-spacing: -0.05em;
+  letter-spacing: -0.02em;
   color: var(--color-featured-gold);
 }
 .services__metric-label {
@@ -700,11 +673,12 @@ main > section { padding: var(--section-space) var(--gutter); }
 }
 .about__stats li + li { margin-top: -1px; }
 .about__stat-number {
+  font-family: var(--font-display);
   font-size: clamp(56px, 6vw, 96px);
-  line-height: 0.85;
-  letter-spacing: -0.04em;
+  line-height: 0.9;
+  letter-spacing: -0.02em;
   color: var(--color-pure-white);
-  font-weight: 900;
+  font-weight: 400;
 }
 .about__stat-label { color: var(--color-ash-navy); font-size: 12px; font-weight: 400; letter-spacing: 3px; text-transform: uppercase; line-height: 1.7; }
 
@@ -724,16 +698,28 @@ main > section { padding: var(--section-space) var(--gutter); }
   max-width: var(--page-max-width);
   margin: 0 auto;
   display: grid;
-  grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
   grid-template-areas:
-    "calendar form"
-    "channels form";
+    "form     form"
+    "calendar channels";
   gap: clamp(22px, 2.5vw, 34px);
   align-items: stretch;
 }
 .contact-panel--calendar { grid-area: calendar; }
 .contact-panel--channels { grid-area: channels; }
-.contact-panel--form { grid-area: form; border-top-color: var(--color-hairline-strong); }
+.contact-panel.contact-panel--form {
+  grid-area: form;
+  width: 100%;
+  max-width: 760px;
+  justify-self: center;
+  margin-bottom: clamp(32px, 5vw, 72px);
+  padding: clamp(36px, 5vw, 72px) clamp(24px, 5vw, 80px);
+  border-top: 1px solid var(--color-featured-gold); /* el hilo de oro marca al protagonista */
+  text-align: center;
+}
+.contact-panel--form .contact-panel__title { font-size: clamp(30px, 3.2vw, 44px); }
+.contact-panel--form .contact-panel__text--muted { max-width: 40ch; margin: 0 auto; }
+.contact-panel__eyebrow { margin-bottom: 0; }
 
 .contact-panel {
   background: var(--surface-panel);
@@ -849,40 +835,62 @@ main > section { padding: var(--section-space) var(--gutter); }
 }
 .copy-tooltip.is-visible { opacity: 1; transform: translateY(0); }
 
-/* Formulario — campos de bordes duros, botón en píldora */
-#leadForm { display: flex; flex-direction: column; gap: var(--spacing-16); }
+/* Formulario — invitación centrada: campos de línea inferior, botón en píldora */
+#leadForm {
+  width: 100%;
+  max-width: 600px;
+  margin: var(--spacing-16) auto 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-22);
+  text-align: left;
+  font-family: var(--font-body);
+}
 .field { display: flex; flex-direction: column; gap: 8px; min-width: 0; }
-.field-row { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: var(--spacing-16); }
+.field-row { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: var(--spacing-34); }
 .field label { font-size: 11px; font-weight: 400; letter-spacing: 3px; text-transform: uppercase; color: var(--color-ash-navy); }
 .field input, .field select, .field textarea {
-  background: rgba(255, 255, 255, 0.02);
-  border: 1px solid var(--color-hairline-strong);
-  border-radius: var(--radius-cards);
+  background: transparent;
+  border: 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.22);
+  border-radius: 0;
   width: 100%;
   min-width: 0;
-  padding: 13px 16px;
+  padding: 14px 2px 12px;
   color: #fff;
+  font-family: var(--font-body);
   font-size: 16px;
+  font-weight: 400;
   transition: border-color var(--transition-fast), background var(--transition-fast);
+}
+.field select {
+  -webkit-appearance: none;
+  appearance: none;
+  padding-right: 28px;
+  cursor: pointer;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23ffffff' stroke-opacity='.6' stroke-width='1.5'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E") right 2px center / 16px no-repeat;
 }
 .field select option { color: var(--color-deep-navy); }
 .field input::placeholder, .field textarea::placeholder { color: var(--color-ash-navy); }
-.field input:focus, .field select:focus, .field textarea:focus { border-color: #fff; background: rgba(255, 255, 255, 0.04); outline: none; }
-.field textarea { resize: vertical; min-height: 96px; }
-.field.has-error input, .field.has-error select, .field.has-error textarea { border-color: #e06666; }
+.field input:focus, .field select:focus, .field textarea:focus { border-bottom-color: #fff; outline: none; }
+.field input:focus-visible, .field select:focus-visible, .field textarea:focus-visible { outline: none; box-shadow: 0 1px 0 0 #fff; }
+.field textarea { resize: vertical; min-height: 110px; }
+.field.has-error input, .field.has-error select, .field.has-error textarea { border-bottom-color: #e06666; }
 .field-error { font-size: 12px; color: #f0a0a0; min-height: 14px; }
 .form-status { font-size: 14px; font-weight: 500; min-height: 18px; color: var(--color-gold-soft); }
-#leadForm .btn--block { margin-top: var(--spacing-11); }
+#leadForm .btn--block { margin-top: var(--spacing-22); padding-top: 18px; padding-bottom: 18px; font-size: 15px; letter-spacing: 0.04em; }
+.form-status { text-align: center; }
 
 @media (max-width: 1080px) {
   .contact__grid {
     grid-template-columns: 1fr;
     grid-template-areas: "form" "calendar" "channels";
   }
+  .contact-panel--form { margin-bottom: 0; }
   .calendar-frame { min-height: 360px; }
 }
 @media (max-width: 480px) {
-  .field-row { grid-template-columns: 1fr; }
+  .field-row { grid-template-columns: 1fr; gap: var(--spacing-22); }
 }
 
 /* Aviso de privacidad */
@@ -940,7 +948,7 @@ main > section { padding: var(--section-space) var(--gutter); }
   grid-template-columns: minmax(0, 5fr) minmax(0, 2fr) minmax(0, 4fr);
   gap: var(--spacing-59);
 }
-.site-footer__logo { font-size: clamp(26px, 2.4vw, 34px); letter-spacing: -0.04em; line-height: 1; color: #fff; font-weight: 900; }
+.site-footer__logo { font-family: var(--font-display); font-size: clamp(28px, 2.6vw, 38px); letter-spacing: 0; line-height: 1; color: #fff; font-weight: 400; }
 .site-footer__logo span { color: var(--color-hairline-strong); font-weight: 400; }
 .site-footer__tagline { color: var(--color-ash-navy); font-size: 14px; margin-top: var(--spacing-16); max-width: 32ch; }
 .site-footer__links { display: flex; flex-direction: column; gap: 14px; }
@@ -988,13 +996,12 @@ main > section { padding: var(--section-space) var(--gutter); }
 }
 
 /* =========================================================================
-   MONOTIPOGRAFÍA EN COMPONENTES EXTERNOS
+   TIPOGRAFÍA EN COMPONENTES EXTERNOS
    css/modal.css declara su propia familia; se unifica desde aquí (mayor
    especificidad) sin tocar ese archivo ni su comportamiento.
    ========================================================================= */
-.modal .modal__panel,
-.modal .modal__title { font-family: var(--font-family); }
-.modal .modal__title { font-weight: var(--weight-heading); letter-spacing: var(--tracking-heading); }
+.modal .modal__panel { font-family: var(--font-body); }
+.modal .modal__title { font-family: var(--font-display); font-weight: 400; letter-spacing: 0; }
 
 /* =========================================================================
    UTILIDAD: tilt 3D aplicado vía JS (custom properties --rx/--ry)

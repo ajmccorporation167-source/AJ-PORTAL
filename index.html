@@ -33,12 +33,12 @@
   </script>
 
   <!-- Favicon: monograma AJ en oro sobre navy, inline para evitar una petición de red extra -->
-  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' fill='%230B132B'/%3E%3Ctext x='32' y='42' font-family='Inter,Helvetica,Arial,sans-serif' font-size='26' font-weight='800' letter-spacing='-1' fill='%23D4AF37' text-anchor='middle'%3EAJ%3C/text%3E%3C/svg%3E" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' fill='%230B132B'/%3E%3Ctext x='32' y='42' font-family='Georgia,serif' font-size='28' font-weight='400' fill='%23D4AF37' text-anchor='middle'%3EAJ%3C/text%3E%3C/svg%3E" />
 
-  <!-- Tipografía: monotipográfica — Inter en todos sus pesos (300–900) para toda la página -->
+  <!-- Tipografía en tres voces: The Seasons (titulares, fuente premium local/licenciada), Alice (subtítulos) y Montserrat (lectura e interacción) -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Alice&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
 
   <link rel="stylesheet" href="css/style.css" />
   <link rel="stylesheet" href="css/chat.css" />
@@ -85,23 +85,6 @@
         <div class="hero__glow hero__glow--gold"></div>
         <div class="hero__glow hero__glow--navy"></div>
         <div class="hero__grid"></div>
-      </div>
-
-      <!--
-        Wordmark a escala arquitectónica: el nombre de marca tratado como objeto
-        visual. Decorativo: oculto para lectores de pantalla porque el <h1> y el
-        <nav> ya dan el nombre real.
-      -->
-      <p class="hero__wordmark" aria-hidden="true">AJCM<sup>&reg;</sup></p>
-
-      <!-- Objeto flotante: sello de autoridad/cumplimiento (el "objeto hero" de la referencia). -->
-      <div class="hero__seal" aria-hidden="true" data-parallax-layer>
-        <svg viewBox="0 0 120 120" fill="none">
-          <circle cx="60" cy="60" r="56" stroke="currentColor" stroke-width="1.2" opacity="0.5"/>
-          <circle cx="60" cy="60" r="44" stroke="currentColor" stroke-width="1.2" opacity="0.8"/>
-          <path d="M60 30 86 42v16c0 18-12 28-26 34-14-6-26-16-26-34V42Z" stroke="currentColor" stroke-width="1.4"/>
-          <path d="M48 60 57 69 75 50" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
-        </svg>
       </div>
 
       <div class="hero__content">
@@ -268,8 +251,7 @@
 
         <!-- A. Calendario corporativo -->
         <div class="contact-panel contact-panel--calendar">
-          <h3 class="contact-panel__title">Agenda tu consulta inicial</h3>
-          <p class="contact-panel__text">Reserva directamente un espacio en el calendario corporativo para tu auditoría o consulta de cumplimiento.</p>
+          <p class="eyebrow contact-panel__eyebrow">Calendario</p>
           <div class="calendar-frame">
             <!--
               ADMIN AJCM: los enlaces cortos calendar.app.google suelen bloquear el iframe.
@@ -293,13 +275,9 @@
         <div class="contact-panel contact-panel--channels">
           <h3 class="contact-panel__title">Canales directos</h3>
 
-          <!--
-            ADMIN AJCM (OBLIGATORIO ANTES DE PUBLICAR): reemplaza "1XXXXXXXXXX" por el número
-            real en formato internacional, sin "+", espacios ni guiones (PR: 1787XXXXXXX o 1939XXXXXXX).
-            Mientras conserve las X, js/modal.js deshabilita el botón para no enviar a nadie a un número falso.
-          -->
+          <!-- WhatsApp corporativo: (939) 428-2820 en formato internacional para wa.me -->
           <a
-            href="https://wa.me/1XXXXXXXXXX"
+            href="https://wa.me/19394282820"
             target="_blank"
             rel="noopener noreferrer"
             class="whatsapp-btn"

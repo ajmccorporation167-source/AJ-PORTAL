@@ -75,7 +75,7 @@ html.js [data-reveal].is-visible {
   display: grid;
   place-items: center;
   padding: 16px;
-  font-family: 'Inter', system-ui, sans-serif;
+  font-family: var(--font-body, 'Montserrat', system-ui, sans-serif);
 }
 .modal[hidden] { display: none; }
 
@@ -151,7 +151,7 @@ html.js [data-reveal].is-visible {
 
 .modal__title {
   margin: 0 0 20px;
-  font-family: 'Playfair Display', Georgia, serif;
+  font-family: var(--font-display, 'Alice', Georgia, serif);
   font-size: clamp(1.4rem, 4vw, 1.75rem);
   font-weight: 700;
   line-height: 1.2;
