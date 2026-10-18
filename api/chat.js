@@ -16,8 +16,9 @@
 'use strict';
 
 // --- Configuración ---------------------------------------------------------
-// Modelo: gemini-2.0-flash es rápido y económico. Si quieres otro, cámbialo aquí.
-const GEMINI_MODEL = 'gemini-2.0-flash';
+// Modelo: se puede cambiar sin tocar código con la variable GEMINI_MODEL en Vercel.
+// (gemini-2.0-flash fue retirado por Google; si un modelo deja de existir, la API responde 404.)
+const GEMINI_MODEL = process.env.GEMINI_MODEL || 'gemini-2.5-flash';
 // La key va como query param (?key=), NO en headers. El header x-goog-api-key
 // solo funciona con OAuth / service accounts, no con API keys públicas de AI Studio.
 const GEMINI_BASE = `https://generativelanguage.googleapis.com/v1beta/models/${GEMINI_MODEL}:generateContent`;
@@ -147,11 +148,25 @@ module.exports = async function handler(req, res) {
     });
 
     if (!upstream.ok) {
-      // Log para el servidor (visible solo en Vercel), sin exponer la key.
+      // Log para el servidor (visible en Vercel → Logs), sin exponer la key.
       const detail = await upstream.text();
-      console.error('Error de Gemini:', upstream.status, detail);
+      console.error('Error de Gemini:', upstream.status, GEMINI_MODEL, detail);
+
+      // Google responde { error: { code, status, message } }. Lo reenviamos en
+      // "debug" para que el navegador muestre la causa exacta en la consola.
+      // El mensaje de Google nunca incluye la API key.
+      let googleError = null;
+      try { googleError = JSON.parse(detail).error || null; } catch (_e) { /* no era JSON */ }
+
       return sendJson(res, 502, {
         error: 'El asistente no pudo responder en este momento. Intenta de nuevo en unos segundos.',
+        debug: {
+          source: 'gemini',
+          httpStatus: upstream.status,
+          model: GEMINI_MODEL,
+          status: googleError && googleError.status,
+          message: googleError ? googleError.message : detail.slice(0, 500),
+        },
       });
     }
 
@@ -180,6 +195,7 @@ module.exports = async function handler(req, res) {
     console.error('Fallo al contactar a Gemini:', err);
     return sendJson(res, 500, {
       error: 'Ocurrió un error inesperado al procesar tu mensaje. Intenta más tarde.',
+      debug: { source: 'vercel-function', message: String(err && err.message || err) },
     });
   }
 };

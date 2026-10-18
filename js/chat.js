@@ -198,9 +198,27 @@
 
       hideTyping();
 
-      const data = await res.json().catch(() => ({}));
+      // Leemos como texto primero: si Vercel devuelve una página HTML (404, crash
+      // de la función) en vez de JSON, así lo vemos en la consola.
+      const raw = await res.text();
+      let data = {};
+      try { data = JSON.parse(raw); } catch (_e) {
+        console.error('[AJCM chat] La respuesta de /api/chat no es JSON. Status:', res.status, '\n', raw.slice(0, 500));
+      }
 
       if (!res.ok || !data.reply) {
+        console.groupCollapsed(`[AJCM chat] Error ${res.status} en ${API_URL}`);
+        console.error('Respuesta completa:', data);
+        if (data.debug) {
+          console.error('Origen:', data.debug.source, '| HTTP:', data.debug.httpStatus, '| Modelo:', data.debug.model);
+          console.error('Google dice:', data.debug.status, '—', data.debug.message);
+        } else if (res.status === 404) {
+          console.error('404: Vercel no encontró la función /api/chat (¿api/chat.js no se desplegó?).');
+        } else if (res.status === 500 && /GEMINI_API_KEY/.test(data.error || '')) {
+          console.error('Falta GEMINI_API_KEY en el entorno de Vercel (o no se hizo redeploy después de añadirla).');
+        }
+        console.groupEnd();
+
         const msg =
           (data && data.error) ||
           'No pude responder en este momento. Intenta de nuevo, o escríbenos por WhatsApp.';
@@ -212,6 +230,8 @@
       addBubble(data.reply, 'bot');
       history.push({ role: 'assistant', content: data.reply });
     } catch (err) {
+      // fetch solo lanza aquí por red caída, CORS o bloqueo por CSP/extensiones.
+      console.error('[AJCM chat] fetch falló antes de recibir respuesta (red, CORS o CSP):', err);
       hideTyping();
       addBubble(
         'Hubo un problema de conexión. Revisa tu internet e intenta otra vez.',
