@@ -70,8 +70,8 @@
 
       <nav id="navMenu" class="nav__menu" aria-label="Navegación principal">
         <a href="#servicios" class="nav__link">Servicios</a>
-        <a href="#nosotros" class="nav__link">Nosotros</a>
-        <a href="#contacto" class="nav__link nav__link--cta btn btn--gold btn--sm" data-magnetic>Agenda tu Consulta</a>
+        <a href="#presentacion" class="nav__link">Presentación</a>
+        <a href="https://calendar.app.google/4APJquxn3tzHQp4s5" target="_blank" rel="noopener noreferrer" class="nav__link nav__link--cta btn btn--gold btn--sm" data-magnetic>Agenda tu Consulta<span class="sr-only"> (se abre en una pestaña nueva)</span></a>
       </nav>
     </div>
   </header>
@@ -104,7 +104,7 @@
           </p>
 
           <div class="hero__actions">
-            <a href="#contacto" class="btn btn--gold btn--lg" data-magnetic>Agenda tu Auditoría Inicial</a>
+            <a href="https://calendar.app.google/4APJquxn3tzHQp4s5" target="_blank" rel="noopener noreferrer" class="btn btn--gold btn--lg" data-magnetic>Agenda tu Auditoría Inicial<span class="sr-only"> (se abre en una pestaña nueva)</span></a>
             <a href="#servicios" class="btn btn--ghost btn--lg">Ver Servicios</a>
           </div>
         </div>
@@ -210,29 +210,71 @@
       </div>
     </section>
 
-    <!-- ============================= SOBRE NOSOTROS ============================= -->
-    <section class="about" id="nosotros">
-      <div class="about__inner" data-reveal>
-        <div class="about__text">
-          <p class="eyebrow">Quiénes somos</p>
-          <h2 class="section__title">Una firma boutique, no una agencia más</h2>
-          <p class="about__paragraph">
-            AJCM RRHH Consulting es una firma boutique de consultoría en Recursos Humanos y gestión empresarial,
-            fundada y dirigida por Alexis J. Mercado Colón, con base en el área de San Juan y Bayamón, Puerto Rico.
-            Registrada ante el Departamento de Hacienda bajo la actividad de Servicios de Consultoría en
-            Administración (NAICS 541611).
-          </p>
-          <p class="about__paragraph">
-            En lugar de tratarte como un número más, trabajas directamente con un consultor experto que entiende la
-            realidad de los negocios en Puerto Rico y combina ese conocimiento con herramientas modernas e
-            inteligencia artificial para construir soluciones a la medida de tu empresa.
-          </p>
+    <!-- ============================= PRESENTACIÓN DE SERVICIOS (SLIDER) ============================= -->
+    <!-- Carrusel con CSS scroll-snap (sin librerías). js/slider.js solo añade flechas e indicadores. -->
+    <section class="showcase" id="presentacion">
+      <div class="showcase__head" data-reveal>
+        <div class="section__head">
+          <p class="eyebrow">Presentación de servicios</p>
+          <h2 class="section__title">Una firma, seis frentes de cumplimiento</h2>
         </div>
-        <ul class="about__stats" aria-label="Datos de la firma">
-          <li class="about__stat--featured"><span class="about__stat-number">1:1</span><span class="about__stat-label">Consultor dedicado, no un call center</span></li>
-          <li><span class="about__stat-number">PR</span><span class="about__stat-label">Enfoque 100% en legislación local y federal</span></li>
-          <li><span class="about__stat-number">AI</span><span class="about__stat-label">Procesos apoyados en tecnología moderna</span></li>
-        </ul>
+        <div class="slider__controls">
+          <button type="button" class="slider__arrow" data-slider-prev aria-label="Diapositiva anterior">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M15 6l-6 6 6 6"/></svg>
+          </button>
+          <button type="button" class="slider__arrow" data-slider-next aria-label="Diapositiva siguiente">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M9 6l6 6-6 6"/></svg>
+          </button>
+        </div>
+      </div>
+
+      <div class="slider" role="region" aria-roledescription="carrusel" aria-label="Presentación de servicios">
+        <div class="slider__track" id="sliderTrack" tabindex="0">
+          <article class="slide" role="group" aria-roledescription="diapositiva" aria-label="1 de 6: Auditoría de Cumplimiento">
+            <p class="slide__meta"><span class="slide__index">01 / 06</span><span class="slide__kicker">Cumplimiento de RRHH</span></p>
+            <h3 class="slide__title">Auditoría de Cumplimiento</h3>
+            <p class="slide__text">Identificamos brechas legales en expedientes, contratos y políticas antes de que se conviertan en una multa o una querella.</p>
+            <a href="https://calendar.app.google/4APJquxn3tzHQp4s5" target="_blank" rel="noopener noreferrer" class="slide__link">Agendar consulta <span aria-hidden="true">→</span><span class="sr-only"> sobre Auditoría de Cumplimiento (se abre en una pestaña nueva)</span></a>
+          </article>
+          <article class="slide" role="group" aria-roledescription="diapositiva" aria-label="2 de 6: Manuales Corporativos">
+            <p class="slide__meta"><span class="slide__index">02 / 06</span><span class="slide__kicker">Políticas internas</span></p>
+            <h3 class="slide__title">Manuales Corporativos</h3>
+            <p class="slide__text">Redactamos el manual del empleado y las políticas que tu empresa necesita para operar con claridad y respaldo legal.</p>
+            <a href="https://calendar.app.google/4APJquxn3tzHQp4s5" target="_blank" rel="noopener noreferrer" class="slide__link">Agendar consulta <span aria-hidden="true">→</span><span class="sr-only"> sobre Manuales Corporativos (se abre en una pestaña nueva)</span></a>
+          </article>
+          <article class="slide" role="group" aria-roledescription="diapositiva" aria-label="3 de 6: Optimización de Nómina">
+            <p class="slide__meta"><span class="slide__index">03 / 06</span><span class="slide__kicker">Administración de nómina</span></p>
+            <h3 class="slide__title">Optimización de Nómina</h3>
+            <p class="slide__text">Revisamos clasificación de empleados, retenciones y procesos de nómina para que pagues correcto y a tiempo, siempre.</p>
+            <a href="https://calendar.app.google/4APJquxn3tzHQp4s5" target="_blank" rel="noopener noreferrer" class="slide__link">Agendar consulta <span aria-hidden="true">→</span><span class="sr-only"> sobre Optimización de Nómina (se abre en una pestaña nueva)</span></a>
+          </article>
+          <article class="slide" role="group" aria-roledescription="diapositiva" aria-label="4 de 6: Relaciones Laborales">
+            <p class="slide__meta"><span class="slide__index">04 / 06</span><span class="slide__kicker">Ley 80 · Obrero-patronal</span></p>
+            <h3 class="slide__title">Relaciones Laborales</h3>
+            <p class="slide__text">Manejamos despidos, mesadas y disputas laborales con la documentación y el proceso correcto desde el primer día.</p>
+            <a href="https://calendar.app.google/4APJquxn3tzHQp4s5" target="_blank" rel="noopener noreferrer" class="slide__link">Agendar consulta <span aria-hidden="true">→</span><span class="sr-only"> sobre Relaciones Laborales (se abre en una pestaña nueva)</span></a>
+          </article>
+          <article class="slide" role="group" aria-roledescription="diapositiva" aria-label="5 de 6: Reclutamiento">
+            <p class="slide__meta"><span class="slide__index">05 / 06</span><span class="slide__kicker">Selección de talento</span></p>
+            <h3 class="slide__title">Reclutamiento</h3>
+            <p class="slide__text">Buscamos y filtramos candidatos alineados a tu cultura y a los requisitos legales del puesto, no solo al currículo.</p>
+            <a href="https://calendar.app.google/4APJquxn3tzHQp4s5" target="_blank" rel="noopener noreferrer" class="slide__link">Agendar consulta <span aria-hidden="true">→</span><span class="sr-only"> sobre Reclutamiento (se abre en una pestaña nueva)</span></a>
+          </article>
+          <article class="slide" role="group" aria-roledescription="diapositiva" aria-label="6 de 6: Adiestramientos">
+            <p class="slide__meta"><span class="slide__index">06 / 06</span><span class="slide__kicker">Desarrollo organizacional</span></p>
+            <h3 class="slide__title">Adiestramientos</h3>
+            <p class="slide__text">Capacitamos a supervisores y equipos en liderazgo, prevención de acoso laboral y cumplimiento regulatorio.</p>
+            <a href="https://calendar.app.google/4APJquxn3tzHQp4s5" target="_blank" rel="noopener noreferrer" class="slide__link">Agendar consulta <span aria-hidden="true">→</span><span class="sr-only"> sobre Adiestramientos (se abre en una pestaña nueva)</span></a>
+          </article>
+        </div>
+        <div class="slider__dots" role="group" aria-label="Elegir diapositiva">
+            <button type="button" class="slider__dot" data-slide-to="0" aria-label="Ir a la diapositiva 1: Auditoría de Cumplimiento"></button>
+            <button type="button" class="slider__dot" data-slide-to="1" aria-label="Ir a la diapositiva 2: Manuales Corporativos"></button>
+            <button type="button" class="slider__dot" data-slide-to="2" aria-label="Ir a la diapositiva 3: Optimización de Nómina"></button>
+            <button type="button" class="slider__dot" data-slide-to="3" aria-label="Ir a la diapositiva 4: Relaciones Laborales"></button>
+            <button type="button" class="slider__dot" data-slide-to="4" aria-label="Ir a la diapositiva 5: Reclutamiento"></button>
+            <button type="button" class="slider__dot" data-slide-to="5" aria-label="Ir a la diapositiva 6: Adiestramientos"></button>
+        </div>
       </div>
     </section>
 
@@ -377,7 +419,7 @@
 
       <nav class="site-footer__links" aria-label="Enlaces del pie de página">
         <a href="#servicios">Servicios</a>
-        <a href="#nosotros">Nosotros</a>
+        <a href="#presentacion">Presentación</a>
         <a href="#contacto">Contacto</a>
       </nav>
 
@@ -446,5 +488,7 @@
   <script src="js/chat.js" defer></script>
   <!-- Modal de dos pasos, reveal al scroll, efecto magnético y guardas de configuración -->
   <script src="js/modal.js" defer></script>
+  <!-- Flechas e indicadores del carrusel de servicios (el deslizamiento es CSS puro) -->
+  <script src="js/slider.js" defer></script>
 </body>
 </html>
