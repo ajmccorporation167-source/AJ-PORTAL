@@ -38,7 +38,7 @@
   --weight-eyebrow: 400;
 
   --text-heading-sm: clamp(22px, 2vw, 28px);
-  --leading-heading-sm: 1.15;
+  --leading-heading-sm: 1.25;
   --tracking-heading: -0.025em;
   --weight-heading: 700;
 
@@ -503,7 +503,8 @@ textarea:focus-visible,
 /* =========================================================================
    SECCIONES GENÉRICAS — cada bloque respira como una sala de museo
    ========================================================================= */
-section { padding: var(--section-space) var(--gutter); }
+/* Solo las secciones de la página: el chat (js/chat.js) también es un <section> y no debe heredar este padding */
+main > section { padding: var(--section-space) var(--gutter); }
 .section__head {
   max-width: var(--page-max-width);
   margin: 0 auto clamp(64px, 7vw, 104px);
@@ -574,7 +575,7 @@ section { padding: var(--section-space) var(--gutter); }
 .services__metric-number {
   font-weight: 900;
   font-size: clamp(72px, 9vw, 140px);
-  line-height: 0.8;
+  line-height: 0.9;
   letter-spacing: -0.05em;
   color: var(--color-featured-gold);
 }
@@ -604,7 +605,7 @@ section { padding: var(--section-space) var(--gutter); }
     "index title cta"
     "index text  cta";
   column-gap: var(--spacing-34);
-  row-gap: var(--spacing-16);
+  row-gap: var(--spacing-22);
   align-items: start;
   cursor: default;
   transition: background var(--transition-medium), border-color var(--transition-medium);
@@ -640,7 +641,7 @@ section { padding: var(--section-space) var(--gutter); }
   grid-area: text;
   color: var(--color-body-copy);
   font-size: 16px;
-  line-height: 1.65;
+  line-height: 1.75;
   max-width: 48ch;
 }
 .service-card .service-card__cta {
@@ -950,6 +951,40 @@ section { padding: var(--section-space) var(--gutter); }
 
 @media (max-width: 760px) {
   .site-footer__inner { grid-template-columns: 1fr; gap: var(--spacing-34); }
+}
+
+/* =========================================================================
+   MÓVIL (≤768px) — se desactiva la asimetría editorial: todo a una columna,
+   ancho completo y márgenes laterales de 24px.
+   ========================================================================= */
+@media (max-width: 768px) {
+  :root {
+    --gutter: 24px;
+    --section-space: 72px;
+  }
+  .hero { padding-top: 120px; padding-bottom: 56px; min-height: auto; }
+  .hero__footer,
+  .services__layout,
+  .about__inner,
+  .contact__grid,
+  .section__head--split,
+  .cta-final { display: flex; flex-direction: column; align-items: stretch; width: 100%; }
+  .hero__title-deck,
+  .section__head--split .section__intro,
+  .about__stats { margin-left: 0; margin-top: var(--spacing-34); justify-self: auto; }
+  .hero__title-deck { margin-top: var(--spacing-22); max-width: none; }
+  .hero__footer { margin-top: var(--spacing-59); gap: var(--spacing-34); }
+  .hero__subtitle, .section__intro, .about__paragraph { max-width: none; font-size: 17px; }
+  .hero__trust { gap: 8px 20px; }
+  .hero__trust li { border-right: 0; margin-right: 0; padding-right: 0; }
+  .section__head { margin-bottom: var(--spacing-59); }
+  .services__aside { gap: var(--spacing-59); }
+  .service-card { padding: 28px 24px; }
+  .contact-panel { padding: 28px 24px; }
+  .about__stats li { padding: 28px 24px; }
+  .cta-final { gap: var(--spacing-34); }
+  .cta-final .btn { align-self: flex-start; }
+  .contact-panel--form { order: -1; }
 }
 
 /* =========================================================================
