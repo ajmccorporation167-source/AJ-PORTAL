@@ -209,9 +209,8 @@
       if (!res.ok || !data.reply) {
         console.groupCollapsed(`[AJCM chat] Error ${res.status} en ${API_URL}`);
         console.error('Respuesta completa:', data);
-        if (data.debug) {
-          console.error('Origen:', data.debug.source, '| HTTP:', data.debug.httpStatus, '| Modelo:', data.debug.model);
-          console.error('Google dice:', data.debug.status, '—', data.debug.message);
+        if (res.status === 502) {
+          console.error('502: Gemini rechazó la petición. La causa exacta está en Vercel → Logs ("Error de Gemini").');
         } else if (res.status === 404) {
           console.error('404: Vercel no encontró la función /api/chat (¿api/chat.js no se desplegó?).');
         } else if (res.status === 500 && /GEMINI_API_KEY/.test(data.error || '')) {

@@ -150,23 +150,10 @@ module.exports = async function handler(req, res) {
     if (!upstream.ok) {
       // Log para el servidor (visible en Vercel → Logs), sin exponer la key.
       const detail = await upstream.text();
+      // Si Google retira el modelo, aquí aparece un 404 NOT_FOUND con el sustituto recomendado.
       console.error('Error de Gemini:', upstream.status, GEMINI_MODEL, detail);
-
-      // Google responde { error: { code, status, message } }. Lo reenviamos en
-      // "debug" para que el navegador muestre la causa exacta en la consola.
-      // El mensaje de Google nunca incluye la API key.
-      let googleError = null;
-      try { googleError = JSON.parse(detail).error || null; } catch (_e) { /* no era JSON */ }
-
       return sendJson(res, 502, {
         error: 'El asistente no pudo responder en este momento. Intenta de nuevo en unos segundos.',
-        debug: {
-          source: 'gemini',
-          httpStatus: upstream.status,
-          model: GEMINI_MODEL,
-          status: googleError && googleError.status,
-          message: googleError ? googleError.message : detail.slice(0, 500),
-        },
       });
     }
 
@@ -195,7 +182,6 @@ module.exports = async function handler(req, res) {
     console.error('Fallo al contactar a Gemini:', err);
     return sendJson(res, 500, {
       error: 'Ocurrió un error inesperado al procesar tu mensaje. Intenta más tarde.',
-      debug: { source: 'vercel-function', message: String(err && err.message || err) },
     });
   }
 };
