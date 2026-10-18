@@ -249,31 +249,8 @@
 
       <div class="contact__grid" data-reveal>
 
-        <!-- A. Calendario corporativo -->
-        <div class="contact-panel contact-panel--calendar">
-          <p class="eyebrow contact-panel__eyebrow">Calendario</p>
-          <div class="calendar-frame">
-            <!--
-              ADMIN AJCM: los enlaces cortos calendar.app.google suelen bloquear el iframe.
-              Reemplaza el src por la URL de "Insertar" (Google Calendar → Programación de
-              citas → Compartir → Insertar). Si no carga, el enlace de abajo es el respaldo.
-            -->
-            <iframe
-              src="https://calendar.app.google/W7HabMVg9wRLYgpC8"
-              title="Agendar una consulta con AJCM RRHH Consulting"
-              loading="lazy"
-              referrerpolicy="no-referrer-when-downgrade"
-            ></iframe>
-          </div>
-          <p class="calendar-fallback">
-            ¿No ves el calendario?
-            <a href="https://calendar.app.google/W7HabMVg9wRLYgpC8" target="_blank" rel="noopener noreferrer">Ábrelo en una pestaña nueva<span class="sr-only"> (se abre en una pestaña nueva)</span></a>
-          </p>
-        </div>
-
-        <!-- B + C. WhatsApp y correo -->
-        <div class="contact-panel contact-panel--channels">
-          <h3 class="contact-panel__title">Canales directos</h3>
+        <!-- Canales directos: WhatsApp y correo en una sola línea -->
+        <div class="contact-panel contact-panel--channels" role="group" aria-label="Canales directos">
 
           <!-- WhatsApp corporativo: (939) 428-2820 en formato internacional para wa.me -->
           <a
@@ -289,7 +266,6 @@
             </span>
             <span class="whatsapp-btn__label">
               Escríbenos por WhatsApp
-              <small>Respuesta directa, horario laboral</small>
             </span>
           </a>
 
@@ -298,7 +274,6 @@
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5v10.5a1.5 1.5 0 0 1-1.5 1.5H5.25a1.5 1.5 0 0 1-1.5-1.5V6.75Z"/><path stroke-linecap="round" stroke-linejoin="round" d="m3.75 7 7.5 6 7.5-6"/></svg>
             </span>
             <div class="email-card__text">
-              <span class="email-card__label">Correo corporativo</span>
               <!--
                 El correo NO está en texto plano en el HTML: js/main.js lo construye
                 en memoria (anti-scraping) y lo coloca aquí al cargar la página.
@@ -388,13 +363,6 @@
         correo y, si usas el asistente virtual, procesamiento de IA) que tratan la información como encargados y
         no la utilizan para otros fines. No vendemos tu información.
       </p>
-    </section>
-
-    <!-- ============================= CTA FINAL ============================= -->
-    <section class="cta-final" data-reveal>
-      <p class="eyebrow">Siguiente paso</p>
-      <h2 class="cta-final__title">¿Tu empresa está lista para operar sin sorpresas laborales?</h2>
-      <a href="#contacto" class="btn btn--gold btn--lg" data-magnetic>Agenda tu Auditoría Inicial</a>
     </section>
 
   </main>

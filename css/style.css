@@ -224,19 +224,16 @@ textarea:focus-visible,
 .btn--block { width: 100%; }
 
 /* Variante monocromática: botones de acción secundaria que heredan .btn--gold
-   en el HTML pero NO deben gastar el oro (nav, tarjetas, formulario, CTA final). */
+   en el HTML pero NO deben gastar el oro (nav, tarjetas, formulario). */
 .nav__link--cta.btn--gold,
-.contact-panel .btn--gold,
-.cta-final .btn--gold {
+.contact-panel .btn--gold {
   background: var(--color-pure-white);
   color: var(--color-deep-navy);
 }
 .nav__link--cta.btn--gold:hover,
 .nav__link--cta.btn--gold:focus-visible,
 .contact-panel .btn--gold:hover,
-.contact-panel .btn--gold:focus-visible,
-.cta-final .btn--gold:hover,
-.cta-final .btn--gold:focus-visible {
+.contact-panel .btn--gold:focus-visible {
   background: rgba(255, 255, 255, 0.86);
 }
 .service-card .btn--gold {
@@ -698,15 +695,29 @@ main > section { padding: var(--section-space) var(--gutter); }
   max-width: var(--page-max-width);
   margin: 0 auto;
   display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  grid-template-columns: minmax(0, 1fr);
   grid-template-areas:
-    "form     form"
-    "calendar channels";
+    "form"
+    "channels";
   gap: clamp(22px, 2.5vw, 34px);
   align-items: stretch;
 }
-.contact-panel--calendar { grid-area: calendar; }
-.contact-panel--channels { grid-area: channels; }
+/* Canales directos: una línea limpia sobre el fondo, sin caja */
+.contact-panel.contact-panel--channels {
+  grid-area: channels;
+  width: 100%;
+  max-width: 760px;
+  justify-self: center;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 32px;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 0;
+  background: transparent;
+  border: 0;
+}
 .contact-panel.contact-panel--form {
   grid-area: form;
   width: 100%;
@@ -719,7 +730,6 @@ main > section { padding: var(--section-space) var(--gutter); }
 }
 .contact-panel--form .contact-panel__title { font-size: clamp(30px, 3.2vw, 44px); }
 .contact-panel--form .contact-panel__text--muted { max-width: 40ch; margin: 0 auto; }
-.contact-panel__eyebrow { margin-bottom: 0; }
 
 .contact-panel {
   background: var(--surface-panel);
@@ -735,18 +745,6 @@ main > section { padding: var(--section-space) var(--gutter); }
 .contact-panel__text { color: var(--color-body-copy); font-size: 16px; }
 .contact-panel__text--muted { font-size: 14px; color: var(--color-ash-navy); }
 
-/* A. Calendario */
-.calendar-frame {
-  border: 1px solid var(--color-hairline);
-  border-radius: var(--radius-cards);
-  overflow: hidden;
-  background: #fff;
-  flex-grow: 1;
-  min-height: 420px;
-  position: relative;
-}
-.calendar-frame iframe { width: 100%; height: 100%; min-height: 420px; border: 0; display: block; }
-
 /* B. WhatsApp — interactivo: píldora monocromática */
 .whatsapp-btn {
   display: flex;
@@ -755,7 +753,7 @@ main > section { padding: var(--section-space) var(--gutter); }
   background: transparent;
   border: 1px solid var(--color-hairline-strong);
   border-radius: var(--radius-buttons);
-  padding: 10px 26px 10px 10px;
+  padding: 8px 24px 8px 8px;
   color: #fff;
   position: relative;
   transition: transform var(--transition-fast), border-color var(--transition-fast), background var(--transition-fast);
@@ -784,25 +782,23 @@ main > section { padding: var(--section-space) var(--gutter); }
   100% { transform: scale(1.6); opacity: 0; }
 }
 @media (prefers-reduced-motion: reduce) { .whatsapp-btn__icon::after { animation: none; } }
-.whatsapp-btn__label { display: flex; flex-direction: column; font-weight: 600; font-size: 15px; }
-.whatsapp-btn__label small { font-weight: 400; color: var(--color-ash-navy); font-size: 12px; }
+.whatsapp-btn__label { font-family: var(--font-body); font-weight: 500; font-size: 15px; letter-spacing: 0.02em; }
 
-/* C. Correo — panel arquitectónico */
+/* C. Correo — texto en línea, sin caja */
 .email-card {
   display: flex;
   align-items: center;
-  gap: var(--spacing-16);
-  border: 1px solid var(--color-hairline);
-  border-radius: var(--radius-cards);
-  padding: var(--spacing-22);
+  gap: 14px;
+  padding: 0;
   position: relative;
-  background: var(--surface-panel);
+  background: transparent;
+  border: 0;
 }
 .email-card__icon { color: rgba(255, 255, 255, 0.6); flex-shrink: 0; }
 .email-card__icon svg { width: 22px; height: 22px; }
 .email-card__text { display: flex; flex-direction: column; gap: 4px; flex-grow: 1; min-width: 0; }
 .email-card__label { font-size: 11px; color: var(--color-ash-navy); text-transform: uppercase; letter-spacing: 3px; }
-.email-card__address { font-size: 15px; font-weight: 500; color: #fff; overflow-wrap: anywhere; }
+.email-card__address { font-family: var(--font-body); font-size: 15px; font-weight: 500; letter-spacing: 0.02em; color: #fff; overflow-wrap: anywhere; }
 .email-card__copy {
   width: 44px; height: 44px;
   flex-shrink: 0;
@@ -884,10 +880,9 @@ main > section { padding: var(--section-space) var(--gutter); }
 @media (max-width: 1080px) {
   .contact__grid {
     grid-template-columns: 1fr;
-    grid-template-areas: "form" "calendar" "channels";
+    grid-template-areas: "form" "channels";
   }
   .contact-panel--form { margin-bottom: 0; }
-  .calendar-frame { min-height: 360px; }
 }
 @media (max-width: 480px) {
   .field-row { grid-template-columns: 1fr; gap: var(--spacing-22); }
@@ -907,31 +902,6 @@ main > section { padding: var(--section-space) var(--gutter); }
   padding-top: var(--spacing-34);
 }
 .privacy-disclaimer__icon { width: 16px; height: 16px; flex-shrink: 0; color: var(--color-ash-navy); margin-top: 3px; }
-
-/* =========================================================================
-   CTA FINAL — titular monumental a la izquierda, acción a la derecha
-   ========================================================================= */
-.cta-final {
-  max-width: calc(var(--page-max-width) + var(--gutter) * 2);
-  margin: 0 auto;
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) auto;
-  column-gap: var(--spacing-59);
-  align-items: end;
-  border-top: 1px solid var(--color-hairline);
-}
-.cta-final .eyebrow { grid-column: 1 / -1; }
-.cta-final__title {
-  font-size: var(--text-display);
-  font-weight: var(--weight-display);
-  letter-spacing: var(--tracking-display);
-  line-height: var(--leading-display);
-  max-width: 18ch;
-}
-@media (max-width: 860px) {
-  .cta-final { grid-template-columns: 1fr; row-gap: var(--spacing-59); }
-  .cta-final .btn { justify-self: start; }
-}
 
 /* =========================================================================
    FOOTER
@@ -975,8 +945,7 @@ main > section { padding: var(--section-space) var(--gutter); }
   .services__layout,
   .about__inner,
   .contact__grid,
-  .section__head--split,
-  .cta-final { display: flex; flex-direction: column; align-items: stretch; width: 100%; }
+  .section__head--split { display: flex; flex-direction: column; align-items: stretch; width: 100%; }
   .hero__title-deck,
   .section__head--split .section__intro,
   .about__stats { margin-left: 0; margin-top: var(--spacing-34); justify-self: auto; }
@@ -990,9 +959,10 @@ main > section { padding: var(--section-space) var(--gutter); }
   .service-card { padding: 28px 24px; }
   .contact-panel { padding: 28px 24px; }
   .about__stats li { padding: 28px 24px; }
-  .cta-final { gap: var(--spacing-34); }
-  .cta-final .btn { align-self: flex-start; }
   .contact-panel--form { order: -1; }
+  .contact-panel.contact-panel--channels { flex-direction: column; align-items: flex-start; gap: 20px; padding: 0; }
+  .email-card { width: 100%; gap: 10px; }
+  .email-card__icon { display: none; } /* libera ancho para que el correo quepa en una línea */
 }
 
 /* =========================================================================
