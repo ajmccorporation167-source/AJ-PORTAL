@@ -341,6 +341,20 @@ textarea:focus-visible,
   padding: 168px var(--gutter) clamp(72px, 9vw, 120px);
   overflow: hidden;
   isolation: isolate;
+  /* Fotografía arquitectónica bajo un velo navy: 65% arriba → 95% abajo para
+     que el titular y los textos blancos se lean siempre con contraste. */
+  background-color: var(--color-deep-navy);
+  background-image:
+    linear-gradient(to bottom, rgba(11, 19, 43, 0.65), rgba(11, 19, 43, 0.95)),
+    url('../ajcm-hero-background.jpg');
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+}
+/* Parallax sutil solo en escritorio: en iOS/Android "fixed" escala la imagen
+   al alto de toda la página y produce saltos al hacer scroll. */
+@media (min-width: 1025px) and (hover: hover) and (prefers-reduced-motion: no-preference) {
+  .hero { background-attachment: fixed; }
 }
 
 /* Capas de profundidad: se conservan en el DOM (js/main.js las anima) pero
