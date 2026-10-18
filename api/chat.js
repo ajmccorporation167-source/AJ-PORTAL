@@ -23,15 +23,24 @@ const GEMINI_MODEL = process.env.GEMINI_MODEL || 'gemini-3.8-flash';
 // solo funciona con OAuth / service accounts, no con API keys públicas de AI Studio.
 const GEMINI_BASE = `https://generativelanguage.googleapis.com/v1beta/models/${GEMINI_MODEL}:generateContent`;
 
+// Variantes para minimizar el "razonamiento interno" (thinking) del modelo, de la
+// más rápida a la más conservadora. null = sin thinkingConfig (comportamiento por defecto).
+const THINKING_VARIANTS = [
+  { thinkingLevel: 'minimal' }, // familia Gemini 3
+  { thinkingBudget: 0 },        // familia Gemini 2.5
+  null,
+];
+let thinkingVariant = -1; // índice que funcionó; se conserva entre invocaciones "calientes"
+
 // Límites defensivos para controlar costo y abuso.
 const MAX_MESSAGES = 20;       // cuántos turnos aceptamos en una conversación
 const MAX_CHARS_PER_MSG = 2000; // largo máximo por mensaje del usuario
 
 // --- Instrucciones del agente (System Prompt interno) ----------------------
 // Prohíbe alucinar, lo ancla a los servicios de AJCM y fuerza el disclaimer legal.
-const SYSTEM_PROMPT = `Eres el Asistente Ejecutivo de AJCM. Responde siempre en máximo 1 o 2 oraciones
-breves. Eres veloz, conversacional y vas directo al grano. Suenas humano y cercano, nunca como un robot
-genérico de IA, y no usas listas.
+const SYSTEM_PROMPT = `Eres el Asistente Ejecutivo de AJCM. Responde de forma muy natural y humana. REGLA DE ORO:
+Tus respuestas deben ser extremadamente concisas, de máximo 2 oraciones. Ve directo al grano. Eres un experto
+en RRHH rápido y eficiente. No uses listas.
 
 CONTEXTO: AJCM RRHH Consulting es una firma boutique de consultoría en Recursos Humanos y gestión
 empresarial con base en San Juan y Bayamón, Puerto Rico, fundada por Alexis J. Mercado Colón
@@ -122,13 +131,16 @@ module.exports = async function handler(req, res) {
     return sendJson(res, 400, { error: 'No hay contenido de usuario válido para procesar.' });
   }
 
-  // Cuerpo de la petición a Gemini.
-  const geminiBody = {
+  // Cuerpo base de la petición a Gemini.
+  const baseBody = {
     system_instruction: { parts: [{ text: SYSTEM_PROMPT }] },
     contents,
     generationConfig: {
-      temperature: 0.4,     // bajo = respuestas más fieles, menos "creativas"
-      maxOutputTokens: 150, // tope bajo = menos tokens generados = respuesta más rápida
+      temperature: 0.4,     // bajo = respuestas directas y fieles
+      // Tope de seguridad, no de velocidad: el modelo se detiene al terminar sus
+      // ~2 oraciones. Con 150 el "razonamiento interno" del modelo se comía el
+      // presupuesto y las respuestas salían cortadas ("Revis…").
+      maxOutputTokens: 300,
       topP: 0.9,
     },
     // Filtros de seguridad de Gemini en umbral estándar.
@@ -144,15 +156,31 @@ module.exports = async function handler(req, res) {
     // La key va como query parameter — es el método oficial para API keys de
     // AI Studio contra el endpoint REST. La URL nunca se expone al navegador
     // porque esta función corre en el servidor de Vercel.
-    const upstream = await fetch(`${GEMINI_BASE}?key=${encodeURIComponent(apiKey)}`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(geminiBody),
-    });
+    const url = `${GEMINI_BASE}?key=${encodeURIComponent(apiKey)}`;
+
+    // LATENCIA: los modelos Flash recientes "piensan" antes de responder y eso
+    // es lo que más tarda. Intentamos minimizarlo; como cada generación de
+    // modelos acepta un parámetro distinto, probamos en orden y recordamos el
+    // que funcionó mientras la función siga "caliente" en Vercel.
+    let upstream;
+    let detail = '';
+    const start = thinkingVariant >= 0 ? thinkingVariant : 0;
+    for (let v = start; v < THINKING_VARIANTS.length; v++) {
+      const body = { ...baseBody, generationConfig: { ...baseBody.generationConfig } };
+      if (THINKING_VARIANTS[v]) body.generationConfig.thinkingConfig = THINKING_VARIANTS[v];
+      upstream = await fetch(url, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(body),
+      });
+      if (upstream.ok) { thinkingVariant = v; break; }
+      detail = await upstream.text();
+      // Solo un 400 por parámetro no soportado justifica probar la siguiente variante.
+      if (upstream.status !== 400 || !/thinking/i.test(detail)) break;
+    }
 
     if (!upstream.ok) {
       // Log para el servidor (visible en Vercel → Logs), sin exponer la key.
-      const detail = await upstream.text();
       // Si Google retira el modelo, aquí aparece un 404 NOT_FOUND con el sustituto recomendado.
       console.error('Error de Gemini:', upstream.status, GEMINI_MODEL, detail);
       return sendJson(res, 502, {
@@ -161,16 +189,21 @@ module.exports = async function handler(req, res) {
     }
 
     const data = await upstream.json();
+    const candidate = data && data.candidates && data.candidates[0];
 
-    // Extracción segura del texto de respuesta.
-    const reply =
-      data &&
-      data.candidates &&
-      data.candidates[0] &&
-      data.candidates[0].content &&
-      data.candidates[0].content.parts &&
-      data.candidates[0].content.parts[0] &&
-      data.candidates[0].content.parts[0].text;
+    // Unimos todas las partes de texto de la respuesta, excluyendo las de
+    // razonamiento interno (thought: true) si el modelo las devolviera.
+    const parts = (candidate && candidate.content && candidate.content.parts) || [];
+    const reply = parts
+      .filter((p) => p && typeof p.text === 'string' && !p.thought)
+      .map((p) => p.text)
+      .join('')
+      .trim();
+
+    if (candidate && candidate.finishReason === 'MAX_TOKENS') {
+      // Diagnóstico en Vercel → Logs si una respuesta vuelve a cortarse.
+      console.warn('Respuesta cortada por MAX_TOKENS', GEMINI_MODEL, data.usageMetadata);
+    }
 
     if (!reply) {
       // Puede ocurrir si el contenido fue bloqueado por los filtros de seguridad.
@@ -180,7 +213,7 @@ module.exports = async function handler(req, res) {
       });
     }
 
-    return sendJson(res, 200, { reply: reply.trim() });
+    return sendJson(res, 200, { reply });
   } catch (err) {
     console.error('Fallo al contactar a Gemini:', err);
     return sendJson(res, 500, {
