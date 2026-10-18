@@ -18,7 +18,9 @@
 // --- Configuración ---------------------------------------------------------
 // Modelo: gemini-2.0-flash es rápido y económico. Si quieres otro, cámbialo aquí.
 const GEMINI_MODEL = 'gemini-2.0-flash';
-const GEMINI_ENDPOINT = `https://generativelanguage.googleapis.com/v1beta/models/${GEMINI_MODEL}:generateContent`;
+// La key va como query param (?key=), NO en headers. El header x-goog-api-key
+// solo funciona con OAuth / service accounts, no con API keys públicas de AI Studio.
+const GEMINI_BASE = `https://generativelanguage.googleapis.com/v1beta/models/${GEMINI_MODEL}:generateContent`;
 
 // Límites defensivos para controlar costo y abuso.
 const MAX_MESSAGES = 20;       // cuántos turnos aceptamos en una conversación
@@ -56,6 +58,17 @@ function sendJson(res, status, payload) {
 
 // --- Handler principal -----------------------------------------------------
 module.exports = async function handler(req, res) {
+  // CORS: permitir que el frontend (mismo dominio en Vercel) llame sin problemas.
+  res.setHeader('Access-Control-Allow-Origin', '*');
+  res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+
+  // Preflight de CORS
+  if (req.method === 'OPTIONS') {
+    res.statusCode = 204;
+    return res.end();
+  }
+
   // Solo aceptamos POST.
   if (req.method !== 'POST') {
     return sendJson(res, 405, { error: 'Método no permitido. Usa POST.' });
@@ -124,13 +137,12 @@ module.exports = async function handler(req, res) {
   };
 
   try {
-    // La key va en el header, no en la URL (evita que quede en logs de proxy).
-    const upstream = await fetch(GEMINI_ENDPOINT, {
+    // La key va como query parameter — es el método oficial para API keys de
+    // AI Studio contra el endpoint REST. La URL nunca se expone al navegador
+    // porque esta función corre en el servidor de Vercel.
+    const upstream = await fetch(`${GEMINI_BASE}?key=${apiKey}`, {
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'x-goog-api-key': apiKey,
-      },
+      headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(geminiBody),
     });
 

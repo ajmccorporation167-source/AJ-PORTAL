@@ -210,6 +210,8 @@
       });
 
       if (!isValid) {
+        // Detener la propagación para que supabase.js NO intente enviar datos inválidos
+        e.stopImmediatePropagation();
         if (formStatus) {
           formStatus.textContent = 'Revisa los campos marcados en rojo antes de continuar.';
           formStatus.style.color = '#f0a0a0';
@@ -220,14 +222,10 @@
         return;
       }
 
-      // FASE 1: no hay backend conectado todavía. Dejamos esto explícito en
-      // vez de simular un envío exitoso falso. La Fase 2 reemplaza este
-      // bloque por la llamada real a Supabase (insert + Edge Function).
-      if (formStatus) {
-        formStatus.style.color = '';
-        formStatus.textContent = 'Gracias — este formulario está en modo de vista previa. La conexión segura a nuestra base de datos se activa en la Fase 2. Mientras tanto, usa WhatsApp, el correo o el calendario para contactarnos.';
-      }
-      leadForm.reset();
+      // La validación pasó. El envío real a Supabase lo maneja js/supabase.js
+      // que escucha el mismo evento submit. No hacemos reset aquí — supabase.js
+      // se encarga de todo el ciclo post-validación.
+      // (Este listener solo valida; el siguiente en la cadena hace el POST.)
     });
   }
 

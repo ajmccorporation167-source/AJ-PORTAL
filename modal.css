@@ -1,0 +1,267 @@
+/* =========================================================================
+   modal.css — Modal de dos pasos, reveal al scroll, efecto magnético
+   Aditivo: no depende de style.css. Paleta: navy #0B132B / oro #D4AF37.
+   ========================================================================= */
+
+:root {
+  --mdl-navy: #0B132B;
+  --mdl-gold: #D4AF37;
+  --mdl-text: #F4F1E8;
+  --mdl-muted: rgba(244, 241, 232, 0.68);
+  --mdl-line: rgba(212, 175, 55, 0.28);
+}
+
+/* ---------- Utilidad: solo lectores de pantalla ---------- */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* ---------- Botón dorado dentro de las tarjetas ---------- */
+.service-card__cta {
+  margin-top: auto;
+  align-self: flex-start;
+  cursor: pointer;
+}
+
+/* ---------- Reveal al hacer scroll (solo si JS está activo) ---------- */
+html.js [data-reveal] {
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1),
+              transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+}
+html.js [data-reveal].is-visible {
+  opacity: 1;
+  transform: none;
+}
+
+/* ---------- Efecto magnético (el desplazamiento lo aplica js/modal.js) ---------- */
+[data-magnetic] {
+  transition: transform 0.25s cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: transform;
+}
+
+/* ---------- Fallback del calendario ---------- */
+.calendar-fallback {
+  margin: 0.75rem 0 0;
+  font-size: 0.875rem;
+  color: var(--mdl-muted);
+}
+.calendar-fallback a {
+  color: var(--mdl-gold);
+  text-underline-offset: 3px;
+}
+
+/* ---------- WhatsApp sin número configurado ---------- */
+.whatsapp-btn[aria-disabled="true"] {
+  opacity: 0.5;
+  pointer-events: none;
+  filter: grayscale(0.6);
+}
+
+/* ---------- Modal ---------- */
+.modal {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  display: grid;
+  place-items: center;
+  padding: 16px;
+  font-family: 'Inter', system-ui, sans-serif;
+}
+.modal[hidden] { display: none; }
+
+.modal__backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(5, 9, 22, 0.72);
+  -webkit-backdrop-filter: blur(6px);
+  backdrop-filter: blur(6px);
+  animation: mdl-fade 0.25s ease both;
+}
+
+.modal__panel {
+  position: relative;
+  width: min(100%, 520px);
+  max-height: calc(100dvh - 32px);
+  overflow-y: auto;
+  padding: 36px 32px 28px;
+  color: var(--mdl-text);
+  background: linear-gradient(160deg, rgba(20, 31, 66, 0.92), rgba(11, 19, 43, 0.96));
+  border: 1px solid var(--mdl-line);
+  border-radius: 18px;
+  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.55);
+  -webkit-backdrop-filter: blur(18px);
+  backdrop-filter: blur(18px);
+  animation: mdl-rise 0.4s cubic-bezier(0.22, 1, 0.36, 1) both;
+  outline: none;
+}
+
+.modal__close {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  width: 36px;
+  height: 36px;
+  display: grid;
+  place-items: center;
+  color: var(--mdl-muted);
+  background: transparent;
+  border: 1px solid transparent;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: color 0.2s, border-color 0.2s;
+}
+.modal__close svg { width: 18px; height: 18px; }
+.modal__close:hover,
+.modal__close:focus-visible { color: var(--mdl-gold); border-color: var(--mdl-line); }
+
+.modal__progress {
+  margin: 0 0 10px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--mdl-gold);
+}
+
+.modal__bar {
+  height: 2px;
+  margin-bottom: 22px;
+  background: rgba(244, 241, 232, 0.12);
+  border-radius: 2px;
+  overflow: hidden;
+}
+.modal__bar span {
+  display: block;
+  height: 100%;
+  width: 50%;
+  background: var(--mdl-gold);
+  transition: width 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.modal__title {
+  margin: 0 0 20px;
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: clamp(1.4rem, 4vw, 1.75rem);
+  font-weight: 700;
+  line-height: 1.2;
+  color: var(--mdl-text);
+}
+
+/* Opciones del paso 1 */
+.modal__options {
+  display: grid;
+  gap: 10px;
+  margin: 0 0 8px;
+  padding: 0;
+  border: 0;
+}
+.modal__option { position: relative; }
+.modal__option input {
+  position: absolute;
+  opacity: 0;
+  inset: 0;
+  cursor: pointer;
+}
+.modal__option label {
+  display: block;
+  padding: 14px 16px 14px 44px;
+  font-size: 0.95rem;
+  line-height: 1.4;
+  background: rgba(244, 241, 232, 0.04);
+  border: 1px solid rgba(244, 241, 232, 0.14);
+  border-radius: 10px;
+  cursor: pointer;
+  position: relative;
+  transition: border-color 0.2s, background 0.2s;
+}
+.modal__option label::before {
+  content: "";
+  position: absolute;
+  left: 16px;
+  top: 50%;
+  width: 14px;
+  height: 14px;
+  margin-top: -7px;
+  border: 1.5px solid var(--mdl-muted);
+  border-radius: 50%;
+  transition: border-color 0.2s, background 0.2s, box-shadow 0.2s;
+}
+.modal__option input:hover + label { border-color: var(--mdl-line); }
+.modal__option input:checked + label {
+  border-color: var(--mdl-gold);
+  background: rgba(212, 175, 55, 0.1);
+}
+.modal__option input:checked + label::before {
+  border-color: var(--mdl-gold);
+  background: var(--mdl-gold);
+  box-shadow: inset 0 0 0 2px var(--mdl-navy);
+}
+.modal__option input:focus-visible + label {
+  outline: 2px solid var(--mdl-gold);
+  outline-offset: 2px;
+}
+
+/* Campos del paso 2 (se declaran aquí para no depender de style.css) */
+.modal .field { display: grid; gap: 6px; margin-bottom: 14px; }
+.modal .field label { font-size: 0.8125rem; font-weight: 600; color: var(--mdl-muted); }
+.modal .field input {
+  width: 100%;
+  padding: 12px 14px;
+  font: inherit;
+  color: var(--mdl-text);
+  background: rgba(244, 241, 232, 0.06);
+  border: 1px solid rgba(244, 241, 232, 0.18);
+  border-radius: 8px;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+.modal .field input:focus {
+  outline: none;
+  border-color: var(--mdl-gold);
+  box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.2);
+}
+.modal .field input[aria-invalid="true"] { border-color: #e8847a; }
+.modal .field-error {
+  display: block;
+  min-height: 1em;
+  font-size: 0.8125rem;
+  color: #f0a39b;
+}
+
+.modal__actions {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  margin-top: 22px;
+}
+
+@keyframes mdl-fade { from { opacity: 0; } to { opacity: 1; } }
+@keyframes mdl-rise {
+  from { opacity: 0; transform: translateY(24px) scale(0.98); }
+  to   { opacity: 1; transform: none; }
+}
+
+body.modal-open { overflow: hidden; }
+
+@media (max-width: 480px) {
+  .modal__panel { padding: 32px 20px 22px; }
+  .modal__actions { flex-direction: column-reverse; }
+  .modal__actions .btn { width: 100%; }
+}
+
+/* ---------- Movimiento reducido: sin animaciones ni desplazamientos ---------- */
+@media (prefers-reduced-motion: reduce) {
+  html.js [data-reveal] { opacity: 1; transform: none; transition: none; }
+  [data-magnetic] { transition: none; }
+  .modal__backdrop, .modal__panel { animation: none; }
+  .modal__bar span { transition: none; }
+}

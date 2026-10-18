@@ -7,6 +7,31 @@
   <meta name="description" content="AJCM RRHH Consulting: auditorías de cumplimiento laboral, manuales corporativos, Ley 80, nómina y reclutamiento para empresas en Puerto Rico. Consultoría personalizada con tecnología moderna." />
   <meta name="theme-color" content="#0B132B" />
 
+  <!-- Open Graph / Twitter: vista previa al compartir el enlace.
+       ADMIN AJCM: cuando tengas dominio y una imagen 1200x630, agrega og:url y og:image. -->
+  <meta property="og:type" content="website" />
+  <meta property="og:locale" content="es_PR" />
+  <meta property="og:site_name" content="AJCM | RRHH Consulting" />
+  <meta property="og:title" content="AJCM | RRHH Consulting — Cumplimiento laboral en Puerto Rico" />
+  <meta property="og:description" content="Auditorías de cumplimiento, manuales corporativos, Ley 80, nómina y reclutamiento con un consultor dedicado." />
+  <meta name="twitter:card" content="summary" />
+
+  <!-- Marca que JS está activo: permite que las animaciones de scroll no oculten contenido si JS falla -->
+  <script>document.documentElement.classList.add('js');</script>
+
+  <!-- Datos estructurados (SEO local). Sin teléfono ni dominio hasta que estén definidos. -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "ProfessionalService",
+    "name": "AJCM | RRHH Consulting",
+    "description": "Consultoría en Recursos Humanos y gestión empresarial: cumplimiento laboral, manuales, nómina, reclutamiento y adiestramientos.",
+    "founder": { "@type": "Person", "name": "Alexis J. Mercado Colón" },
+    "areaServed": { "@type": "Place", "name": "Puerto Rico" },
+    "address": { "@type": "PostalAddress", "addressLocality": "San Juan", "addressRegion": "PR", "addressCountry": "US" }
+  }
+  </script>
+
   <!-- Favicon: monograma AJ en oro sobre navy, inline para evitar una petición de red extra -->
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' fill='%230B132B'/%3E%3Ctext x='32' y='42' font-family='Georgia,serif' font-size='28' font-weight='700' fill='%23D4AF37' text-anchor='middle'%3EAJ%3C/text%3E%3C/svg%3E" />
 
@@ -17,6 +42,8 @@
 
   <link rel="stylesheet" href="css/style.css" />
   <link rel="stylesheet" href="css/chat.css" />
+  <!-- Modal de dos pasos, reveal al scroll y efecto magnético (aditivo, no depende de style.css) -->
+  <link rel="stylesheet" href="css/modal.css" />
 </head>
 <body>
 
@@ -44,7 +71,7 @@
       <nav id="navMenu" class="nav__menu" aria-label="Navegación principal">
         <a href="#servicios" class="nav__link">Servicios</a>
         <a href="#nosotros" class="nav__link">Nosotros</a>
-        <a href="#contacto" class="nav__link nav__link--cta btn btn--gold btn--sm">Agenda tu Consulta</a>
+        <a href="#contacto" class="nav__link nav__link--cta btn btn--gold btn--sm" data-magnetic>Agenda tu Consulta</a>
       </nav>
     </div>
   </header>
@@ -61,16 +88,13 @@
       </div>
 
       <!--
-        Wordmark a escala arquitectónica: identidad tomada de la referencia
-        de composición (DESIGN.md) — el nombre de marca tratado como objeto
-        visual, no solo como texto de navegación. Decorativo: oculto para
-        lectores de pantalla porque el <h1> y el <nav> ya dan el nombre real.
+        Wordmark a escala arquitectónica: el nombre de marca tratado como objeto
+        visual. Decorativo: oculto para lectores de pantalla porque el <h1> y el
+        <nav> ya dan el nombre real.
       -->
       <p class="hero__wordmark" aria-hidden="true">AJCM<sup>&reg;</sup></p>
 
-      <!-- Objeto flotante: sello de autoridad/cumplimiento, el equivalente
-           al "objeto hero" de la referencia (allí era un jet; aquí es un
-           sello de cumplimiento, coherente con una firma de RRHH). -->
+      <!-- Objeto flotante: sello de autoridad/cumplimiento (el "objeto hero" de la referencia). -->
       <div class="hero__seal" aria-hidden="true" data-parallax-layer>
         <svg viewBox="0 0 120 120" fill="none">
           <circle cx="60" cy="60" r="56" stroke="currentColor" stroke-width="1.2" opacity="0.5"/>
@@ -95,7 +119,7 @@
         </p>
 
         <div class="hero__actions">
-          <a href="#contacto" class="btn btn--gold btn--lg">Agenda tu Auditoría Inicial</a>
+          <a href="#contacto" class="btn btn--gold btn--lg" data-magnetic>Agenda tu Auditoría Inicial</a>
           <a href="#servicios" class="btn btn--ghost btn--lg">Ver Servicios</a>
         </div>
 
@@ -115,7 +139,7 @@
 
     <!-- ============================= SERVICIOS ============================= -->
     <section class="services" id="servicios">
-      <div class="section__head">
+      <div class="section__head" data-reveal>
         <p class="eyebrow">Lo que hacemos</p>
         <h2 class="section__title">Servicios Core</h2>
         <p class="section__intro">
@@ -124,68 +148,69 @@
         </p>
       </div>
 
-      <div class="services__grid" id="servicesGrid">
+      <!-- data-reveal va en el contenedor (no en cada tarjeta) para no chocar con el transform del tilt -->
+      <div class="services__grid" id="servicesGrid" data-reveal>
 
-        <article class="service-card" tabindex="0" data-tilt>
+        <article class="service-card" data-tilt>
           <span class="service-card__icon" aria-hidden="true">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/></svg>
           </span>
           <h3 class="service-card__title">Auditorías de Cumplimiento de RRHH</h3>
           <p class="service-card__text">Identificamos brechas legales en expedientes, contratos y políticas antes de que se conviertan en una multa o una querella.</p>
-          <a href="#contacto" class="service-card__link">Agendar diagnóstico <span aria-hidden="true">→</span></a>
+          <button type="button" class="btn btn--gold btn--sm service-card__cta" data-service="auditoria" data-magnetic aria-haspopup="dialog">Agendar diagnóstico <span aria-hidden="true">→</span></button>
         </article>
 
-        <article class="service-card" tabindex="0" data-tilt>
+        <article class="service-card" data-tilt>
           <span class="service-card__icon" aria-hidden="true">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path stroke-linecap="round" stroke-linejoin="round" d="M6.75 4.5h7.5l3 3v12a1.5 1.5 0 0 1-1.5 1.5h-9A1.5 1.5 0 0 1 5.25 19.5V6A1.5 1.5 0 0 1 6.75 4.5Z"/><path stroke-linecap="round" stroke-linejoin="round" d="M9 10.5h6M9 13.5h6M9 16.5h3.5"/></svg>
           </span>
           <h3 class="service-card__title">Manuales Corporativos y Políticas Internas</h3>
           <p class="service-card__text">Redactamos el manual del empleado y las políticas que tu empresa necesita para operar con claridad y respaldo legal.</p>
-          <a href="#contacto" class="service-card__link">Agendar diagnóstico <span aria-hidden="true">→</span></a>
+          <button type="button" class="btn btn--gold btn--sm service-card__cta" data-service="manual" data-magnetic aria-haspopup="dialog">Agendar diagnóstico <span aria-hidden="true">→</span></button>
         </article>
 
-        <article class="service-card" tabindex="0" data-tilt>
+        <article class="service-card" data-tilt>
           <span class="service-card__icon" aria-hidden="true">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path stroke-linecap="round" stroke-linejoin="round" d="M12 2.25 3.75 6v6c0 5.25 4.5 8.4 8.25 9.75 3.75-1.35 8.25-4.5 8.25-9.75V6L12 2.25Z"/><path stroke-linecap="round" stroke-linejoin="round" d="M9.5 12.25 11.5 14.25 15 10"/></svg>
           </span>
           <h3 class="service-card__title">Ley 80 y Relaciones Obrero-Patronales</h3>
           <p class="service-card__text">Manejamos despidos, mesadas y disputas laborales con la documentación y el proceso correcto desde el primer día.</p>
-          <a href="#contacto" class="service-card__link">Agendar diagnóstico <span aria-hidden="true">→</span></a>
+          <button type="button" class="btn btn--gold btn--sm service-card__cta" data-service="ley80" data-magnetic aria-haspopup="dialog">Agendar diagnóstico <span aria-hidden="true">→</span></button>
         </article>
 
-        <article class="service-card" tabindex="0" data-tilt>
+        <article class="service-card" data-tilt>
           <span class="service-card__icon" aria-hidden="true">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path stroke-linecap="round" stroke-linejoin="round" d="M3 9.75h18M3 14.25h18M6.75 4.5h10.5A2.25 2.25 0 0 1 19.5 6.75v10.5a2.25 2.25 0 0 1-2.25 2.25H6.75a2.25 2.25 0 0 1-2.25-2.25V6.75A2.25 2.25 0 0 1 6.75 4.5Z"/></svg>
           </span>
           <h3 class="service-card__title">Optimización y Administración de Nómina</h3>
           <p class="service-card__text">Revisamos clasificación de empleados, retenciones y procesos de nómina para que pagues correcto y a tiempo, siempre.</p>
-          <a href="#contacto" class="service-card__link">Agendar diagnóstico <span aria-hidden="true">→</span></a>
+          <button type="button" class="btn btn--gold btn--sm service-card__cta" data-service="nomina" data-magnetic aria-haspopup="dialog">Agendar diagnóstico <span aria-hidden="true">→</span></button>
         </article>
 
-        <article class="service-card" tabindex="0" data-tilt>
+        <article class="service-card" data-tilt>
           <span class="service-card__icon" aria-hidden="true">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="9" cy="8.25" r="3"/><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 19.5a5.25 5.25 0 0 1 10.5 0M15.75 8.25a3 3 0 1 1 3.248 2.994M17.25 19.5a4.5 4.5 0 0 0-3-4.246"/></svg>
           </span>
           <h3 class="service-card__title">Reclutamiento y Selección de Talento</h3>
           <p class="service-card__text">Buscamos y filtramos candidatos alineados a tu cultura y a los requisitos legales del puesto, no solo al currículo.</p>
-          <a href="#contacto" class="service-card__link">Agendar diagnóstico <span aria-hidden="true">→</span></a>
+          <button type="button" class="btn btn--gold btn--sm service-card__cta" data-service="reclutamiento" data-magnetic aria-haspopup="dialog">Agendar diagnóstico <span aria-hidden="true">→</span></button>
         </article>
 
-        <article class="service-card" tabindex="0" data-tilt>
+        <article class="service-card" data-tilt>
           <span class="service-card__icon" aria-hidden="true">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 19.5v-15A1.5 1.5 0 0 1 6 3h8.379a1.5 1.5 0 0 1 1.06.44l3.122 3.12a1.5 1.5 0 0 1 .439 1.061V19.5A1.5 1.5 0 0 1 17.5 21H6a1.5 1.5 0 0 1-1.5-1.5Z"/><path stroke-linecap="round" stroke-linejoin="round" d="M9 15.75h6M9 11.25h6"/></svg>
           </span>
           <h3 class="service-card__title">Adiestramientos Organizacionales</h3>
           <p class="service-card__text">Capacitamos a supervisores y equipos en liderazgo, prevención de acoso laboral y cumplimiento regulatorio.</p>
-          <a href="#contacto" class="service-card__link">Agendar diagnóstico <span aria-hidden="true">→</span></a>
+          <button type="button" class="btn btn--gold btn--sm service-card__cta" data-service="adiestramiento" data-magnetic aria-haspopup="dialog">Agendar diagnóstico <span aria-hidden="true">→</span></button>
         </article>
 
       </div>
     </section>
 
-    <!-- ============================= SOBRE NOSOTROS (contexto breve, ancla de nav) ============================= -->
+    <!-- ============================= SOBRE NOSOTROS ============================= -->
     <section class="about" id="nosotros">
-      <div class="about__inner">
+      <div class="about__inner" data-reveal>
         <div class="about__text">
           <p class="eyebrow">Quiénes somos</p>
           <h2 class="section__title">Una firma boutique, no una agencia más</h2>
@@ -211,7 +236,7 @@
 
     <!-- ============================= MÓDULO DE CONTACTO Y AGENDAMIENTO ============================= -->
     <section class="contact" id="contacto">
-      <div class="section__head">
+      <div class="section__head" data-reveal>
         <p class="eyebrow">Hablemos de tu empresa</p>
         <h2 class="section__title">Agenda, escribe o llama — como prefieras</h2>
         <p class="section__intro">
@@ -220,13 +245,18 @@
         </p>
       </div>
 
-      <div class="contact__grid">
+      <div class="contact__grid" data-reveal>
 
         <!-- A. Calendario corporativo -->
         <div class="contact-panel contact-panel--calendar">
           <h3 class="contact-panel__title">Agenda tu consulta inicial</h3>
           <p class="contact-panel__text">Reserva directamente un espacio en el calendario corporativo para tu auditoría o consulta de cumplimiento.</p>
           <div class="calendar-frame">
+            <!--
+              ADMIN AJCM: los enlaces cortos calendar.app.google suelen bloquear el iframe.
+              Reemplaza el src por la URL de "Insertar" (Google Calendar → Programación de
+              citas → Compartir → Insertar). Si no carga, el enlace de abajo es el respaldo.
+            -->
             <iframe
               src="https://calendar.app.google/W7HabMVg9wRLYgpC8"
               title="Agendar una consulta con AJCM RRHH Consulting"
@@ -234,6 +264,10 @@
               referrerpolicy="no-referrer-when-downgrade"
             ></iframe>
           </div>
+          <p class="calendar-fallback">
+            ¿No ves el calendario?
+            <a href="https://calendar.app.google/W7HabMVg9wRLYgpC8" target="_blank" rel="noopener noreferrer">Ábrelo en una pestaña nueva<span class="sr-only"> (se abre en una pestaña nueva)</span></a>
+          </p>
         </div>
 
         <!-- B + C. WhatsApp y correo -->
@@ -241,8 +275,9 @@
           <h3 class="contact-panel__title">Canales directos</h3>
 
           <!--
-            ADMIN AJCM: reemplaza "1XXXXXXXXXX" por el número real en formato
-            internacional, sin "+", espacios ni guiones (ej. número de PR: 1787XXXXXXX)
+            ADMIN AJCM (OBLIGATORIO ANTES DE PUBLICAR): reemplaza "1XXXXXXXXXX" por el número
+            real en formato internacional, sin "+", espacios ni guiones (PR: 1787XXXXXXX o 1939XXXXXXX).
+            Mientras conserve las X, js/modal.js deshabilita el botón para no enviar a nadie a un número falso.
           -->
           <a
             href="https://wa.me/1XXXXXXXXXX"
@@ -270,8 +305,12 @@
               <!--
                 El correo NO está en texto plano en el HTML: js/main.js lo construye
                 en memoria (anti-scraping) y lo coloca aquí al cargar la página.
+                ADMIN AJCM: para proyectar autoridad B2B, cambia data-domain a tu dominio propio.
               -->
-              <span class="email-card__address" id="emailDisplay" data-user="ajmccorporation167" data-domain="gmail.com">cargando…</span>
+              <span class="email-card__address" id="emailDisplay" data-user="ajmccorporation167" data-domain="gmail.com">
+                <noscript>Activa JavaScript para ver el correo, o usa el formulario de contacto.</noscript>
+                <span aria-hidden="true">cargando…</span>
+              </span>
             </div>
             <button
               type="button"
@@ -285,11 +324,11 @@
           </div>
         </div>
 
-        <!-- Formulario rápido (maqueta visual — se conecta a Supabase en la Fase 2) -->
+        <!-- Formulario de leads — conectado a Supabase (js/supabase.js) -->
         <div class="contact-panel contact-panel--form">
           <h3 class="contact-panel__title">Cuéntanos sobre tu empresa</h3>
           <p class="contact-panel__text contact-panel__text--muted">
-            Vista previa del formulario. El envío seguro a nuestra base de datos se activa en la Fase 2 del portal.
+            Completa el formulario y nuestro equipo te contactará en horario laboral.
           </p>
 
           <form id="leadForm" novalidate>
@@ -338,25 +377,26 @@
               <textarea id="fieldMessage" name="message" rows="3" maxlength="800"></textarea>
             </div>
 
-            <button type="submit" class="btn btn--gold btn--block">Enviar mensaje</button>
+            <button type="submit" class="btn btn--gold btn--block" data-magnetic>Enviar mensaje</button>
             <p class="form-status" id="formStatus" role="status" aria-live="polite"></p>
           </form>
         </div>
       </div>
 
-      <!-- Aviso legal de privacidad -->
+      <!-- Aviso de privacidad: describe con precisión el flujo real de los datos -->
       <p class="privacy-disclaimer">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true" class="privacy-disclaimer__icon"><path stroke-linecap="round" stroke-linejoin="round" d="M6.75 10.5V7.125a5.25 5.25 0 0 1 10.5 0V10.5M5.25 10.5h13.5A1.5 1.5 0 0 1 20.25 12v7.5a1.5 1.5 0 0 1-1.5 1.5H5.25a1.5 1.5 0 0 1-1.5-1.5V12a1.5 1.5 0 0 1 1.5-1.5Z"/></svg>
-        Los datos que ingreses en este portal se transmiten de forma cifrada y se tratan con confidencialidad
-        absoluta. AJCM RRHH Consulting no comparte información de clientes con terceros y utiliza tus datos
-        únicamente para evaluar y dar seguimiento a tu caso corporativo.
+        Los datos que ingreses se transmiten cifrados (HTTPS) y se usan únicamente para evaluar y dar seguimiento a
+        tu caso. Para operar este portal utilizamos proveedores de infraestructura (almacenamiento de datos, envío de
+        correo y, si usas el asistente virtual, procesamiento de IA) que tratan la información como encargados y
+        no la utilizan para otros fines. No vendemos tu información.
       </p>
     </section>
 
     <!-- ============================= CTA FINAL ============================= -->
-    <section class="cta-final">
+    <section class="cta-final" data-reveal>
       <h2 class="cta-final__title">¿Tu empresa está lista para operar sin sorpresas laborales?</h2>
-      <a href="#contacto" class="btn btn--gold btn--lg">Agenda tu Auditoría Inicial</a>
+      <a href="#contacto" class="btn btn--gold btn--lg" data-magnetic>Agenda tu Auditoría Inicial</a>
     </section>
 
   </main>
@@ -377,13 +417,68 @@
 
       <div class="site-footer__legal">
         <p>Registrada ante el Departamento de Hacienda de Puerto Rico — NAICS 541611, Servicios de Consultoría en Administración.</p>
+        <p>El contenido de este sitio y las respuestas del asistente virtual son informativos y no constituyen asesoramiento legal. Para tu caso concreto, agenda una consulta.</p>
         <p>© <span id="currentYear">2026</span> AJCM RRHH Consulting. Todos los derechos reservados.</p>
       </div>
     </div>
   </footer>
 
+  <!-- ============================= MODAL DE DOS PASOS ============================= -->
+  <!-- Se abre desde los botones dorados de cada tarjeta. El contenido de los pasos lo genera js/modal.js -->
+  <div class="modal" id="serviceModal" hidden>
+    <div class="modal__backdrop" data-modal-close></div>
+    <div class="modal__panel" role="dialog" aria-modal="true" aria-labelledby="modalTitle" tabindex="-1">
+      <button type="button" class="modal__close" data-modal-close aria-label="Cerrar ventana">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M6 6l12 12M18 6 6 18"/></svg>
+      </button>
+
+      <p class="modal__progress" id="modalProgress" aria-live="polite">Paso 1 de 2</p>
+      <div class="modal__bar" aria-hidden="true"><span id="modalBar"></span></div>
+      <h2 class="modal__title" id="modalTitle"></h2>
+
+      <!-- Paso 1: elegir la necesidad -->
+      <div class="modal__step" id="modalStep1">
+        <fieldset class="modal__options" id="modalOptions">
+          <legend class="sr-only">Selecciona tu necesidad principal</legend>
+        </fieldset>
+        <span class="field-error" id="modalError1" role="alert"></span>
+        <div class="modal__actions">
+          <button type="button" class="btn btn--ghost btn--sm" data-modal-close>Cancelar</button>
+          <button type="button" class="btn btn--gold btn--sm" id="modalNext">Continuar <span aria-hidden="true">→</span></button>
+        </div>
+      </div>
+
+      <!-- Paso 2: datos de contacto -->
+      <form class="modal__step" id="modalStep2" novalidate hidden>
+        <div class="field">
+          <label for="mName">Nombre completo</label>
+          <input type="text" id="mName" autocomplete="name" required />
+          <span class="field-error" id="mErrName"></span>
+        </div>
+        <div class="field">
+          <label for="mCompany">Empresa</label>
+          <input type="text" id="mCompany" autocomplete="organization" required />
+          <span class="field-error" id="mErrCompany"></span>
+        </div>
+        <div class="field">
+          <label for="mEmail">Correo electrónico</label>
+          <input type="email" id="mEmail" autocomplete="email" required />
+          <span class="field-error" id="mErrEmail"></span>
+        </div>
+        <div class="modal__actions">
+          <button type="button" class="btn btn--ghost btn--sm" id="modalBack"><span aria-hidden="true">←</span> Atrás</button>
+          <button type="submit" class="btn btn--gold btn--sm">Enviar solicitud</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
   <script src="js/main.js" defer></script>
+  <!-- Integración con Supabase para el formulario de leads -->
+  <script src="js/supabase.js" defer></script>
   <!-- Asistente virtual (Gemini vía /api/chat). Inyecta su propio widget. -->
   <script src="js/chat.js" defer></script>
+  <!-- Modal de dos pasos, reveal al scroll, efecto magnético y guardas de configuración -->
+  <script src="js/modal.js" defer></script>
 </body>
 </html>
