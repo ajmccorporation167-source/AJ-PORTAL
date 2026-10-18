@@ -210,13 +210,67 @@
       </div>
     </section>
 
-    <!-- ============================= PRESENTACIÓN DE SERVICIOS (SLIDER) ============================= -->
-    <!-- Carrusel con CSS scroll-snap (sin librerías). js/slider.js solo añade flechas e indicadores. -->
-    <section class="showcase" id="presentacion">
-      <div class="showcase__head" data-reveal>
-        <div class="section__head">
-          <p class="eyebrow">Presentación de servicios</p>
-          <h2 class="section__title">Una firma, seis frentes de cumplimiento</h2>
+    <!-- ============================= PRESENTACIÓN DE SERVICIOS (SLIDE DECK) ============================= -->
+    <!-- Diapositivas a pantalla completa con CSS scroll-snap. js/slider.js solo añade flechas e indicadores
+         (necesarios con mouse: una rueda vertical no desliza en horizontal). -->
+    <section class="deck" id="presentacion" role="region" aria-roledescription="carrusel" aria-label="Presentación de servicios">
+      <div class="services-presentation" id="sliderTrack" tabindex="0">
+        <article class="slide" role="group" aria-roledescription="diapositiva" aria-label="1 de 4: Auditoría de Cumplimiento">
+          <div class="slide-image">
+            <!-- ADMIN AJCM: imagen temporal; reemplazar por la imagen final de este servicio -->
+            <img src="./ajcm-hero-background.jpg" alt="" decoding="async" />
+          </div>
+          <div class="slide-text">
+            <p class="eyebrow slide-text__meta">01 / 04 · Servicio</p>
+            <h3 class="slide-text__title">Auditoría de Cumplimiento</h3>
+            <p class="slide-text__desc">Identificamos brechas legales en expedientes, contratos y políticas antes de que se conviertan en una multa o una querella.</p>
+            <a href="https://calendar.app.google/4APJquxn3tzHQp4s5" target="_blank" rel="noopener noreferrer" class="btn btn--ghost slide-text__cta">Agendar consulta <span aria-hidden="true">→</span><span class="sr-only"> sobre Auditoría de Cumplimiento (se abre en una pestaña nueva)</span></a>
+          </div>
+        </article>
+        <article class="slide" role="group" aria-roledescription="diapositiva" aria-label="2 de 4: Manuales Corporativos">
+          <div class="slide-image">
+            <!-- ADMIN AJCM: imagen temporal; reemplazar por la imagen final de este servicio -->
+            <img src="./ajcm-hero-background.jpg" alt="" decoding="async" />
+          </div>
+          <div class="slide-text">
+            <p class="eyebrow slide-text__meta">02 / 04 · Servicio</p>
+            <h3 class="slide-text__title">Manuales Corporativos</h3>
+            <p class="slide-text__desc">Redactamos el manual del empleado y las políticas que tu empresa necesita para operar con claridad y respaldo legal.</p>
+            <a href="https://calendar.app.google/4APJquxn3tzHQp4s5" target="_blank" rel="noopener noreferrer" class="btn btn--ghost slide-text__cta">Agendar consulta <span aria-hidden="true">→</span><span class="sr-only"> sobre Manuales Corporativos (se abre en una pestaña nueva)</span></a>
+          </div>
+        </article>
+        <article class="slide" role="group" aria-roledescription="diapositiva" aria-label="3 de 4: Optimización de Nómina">
+          <div class="slide-image">
+            <!-- ADMIN AJCM: imagen temporal; reemplazar por la imagen final de este servicio -->
+            <img src="./ajcm-hero-background.jpg" alt="" decoding="async" />
+          </div>
+          <div class="slide-text">
+            <p class="eyebrow slide-text__meta">03 / 04 · Servicio</p>
+            <h3 class="slide-text__title">Optimización de Nómina</h3>
+            <p class="slide-text__desc">Revisamos clasificación de empleados, retenciones y procesos de nómina para que pagues correcto y a tiempo, siempre.</p>
+            <a href="https://calendar.app.google/4APJquxn3tzHQp4s5" target="_blank" rel="noopener noreferrer" class="btn btn--ghost slide-text__cta">Agendar consulta <span aria-hidden="true">→</span><span class="sr-only"> sobre Optimización de Nómina (se abre en una pestaña nueva)</span></a>
+          </div>
+        </article>
+        <article class="slide" role="group" aria-roledescription="diapositiva" aria-label="4 de 4: Relaciones Laborales">
+          <div class="slide-image">
+            <!-- ADMIN AJCM: imagen temporal; reemplazar por la imagen final de este servicio -->
+            <img src="./ajcm-hero-background.jpg" alt="" decoding="async" />
+          </div>
+          <div class="slide-text">
+            <p class="eyebrow slide-text__meta">04 / 04 · Servicio</p>
+            <h3 class="slide-text__title">Relaciones Laborales</h3>
+            <p class="slide-text__desc">Manejamos despidos, mesadas y disputas laborales bajo la Ley 80, con la documentación y el proceso correcto desde el primer día.</p>
+            <a href="https://calendar.app.google/4APJquxn3tzHQp4s5" target="_blank" rel="noopener noreferrer" class="btn btn--ghost slide-text__cta">Agendar consulta <span aria-hidden="true">→</span><span class="sr-only"> sobre Relaciones Laborales (se abre en una pestaña nueva)</span></a>
+          </div>
+        </article>
+      </div>
+
+      <div class="deck__controls">
+        <div class="slider__dots" role="group" aria-label="Elegir diapositiva">
+          <button type="button" class="slider__dot" data-slide-to="0" aria-label="Ir a la diapositiva 1: Auditoría de Cumplimiento"></button>
+          <button type="button" class="slider__dot" data-slide-to="1" aria-label="Ir a la diapositiva 2: Manuales Corporativos"></button>
+          <button type="button" class="slider__dot" data-slide-to="2" aria-label="Ir a la diapositiva 3: Optimización de Nómina"></button>
+          <button type="button" class="slider__dot" data-slide-to="3" aria-label="Ir a la diapositiva 4: Relaciones Laborales"></button>
         </div>
         <div class="slider__controls">
           <button type="button" class="slider__arrow" data-slider-prev aria-label="Diapositiva anterior">
@@ -225,55 +279,6 @@
           <button type="button" class="slider__arrow" data-slider-next aria-label="Diapositiva siguiente">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M9 6l6 6-6 6"/></svg>
           </button>
-        </div>
-      </div>
-
-      <div class="slider" role="region" aria-roledescription="carrusel" aria-label="Presentación de servicios">
-        <div class="slider__track" id="sliderTrack" tabindex="0">
-          <article class="slide" role="group" aria-roledescription="diapositiva" aria-label="1 de 6: Auditoría de Cumplimiento">
-            <p class="slide__meta"><span class="slide__index">01 / 06</span><span class="slide__kicker">Cumplimiento de RRHH</span></p>
-            <h3 class="slide__title">Auditoría de Cumplimiento</h3>
-            <p class="slide__text">Identificamos brechas legales en expedientes, contratos y políticas antes de que se conviertan en una multa o una querella.</p>
-            <a href="https://calendar.app.google/4APJquxn3tzHQp4s5" target="_blank" rel="noopener noreferrer" class="slide__link">Agendar consulta <span aria-hidden="true">→</span><span class="sr-only"> sobre Auditoría de Cumplimiento (se abre en una pestaña nueva)</span></a>
-          </article>
-          <article class="slide" role="group" aria-roledescription="diapositiva" aria-label="2 de 6: Manuales Corporativos">
-            <p class="slide__meta"><span class="slide__index">02 / 06</span><span class="slide__kicker">Políticas internas</span></p>
-            <h3 class="slide__title">Manuales Corporativos</h3>
-            <p class="slide__text">Redactamos el manual del empleado y las políticas que tu empresa necesita para operar con claridad y respaldo legal.</p>
-            <a href="https://calendar.app.google/4APJquxn3tzHQp4s5" target="_blank" rel="noopener noreferrer" class="slide__link">Agendar consulta <span aria-hidden="true">→</span><span class="sr-only"> sobre Manuales Corporativos (se abre en una pestaña nueva)</span></a>
-          </article>
-          <article class="slide" role="group" aria-roledescription="diapositiva" aria-label="3 de 6: Optimización de Nómina">
-            <p class="slide__meta"><span class="slide__index">03 / 06</span><span class="slide__kicker">Administración de nómina</span></p>
-            <h3 class="slide__title">Optimización de Nómina</h3>
-            <p class="slide__text">Revisamos clasificación de empleados, retenciones y procesos de nómina para que pagues correcto y a tiempo, siempre.</p>
-            <a href="https://calendar.app.google/4APJquxn3tzHQp4s5" target="_blank" rel="noopener noreferrer" class="slide__link">Agendar consulta <span aria-hidden="true">→</span><span class="sr-only"> sobre Optimización de Nómina (se abre en una pestaña nueva)</span></a>
-          </article>
-          <article class="slide" role="group" aria-roledescription="diapositiva" aria-label="4 de 6: Relaciones Laborales">
-            <p class="slide__meta"><span class="slide__index">04 / 06</span><span class="slide__kicker">Ley 80 · Obrero-patronal</span></p>
-            <h3 class="slide__title">Relaciones Laborales</h3>
-            <p class="slide__text">Manejamos despidos, mesadas y disputas laborales con la documentación y el proceso correcto desde el primer día.</p>
-            <a href="https://calendar.app.google/4APJquxn3tzHQp4s5" target="_blank" rel="noopener noreferrer" class="slide__link">Agendar consulta <span aria-hidden="true">→</span><span class="sr-only"> sobre Relaciones Laborales (se abre en una pestaña nueva)</span></a>
-          </article>
-          <article class="slide" role="group" aria-roledescription="diapositiva" aria-label="5 de 6: Reclutamiento">
-            <p class="slide__meta"><span class="slide__index">05 / 06</span><span class="slide__kicker">Selección de talento</span></p>
-            <h3 class="slide__title">Reclutamiento</h3>
-            <p class="slide__text">Buscamos y filtramos candidatos alineados a tu cultura y a los requisitos legales del puesto, no solo al currículo.</p>
-            <a href="https://calendar.app.google/4APJquxn3tzHQp4s5" target="_blank" rel="noopener noreferrer" class="slide__link">Agendar consulta <span aria-hidden="true">→</span><span class="sr-only"> sobre Reclutamiento (se abre en una pestaña nueva)</span></a>
-          </article>
-          <article class="slide" role="group" aria-roledescription="diapositiva" aria-label="6 de 6: Adiestramientos">
-            <p class="slide__meta"><span class="slide__index">06 / 06</span><span class="slide__kicker">Desarrollo organizacional</span></p>
-            <h3 class="slide__title">Adiestramientos</h3>
-            <p class="slide__text">Capacitamos a supervisores y equipos en liderazgo, prevención de acoso laboral y cumplimiento regulatorio.</p>
-            <a href="https://calendar.app.google/4APJquxn3tzHQp4s5" target="_blank" rel="noopener noreferrer" class="slide__link">Agendar consulta <span aria-hidden="true">→</span><span class="sr-only"> sobre Adiestramientos (se abre en una pestaña nueva)</span></a>
-          </article>
-        </div>
-        <div class="slider__dots" role="group" aria-label="Elegir diapositiva">
-            <button type="button" class="slider__dot" data-slide-to="0" aria-label="Ir a la diapositiva 1: Auditoría de Cumplimiento"></button>
-            <button type="button" class="slider__dot" data-slide-to="1" aria-label="Ir a la diapositiva 2: Manuales Corporativos"></button>
-            <button type="button" class="slider__dot" data-slide-to="2" aria-label="Ir a la diapositiva 3: Optimización de Nómina"></button>
-            <button type="button" class="slider__dot" data-slide-to="3" aria-label="Ir a la diapositiva 4: Relaciones Laborales"></button>
-            <button type="button" class="slider__dot" data-slide-to="4" aria-label="Ir a la diapositiva 5: Reclutamiento"></button>
-            <button type="button" class="slider__dot" data-slide-to="5" aria-label="Ir a la diapositiva 6: Adiestramientos"></button>
         </div>
       </div>
     </section>

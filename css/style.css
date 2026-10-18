@@ -652,107 +652,77 @@ main > section { padding: var(--section-space) var(--gutter); }
 }
 
 /* =========================================================================
-   PRESENTACIÓN DE SERVICIOS — carrusel horizontal con CSS scroll-snap
+   PRESENTACIÓN DE SERVICIOS — slide deck a pantalla completa (CSS scroll-snap)
    ========================================================================= */
-.showcase {
+main > section.deck {
+  padding: 0; /* las diapositivas van de borde a borde */
   border-top: 1px solid var(--color-hairline);
   border-bottom: 1px solid var(--color-hairline);
-  overflow: hidden; /* el track sangra hasta el borde de la pantalla */
 }
-.showcase__head {
-  max-width: var(--page-max-width);
-  margin: 0 auto clamp(48px, 5vw, 72px);
-  display: flex;
-  align-items: flex-end;
-  justify-content: space-between;
-  gap: var(--spacing-34);
-}
-.showcase__head .section__head { margin: 0; }
 
-.slider { max-width: var(--page-max-width); margin: 0 auto; }
-.slider__track {
+.services-presentation {
   position: relative; /* referencia de offsetLeft para js/slider.js */
   display: flex;
   overflow-x: auto;
   scroll-snap-type: x mandatory;
-  gap: 24px;
-  padding-bottom: 32px;
-  /* Sangrado: las diapositivas llegan al borde de la pantalla, pero la primera
-     arranca alineada con el contenido */
-  margin: 0 calc(var(--gutter) * -1);
-  padding-inline: var(--gutter);
-  scroll-padding-inline: var(--gutter);
-  scrollbar-width: none;
-  -webkit-overflow-scrolling: touch;
+  width: 100%; /* 100vw incluiría la barra de scroll vertical y desbordaría la página */
+  min-height: 80vh;
+  scrollbar-width: none; /* Ocultar barra de scroll */
   overscroll-behavior-x: contain;
 }
-.slider__track::-webkit-scrollbar { display: none; }
-.slider__track:focus-visible { outline: 1px solid rgba(255, 255, 255, 0.4); outline-offset: 8px; }
-@media (prefers-reduced-motion: no-preference) { .slider__track { scroll-behavior: smooth; } }
+.services-presentation::-webkit-scrollbar { display: none; }
+.services-presentation:focus-visible { outline: 1px solid rgba(255, 255, 255, 0.4); outline-offset: -8px; }
+@media (prefers-reduced-motion: no-preference) { .services-presentation { scroll-behavior: smooth; } }
 
-/* Diapositiva: tarjeta de presentación de alta costura */
 .slide {
-  position: relative; /* contiene los .sr-only absolutos para que no ensanchen la página */
-  scroll-snap-align: center;
-  flex: 0 0 40%;
-  min-height: clamp(380px, 32vw, 460px);
+  position: relative; /* contiene los .sr-only absolutos */
+  scroll-snap-align: start;
+  flex: 0 0 100%; /* Cada slide ocupa todo el ancho visible */
   display: flex;
-  flex-direction: column;
-  padding: clamp(32px, 3.4vw, 52px);
-  background: linear-gradient(160deg, rgba(255, 255, 255, 0.035), rgba(255, 255, 255, 0.01));
-  border: 1px solid var(--color-hairline);
-  border-radius: var(--radius-cards);
-  transition: border-color var(--transition-medium), background var(--transition-medium);
-}
-.slide:hover { border-color: var(--color-hairline-strong); }
-.slide__index { white-space: nowrap; }
-.slide__kicker { text-align: right; }
-.slide__meta {
-  display: flex;
-  justify-content: space-between;
-  gap: var(--spacing-16);
-  font-size: 11px;
-  font-weight: 500;
-  letter-spacing: 3px;
-  text-transform: uppercase;
-  color: var(--color-ash-navy);
-  padding-bottom: var(--spacing-22);
-  border-bottom: 1px solid var(--color-hairline);
-}
-.slide__title {
-  font-family: var(--font-display); /* The Seasons (cae en Alice si no está disponible) */
-  font-weight: 400;
-  font-size: clamp(34px, 3.4vw, 52px);
-  line-height: 1.05;
-  letter-spacing: -0.01em;
-  margin-top: clamp(40px, 5vw, 72px);
-}
-.slide__text {
-  font-family: var(--font-body);
-  color: var(--color-body-copy);
-  font-size: 16px;
-  line-height: 1.75;
-  margin-top: var(--spacing-22);
-  max-width: 40ch;
-}
-.slide__link {
-  margin-top: auto;
-  padding-top: var(--spacing-34);
-  align-self: flex-start;
-  display: inline-flex;
+  flex-direction: row; /* Slides 1 y 3: imagen izquierda, texto derecha */
   align-items: center;
-  gap: 10px;
-  font-size: 12px;
-  font-weight: 500;
-  letter-spacing: 2.5px;
-  text-transform: uppercase;
-  color: #fff;
-  transition: gap var(--transition-fast), color var(--transition-fast);
+  padding: 40px 8%;
+  gap: 50px;
 }
-.slide__link:hover, .slide__link:focus-visible { gap: 16px; }
+.slide:nth-child(even) { flex-direction: row-reverse; } /* Slides 2 y 4: texto izquierda, imagen derecha */
 
-/* Controles: flechas en píldora + indicadores */
-.slider__controls { display: flex; gap: 12px; flex-shrink: 0; }
+.slide-image { flex: 1 1 55%; min-width: 0; }
+.slide-image img {
+  width: 100%;
+  height: min(64vh, 600px);
+  object-fit: cover;
+  border-radius: 4px;
+}
+.slide-text { flex: 1 1 45%; min-width: 0; max-width: 520px; }
+.slide-text__meta { margin-bottom: var(--spacing-22); }
+.slide-text__title {
+  font-family: var(--font-display); /* 'The Seasons', serif (cae en Alice si no está disponible) */
+  font-weight: 400;
+  font-size: clamp(36px, 3.4vw, 48px);
+  line-height: 1.08;
+  letter-spacing: -0.01em;
+}
+.slide-text__desc {
+  font-family: var(--font-body); /* 'Montserrat', sans-serif */
+  font-size: 17px;
+  line-height: 1.6;
+  color: var(--color-body-copy);
+  margin-top: var(--spacing-22);
+}
+.slide-text__cta { margin-top: var(--spacing-34); }
+
+/* Controles alineados a la izquierda (flechas + indicadores): la esquina
+   inferior derecha la ocupa el botón flotante del asistente */
+.deck__controls {
+  max-width: var(--page-max-width);
+  margin: 0 auto;
+  padding: var(--spacing-22) var(--gutter) var(--spacing-34);
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: var(--spacing-34);
+}
+.slider__controls { display: flex; gap: 12px; flex-shrink: 0; order: -1; }
 .slider__arrow {
   width: 52px; height: 52px;
   display: grid; place-items: center;
@@ -767,9 +737,9 @@ main > section { padding: var(--section-space) var(--gutter); }
 .slider__arrow:hover:not(:disabled), .slider__arrow:focus-visible { background: #fff; border-color: #fff; color: var(--color-deep-navy); }
 .slider__arrow:disabled { opacity: 0.3; cursor: default; }
 
-.slider__dots { display: flex; gap: 6px; margin-top: var(--spacing-11); }
+.slider__dots { display: flex; gap: 6px; }
 .slider__dot {
-  width: 28px; height: 24px; /* área táctil amplia; la línea visible es el ::before */
+  width: 36px; height: 24px; /* área táctil amplia; la línea visible es el ::before */
   padding: 0;
   background: transparent;
   border: 0;
@@ -786,12 +756,13 @@ main > section { padding: var(--section-space) var(--gutter); }
 }
 .slider__dot[aria-current="true"]::before { background: var(--color-featured-gold); height: 2px; }
 
-@media (max-width: 1024px) { .slide { flex-basis: 60%; } }
+/* En móviles, las columnas se apilan (imagen arriba, texto abajo) */
 @media (max-width: 768px) {
-  .slide { flex: 0 0 85%; min-height: 360px; padding: 32px 26px; }
-  .slide__meta { letter-spacing: 2px; }
-  .slider__controls { display: none; } /* en móvil se desliza con el dedo; los dots guían */
-  .showcase__head { margin-bottom: var(--spacing-34); }
+  .slide,
+  .slide:nth-child(even) { flex-direction: column; padding: 40px 24px; justify-content: center; gap: 28px; }
+  .slide-image, .slide-text { flex: none; width: 100%; }
+  .slide-image img { height: 38vh; min-height: 220px; }
+  .slider__controls { display: none; } /* en móvil se desliza con el dedo; los indicadores guían */
 }
 
 /* =========================================================================

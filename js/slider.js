@@ -23,6 +23,7 @@
     const slide = slides[i];
     const left = slide.offsetLeft - (track.clientWidth - slide.clientWidth) / 2;
     track.scrollTo({ left, behavior: prefersReducedMotion ? 'auto' : 'smooth' });
+    setActive(i); // estado inmediato al hacer clic; los eventos de scroll lo confirman después
   };
 
   const setActive = (index) => {
@@ -31,9 +32,9 @@
       if (i === index) dot.setAttribute('aria-current', 'true');
       else dot.removeAttribute('aria-current');
     });
-    const maxScroll = track.scrollWidth - track.clientWidth;
-    if (prevBtn) prevBtn.disabled = track.scrollLeft <= 4;
-    if (nextBtn) nextBtn.disabled = track.scrollLeft >= maxScroll - 4;
+    // Diapositivas a ancho completo: los extremos se determinan por índice
+    if (prevBtn) prevBtn.disabled = index <= 0;
+    if (nextBtn) nextBtn.disabled = index >= slides.length - 1;
   };
 
   // La diapositiva activa es la más cercana al centro visible del track.
