@@ -17,8 +17,8 @@
 
 // --- Configuración ---------------------------------------------------------
 // Modelo: se puede cambiar sin tocar código con la variable GEMINI_MODEL en Vercel.
-// (gemini-2.0-flash fue retirado por Google; si un modelo deja de existir, la API responde 404.)
-const GEMINI_MODEL = process.env.GEMINI_MODEL || 'gemini-2.5-flash';
+// (Google retira modelos viejos; si un modelo deja de existir, la API responde 404 NOT_FOUND.)
+const GEMINI_MODEL = process.env.GEMINI_MODEL || 'gemini-3.8-flash';
 // La key va como query param (?key=), NO en headers. El header x-goog-api-key
 // solo funciona con OAuth / service accounts, no con API keys públicas de AI Studio.
 const GEMINI_BASE = `https://generativelanguage.googleapis.com/v1beta/models/${GEMINI_MODEL}:generateContent`;
