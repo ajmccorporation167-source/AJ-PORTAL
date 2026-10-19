@@ -341,20 +341,20 @@
             </div>
             <div class="field">
               <label for="fieldName">Nombre completo <span aria-hidden="true">*</span></label>
-              <input type="text" id="fieldName" name="fullName" autocomplete="name" required aria-required="true" aria-describedby="error-fieldName" />
+              <input type="text" id="fieldName" name="fullName" maxlength="120" autocomplete="name" required aria-required="true" aria-describedby="error-fieldName" />
               <span class="field-error" id="error-fieldName"></span>
             </div>
 
             <div class="field">
               <label for="fieldCompany">Empresa <span aria-hidden="true">*</span></label>
-              <input type="text" id="fieldCompany" name="company" autocomplete="organization" required aria-required="true" aria-describedby="error-fieldCompany" />
+              <input type="text" id="fieldCompany" name="company" maxlength="160" autocomplete="organization" required aria-required="true" aria-describedby="error-fieldCompany" />
               <span class="field-error" id="error-fieldCompany"></span>
             </div>
 
             <div class="field-row">
               <div class="field">
                 <label for="fieldEmail">Correo electrónico <span aria-hidden="true">*</span></label>
-                <input type="email" id="fieldEmail" name="email" autocomplete="email" required aria-required="true" aria-describedby="error-fieldEmail" />
+                <input type="email" id="fieldEmail" name="email" maxlength="254" autocomplete="email" required aria-required="true" aria-describedby="error-fieldEmail" />
                 <span class="field-error" id="error-fieldEmail"></span>
               </div>
               <div class="field">
@@ -459,17 +459,17 @@
       <form class="modal__step" id="modalStep2" novalidate hidden>
         <div class="field">
           <label for="mName">Nombre completo</label>
-          <input type="text" id="mName" autocomplete="name" required />
+          <input type="text" id="mName" maxlength="120" autocomplete="name" required />
           <span class="field-error" id="mErrName"></span>
         </div>
         <div class="field">
           <label for="mCompany">Empresa</label>
-          <input type="text" id="mCompany" autocomplete="organization" required />
+          <input type="text" id="mCompany" maxlength="160" autocomplete="organization" required />
           <span class="field-error" id="mErrCompany"></span>
         </div>
         <div class="field">
           <label for="mEmail">Correo electrónico</label>
-          <input type="email" id="mEmail" autocomplete="email" required />
+          <input type="email" id="mEmail" maxlength="254" autocomplete="email" required />
           <span class="field-error" id="mErrEmail"></span>
         </div>
         <div class="modal__actions">

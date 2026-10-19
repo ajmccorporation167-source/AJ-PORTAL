@@ -6,6 +6,10 @@
 
    Columnas de la tabla: nombre, empresa, correo, servicio, mensaje, creado_en
    RLS: política "Permitir inserciones publicas" ya activa (INSERT con anon key).
+   Blindaje en la base de datos (migración leads_hardening):
+   · el rol público solo tiene INSERT (no puede leer, editar, borrar ni vaciar);
+   · reglas de largo, formato de correo y servicio válido;
+   · máximo 3 envíos por correo por hora y 20 en total cada 10 minutos.
    ========================================================================= */
 (() => {
   'use strict';
@@ -43,6 +47,10 @@
       if (!response.ok) {
         const detail = await response.text();
         console.error('Supabase insert error:', response.status, detail);
+        // Límite de frecuencia de la base de datos (trigger leads_before_insert)
+        if (detail.includes('rate_limit')) {
+          return { ok: false, error: 'Ya recibimos tus mensajes recientes. Si necesitas algo urgente, escríbenos por WhatsApp.' };
+        }
         return { ok: false, error: 'No se pudo enviar tu información. Intenta de nuevo.' };
       }
 
