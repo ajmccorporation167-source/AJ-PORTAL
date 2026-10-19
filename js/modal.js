@@ -1,5 +1,5 @@
 /* =========================================================================
-   modal.js — Modal de dos pasos, reveal al scroll, efecto magnético
+   modal.js — Modal de dos pasos y efecto magnético
    y guarda de configuración de WhatsApp.
    Aditivo: no modifica main.js ni supabase.js. Al terminar el paso 2 rellena
    #leadForm y lo envía con requestSubmit(), así el flujo real a Supabase
@@ -242,23 +242,7 @@
     });
   }
 
-  /* ---------------------------------------------------------------------
-     3. Reveal al hacer scroll (IntersectionObserver)
-     --------------------------------------------------------------------- */
-  var revealEls = document.querySelectorAll('[data-reveal]');
-  if ('IntersectionObserver' in window && !reduceMotion) {
-    var io = new IntersectionObserver(function (entries, obs) {
-      entries.forEach(function (entry) {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('is-visible');
-          obs.unobserve(entry.target);
-        }
-      });
-    }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
-    revealEls.forEach(function (el) { io.observe(el); });
-  } else {
-    revealEls.forEach(function (el) { el.classList.add('is-visible'); });
-  }
+  /* 3. El reveal al hacer scroll vive en js/motion-reveal.js (Motion) */
 
   /* ---------------------------------------------------------------------
      4. Efecto magnético en botones (solo puntero fino y sin reduced-motion)

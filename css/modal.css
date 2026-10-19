@@ -1,5 +1,5 @@
 /* =========================================================================
-   modal.css — Modal de dos pasos, reveal al scroll, efecto magnético
+   modal.css — Modal de dos pasos y efecto magnético
    Aditivo: no depende de style.css. Paleta: navy #0B132B / oro #D4AF37.
    ========================================================================= */
 
@@ -31,17 +31,6 @@
   cursor: pointer;
 }
 
-/* ---------- Reveal al hacer scroll (solo si JS está activo) ---------- */
-html.js [data-reveal] {
-  opacity: 0;
-  transform: translateY(40px);
-  transition: opacity 1s cubic-bezier(0.25, 0.46, 0.45, 0.94),
-              transform 1s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-}
-html.js [data-reveal].is-visible {
-  opacity: 1;
-  transform: none;
-}
 
 /* ---------- Efecto magnético (el desplazamiento lo aplica js/modal.js) ---------- */
 [data-magnetic] {
