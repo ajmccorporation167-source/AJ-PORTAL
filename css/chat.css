@@ -139,14 +139,15 @@
   color: var(--color-text-body);
   border-bottom-left-radius: 4px;
 }
-/* Enlaces dentro de las respuestas del asistente (calendario, WhatsApp, correo) */
+/* Enlaces dentro de las respuestas del asistente (calendario, WhatsApp, correo):
+   azul claro, legible sobre el fondo navy del chat (contraste AA) */
 .chat-msg__link {
-  color: var(--color-gold-soft);
+  color: #60A5FA;
   text-decoration: underline;
   text-underline-offset: 2px;
   word-break: break-all; /* las URLs largas no desbordan la burbuja */
 }
-.chat-msg__link:hover, .chat-msg__link:focus-visible { color: #fff; }
+.chat-msg__link:hover, .chat-msg__link:focus-visible { color: #93C5FD; }
 
 .chat-msg--user {
   align-self: flex-end;
