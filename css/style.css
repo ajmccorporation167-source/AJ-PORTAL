@@ -115,6 +115,18 @@ html {
   scrollbar-color: rgba(255, 255, 255, 0.1) #050914;
 }
 
+/* Lenis (js/smooth-scroll.js): estilos requeridos por la librería (lenis.css v1.3.25).
+   Con Lenis activo, scroll-behavior nativo debe ser "auto" o ambos compiten. */
+html.lenis, html.lenis body { height: auto; scroll-behavior: auto; }
+.lenis:not(.lenis-autoToggle).lenis-stopped { overflow: clip; }
+.lenis [data-lenis-prevent],
+.lenis [data-lenis-prevent-wheel],
+.lenis [data-lenis-prevent-touch],
+.lenis [data-lenis-prevent-vertical],
+.lenis [data-lenis-prevent-horizontal] { overscroll-behavior: contain; }
+.lenis.lenis-smooth iframe { pointer-events: none; }
+.lenis.lenis-autoToggle { transition-property: overflow; transition-duration: 1ms; transition-behavior: allow-discrete; }
+
 /* Scrollbar de lujo (Chrome, Edge, Safari) */
 ::-webkit-scrollbar { width: 8px; }
 ::-webkit-scrollbar-track { background: #050914; } /* navy aún más oscuro que el fondo */

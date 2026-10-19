@@ -230,7 +230,11 @@
 
       closeModal();
       var section = document.getElementById('contacto');
-      if (section) section.scrollIntoView({ behavior: reduceMotion ? 'auto' : 'smooth', block: 'start' });
+      if (section) {
+        // Con Lenis activo (js/smooth-scroll.js) desplazamos con su misma inercia
+        if (window.lenis) window.lenis.scrollTo(section);
+        else section.scrollIntoView({ behavior: reduceMotion ? 'auto' : 'smooth', block: 'start' });
+      }
 
       // requestSubmit dispara el evento "submit" que escucha supabase.js
       if (typeof form.requestSubmit === 'function') form.requestSubmit();

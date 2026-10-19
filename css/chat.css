@@ -118,6 +118,7 @@
   gap: 12px;
   scrollbar-width: thin;
   scrollbar-color: var(--color-gold) transparent;
+  overscroll-behavior: contain; /* al llegar al tope o al final, la rueda no "arrastra" la página de fondo */
 }
 .chat-messages::-webkit-scrollbar { width: 8px; }
 .chat-messages::-webkit-scrollbar-thumb { background: var(--glass-border-hover); border-radius: 100px; }
