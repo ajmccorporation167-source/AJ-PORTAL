@@ -1069,3 +1069,12 @@ main > section.deck {
 @media (prefers-reduced-motion: reduce) {
   [data-tilt] { transform: none !important; }
 }
+
+/* =========================================================================
+   ACENTOS DORADOS — textos clave pintados de oro sin tocar el HTML
+   ========================================================================= */
+.main-acronym,
+.slide-text__title,
+.contact-panel--form .contact-panel__title,
+.whatsapp-btn__label,
+.email-card__address { color: var(--color-featured-gold); }
