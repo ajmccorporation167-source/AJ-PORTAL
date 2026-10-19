@@ -28,23 +28,8 @@
   <link rel="canonical" href="https://ajcm-rrhh-consulting.vercel.app/" />
 
   <!-- Marca que JS está activo: permite que las animaciones de scroll no oculten contenido si JS falla -->
-  <script>
-    document.documentElement.classList.add('js');
-    // Failsafe: si js/motion-reveal.js no llega a ejecutarse, nada se queda oculto
-    addEventListener('load', function () { if (!window.__revealReady) document.documentElement.classList.add('reveal-failsafe'); });
-  </script>
-
-  <!-- La página SIEMPRE abre en el hero (AJCM):
-       · scrollRestoration manual: al recargar o reabrir la pestaña, el navegador
-         no regresa a la última posición (p. ej. el formulario).
-       · Se quita el #seccion de la dirección (p. ej. #contacto en un enlace compartido)
-         antes de que el navegador salte a esa sección.
-       Los enlaces internos del menú siguen funcionando al tocarlos. -->
-  <script>
-    if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
-    if (location.hash) history.replaceState(null, '', location.pathname + location.search);
-    window.addEventListener('load', function () { if (window.scrollY > 0) window.scrollTo(0, 0); });
-  </script>
+  <!-- Arranque: clase .js, failsafe del reveal y apertura siempre en el hero (sin scripts en línea por la CSP) -->
+  <script src="js/boot.js"></script>
 
   <!-- Datos estructurados (SEO local). Sin teléfono ni dominio hasta que estén definidos. -->
   <script type="application/ld+json">
@@ -348,6 +333,12 @@
           </p>
 
           <form id="leadForm" novalidate>
+            <!-- Trampa anti-spam (honeypot): invisible para personas, los bots la rellenan.
+                 Si llega con texto, js/supabase.js finge éxito y no guarda nada. -->
+            <div class="hp-field" aria-hidden="true">
+              <label for="fieldReference">No completar este campo</label>
+              <input type="text" id="fieldReference" name="ajcm_reference" tabindex="-1" autocomplete="off" />
+            </div>
             <div class="field">
               <label for="fieldName">Nombre completo <span aria-hidden="true">*</span></label>
               <input type="text" id="fieldName" name="fullName" autocomplete="name" required aria-required="true" aria-describedby="error-fieldName" />

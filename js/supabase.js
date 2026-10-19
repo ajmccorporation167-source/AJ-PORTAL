@@ -17,6 +17,7 @@
   const SUPABASE_URL  = 'https://wxxazkkxwvprsginjtjb.supabase.co';
   const SUPABASE_ANON = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Ind4eGF6a2t4d3ZwcnNnaW5qdGpiIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTA3NzYwNzIsImV4cCI6MjEwNjM1MjA3Mn0.yRoDaQYTBv4jgTmMyPfpCSekalqlUGnpP7IhwfKTdZo';
   const TABLE_NAME    = 'leads';
+  const SUCCESS_MESSAGE = 'Mensaje enviado. Nuestro equipo te contactará pronto. Gracias por confiar en AJCM.';
 
   // -----------------------------------------------------------------------
   // UTILIDADES
@@ -63,6 +64,17 @@
   leadForm.addEventListener('submit', async function handleSupabaseSubmit(e) {
     e.preventDefault();
 
+    // Honeypot: una persona nunca ve este campo. Si trae texto es un bot:
+    // se le muestra el mensaje de éxito para que no reintente, y no se guarda nada.
+    if ((document.getElementById('fieldReference')?.value || '') !== '') {
+      if (formStatus) {
+        formStatus.style.color = 'var(--color-gold-soft)';
+        formStatus.textContent = SUCCESS_MESSAGE;
+      }
+      leadForm.reset();
+      return;
+    }
+
     // Re-validar aquí por seguridad (main.js ya validó y bloqueó si hubo error)
     const nombre   = (document.getElementById('fieldName')?.value || '').trim();
     const empresa  = (document.getElementById('fieldCompany')?.value || '').trim();
@@ -102,8 +114,7 @@
     if (result.ok) {
       if (formStatus) {
         formStatus.style.color = 'var(--color-gold-soft)';
-        formStatus.textContent =
-          'Mensaje enviado. Nuestro equipo te contactará pronto. Gracias por confiar en AJCM.';
+        formStatus.textContent = SUCCESS_MESSAGE;
       }
       leadForm.reset();
     } else {
