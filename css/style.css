@@ -658,6 +658,18 @@ main > section.deck {
   padding: 0; /* las diapositivas van de borde a borde */
   border-top: 1px solid var(--color-hairline);
   border-bottom: 1px solid var(--color-hairline);
+  /* Textura de ondas bajo un velo navy muy pesado (92–95%): las líneas apenas
+     se asoman como relieve. Va en la sección, no en .services-presentation,
+     para no tocar el contenedor que hace el scroll-snap. Las diapositivas son
+     transparentes a propósito: un blur sobre slides de ancho completo
+     desenfocaría toda la textura. */
+  background-color: var(--color-deep-navy);
+  background-image:
+    linear-gradient(to bottom, rgba(11, 19, 43, 0.92), rgba(11, 19, 43, 0.95)),
+    url('../bg-abstract-waves.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
 }
 
 .services-presentation {
