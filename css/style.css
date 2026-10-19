@@ -24,7 +24,7 @@
 
   /* =========================================
      2. TYPOGRAPHY — sistema de tres voces
-     · The Seasons → titulares masivos (h1, h2, hero, cifras). Fuente
+     · The Seasons → titulares (h1, h2, firma del hero, cifras). Fuente
        premium con licencia: se usa si está instalada o se sube con
        @font-face; mientras tanto cae en Alice, que sí se carga.
      · Alice → subtítulos, h3 y acentos clásicos.
@@ -52,10 +52,6 @@
   --tracking-display: -0.015em;
   --weight-display: 400;
 
-  --text-hero-massive: clamp(3.25rem, 10vw, 187px);
-  --leading-hero-massive: 0.92;
-  --tracking-hero-massive: -0.03em;
-  --font-weight-hero: 400;
 
   /* =========================================
      3. SPACING & RHYTHM
@@ -181,7 +177,7 @@ textarea:focus-visible,
 
 /* =========================================================================
    BOTONES — píldora (1000px) para todos los CTAs
-   El oro (.btn--gold) solo se ve en el CTA principal del hero y en el modal;
+   El oro (.btn--gold) solo se ve en el modal de servicios;
    el resto de contextos lo reinterpreta en blanco/contorno más abajo.
    ========================================================================= */
 .btn {
@@ -329,16 +325,17 @@ textarea:focus-visible,
 }
 
 /* =========================================================================
-   HERO — portada editorial, alineada a la izquierda y anclada abajo
+   HERO — portada minimalista: solo la firma AJCM, centrada sobre la imagen
    ========================================================================= */
 .hero {
   position: relative;
-  min-height: 100vh;
-  min-height: 100svh;
+  height: 100vh;
+  height: 100svh; /* en móvil descuenta las barras del navegador */
+  min-height: 480px;
   display: flex;
-  flex-direction: column;
-  justify-content: flex-end;
-  padding: 168px var(--gutter) clamp(72px, 9vw, 120px);
+  align-items: center;
+  justify-content: center;
+  padding: 0 var(--gutter);
   overflow: hidden;
   isolation: isolate;
   /* Fotografía arquitectónica bajo un velo navy: 65% arriba → 95% abajo para
@@ -374,116 +371,19 @@ textarea:focus-visible,
    siguen en el DOM porque js/main.js las referencia, pero no se pintan. */
 .hero__glow, .hero__grid { display: none; }
 
-.hero__content {
-  position: relative;
-  z-index: 1;
-  width: 100%;
-  max-width: var(--page-max-width);
-  margin: 0 auto;
-  text-align: left;
-}
-.hero__content > .eyebrow { margin-bottom: var(--spacing-34); }
-
-.hero__title {
-  font-weight: var(--font-weight-hero);
+/* La firma: The Seasons fina y espaciada, como portada de revista */
+.hero__brand {
   margin: 0;
-}
-/* Frase principal: metal fundido. Tamaño brutal, interlineado ajustadísimo
-   y tracking negativo para que las líneas formen un solo bloque. */
-.hero__title-main {
-  display: block;
-  max-width: 11ch;
-  font-size: var(--text-hero-massive);
-  line-height: var(--leading-hero-massive);
-  letter-spacing: var(--tracking-hero-massive);
-}
-/* "Deck" editorial: segunda voz (Alice), desplazada hacia la derecha para
-   romper la simetría del bloque principal. */
-.hero__title-deck {
-  display: block;
-  max-width: 17ch;
-  margin: clamp(28px, 3.5vw, 48px) 0 0 clamp(0px, 33%, 520px);
-  font-family: var(--font-accent);
-  font-size: clamp(1.75rem, 3.2vw, 3.2rem);
+  font-family: var(--font-display); /* 'The Seasons', serif (cae en Alice si no está disponible) */
+  font-size: clamp(4rem, 8vw, 8rem);
   font-weight: 400;
-  line-height: 1.15;
-  letter-spacing: -0.005em;
-  color: rgba(255, 255, 255, 0.82);
-}
-/* Énfasis por luminosidad (blanco pleno sobre blanco al 82%), no cromático:
-   el único oro de la portada es el CTA principal. */
-.hero .text-gold { color: #fff; }
-
-.hero__footer {
-  display: grid;
-  grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
-  gap: var(--spacing-59);
-  align-items: end;
-  margin-top: clamp(64px, 8vw, 120px);
-}
-.hero__subtitle {
-  max-width: 46ch;
-  color: var(--color-body-copy);
-  font-size: var(--text-body);
-  line-height: var(--leading-body);
-}
-.hero__actions { display: flex; flex-wrap: wrap; gap: var(--spacing-16); justify-content: flex-end; }
-
-/* Índice de cumplimiento: metadatos, no botones — sin píldoras. */
-.hero__trust {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0;
-  margin-top: clamp(48px, 6vw, 80px);
-  border-top: 1px solid var(--color-hairline);
-  padding-top: var(--spacing-22);
-}
-.hero__trust li {
-  font-size: 11px;
-  font-weight: 400;
-  letter-spacing: 3px;
-  text-transform: uppercase;
-  color: var(--color-ash-navy);
-  padding-right: var(--spacing-22);
-  margin-right: var(--spacing-22);
-  border-right: 1px solid var(--color-hairline);
-  line-height: 2.2;
-}
-.hero__trust li:last-child { border-right: 0; margin-right: 0; }
-
-.hero__scroll-cue {
-  position: absolute;
-  bottom: clamp(72px, 9vw, 120px);
-  right: var(--gutter);
-  width: 1px; height: 64px;
-  background: var(--color-hairline-strong);
-  overflow: hidden;
-}
-.hero__scroll-cue span {
-  position: absolute;
-  top: -40%;
-  left: 0;
-  width: 1px; height: 40%;
-  background: #fff;
-  animation: scrollCue 2.4s cubic-bezier(0.65, 0, 0.35, 1) infinite;
-}
-@keyframes scrollCue { 0% { top: -40%; } 100% { top: 100%; } }
-@media (prefers-reduced-motion: reduce) { .hero__scroll-cue span { animation: none; top: 0; } }
-
-@media (max-width: 960px) {
-  .hero__footer { grid-template-columns: 1fr; gap: var(--spacing-34); }
-  .hero__actions { justify-content: flex-start; }
-  .hero__title-deck { margin-left: 0; }
-}
-/* La señal de scroll vive en el borde derecho, por encima del índice de cumplimiento */
-.hero__scroll-cue { bottom: auto; top: 50%; }
-@media (max-width: 960px) { .hero__scroll-cue { display: none; } }
-@media (max-width: 420px) {
-  .hero__title-main { font-size: 3.25rem; letter-spacing: -0.045em; overflow-wrap: anywhere; hyphens: auto; }
-  .hero__actions .btn { padding: 16px 24px; font-size: 15px; }
-}
-@media (max-width: 374px) {
-  .hero__actions .btn { padding: 14px 18px; font-size: 14px; white-space: nowrap; }
+  line-height: 1;
+  letter-spacing: 0.2em;
+  /* El tracking deja un espacio extra tras la última letra: lo compensamos
+     para que AJCM quede en el centro óptico exacto */
+  margin-right: -0.2em;
+  color: rgba(255, 255, 255, 0.9);
+  text-align: center;
 }
 
 /* =========================================================================
@@ -1029,20 +929,11 @@ main > section.deck {
     --gutter: 24px;
     --section-space: 72px;
   }
-  .hero { padding-top: 120px; padding-bottom: 56px; min-height: auto; }
-  .hero__footer,
   .services__layout,
   .contact__grid,
   .section__head--split { display: flex; flex-direction: column; align-items: stretch; width: 100%; }
-  .hero__title-deck,
   .section__head--split .section__intro { margin-left: 0; margin-top: var(--spacing-34); justify-self: auto; }
-  .hero__title-deck { margin-top: var(--spacing-22); max-width: none; }
-  .hero__footer { margin-top: var(--spacing-59); gap: var(--spacing-34); }
-  /* Deja libre la franja derecha donde flota el botón del asistente (56px + 16px) */
-  .hero__actions { padding-right: 64px; }
-  .hero__subtitle, .section__intro { max-width: none; font-size: 17px; }
-  .hero__trust { gap: 8px 20px; }
-  .hero__trust li { border-right: 0; margin-right: 0; padding-right: 0; }
+  .section__intro { max-width: none; font-size: 17px; }
   .section__head { margin-bottom: var(--spacing-59); }
   .services__aside { gap: var(--spacing-59); }
   .service-card { padding: 28px 24px; }
