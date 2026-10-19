@@ -3,7 +3,7 @@
    -------------------------------------------------------------------------
    Sin dependencias externas. Inyecta el widget en el DOM, maneja la
    conversación y llama a la función serverless /api/chat (que esconde la
-   API key de Gemini en el servidor). Respeta prefers-reduced-motion.
+   API key de Groq en el servidor). Respeta prefers-reduced-motion.
    ========================================================================= */
 (() => {
   'use strict';
@@ -252,11 +252,11 @@
         console.groupCollapsed(`[AJCM chat] Error ${res.status} en ${API_URL}`);
         console.error('Respuesta completa:', data);
         if (res.status === 502) {
-          console.error('502: Gemini rechazó la petición. La causa exacta está en Vercel → Logs ("Error de Gemini").');
+          console.error('502: Groq rechazó la petición (código en "upstreamStatus": 429 = límite, 401 = key inválida, 404 = modelo retirado). Detalle en Vercel → Logs ("Error de Groq").');
         } else if (res.status === 404) {
           console.error('404: Vercel no encontró la función /api/chat (¿api/chat.js no se desplegó?).');
-        } else if (res.status === 500 && /GEMINI_API_KEY/.test(data.error || '')) {
-          console.error('Falta GEMINI_API_KEY en el entorno de Vercel (o no se hizo redeploy después de añadirla).');
+        } else if (res.status === 500 && /GROQ_API_KEY/.test(data.error || '')) {
+          console.error('Falta GROQ_API_KEY en el entorno de Vercel (o no se hizo redeploy después de añadirla).');
         }
         console.groupEnd();
 

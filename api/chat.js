@@ -1,5 +1,5 @@
 /* =========================================================================
-   AJCM | RRHH CONSULTING — FUNCIÓN SERVERLESS DEL ASISTENTE (Gemini)
+   AJCM | RRHH CONSULTING — FUNCIÓN SERVERLESS DEL ASISTENTE (Groq)
    -------------------------------------------------------------------------
    Esta función corre EN EL SERVIDOR de Vercel, nunca en el navegador.
    Por eso aquí es seguro leer la API key: el visitante jamás la ve.
@@ -9,34 +9,32 @@
    Body esperado (JSON): { "messages": [ { "role": "user"|"assistant", "content": "..." }, ... ],
                            "stream": true|false (opcional) }
    Respuesta sin stream:  JSON { "reply": "texto del asistente" }
-   Respuesta con stream:  text/plain enviado por fragmentos a medida que Gemini
-                          genera (las primeras palabras llegan en menos de un segundo).
+   Respuesta con stream:  text/plain enviado por fragmentos a medida que el
+                          modelo genera (las primeras palabras llegan casi al instante).
    Los errores previos a la generación siempre se devuelven como JSON { "error" }.
 
-   Cero dependencias externas: usamos el `fetch` nativo de Node 18+ contra la
-   API REST de Gemini. No hace falta package.json ni `npm install`.
+   Proveedor: Groq (API compatible con OpenAI). Cero dependencias externas:
+   usamos el `fetch` nativo de Node 18+. No hace falta package.json ni `npm install`.
    ========================================================================= */
 
 'use strict';
 
 // --- Configuración ---------------------------------------------------------
-// Modelo: se puede cambiar sin tocar código con la variable GEMINI_MODEL en Vercel.
-// (Google retira modelos viejos; si un modelo deja de existir, la API responde 404 NOT_FOUND.)
-const GEMINI_MODEL = process.env.GEMINI_MODEL || 'gemini-3.8-flash';
-// La key va como query param (?key=), NO en headers. El header x-goog-api-key
-// solo funciona con OAuth / service accounts, no con API keys públicas de AI Studio.
-const GEMINI_BASE = `https://generativelanguage.googleapis.com/v1beta/models/${GEMINI_MODEL}:generateContent`;
-// Streaming: Gemini envía la respuesta por fragmentos como Server-Sent Events (alt=sse).
-const GEMINI_STREAM = `https://generativelanguage.googleapis.com/v1beta/models/${GEMINI_MODEL}:streamGenerateContent`;
+const GROQ_URL = 'https://api.groq.com/openai/v1/chat/completions';
 
-// Variantes para minimizar el "razonamiento interno" (thinking) del modelo, de la
-// más rápida a la más conservadora. null = sin thinkingConfig (comportamiento por defecto).
-const THINKING_VARIANTS = [
-  { thinkingLevel: 'minimal' }, // familia Gemini 3
-  { thinkingBudget: 0 },        // familia Gemini 2.5
-  null,
+// Modelos en orden de preferencia. Si Groq retira uno (responde 404 o
+// "model_decommissioned"), se prueba el siguiente automáticamente.
+// GROQ_MODEL en Vercel permite forzar otro modelo sin tocar código.
+//  · openai/gpt-oss-20b: reemplazo oficial de Llama 3 8B, el más rápido de Groq.
+//    Es un modelo de razonamiento: pedimos el mínimo ("low") y que no lo devuelva.
+//    El razonamiento cuenta dentro del tope de tokens, por eso su tope es mayor.
+//  · llama-3.1-8b-instant: respaldo sin razonamiento (Groq anunció su retiro).
+const MODEL_CHAIN = [
+  { model: 'openai/gpt-oss-20b', max_completion_tokens: 300, reasoning_effort: 'low', include_reasoning: false },
+  { model: 'llama-3.1-8b-instant', max_completion_tokens: 150 },
 ];
-let thinkingVariant = -1; // índice que funcionó; se conserva entre invocaciones "calientes"
+if (process.env.GROQ_MODEL) MODEL_CHAIN.unshift({ model: process.env.GROQ_MODEL, max_completion_tokens: 300 });
+let modelIndex = 0; // índice del modelo que funcionó; se conserva entre invocaciones "calientes"
 
 // Límites defensivos para controlar costo y abuso.
 const MAX_MESSAGES = 20;       // cuántos turnos aceptamos en una conversación
@@ -46,7 +44,7 @@ const MAX_CHARS_PER_MSG = 2000; // largo máximo por mensaje del usuario
 // Prohíbe alucinar, lo ancla a los servicios de AJCM y fuerza el disclaimer legal.
 const SYSTEM_PROMPT = `Eres el Asistente Ejecutivo de AJCM. Responde de forma muy natural, profesional y humana.
 REGLA ESTRICTA: Tus respuestas deben ser extremadamente concisas, de máximo 1 o 2 oraciones. Ve directo al
-grano. Eres veloz y eficiente. No uses listas.
+grano. Eres veloz y eficiente. No uses listas ni formato Markdown.
 
 CONTEXTO: AJCM RRHH Consulting es una firma boutique de consultoría en Recursos Humanos y gestión
 empresarial con base en San Juan y Bayamón, Puerto Rico, fundada por Alexis J. Mercado Colón
@@ -68,6 +66,9 @@ REGLAS QUE NO CAMBIAN:
 - NO brindas asesoramiento legal formal. Para decisiones concretas, recomienda agendar una consulta.
 - Cuando hables de leyes laborales (Ley 80, FLSA, despidos, nómina, etc.), añade en pocas palabras que es orientación general, no asesoría legal formal.`;
 
+const FALLBACK_REPLY =
+  'Lo siento, no pude generar una respuesta para eso. ¿Puedo ayudarte con alguno de nuestros servicios de RRHH, o prefieres agendar una consulta directa?';
+
 // --- Utilidad: respuesta JSON uniforme -------------------------------------
 function sendJson(res, status, payload) {
   res.statusCode = status;
@@ -75,19 +76,10 @@ function sendJson(res, status, payload) {
   res.end(JSON.stringify(payload));
 }
 
-// Extrae el texto visible de un fragmento/respuesta de Gemini, excluyendo las
-// partes de razonamiento interno (thought: true) si el modelo las devolviera.
-function extractText(data) {
-  const candidate = data && data.candidates && data.candidates[0];
-  const parts = (candidate && candidate.content && candidate.content.parts) || [];
-  return parts
-    .filter((p) => p && typeof p.text === 'string' && !p.thought)
-    .map((p) => p.text)
-    .join('');
+// ¿El error indica que el modelo ya no existe o no está disponible para la cuenta?
+function isModelUnavailable(status, detail) {
+  return status === 404 || /model_(decommissioned|not_found)|does not exist|decommissioned/i.test(detail);
 }
-
-const FALLBACK_REPLY =
-  'Lo siento, no pude generar una respuesta para eso. ¿Puedo ayudarte con alguno de nuestros servicios de RRHH, o prefieres agendar una consulta directa?';
 
 // --- Handler principal -----------------------------------------------------
 module.exports = async function handler(req, res) {
@@ -108,11 +100,11 @@ module.exports = async function handler(req, res) {
   }
 
   // La API key vive en el entorno, NUNCA en el código ni en el repositorio.
-  const apiKey = process.env.GEMINI_API_KEY;
+  const apiKey = process.env.GROQ_API_KEY;
   if (!apiKey) {
     // No filtramos detalles internos; solo avisamos que falta configuración.
     return sendJson(res, 500, {
-      error: 'El asistente no está configurado todavía. Falta la variable GEMINI_API_KEY en el servidor.',
+      error: 'El asistente no está configurado todavía. Falta la variable GROQ_API_KEY en el servidor.',
     });
   }
 
@@ -134,82 +126,54 @@ module.exports = async function handler(req, res) {
     return sendJson(res, 400, { error: 'La conversación es demasiado larga. Recárgala para empezar de nuevo.' });
   }
 
-  // Convertimos el historial al formato de Gemini:
-  //   nuestro "assistant"  ->  "model"
-  //   nuestro "user"       ->  "user"
-  const contents = [];
+  // Historial en formato OpenAI/Groq: system + user/assistant.
+  const chat = [{ role: 'system', content: SYSTEM_PROMPT }];
   for (const msg of messages) {
     if (!msg || typeof msg.content !== 'string') continue;
     const text = msg.content.slice(0, MAX_CHARS_PER_MSG).trim();
     if (!text) continue;
-    contents.push({
-      role: msg.role === 'assistant' ? 'model' : 'user',
-      parts: [{ text }],
-    });
+    chat.push({ role: msg.role === 'assistant' ? 'assistant' : 'user', content: text });
   }
 
-  if (contents.length === 0) {
+  if (chat.length === 1) {
     return sendJson(res, 400, { error: 'No hay contenido de usuario válido para procesar.' });
   }
 
-  // Cuerpo base de la petición a Gemini.
-  const baseBody = {
-    system_instruction: { parts: [{ text: SYSTEM_PROMPT }] },
-    contents,
-    generationConfig: {
-      temperature: 0.4,     // bajo = respuestas directas y fieles
-      // Tope de seguridad, no de velocidad: el modelo se detiene al terminar sus
-      // ~2 oraciones. Con 150 el "razonamiento interno" del modelo se comía el
-      // presupuesto y las respuestas salían cortadas ("Revis…").
-      maxOutputTokens: 300,
-      topP: 0.9,
-    },
-    // Filtros de seguridad de Gemini en umbral estándar.
-    safetySettings: [
-      { category: 'HARM_CATEGORY_HARASSMENT', threshold: 'BLOCK_MEDIUM_AND_ABOVE' },
-      { category: 'HARM_CATEGORY_HATE_SPEECH', threshold: 'BLOCK_MEDIUM_AND_ABOVE' },
-      { category: 'HARM_CATEGORY_SEXUALLY_EXPLICIT', threshold: 'BLOCK_MEDIUM_AND_ABOVE' },
-      { category: 'HARM_CATEGORY_DANGEROUS_CONTENT', threshold: 'BLOCK_MEDIUM_AND_ABOVE' },
-    ],
-  };
-
   try {
-    // La key va como query parameter — es el método oficial para API keys de
-    // AI Studio contra el endpoint REST. La URL nunca se expone al navegador
-    // porque esta función corre en el servidor de Vercel.
-    const url = wantsStream
-      ? `${GEMINI_STREAM}?alt=sse&key=${encodeURIComponent(apiKey)}`
-      : `${GEMINI_BASE}?key=${encodeURIComponent(apiKey)}`;
-
-    // LATENCIA: los modelos Flash recientes "piensan" antes de responder y eso
-    // es lo que más tarda. Intentamos minimizarlo; como cada generación de
-    // modelos acepta un parámetro distinto, probamos en orden y recordamos el
-    // que funcionó mientras la función siga "caliente" en Vercel.
+    // Probamos los modelos en orden y recordamos el que funcionó.
     let upstream;
     let detail = '';
-    const start = thinkingVariant >= 0 ? thinkingVariant : 0;
-    for (let v = start; v < THINKING_VARIANTS.length; v++) {
-      const body = { ...baseBody, generationConfig: { ...baseBody.generationConfig } };
-      if (THINKING_VARIANTS[v]) body.generationConfig.thinkingConfig = THINKING_VARIANTS[v];
-      upstream = await fetch(url, {
+    let usedModel = '';
+    for (let i = modelIndex; i < MODEL_CHAIN.length; i++) {
+      const { model, ...params } = MODEL_CHAIN[i];
+      upstream = await fetch(GROQ_URL, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(body),
+        headers: {
+          Authorization: `Bearer ${apiKey}`,
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          model,
+          messages: chat,
+          temperature: 0.4, // bajo = respuestas directas y fieles
+          stream: wantsStream,
+          ...params,
+        }),
       });
-      if (upstream.ok) { thinkingVariant = v; break; }
+      if (upstream.ok) { modelIndex = i; usedModel = model; break; }
       detail = await upstream.text();
-      // Solo un 400 por parámetro no soportado justifica probar la siguiente variante.
-      if (upstream.status !== 400 || !/thinking/i.test(detail)) break;
+      // Solo si el modelo no está disponible tiene sentido probar el siguiente.
+      if (!isModelUnavailable(upstream.status, detail)) break;
+      console.warn('Modelo de Groq no disponible, probando el siguiente:', model, upstream.status);
     }
 
     if (!upstream.ok) {
       // Log para el servidor (visible en Vercel → Logs), sin exponer la key.
-      // Si Google retira el modelo, aquí aparece un 404 NOT_FOUND con el sustituto recomendado.
-      console.error('Error de Gemini:', upstream.status, GEMINI_MODEL, detail);
+      console.error('Error de Groq:', upstream.status, detail);
       return sendJson(res, 502, {
         error: 'El asistente no pudo responder en este momento. Intenta de nuevo en unos segundos.',
-        // Solo el código HTTP de Google (p. ej. 429 = cuota agotada, 403 = key inválida,
-        // 404 = modelo retirado), sin detalles internos: facilita el diagnóstico desde la consola.
+        // Solo el código HTTP del proveedor (p. ej. 429 = límite, 401 = key inválida,
+        // 404 = modelo retirado), sin detalles internos: facilita el diagnóstico.
         upstreamStatus: upstream.status,
       });
     }
@@ -225,20 +189,19 @@ module.exports = async function handler(req, res) {
       let buffer = '';
       let sent = 0;
       let finishReason = '';
-      let usage = null;
 
-      // Gemini (alt=sse) envía líneas "data: {json}" separadas por líneas en blanco.
+      // Groq envía líneas "data: {json}" (formato OpenAI) y termina con "data: [DONE]".
       const handleLine = (line) => {
         if (!line.startsWith('data:')) return;
         const payload = line.slice(5).trim();
-        if (!payload) return;
+        if (!payload || payload === '[DONE]') return;
         let chunk;
         try { chunk = JSON.parse(payload); } catch (_e) { return; }
-        const text = extractText(chunk);
+        const choice = chunk.choices && chunk.choices[0];
+        // Solo el texto visible (delta.content); el razonamiento, si llegara, se ignora.
+        const text = choice && choice.delta && typeof choice.delta.content === 'string' ? choice.delta.content : '';
         if (text) { res.write(text); sent += text.length; }
-        const c = chunk.candidates && chunk.candidates[0];
-        if (c && c.finishReason) finishReason = c.finishReason;
-        if (chunk.usageMetadata) usage = chunk.usageMetadata;
+        if (choice && choice.finish_reason) finishReason = choice.finish_reason;
       };
 
       try {
@@ -253,34 +216,32 @@ module.exports = async function handler(req, res) {
         buffer += decoder.decode();
         if (buffer) handleLine(buffer.trim());
       } catch (streamErr) {
-        // La conexión con Gemini se cortó a mitad de respuesta: se entrega lo recibido.
-        console.error('Stream de Gemini interrumpido:', streamErr);
+        // La conexión se cortó a mitad de respuesta: se entrega lo recibido.
+        console.error('Stream de Groq interrumpido:', streamErr);
       }
 
-      if (finishReason === 'MAX_TOKENS') {
-        console.warn('Respuesta cortada por MAX_TOKENS', GEMINI_MODEL, usage);
-      }
-      // Sin texto (p. ej. bloqueado por filtros de seguridad): mensaje amable.
+      if (finishReason === 'length') console.warn('Respuesta cortada por tope de tokens', usedModel);
+      // Sin texto (p. ej. contenido bloqueado): mensaje amable.
       if (sent === 0) res.write(FALLBACK_REPLY);
       return res.end();
     }
 
     // --- Rama JSON (sin streaming) -----------------------------------------
     const data = await upstream.json();
-    const candidate = data && data.candidates && data.candidates[0];
-    const reply = extractText(data).trim();
+    const choice = data && data.choices && data.choices[0];
+    const reply = (choice && choice.message && typeof choice.message.content === 'string'
+      ? choice.message.content
+      : '').trim();
 
-    if (candidate && candidate.finishReason === 'MAX_TOKENS') {
-      // Diagnóstico en Vercel → Logs si una respuesta vuelve a cortarse.
-      console.warn('Respuesta cortada por MAX_TOKENS', GEMINI_MODEL, data.usageMetadata);
+    if (choice && choice.finish_reason === 'length') {
+      console.warn('Respuesta cortada por tope de tokens', usedModel, data.usage);
     }
 
-    // Sin texto: puede ocurrir si el contenido fue bloqueado por los filtros de seguridad.
     if (!reply) return sendJson(res, 200, { reply: FALLBACK_REPLY });
 
     return sendJson(res, 200, { reply });
   } catch (err) {
-    console.error('Fallo al contactar a Gemini:', err);
+    console.error('Fallo al contactar a Groq:', err);
     return sendJson(res, 500, {
       error: 'Ocurrió un error inesperado al procesar tu mensaje. Intenta más tarde.',
     });
