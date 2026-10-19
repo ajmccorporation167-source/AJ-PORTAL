@@ -112,6 +112,26 @@
     return bubble;
   }
 
+  // Convierte en enlaces tocables las URLs, el correo y el WhatsApp que entregue
+  // el asistente. Se crean nodos (no innerHTML), así que nunca se inyecta HTML.
+  const LINK_RE = /(https?:\/\/[^\s<>()]+[^\s<>().,;:!?'"])|([A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,})|((?:\+?1[\s.-]?)?\(?939\)?[\s.-]?428[\s.-]?2820)/gi;
+  function renderRichText(bubble, text) {
+    bubble.textContent = '';
+    let last = 0;
+    for (const m of text.matchAll(LINK_RE)) {
+      if (m.index > last) bubble.appendChild(document.createTextNode(text.slice(last, m.index)));
+      const a = document.createElement('a');
+      a.textContent = m[0];
+      if (m[1]) { a.href = m[1]; a.target = '_blank'; a.rel = 'noopener noreferrer'; }
+      else if (m[2]) { a.href = 'mailto:' + m[2]; }
+      else { a.href = 'https://wa.me/19394282820'; a.target = '_blank'; a.rel = 'noopener noreferrer'; }
+      a.className = 'chat-msg__link';
+      bubble.appendChild(a);
+      last = m.index + m[0].length;
+    }
+    if (last < text.length) bubble.appendChild(document.createTextNode(text.slice(last)));
+  }
+
   function showTyping() {
     const typing = document.createElement('div');
     typing.className = 'chat-typing';
@@ -232,7 +252,7 @@
           addBubble('No pude responder en este momento. Intenta de nuevo, o escríbenos por WhatsApp.', 'error');
           return;
         }
-        if (bubble) bubble.textContent = full;
+        if (bubble) renderRichText(bubble, full); // enlaces tocables al terminar
         history.push({ role: 'assistant', content: full });
         return;
       }
@@ -268,7 +288,7 @@
         return;
       }
 
-      addBubble(data.reply, 'bot');
+      renderRichText(addBubble('', 'bot'), data.reply);
       history.push({ role: 'assistant', content: data.reply });
     } catch (err) {
       // fetch solo lanza aquí por red caída, CORS o bloqueo por CSP/extensiones.
