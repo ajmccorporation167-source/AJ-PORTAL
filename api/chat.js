@@ -208,6 +208,9 @@ module.exports = async function handler(req, res) {
       console.error('Error de Gemini:', upstream.status, GEMINI_MODEL, detail);
       return sendJson(res, 502, {
         error: 'El asistente no pudo responder en este momento. Intenta de nuevo en unos segundos.',
+        // Solo el código HTTP de Google (p. ej. 429 = cuota agotada, 403 = key inválida,
+        // 404 = modelo retirado), sin detalles internos: facilita el diagnóstico desde la consola.
+        upstreamStatus: upstream.status,
       });
     }
 
