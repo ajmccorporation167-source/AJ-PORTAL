@@ -985,6 +985,17 @@ main > section.deck {
 .site-footer__links a:hover, .site-footer__links a:focus-visible { color: #fff; }
 .site-footer__legal { color: rgba(255, 255, 255, 0.4); font-size: 12.5px; line-height: 1.7; }
 .site-footer__legal p + p { margin-top: 8px; }
+.site-footer__confidentiality {
+  max-width: var(--page-max-width);
+  margin: var(--spacing-59) auto 0;
+  padding-top: var(--spacing-34);
+  border-top: 1px solid var(--color-hairline);
+  color: rgba(255, 255, 255, 0.4);
+  font-size: 12px;
+  line-height: 1.7;
+}
+.site-footer__confidentiality p:last-child { max-width: 90ch; }
+.site-footer__confidentiality-title { font-size: 11px; letter-spacing: 3px; text-transform: uppercase; color: rgba(255, 255, 255, 0.7); margin-bottom: var(--spacing-16); }
 
 @media (max-width: 760px) {
   .site-footer__inner { grid-template-columns: 1fr; gap: var(--spacing-34); }
