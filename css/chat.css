@@ -10,8 +10,8 @@
 /* --- Botón flotante que abre el chat ------------------------------------- */
 .chat-launcher {
   position: fixed;
-  right: clamp(16px, 4vw, 32px);
-  bottom: clamp(16px, 4vw, 32px);
+  right: 20px;
+  bottom: 20px;
   z-index: 900;
   display: inline-flex;
   align-items: center;
@@ -49,10 +49,10 @@
 /* --- Panel del chat ------------------------------------------------------ */
 .chat-panel {
   position: fixed;
-  right: clamp(12px, 4vw, 32px);
-  bottom: clamp(12px, 4vw, 32px);
+  right: 20px;
+  bottom: 20px;
   z-index: 950;
-  width: min(420px, calc(100vw - 24px));
+  width: min(380px, calc(100vw - 24px));
   height: min(650px, 80vh);
   height: min(650px, 80dvh);
   display: flex;
