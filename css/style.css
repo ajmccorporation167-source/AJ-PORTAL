@@ -164,6 +164,9 @@ h1, h2 { font-family: var(--font-display); }
 h3 { font-family: var(--font-accent); }
 p { margin: 0; }
 a { color: inherit; text-decoration: none; }
+
+/* Selección de texto en dorado */
+::selection { background: var(--color-featured-gold); color: var(--color-abyss); }
 ul { margin: 0; padding: 0; list-style: none; }
 img, svg { display: block; max-width: 100%; }
 button, input, select, textarea { font-family: inherit; }
@@ -332,7 +335,7 @@ textarea:focus-visible,
 
 .nav__menu { display: flex; align-items: center; gap: var(--spacing-34); }
 .nav__link { font-size: 12px; font-weight: 400; letter-spacing: 3px; text-transform: uppercase; color: rgba(255, 255, 255, 0.7); padding: 6px 0; border-bottom: 1px solid transparent; transition: color var(--transition-fast), border-color var(--transition-fast); }
-.nav__link:hover, .nav__link:focus-visible { color: #fff; border-color: #fff; }
+.nav__link:not(.nav__link--cta):hover, .nav__link:not(.nav__link--cta):focus-visible { color: var(--color-featured-gold); border-color: var(--color-featured-gold); }
 .nav__link--cta { border-bottom: none; padding: 10px 22px; letter-spacing: 1px; text-transform: none; font-size: 13px; }
 
 @media (max-width: 860px) {
@@ -916,7 +919,7 @@ main > section.deck {
   font-family: var(--font-body);
   font-size: 16px;
   font-weight: 400;
-  transition: border-color var(--transition-fast), background var(--transition-fast);
+  transition: border-color var(--transition-fast), background var(--transition-fast), box-shadow var(--transition-fast);
 }
 .field select {
   -webkit-appearance: none;
@@ -927,8 +930,7 @@ main > section.deck {
 }
 .field select option { color: var(--color-deep-navy); }
 .field input::placeholder, .field textarea::placeholder { color: var(--color-ash-navy); }
-.field input:focus, .field select:focus, .field textarea:focus { border-bottom-color: #fff; outline: none; }
-.field input:focus-visible, .field select:focus-visible, .field textarea:focus-visible { outline: none; box-shadow: 0 1px 0 0 #fff; }
+.field input:focus, .field select:focus, .field textarea:focus { border-bottom-color: var(--color-featured-gold); outline: none; box-shadow: 0 1px 0 0 var(--color-featured-gold), 0 8px 12px -10px rgba(212, 175, 55, 0.45); }
 .field textarea { resize: vertical; min-height: 110px; }
 .field.has-error input, .field.has-error select, .field.has-error textarea { border-bottom-color: #e06666; }
 .field-error { font-size: 12px; color: #f0a0a0; min-height: 14px; }
@@ -982,7 +984,7 @@ main > section.deck {
 .site-footer__tagline { color: var(--color-ash-navy); font-size: 14px; margin-top: var(--spacing-16); max-width: 32ch; }
 .site-footer__links { display: flex; flex-direction: column; gap: 14px; }
 .site-footer__links a { font-size: 11px; letter-spacing: 3px; text-transform: uppercase; color: var(--color-ash-navy); transition: color var(--transition-fast); }
-.site-footer__links a:hover, .site-footer__links a:focus-visible { color: #fff; }
+.site-footer__links a:hover, .site-footer__links a:focus-visible { color: var(--color-featured-gold); }
 .site-footer__legal { color: rgba(255, 255, 255, 0.4); font-size: 12.5px; line-height: 1.7; }
 .site-footer__legal p + p { margin-top: 8px; }
 .site-footer__confidentiality {
