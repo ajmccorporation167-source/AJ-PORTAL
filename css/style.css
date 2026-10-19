@@ -768,14 +768,14 @@ main > section.deck {
 .contact-panel.contact-panel--channels {
   grid-area: channels;
   width: 100%;
-  max-width: 760px;
+  max-width: 800px;
   justify-self: center;
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
-  gap: 32px;
-  align-items: center;
-  justify-content: flex-start;
+  gap: 24px;
+  align-items: stretch;
+  justify-content: center;
   padding: 0;
   background: transparent;
   border: 0;
@@ -807,27 +807,40 @@ main > section.deck {
 .contact-panel__text { color: var(--color-body-copy); font-size: 16px; }
 .contact-panel__text--muted { font-size: 14px; color: var(--color-ash-navy); }
 
-/* B. WhatsApp — interactivo: píldora monocromática */
-.whatsapp-btn {
+/* B y C. WhatsApp y correo — dos píldoras gemelas: mismo ancho, alto, borde y brillo */
+.whatsapp-btn,
+.email-card {
+  flex: 1 1 calc(50% - 12px); /* misma base para ambas: anchos idénticos */
+  min-width: 0;
+  min-height: 60px;
   display: flex;
   align-items: center;
-  gap: var(--spacing-16);
-  background: transparent;
-  border: 1px solid var(--color-hairline-strong);
-  border-radius: var(--radius-buttons);
-  padding: 8px 24px 8px 8px;
+  justify-content: center;
+  gap: 12px;
+  padding: 8px 28px;
+  background: rgba(255, 255, 255, 0.02);
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(212, 175, 55, 0.2);
+  border-radius: 999px;
   color: #fff;
   position: relative;
-  transition: transform var(--transition-fast), border-color var(--transition-fast), background var(--transition-fast);
+  transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1), border-color 0.4s cubic-bezier(0.25, 1, 0.5, 1), background 0.4s cubic-bezier(0.25, 1, 0.5, 1), box-shadow 0.4s cubic-bezier(0.25, 1, 0.5, 1);
 }
-.whatsapp-btn:hover, .whatsapp-btn:focus-visible { transform: translateY(-2px); border-color: #fff; background: var(--surface-panel-hover); }
+.email-card { padding-right: 12px; } /* el botón de copiar ya aporta su propio aire */
+.whatsapp-btn:hover, .whatsapp-btn:focus-visible,
+.email-card:hover, .email-card:focus-within {
+  transform: translateY(-2px);
+  border-color: rgba(212, 175, 55, 0.6);
+  background: rgba(212, 175, 55, 0.05);
+  box-shadow: 0 10px 20px rgba(5, 9, 20, 0.5), 0 0 15px rgba(212, 175, 55, 0.1);
+}
 .whatsapp-btn__icon {
-  width: 44px; height: 44px;
+  width: 24px; height: 24px;
   flex-shrink: 0;
   display: flex; align-items: center; justify-content: center;
   border-radius: 50%;
-  background: var(--color-pure-white);
-  color: var(--color-deep-navy);
+  color: var(--color-featured-gold);
   position: relative;
 }
 .whatsapp-btn__icon svg { width: 22px; height: 22px; }
@@ -836,7 +849,7 @@ main > section.deck {
   position: absolute;
   inset: 0;
   border-radius: 50%;
-  border: 1px solid rgba(255, 255, 255, 0.6);
+  border: 1px solid rgba(212, 175, 55, 0.5);
   animation: whatsappPulse 2.8s ease-out infinite;
 }
 @keyframes whatsappPulse {
@@ -846,19 +859,9 @@ main > section.deck {
 @media (prefers-reduced-motion: reduce) { .whatsapp-btn__icon::after { animation: none; } }
 .whatsapp-btn__label { font-family: var(--font-body); font-weight: 500; font-size: 15px; letter-spacing: 0.02em; }
 
-/* C. Correo — texto en línea, sin caja */
-.email-card {
-  display: flex;
-  align-items: center;
-  gap: 14px;
-  padding: 0;
-  position: relative;
-  background: transparent;
-  border: 0;
-}
-.email-card__icon { color: rgba(255, 255, 255, 0.6); flex-shrink: 0; }
+.email-card__icon { color: var(--color-featured-gold); flex-shrink: 0; display: flex; }
 .email-card__icon svg { width: 22px; height: 22px; }
-.email-card__text { display: flex; flex-direction: column; gap: 4px; flex-grow: 1; min-width: 0; }
+.email-card__text { display: flex; flex-direction: column; gap: 4px; min-width: 0; }
 .email-card__label { font-size: 11px; color: var(--color-ash-navy); text-transform: uppercase; letter-spacing: 3px; }
 .email-card__address { font-family: var(--font-body); font-size: 15px; font-weight: 500; letter-spacing: 0.02em; color: #fff; overflow-wrap: anywhere; }
 .email-card__copy {
@@ -866,15 +869,15 @@ main > section.deck {
   flex-shrink: 0;
   display: flex; align-items: center; justify-content: center;
   background: transparent;
-  border: 1px solid var(--color-hairline-strong);
-  border-radius: var(--radius-buttons);
-  color: #fff;
+  border: 1px solid transparent;
+  border-radius: 50%;
+  color: var(--color-featured-gold);
   cursor: pointer;
   position: relative;
   transition: background var(--transition-fast), border-color var(--transition-fast), color var(--transition-fast);
 }
 .email-card__copy svg { width: 18px; height: 18px; }
-.email-card__copy:hover, .email-card__copy:focus-visible { background: #fff; border-color: #fff; color: var(--color-deep-navy); }
+.email-card__copy:hover, .email-card__copy:focus-visible { background: rgba(212, 175, 55, 0.12); border-color: rgba(212, 175, 55, 0.4); }
 .copy-tooltip {
   position: absolute;
   bottom: calc(100% + 8px);
@@ -1022,8 +1025,10 @@ main > section.deck {
   .service-card { padding: 28px 24px; }
   .contact-panel { padding: 28px 24px; }
   .contact-panel--form { order: -1; }
-  .contact-panel.contact-panel--channels { flex-direction: column; align-items: flex-start; gap: 20px; padding: 0; }
-  .email-card { width: 100%; gap: 10px; }
+  .contact-panel.contact-panel--channels { flex-direction: column; align-items: stretch; gap: 16px; padding: 0; }
+  .whatsapp-btn, .email-card { flex: none; width: 100%; padding-left: 16px; }
+  .email-card { gap: 4px; padding-right: 8px; }
+  .email-card__address { font-size: 15px; letter-spacing: 0; } /* el correo completo en una sola línea */
   .email-card__icon { display: none; } /* libera ancho para que el correo quepa en una línea */
 
   /* --- Menú superior más compacto: de 81px a ~64px (menos pantalla ocupada) --- */
@@ -1038,7 +1043,7 @@ main > section.deck {
   .site-footer__links a { min-height: 44px; display: inline-flex; align-items: center; }
 
   /* --- Texto de lectura a 16px como mínimo (sin zoom ni esfuerzo) --- */
-  .btn, .whatsapp-btn__label, .email-card__address,
+  .btn, .whatsapp-btn__label,
   .contact-panel__text, .contact-panel__text--muted,
   .privacy-disclaimer, .site-footer__tagline, .site-footer__legal { font-size: 16px; }
   /* Rótulos en mayúsculas con tracking amplio: pieza de diseño, no texto de
