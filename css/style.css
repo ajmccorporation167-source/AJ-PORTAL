@@ -107,7 +107,19 @@
    RESET LIGERO
    ========================================================================= */
 *, *::before, *::after { box-sizing: border-box; }
-html { scroll-behavior: smooth; background: var(--color-abyss); }
+html {
+  scroll-behavior: smooth;
+  background: var(--color-abyss);
+  /* Firefox: barra fina y oscura (los navegadores WebKit usan las reglas de abajo) */
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255, 255, 255, 0.1) #050914;
+}
+
+/* Scrollbar de lujo (Chrome, Edge, Safari) */
+::-webkit-scrollbar { width: 8px; }
+::-webkit-scrollbar-track { background: #050914; } /* navy aún más oscuro que el fondo */
+::-webkit-scrollbar-thumb { background: rgba(255, 255, 255, 0.1); border-radius: 10px; }
+::-webkit-scrollbar-thumb:hover { background: rgba(212, 175, 55, 0.5); } /* acento dorado sutil */
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
   *, *::before, *::after { animation-duration: 0.001ms !important; animation-iteration-count: 1 !important; transition-duration: 0.001ms !important; scroll-behavior: auto !important; }
@@ -405,6 +417,16 @@ textarea:focus-visible,
   text-transform: uppercase;
 }
 
+/* Entrada de la firma al cargar (sin esperar al scroll): AJCM primero, RR HH después */
+@keyframes signatureIn {
+  from { opacity: 0; transform: translateY(40px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .main-acronym   { animation: signatureIn 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.15s both; }
+  .sub-descriptor { animation: signatureIn 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.45s both; }
+}
+
 /* =========================================================================
    SECCIONES GENÉRICAS — cada bloque respira como una sala de museo
    ========================================================================= */
@@ -444,10 +466,21 @@ main > section { padding: var(--section-space) var(--gutter); }
   .section__head--split .section__intro { margin-top: var(--spacing-34); justify-self: start; }
 }
 
-/* Reveal al hacer scroll — JS añade .is-visible; sin JS/reduced-motion todo es visible */
-[data-reveal] { opacity: 0; transform: translateY(24px); transition: opacity 700ms ease, transform 700ms ease; }
+/* Reveal al hacer scroll (fade-up). Dos ganchos con la misma cadencia:
+   · [data-reveal] + .is-visible → sistema existente (js/main.js, js/modal.js)
+   · .reveal + .active           → bloques grandes como el slide deck (js/main.js)
+   Solo se ocultan con JS activo (html.js): si el script falla, todo es visible. */
+[data-reveal] { opacity: 0; transform: translateY(40px); transition: opacity 1s cubic-bezier(0.25, 0.46, 0.45, 0.94), transform 1s cubic-bezier(0.25, 0.46, 0.45, 0.94); }
 [data-reveal].is-visible { opacity: 1; transform: translateY(0); }
-@media (prefers-reduced-motion: reduce) { [data-reveal] { opacity: 1; transform: none; } }
+html.js .reveal {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: opacity 1s cubic-bezier(0.25, 0.46, 0.45, 0.94), transform 1s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+html.js .reveal.active { opacity: 1; transform: translateY(0); }
+@media (prefers-reduced-motion: reduce) {
+  [data-reveal], html.js .reveal { opacity: 1; transform: none; }
+}
 
 /* =========================================================================
    SERVICIOS — columna editorial fija + índice de paneles arquitectónicos

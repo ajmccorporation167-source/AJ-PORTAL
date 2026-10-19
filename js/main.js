@@ -33,9 +33,7 @@
   /* -----------------------------------------------------------------------
      2. REVEAL AL HACER SCROLL (IntersectionObserver, ligero y performante)
      ----------------------------------------------------------------------- */
-  const revealTargets = document.querySelectorAll(
-    '.service-card, .section__head, .about__inner, .contact-panel, .cta-final__title'
-  );
+  const revealTargets = document.querySelectorAll('.service-card, .section__head, .contact-panel');
   revealTargets.forEach((el) => el.setAttribute('data-reveal', ''));
 
   if (!prefersReducedMotion && 'IntersectionObserver' in window) {
@@ -54,6 +52,25 @@
   } else {
     // Sin soporte o con reduced-motion: todo visible de inmediato
     revealTargets.forEach((el) => el.classList.add('is-visible'));
+  }
+
+  // Bloques grandes marcados con .reveal en el HTML (p. ej. el slide deck):
+  // flotan hacia arriba una sola vez al entrar en pantalla.
+  const reveals = document.querySelectorAll('.reveal');
+  if (!prefersReducedMotion && 'IntersectionObserver' in window) {
+    const revealOnScroll = new IntersectionObserver(
+      (entries, obs) => {
+        entries.forEach((entry) => {
+          if (!entry.isIntersecting) return;
+          entry.target.classList.add('active');
+          obs.unobserve(entry.target); // solo se anima una vez
+        });
+      },
+      { threshold: 0.15, rootMargin: '0px 0px -50px 0px' }
+    );
+    reveals.forEach((el) => revealOnScroll.observe(el));
+  } else {
+    reveals.forEach((el) => el.classList.add('active'));
   }
 
   /* -----------------------------------------------------------------------
