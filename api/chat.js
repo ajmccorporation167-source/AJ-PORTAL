@@ -6,8 +6,12 @@
 
    Ruta pública: /api/chat   (Vercel enruta /api/*.js automáticamente)
    Método: POST
-   Body esperado (JSON): { "messages": [ { "role": "user"|"assistant", "content": "..." }, ... ] }
-   Respuesta (JSON):      { "reply": "texto del asistente" }
+   Body esperado (JSON): { "messages": [ { "role": "user"|"assistant", "content": "..." }, ... ],
+                           "stream": true|false (opcional) }
+   Respuesta sin stream:  JSON { "reply": "texto del asistente" }
+   Respuesta con stream:  text/plain enviado por fragmentos a medida que Gemini
+                          genera (las primeras palabras llegan en menos de un segundo).
+   Los errores previos a la generación siempre se devuelven como JSON { "error" }.
 
    Cero dependencias externas: usamos el `fetch` nativo de Node 18+ contra la
    API REST de Gemini. No hace falta package.json ni `npm install`.
@@ -22,6 +26,8 @@ const GEMINI_MODEL = process.env.GEMINI_MODEL || 'gemini-3.8-flash';
 // La key va como query param (?key=), NO en headers. El header x-goog-api-key
 // solo funciona con OAuth / service accounts, no con API keys públicas de AI Studio.
 const GEMINI_BASE = `https://generativelanguage.googleapis.com/v1beta/models/${GEMINI_MODEL}:generateContent`;
+// Streaming: Gemini envía la respuesta por fragmentos como Server-Sent Events (alt=sse).
+const GEMINI_STREAM = `https://generativelanguage.googleapis.com/v1beta/models/${GEMINI_MODEL}:streamGenerateContent`;
 
 // Variantes para minimizar el "razonamiento interno" (thinking) del modelo, de la
 // más rápida a la más conservadora. null = sin thinkingConfig (comportamiento por defecto).
@@ -69,6 +75,20 @@ function sendJson(res, status, payload) {
   res.end(JSON.stringify(payload));
 }
 
+// Extrae el texto visible de un fragmento/respuesta de Gemini, excluyendo las
+// partes de razonamiento interno (thought: true) si el modelo las devolviera.
+function extractText(data) {
+  const candidate = data && data.candidates && data.candidates[0];
+  const parts = (candidate && candidate.content && candidate.content.parts) || [];
+  return parts
+    .filter((p) => p && typeof p.text === 'string' && !p.thought)
+    .map((p) => p.text)
+    .join('');
+}
+
+const FALLBACK_REPLY =
+  'Lo siento, no pude generar una respuesta para eso. ¿Puedo ayudarte con alguno de nuestros servicios de RRHH, o prefieres agendar una consulta directa?';
+
 // --- Handler principal -----------------------------------------------------
 module.exports = async function handler(req, res) {
   // CORS: permitir que el frontend (mismo dominio en Vercel) llame sin problemas.
@@ -106,6 +126,7 @@ module.exports = async function handler(req, res) {
   }
 
   const messages = body && Array.isArray(body.messages) ? body.messages : null;
+  const wantsStream = Boolean(body && body.stream === true);
   if (!messages || messages.length === 0) {
     return sendJson(res, 400, { error: 'Falta el arreglo "messages".' });
   }
@@ -156,7 +177,9 @@ module.exports = async function handler(req, res) {
     // La key va como query parameter — es el método oficial para API keys de
     // AI Studio contra el endpoint REST. La URL nunca se expone al navegador
     // porque esta función corre en el servidor de Vercel.
-    const url = `${GEMINI_BASE}?key=${encodeURIComponent(apiKey)}`;
+    const url = wantsStream
+      ? `${GEMINI_STREAM}?alt=sse&key=${encodeURIComponent(apiKey)}`
+      : `${GEMINI_BASE}?key=${encodeURIComponent(apiKey)}`;
 
     // LATENCIA: los modelos Flash recientes "piensan" antes de responder y eso
     // es lo que más tarda. Intentamos minimizarlo; como cada generación de
@@ -188,30 +211,69 @@ module.exports = async function handler(req, res) {
       });
     }
 
+    // --- Rama streaming: reenviamos cada fragmento de texto apenas llega ----
+    if (wantsStream) {
+      res.statusCode = 200;
+      res.setHeader('Content-Type', 'text/plain; charset=utf-8');
+      res.setHeader('Cache-Control', 'no-cache, no-transform');
+      res.setHeader('X-Content-Type-Options', 'nosniff'); // evita que el navegador retenga el texto para "olfatearlo"
+
+      const decoder = new TextDecoder();
+      let buffer = '';
+      let sent = 0;
+      let finishReason = '';
+      let usage = null;
+
+      // Gemini (alt=sse) envía líneas "data: {json}" separadas por líneas en blanco.
+      const handleLine = (line) => {
+        if (!line.startsWith('data:')) return;
+        const payload = line.slice(5).trim();
+        if (!payload) return;
+        let chunk;
+        try { chunk = JSON.parse(payload); } catch (_e) { return; }
+        const text = extractText(chunk);
+        if (text) { res.write(text); sent += text.length; }
+        const c = chunk.candidates && chunk.candidates[0];
+        if (c && c.finishReason) finishReason = c.finishReason;
+        if (chunk.usageMetadata) usage = chunk.usageMetadata;
+      };
+
+      try {
+        for await (const piece of upstream.body) {
+          buffer += decoder.decode(piece, { stream: true });
+          let nl;
+          while ((nl = buffer.indexOf('\n')) >= 0) {
+            handleLine(buffer.slice(0, nl).replace(/\r$/, ''));
+            buffer = buffer.slice(nl + 1);
+          }
+        }
+        buffer += decoder.decode();
+        if (buffer) handleLine(buffer.trim());
+      } catch (streamErr) {
+        // La conexión con Gemini se cortó a mitad de respuesta: se entrega lo recibido.
+        console.error('Stream de Gemini interrumpido:', streamErr);
+      }
+
+      if (finishReason === 'MAX_TOKENS') {
+        console.warn('Respuesta cortada por MAX_TOKENS', GEMINI_MODEL, usage);
+      }
+      // Sin texto (p. ej. bloqueado por filtros de seguridad): mensaje amable.
+      if (sent === 0) res.write(FALLBACK_REPLY);
+      return res.end();
+    }
+
+    // --- Rama JSON (sin streaming) -----------------------------------------
     const data = await upstream.json();
     const candidate = data && data.candidates && data.candidates[0];
-
-    // Unimos todas las partes de texto de la respuesta, excluyendo las de
-    // razonamiento interno (thought: true) si el modelo las devolviera.
-    const parts = (candidate && candidate.content && candidate.content.parts) || [];
-    const reply = parts
-      .filter((p) => p && typeof p.text === 'string' && !p.thought)
-      .map((p) => p.text)
-      .join('')
-      .trim();
+    const reply = extractText(data).trim();
 
     if (candidate && candidate.finishReason === 'MAX_TOKENS') {
       // Diagnóstico en Vercel → Logs si una respuesta vuelve a cortarse.
       console.warn('Respuesta cortada por MAX_TOKENS', GEMINI_MODEL, data.usageMetadata);
     }
 
-    if (!reply) {
-      // Puede ocurrir si el contenido fue bloqueado por los filtros de seguridad.
-      return sendJson(res, 200, {
-        reply:
-          'Lo siento, no pude generar una respuesta para eso. ¿Puedo ayudarte con alguno de nuestros servicios de RRHH, o prefieres agendar una consulta directa?',
-      });
-    }
+    // Sin texto: puede ocurrir si el contenido fue bloqueado por los filtros de seguridad.
+    if (!reply) return sendJson(res, 200, { reply: FALLBACK_REPLY });
 
     return sendJson(res, 200, { reply });
   } catch (err) {

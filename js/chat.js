@@ -193,11 +193,53 @@
       const res = await fetch(API_URL, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ messages: history }),
+        // stream: true → el servidor envía el texto por fragmentos a medida que se genera.
+        body: JSON.stringify({ messages: history, stream: true }),
       });
+
+      // --- Respuesta en streaming: pintamos el texto a medida que llega ---------
+      const contentType = res.headers.get('Content-Type') || '';
+      if (res.ok && res.body && contentType.includes('text/plain')) {
+        const reader = res.body.getReader();
+        const decoder = new TextDecoder();
+        let bubble = null;
+        let full = '';
+        // aria-busy: los lectores de pantalla esperan a que termine para leer la
+        // respuesta completa, en vez de anunciar cada fragmento.
+        messagesEl.setAttribute('aria-busy', 'true');
+        try {
+          for (;;) {
+            const { value, done } = await reader.read();
+            if (done) break;
+            const piece = decoder.decode(value, { stream: true });
+            if (!piece) continue;
+            full += piece;
+            if (!bubble) {
+              hideTyping(); // los puntos se quitan con la primera palabra, no antes
+              bubble = addBubble('', 'bot');
+            }
+            bubble.textContent = full;
+            scrollToBottom();
+          }
+          full += decoder.decode();
+        } finally {
+          messagesEl.removeAttribute('aria-busy');
+          hideTyping();
+        }
+
+        full = full.trim();
+        if (!full) {
+          addBubble('No pude responder en este momento. Intenta de nuevo, o escríbenos por WhatsApp.', 'error');
+          return;
+        }
+        if (bubble) bubble.textContent = full;
+        history.push({ role: 'assistant', content: full });
+        return;
+      }
 
       hideTyping();
 
+      // --- Respuesta JSON (errores, o servidor sin streaming) -------------------
       // Leemos como texto primero: si Vercel devuelve una página HTML (404, crash
       // de la función) en vez de JSON, así lo vemos en la consola.
       const raw = await res.text();
