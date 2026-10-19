@@ -983,7 +983,7 @@ main > section.deck {
   gap: var(--spacing-59);
 }
 .site-footer__logo { font-family: var(--font-display); font-size: clamp(28px, 2.6vw, 38px); letter-spacing: 0; line-height: 1; color: #fff; font-weight: 400; }
-.site-footer__logo span { color: var(--color-hairline-strong); font-weight: 400; }
+.site-footer__logo span { color: rgba(212, 175, 55, 0.4); font-weight: 400; }
 .site-footer__tagline { color: var(--color-ash-navy); font-size: 14px; margin-top: var(--spacing-16); max-width: 32ch; }
 .site-footer__links { display: flex; flex-direction: column; gap: 14px; }
 .site-footer__links a { font-size: 11px; letter-spacing: 3px; text-transform: uppercase; color: var(--color-ash-navy); transition: color var(--transition-fast); }
@@ -1080,6 +1080,7 @@ main > section.deck {
    ========================================================================= */
 .main-acronym,
 .nav__logo,
+.site-footer__logo,
 .slide-text__title,
 .contact-panel--form .contact-panel__title,
 .whatsapp-btn__label,
