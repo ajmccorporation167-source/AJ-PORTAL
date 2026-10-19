@@ -24,13 +24,13 @@
 
   /* =========================================
      2. TYPOGRAPHY — sistema de tres voces
-     · Bodoni Moda → titulares (h2, logo del menú y del footer, cifras).
-       Alto contraste editorial; el eje óptico (opsz) afina los trazos
-       según el tamaño. Solo títulos: en párrafos pierde legibilidad.
+     · The Seasons → titulares (h1, h2, firma del hero, cifras). Fuente
+       premium con licencia: se usa si está instalada o se sube con
+       @font-face; mientras tanto cae en Alice, que sí se carga.
      · Alice → subtítulos, h3 y acentos clásicos.
      · Montserrat → párrafos, botones, eyebrows, menú y formularios.
      ========================================= */
-  --font-display: 'Bodoni Moda', 'Alice', Georgia, serif;
+  --font-display: 'The Seasons', 'Alice', Georgia, serif;
   --font-accent: 'Alice', Georgia, serif;
   --font-body: 'Montserrat', system-ui, -apple-system, 'Helvetica Neue', Arial, sans-serif;
 
@@ -49,7 +49,7 @@
 
   --text-display: clamp(2.75rem, 5vw, 72px);
   --leading-display: 1.02;
-  --tracking-display: -0.02em;
+  --tracking-display: -0.015em;
   --weight-display: 400;
 
 
@@ -681,7 +681,7 @@ main > section.deck {
 .slide-text { flex: 1 1 45%; min-width: 0; max-width: 520px; }
 .slide-text__meta { margin-bottom: var(--spacing-22); }
 .slide-text__title {
-  font-family: var(--font-display);
+  font-family: var(--font-display); /* 'The Seasons', serif (cae en Alice si no está disponible) */
   font-weight: 400;
   font-size: clamp(36px, 3.4vw, 48px);
   line-height: 1.08;
