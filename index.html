@@ -30,6 +30,18 @@
   <!-- Marca que JS está activo: permite que las animaciones de scroll no oculten contenido si JS falla -->
   <script>document.documentElement.classList.add('js');</script>
 
+  <!-- La página SIEMPRE abre en el hero (AJCM):
+       · scrollRestoration manual: al recargar o reabrir la pestaña, el navegador
+         no regresa a la última posición (p. ej. el formulario).
+       · Se quita el #seccion de la dirección (p. ej. #contacto en un enlace compartido)
+         antes de que el navegador salte a esa sección.
+       Los enlaces internos del menú siguen funcionando al tocarlos. -->
+  <script>
+    if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
+    if (location.hash) history.replaceState(null, '', location.pathname + location.search);
+    window.addEventListener('load', function () { if (window.scrollY > 0) window.scrollTo(0, 0); });
+  </script>
+
   <!-- Datos estructurados (SEO local). Sin teléfono ni dominio hasta que estén definidos. -->
   <script type="application/ld+json">
   {
