@@ -371,19 +371,38 @@ textarea:focus-visible,
    siguen en el DOM porque js/main.js las referencia, pero no se pintan. */
 .hero__glow, .hero__grid { display: none; }
 
-/* La firma: The Seasons fina y espaciada, como portada de revista */
-.hero__brand {
+/* La firma: Cinzel escultural (AJCM) + Inter con tracking extremo (RR HH).
+   El .hero ya es 100svh con flexbox centrado; este bloque ocupa el mismo alto
+   para que la composición quede en el centro exacto de la pantalla. */
+.hero-signature {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  height: 100vh;
+  height: 100svh;
+  text-align: center;
+}
+.main-acronym {
   margin: 0;
-  font-family: var(--font-display); /* 'The Seasons', serif (cae en Alice si no está disponible) */
-  font-size: clamp(4rem, 8vw, 8rem);
+  font-family: 'Cinzel', 'Playfair Display', Georgia, serif;
+  font-size: clamp(5rem, 10vw, 8rem);
   font-weight: 400;
   line-height: 1;
-  letter-spacing: 0.2em;
-  /* El tracking deja un espacio extra tras la última letra: lo compensamos
-     para que AJCM quede en el centro óptico exacto */
-  margin-right: -0.2em;
-  color: rgba(255, 255, 255, 0.9);
-  text-align: center;
+  letter-spacing: 0.05em;
+  margin-right: -0.05em; /* compensa el tracking tras la última letra: centro óptico exacto */
+  color: #F8F9FA;
+}
+.sub-descriptor {
+  margin: 0;
+  font-family: 'Inter', system-ui, sans-serif;
+  font-size: 1.1rem;
+  font-weight: 300;
+  letter-spacing: 0.6em;
+  margin-right: -0.6em; /* idem: el tracking extremo desplazaría "RR HH" a la izquierda */
+  color: rgba(255, 255, 255, 0.75);
+  text-transform: uppercase;
 }
 
 /* =========================================================================

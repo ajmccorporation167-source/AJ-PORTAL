@@ -35,10 +35,10 @@
   <!-- Favicon: monograma AJ en oro sobre navy, inline para evitar una petición de red extra -->
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' fill='%230B132B'/%3E%3Ctext x='32' y='42' font-family='Georgia,serif' font-size='28' font-weight='400' fill='%23D4AF37' text-anchor='middle'%3EAJ%3C/text%3E%3C/svg%3E" />
 
-  <!-- Tipografía en tres voces: The Seasons (titulares, fuente premium local/licenciada), Alice (subtítulos) y Montserrat (lectura e interacción) -->
+  <!-- Tipografía: The Seasons (titulares, fuente premium local/licenciada), Alice (subtítulos), Montserrat (lectura e interacción); Cinzel + Inter solo para la firma del hero -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Alice&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Alice&family=Cinzel:wght@400&family=Inter:wght@300&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
 
   <link rel="stylesheet" href="css/style.css" />
   <link rel="stylesheet" href="css/chat.css" />
@@ -87,8 +87,11 @@
         <div class="hero__grid"></div>
       </div>
 
-      <!-- Portada minimalista: solo la firma sobre la imagen de fondo -->
-      <h1 class="hero__brand">AJCM<span class="sr-only"> RRHH Consulting — Consultoría de Recursos Humanos en Puerto Rico</span></h1>
+      <!-- Portada minimalista: la firma y su descriptor, centrados sobre la imagen de fondo -->
+      <div class="hero-signature">
+        <h1 class="main-acronym">AJCM<span class="sr-only"> RRHH Consulting — Consultoría de Recursos Humanos en Puerto Rico</span></h1>
+        <p class="sub-descriptor" aria-hidden="true">RR HH</p>
+      </div>
     </section>
 
     <!-- ============================= SERVICIOS ============================= -->
