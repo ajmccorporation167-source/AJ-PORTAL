@@ -110,6 +110,11 @@
 html {
   scroll-behavior: smooth;
   background: var(--color-abyss);
+  /* Sin desplazamiento lateral. "clip" y no "hidden": hidden en html + body convierte
+     al body en su propio contenedor de scroll y rompe el scroll de la ventana
+     (Lenis, animaciones, posición de anclas). El carrusel conserva su propio
+     overflow-x: auto. */
+  overflow-x: clip;
   /* Firefox: barra fina y oscura (los navegadores WebKit usan las reglas de abajo) */
   scrollbar-width: thin;
   scrollbar-color: rgba(255, 255, 255, 0.1) #050914;
@@ -150,7 +155,8 @@ body {
   font-weight: var(--weight-body);
   line-height: var(--leading-body);
   -webkit-font-smoothing: antialiased;
-  overflow-x: hidden;
+  overflow-x: hidden; /* respaldo para navegadores sin soporte de "clip" */
+  overflow-x: clip;
 }
 
 h1, h2, h3 { color: #fff; margin: 0; line-height: 1.1; font-weight: 400; }
@@ -411,7 +417,7 @@ textarea:focus-visible,
 .main-acronym {
   margin: 0;
   font-family: 'Cinzel', 'Playfair Display', Georgia, serif;
-  font-size: clamp(5rem, 10vw, 8rem);
+  font-size: clamp(3rem, 15vw, 8rem); /* escala del iPhone SE (48px) al escritorio (128px) sin salirse */
   font-weight: 400;
   line-height: 1;
   letter-spacing: 0.05em;
@@ -1006,6 +1012,31 @@ main > section.deck {
   .contact-panel.contact-panel--channels { flex-direction: column; align-items: flex-start; gap: 20px; padding: 0; }
   .email-card { width: 100%; gap: 10px; }
   .email-card__icon { display: none; } /* libera ancho para que el correo quepa en una línea */
+
+  /* --- Menú superior más compacto: de 81px a ~64px (menos pantalla ocupada) --- */
+  .nav__inner { padding-top: 10px; padding-bottom: 10px; }
+  .nav__logo { min-height: 44px; } /* área de toque completa (Apple HIG) */
+  .nav__toggle { flex-shrink: 0; } /* nunca se encoge por debajo de 44px */
+
+  /* --- Zonas de toque de 44px con 16px de separación --- */
+  .slider__dots { gap: 16px; }
+  .slider__dot { width: 44px; height: 44px; }
+  .site-footer__links { gap: 16px; }
+  .site-footer__links a { min-height: 44px; display: inline-flex; align-items: center; }
+
+  /* --- Texto de lectura a 16px como mínimo (sin zoom ni esfuerzo) --- */
+  .btn, .whatsapp-btn__label, .email-card__address,
+  .contact-panel__text, .contact-panel__text--muted,
+  .privacy-disclaimer, .site-footer__tagline, .site-footer__legal { font-size: 16px; }
+  /* Rótulos en mayúsculas con tracking amplio: pieza de diseño, no texto de
+     lectura; se suben de 11 a 12px como mínimo para que sigan siendo nítidos */
+  .field label, .nav__logo-sub, .site-footer__links a, .email-card__label { font-size: 12px; }
+}
+/* Pantallas muy angostas (iPhone SE 1ª, 320px): el subtítulo del logo chocaba con el menú */
+@media (max-width: 360px) {
+  .nav__logo-sub, .nav__logo-divider { display: none; }
+  /* Los 4 indicadores (44px c/u) no deben tocar el botón flotante del asistente */
+  .slider__dots { gap: 8px; }
 }
 
 /* =========================================================================
