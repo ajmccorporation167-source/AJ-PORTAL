@@ -1,5 +1,5 @@
 /* =========================================================================
-   AJCM | RRHH CONSULTING — ASISTENTE VIRTUAL (Chat con Gemini)
+   AJCM | RRHH CONSULTING — ASISTENTE VIRTUAL (Chat con Groq)
    -------------------------------------------------------------------------
    Reutiliza las variables de marca definidas en style.css (:root):
    --color-navy, --color-gold, --glass-*, --radius-*, --font-*.
@@ -17,17 +17,18 @@
   align-items: center;
   gap: 10px;
   padding: 14px 22px 14px 18px;
-  border: 1px solid var(--color-gold);
+  border: 1px solid rgba(212, 175, 55, 0.4);
   border-radius: var(--radius-pill);
-  background: var(--color-gold);
-  color: var(--color-text-on-gold);
+  background: linear-gradient(135deg, #1a233a, var(--color-deep-navy));
+  box-shadow: 0 8px 24px rgba(5, 9, 20, 0.8), 0 0 15px rgba(212, 175, 55, 0.15);
+  color: var(--color-gold);
   font-family: var(--font-body);
   font-size: 15px;
   font-weight: 600;
   cursor: pointer;
-  transition: transform var(--transition-fast), background var(--transition-fast);
+  transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1), box-shadow 0.4s cubic-bezier(0.25, 1, 0.5, 1);
 }
-.chat-launcher:hover { transform: translateY(-2px); background: var(--color-gold-soft); }
+.chat-launcher:hover { transform: translateY(-2px) scale(1.05); box-shadow: 0 10px 30px rgba(5, 9, 20, 0.9), 0 0 20px rgba(212, 175, 55, 0.3); }
 .chat-launcher__icon { width: 22px; height: 22px; flex: 0 0 auto; }
 .chat-launcher.is-hidden { display: none; }
 
@@ -59,11 +60,13 @@
   padding: 0; /* blindaje: es un <section> y no debe heredar estilos genéricos de sección */
   font-family: var(--font-body);
   /* Cristal oscuro: desenfoca el texto de la página que queda detrás */
-  background: rgba(11, 19, 43, 0.7);
+  background: rgba(5, 9, 20, 0.88);
   -webkit-backdrop-filter: blur(16px);
   backdrop-filter: blur(16px);
-  border: 1px solid rgba(255, 255, 255, 0.12);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-top-color: rgba(212, 175, 55, 0.2);
   border-radius: var(--radius-card);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
   overflow: hidden;
   opacity: 0;
   transform: translateY(16px) scale(0.98);
@@ -151,9 +154,9 @@
 
 .chat-msg--user {
   align-self: flex-end;
-  background: var(--color-gold);
-  color: var(--color-text-on-gold);
-  font-weight: 500;
+  background: rgba(212, 175, 55, 0.1);
+  border: 1px solid rgba(212, 175, 55, 0.2);
+  color: #F8F9FA;
   border-bottom-right-radius: 4px;
 }
 .chat-msg--error {
@@ -179,9 +182,9 @@
 
 /* --- Pie: entrada de texto ----------------------------------------------- */
 .chat-input {
-  border-top: 1px solid var(--color-border-hairline);
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
   padding: 14px;
-  background: rgba(11, 19, 43, 0.5);
+  background: transparent;
 }
 .chat-input__row { display: flex; align-items: flex-end; gap: 8px; }
 .chat-input textarea {
@@ -196,9 +199,10 @@
   font-family: var(--font-body);
   font-size: 16px; /* 16px también evita el zoom automático de iOS al enfocar */
   line-height: 1.45;
+  transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
 }
 .chat-input textarea::placeholder { color: var(--color-text-muted); }
-.chat-input textarea:focus { outline: none; border-color: var(--color-gold); }
+.chat-input textarea:focus { outline: none; border-color: var(--color-gold); box-shadow: 0 0 8px rgba(212, 175, 55, 0.1); }
 .chat-input__send {
   flex: 0 0 auto;
   width: 44px; height: 44px;
