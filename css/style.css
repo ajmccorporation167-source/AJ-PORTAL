@@ -471,7 +471,7 @@ main > section { padding: var(--section-space) var(--gutter); }
 html.js:not(.reveal-failsafe) :is([data-reveal], .reveal, .main-acronym, .sub-descriptor):not(.is-visible) { opacity: 0; }
 
 /* =========================================================================
-   SERVICIOS — encabezado centrado + presentación de servicios (texto) debajo
+   SERVICIOS — encabezado + presentación de servicios (texto), alineados a la izquierda
    ========================================================================= */
 .services__layout {
   max-width: 1100px; /* ancho para la escala editorial de los títulos de servicio */
@@ -481,9 +481,9 @@ html.js:not(.reveal-failsafe) :is([data-reveal], .reveal, .main-acronym, .sub-de
   gap: clamp(24px, 3vw, 48px);
 }
 main > section.services { padding-bottom: clamp(48px, 6vw, 96px); } /* la presentación ya aporta su propio aire */
-.services__aside .section__head { margin: 0; text-align: center; }
-.services__aside .section__title,
-.services__aside .section__intro { margin-left: auto; margin-right: auto; }
+/* Encabezado en la misma columna de 900px que la presentación: ambos nacen del margen izquierdo */
+.services__aside { width: 100%; max-width: 900px; margin: 0 auto; }
+.services__aside .section__head { margin: 0; text-align: left; }
 
 /* Presentación de servicios solo con texto: hereda .services-presentation,
    .slide y .deck__controls del deck de abajo; aquí solo se ajusta a texto puro.
