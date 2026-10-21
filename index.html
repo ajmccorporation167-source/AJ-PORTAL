@@ -125,33 +125,43 @@
           </div>
         </div>
 
-      <!-- Presentación de servicios solo con texto: reutiliza el carrusel scroll-snap del deck
-           de abajo (.services-presentation, .slide, .deck__controls y js/slider.js). Los CTA
-           conservan .service-card__cta + data-service porque js/modal.js abre el modal con ellos. -->
-      <div class="deck deck--text" data-slider data-reveal role="region" aria-roledescription="carrusel" aria-label="Servicios">
+      <!-- Presentación de servicios editorial (texto a la izquierda, imagen a la derecha): reutiliza el
+           carrusel scroll-snap del deck de abajo (.services-presentation, .slide, .deck__controls y
+           js/slider.js). Los CTA conservan .service-card__cta + data-service porque js/modal.js abre
+           el modal con ellos. -->
+      <div class="deck deck--editorial" data-slider data-reveal role="region" aria-roledescription="carrusel" aria-label="Servicios">
         <div class="services-presentation" tabindex="0">
-          <article class="slide slide--text" role="group" aria-roledescription="diapositiva" aria-label="1 de 3: Manuales Corporativos y Políticas Internas">
+          <article class="slide slide--editorial" role="group" aria-roledescription="diapositiva" aria-label="1 de 3: Manuales Corporativos y Políticas Internas">
             <div class="slide-text">
               <p class="eyebrow slide-text__meta">01 / 03 · Servicio</p>
               <h3 class="slide-text__title">Manuales Corporativos y Políticas Internas</h3>
               <p class="slide-text__desc">Redactamos el manual del empleado y las políticas que tu empresa necesita para operar con claridad y respaldo legal.</p>
               <button type="button" class="btn btn--ghost slide-text__cta service-card__cta" data-service="manual" data-magnetic aria-haspopup="dialog">Agendar diagnóstico <span aria-hidden="true">→</span></button>
             </div>
+            <div class="slide-image">
+              <img src="./ajcm-manuales-corporativos-premium.jpg" alt="Manuales Corporativos" class="slide-img-premium" width="1104" height="1098" loading="lazy" decoding="async" />
+            </div>
           </article>
-          <article class="slide slide--text" role="group" aria-roledescription="diapositiva" aria-label="2 de 3: Reclutamiento y Selección de Talento">
+          <article class="slide slide--editorial" role="group" aria-roledescription="diapositiva" aria-label="2 de 3: Reclutamiento y Selección de Talento">
             <div class="slide-text">
               <p class="eyebrow slide-text__meta">02 / 03 · Servicio</p>
               <h3 class="slide-text__title">Reclutamiento y Selección de Talento</h3>
               <p class="slide-text__desc">Buscamos y filtramos candidatos alineados a tu cultura y a los requisitos legales del puesto, no solo al currículo.</p>
               <button type="button" class="btn btn--ghost slide-text__cta service-card__cta" data-service="reclutamiento" data-magnetic aria-haspopup="dialog">Agendar diagnóstico <span aria-hidden="true">→</span></button>
             </div>
+            <div class="slide-image">
+              <img src="./ajcm-optimizacion-talento-ejecutivo.jpg" alt="Reclutamiento y Selección" class="slide-img-premium" width="800" height="1124" loading="lazy" decoding="async" />
+            </div>
           </article>
-          <article class="slide slide--text" role="group" aria-roledescription="diapositiva" aria-label="3 de 3: Adiestramientos Organizacionales">
+          <article class="slide slide--editorial" role="group" aria-roledescription="diapositiva" aria-label="3 de 3: Adiestramientos Organizacionales">
             <div class="slide-text">
               <p class="eyebrow slide-text__meta">03 / 03 · Servicio</p>
               <h3 class="slide-text__title">Adiestramientos Organizacionales</h3>
               <p class="slide-text__desc">Capacitamos a supervisores y equipos en liderazgo, prevención de acoso laboral y cumplimiento regulatorio.</p>
               <button type="button" class="btn btn--ghost slide-text__cta service-card__cta" data-service="adiestramiento" data-magnetic aria-haspopup="dialog">Agendar diagnóstico <span aria-hidden="true">→</span></button>
+            </div>
+            <div class="slide-image">
+              <img src="./ajcm-relaciones-laborales-elite.jpg" alt="Adiestramientos Corporativos" class="slide-img-premium" width="938" height="1072" loading="lazy" decoding="async" />
             </div>
           </article>
         </div>
