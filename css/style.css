@@ -474,25 +474,24 @@ html.js:not(.reveal-failsafe) :is([data-reveal], .reveal, .main-acronym, .sub-de
    SERVICIOS — encabezado + presentación de servicios (texto), alineados a la izquierda
    ========================================================================= */
 .services__layout {
-  max-width: 1100px; /* ancho para la escala editorial de los títulos de servicio */
+  /* Misma cuadrícula que el menú: el texto nace en el borde izquierdo del logo AJCM */
+  max-width: calc(var(--page-max-width) - var(--gutter) * 2);
   margin: 0 auto;
   display: flex;
   flex-direction: column;
   gap: clamp(24px, 3vw, 48px);
 }
 main > section.services { padding-bottom: clamp(48px, 6vw, 96px); } /* la presentación ya aporta su propio aire */
-/* Encabezado en la misma columna de 900px que la presentación: ambos nacen del margen izquierdo */
-.services__aside { width: 100%; max-width: 900px; margin: 0 auto; }
+/* Encabezado y presentación anclados al margen izquierdo; el espacio libre queda a la derecha */
+.services__aside { width: 100%; }
 .services__aside .section__head { margin: 0; text-align: left; }
 
 /* Presentación de servicios solo con texto: hereda .services-presentation,
    .slide y .deck__controls del deck de abajo; aquí solo se ajusta a texto puro.
    Sin bordes: el navy fluye de una sección a otra sin cortes. */
-.deck--text { /* contenedor centrado; el texto dentro nace del margen izquierdo */
+.deck--text {
   min-width: 0; /* hijo flex: sin esto el track de 3 slides ensancha la columna en móvil */
   width: 100%;
-  max-width: 900px;
-  margin: 0 auto;
 }
 .deck--text .services-presentation { min-height: 0; }
 .deck--text .slide.slide--text { /* 3 clases: gana a la regla móvil de .slide sin repetirla */
@@ -516,7 +515,7 @@ main > section.services { padding-bottom: clamp(48px, 6vw, 96px); } /* la presen
 .slide--text .slide-text__desc {
   font-size: clamp(1.1rem, 2vw, 1.4rem);
   line-height: 1.6;
-  max-width: 700px;
+  max-width: 800px;
   margin: var(--spacing-34) 0 0; /* respiro entre título y descripción */
 }
 .deck--text .slide-text__cta { margin-top: var(--spacing-34); align-self: flex-start; } /* modal.css pone margin-top: auto a .service-card__cta */
