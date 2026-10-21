@@ -3,7 +3,7 @@
    Motion 13.4.6 (copia local en js/vendor/, sin CDN).
    · Hero: AJCM aterriza primero y "RR HH" una fracción de segundo después.
    · Scroll: los bloques [data-reveal] y .reveal flotan hacia su sitio una
-     sola vez; las tarjetas de servicios entran en cascada.
+     sola vez.
    Con "reducir movimiento" o si Motion no carga, todo se muestra sin animar.
    ========================================================================= */
 (() => {
@@ -46,15 +46,6 @@
 
   /* --- 2. Scroll: cada bloque aparece una vez al entrar en pantalla ------ */
   blocks.forEach((block) => {
-    inView(block, () => {
-      const cards = block.id === 'servicesGrid' ? Array.from(block.querySelectorAll('.service-card')) : [];
-      if (cards.length) {
-        // El contenedor se muestra al instante y sus tarjetas entran en cascada
-        show([block]);
-        reveal(cards, { delay: stagger(0.08) });
-      } else {
-        reveal([block]);
-      }
-    }, { margin: '0px 0px -100px 0px' });
+    inView(block, () => reveal([block]), { margin: '0px 0px -100px 0px' });
   });
 })();

@@ -112,82 +112,65 @@
 
     <!-- ============================= SERVICIOS ============================= -->
     <section class="services" id="servicios">
-      <!-- Layout centrado: encabezado arriba, índice de servicios debajo -->
+      <!-- Layout centrado: encabezado arriba, presentación de servicios debajo -->
       <div class="services__layout">
         <div class="services__aside">
           <div class="section__head" data-reveal>
             <p class="eyebrow">Lo que hacemos</p>
             <h2 class="section__title">Servicios</h2>
             <p class="section__intro">
-              Seis áreas donde la mayoría de los patronos en Puerto Rico enfrenta más riesgo legal — y más oportunidad
+              Tres áreas donde la mayoría de los patronos en Puerto Rico enfrenta más riesgo legal — y más oportunidad
               de estructura y profesionalización.
             </p>
           </div>
         </div>
 
-      <!-- data-reveal va en el contenedor (no en cada tarjeta) para no chocar con el transform del tilt -->
-      <div class="services__grid" id="servicesGrid" data-reveal>
+      <!-- Presentación de servicios solo con texto: reutiliza el carrusel scroll-snap del deck
+           de abajo (.services-presentation, .slide, .deck__controls y js/slider.js). Los CTA
+           conservan .service-card__cta + data-service porque js/modal.js abre el modal con ellos. -->
+      <div class="deck deck--text" data-slider data-reveal role="region" aria-roledescription="carrusel" aria-label="Servicios">
+        <div class="services-presentation" tabindex="0">
+          <article class="slide slide--text" role="group" aria-roledescription="diapositiva" aria-label="1 de 3: Manuales Corporativos y Políticas Internas">
+            <div class="slide-text">
+              <p class="eyebrow slide-text__meta">01 / 03 · Servicio</p>
+              <h3 class="slide-text__title">Manuales Corporativos y Políticas Internas</h3>
+              <p class="slide-text__desc">Redactamos el manual del empleado y las políticas que tu empresa necesita para operar con claridad y respaldo legal.</p>
+              <button type="button" class="btn btn--ghost slide-text__cta service-card__cta" data-service="manual" data-magnetic aria-haspopup="dialog">Agendar diagnóstico <span aria-hidden="true">→</span></button>
+            </div>
+          </article>
+          <article class="slide slide--text" role="group" aria-roledescription="diapositiva" aria-label="2 de 3: Reclutamiento y Selección de Talento">
+            <div class="slide-text">
+              <p class="eyebrow slide-text__meta">02 / 03 · Servicio</p>
+              <h3 class="slide-text__title">Reclutamiento y Selección de Talento</h3>
+              <p class="slide-text__desc">Buscamos y filtramos candidatos alineados a tu cultura y a los requisitos legales del puesto, no solo al currículo.</p>
+              <button type="button" class="btn btn--ghost slide-text__cta service-card__cta" data-service="reclutamiento" data-magnetic aria-haspopup="dialog">Agendar diagnóstico <span aria-hidden="true">→</span></button>
+            </div>
+          </article>
+          <article class="slide slide--text" role="group" aria-roledescription="diapositiva" aria-label="3 de 3: Adiestramientos Organizacionales">
+            <div class="slide-text">
+              <p class="eyebrow slide-text__meta">03 / 03 · Servicio</p>
+              <h3 class="slide-text__title">Adiestramientos Organizacionales</h3>
+              <p class="slide-text__desc">Capacitamos a supervisores y equipos en liderazgo, prevención de acoso laboral y cumplimiento regulatorio.</p>
+              <button type="button" class="btn btn--ghost slide-text__cta service-card__cta" data-service="adiestramiento" data-magnetic aria-haspopup="dialog">Agendar diagnóstico <span aria-hidden="true">→</span></button>
+            </div>
+          </article>
+        </div>
 
-        <article class="service-card" data-tilt>
-          <span class="service-card__index" aria-hidden="true">01</span>
-          <span class="service-card__icon" aria-hidden="true">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/></svg>
-          </span>
-          <h3 class="service-card__title">Auditorías de Cumplimiento de RRHH</h3>
-          <p class="service-card__text">Identificamos brechas legales en expedientes, contratos y políticas antes de que se conviertan en una multa o una querella.</p>
-          <button type="button" class="btn btn--gold btn--sm service-card__cta" data-service="auditoria" data-magnetic aria-haspopup="dialog">Agendar diagnóstico <span aria-hidden="true">→</span></button>
-        </article>
-
-        <article class="service-card" data-tilt>
-          <span class="service-card__index" aria-hidden="true">02</span>
-          <span class="service-card__icon" aria-hidden="true">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path stroke-linecap="round" stroke-linejoin="round" d="M6.75 4.5h7.5l3 3v12a1.5 1.5 0 0 1-1.5 1.5h-9A1.5 1.5 0 0 1 5.25 19.5V6A1.5 1.5 0 0 1 6.75 4.5Z"/><path stroke-linecap="round" stroke-linejoin="round" d="M9 10.5h6M9 13.5h6M9 16.5h3.5"/></svg>
-          </span>
-          <h3 class="service-card__title">Manuales Corporativos y Políticas Internas</h3>
-          <p class="service-card__text">Redactamos el manual del empleado y las políticas que tu empresa necesita para operar con claridad y respaldo legal.</p>
-          <button type="button" class="btn btn--gold btn--sm service-card__cta" data-service="manual" data-magnetic aria-haspopup="dialog">Agendar diagnóstico <span aria-hidden="true">→</span></button>
-        </article>
-
-        <article class="service-card" data-tilt>
-          <span class="service-card__index" aria-hidden="true">03</span>
-          <span class="service-card__icon" aria-hidden="true">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path stroke-linecap="round" stroke-linejoin="round" d="M12 2.25 3.75 6v6c0 5.25 4.5 8.4 8.25 9.75 3.75-1.35 8.25-4.5 8.25-9.75V6L12 2.25Z"/><path stroke-linecap="round" stroke-linejoin="round" d="M9.5 12.25 11.5 14.25 15 10"/></svg>
-          </span>
-          <h3 class="service-card__title">Ley 80 y Relaciones Obrero-Patronales</h3>
-          <p class="service-card__text">Manejamos despidos, mesadas y disputas laborales con la documentación y el proceso correcto desde el primer día.</p>
-          <button type="button" class="btn btn--gold btn--sm service-card__cta" data-service="ley80" data-magnetic aria-haspopup="dialog">Agendar diagnóstico <span aria-hidden="true">→</span></button>
-        </article>
-
-        <article class="service-card" data-tilt>
-          <span class="service-card__index" aria-hidden="true">04</span>
-          <span class="service-card__icon" aria-hidden="true">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path stroke-linecap="round" stroke-linejoin="round" d="M3 9.75h18M3 14.25h18M6.75 4.5h10.5A2.25 2.25 0 0 1 19.5 6.75v10.5a2.25 2.25 0 0 1-2.25 2.25H6.75a2.25 2.25 0 0 1-2.25-2.25V6.75A2.25 2.25 0 0 1 6.75 4.5Z"/></svg>
-          </span>
-          <h3 class="service-card__title">Optimización y Administración de Nómina</h3>
-          <p class="service-card__text">Revisamos clasificación de empleados, retenciones y procesos de nómina para que pagues correcto y a tiempo, siempre.</p>
-          <button type="button" class="btn btn--gold btn--sm service-card__cta" data-service="nomina" data-magnetic aria-haspopup="dialog">Agendar diagnóstico <span aria-hidden="true">→</span></button>
-        </article>
-
-        <article class="service-card" data-tilt>
-          <span class="service-card__index" aria-hidden="true">05</span>
-          <span class="service-card__icon" aria-hidden="true">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="9" cy="8.25" r="3"/><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 19.5a5.25 5.25 0 0 1 10.5 0M15.75 8.25a3 3 0 1 1 3.248 2.994M17.25 19.5a4.5 4.5 0 0 0-3-4.246"/></svg>
-          </span>
-          <h3 class="service-card__title">Reclutamiento y Selección de Talento</h3>
-          <p class="service-card__text">Buscamos y filtramos candidatos alineados a tu cultura y a los requisitos legales del puesto, no solo al currículo.</p>
-          <button type="button" class="btn btn--gold btn--sm service-card__cta" data-service="reclutamiento" data-magnetic aria-haspopup="dialog">Agendar diagnóstico <span aria-hidden="true">→</span></button>
-        </article>
-
-        <article class="service-card" data-tilt>
-          <span class="service-card__index" aria-hidden="true">06</span>
-          <span class="service-card__icon" aria-hidden="true">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 19.5v-15A1.5 1.5 0 0 1 6 3h8.379a1.5 1.5 0 0 1 1.06.44l3.122 3.12a1.5 1.5 0 0 1 .439 1.061V19.5A1.5 1.5 0 0 1 17.5 21H6a1.5 1.5 0 0 1-1.5-1.5Z"/><path stroke-linecap="round" stroke-linejoin="round" d="M9 15.75h6M9 11.25h6"/></svg>
-          </span>
-          <h3 class="service-card__title">Adiestramientos Organizacionales</h3>
-          <p class="service-card__text">Capacitamos a supervisores y equipos en liderazgo, prevención de acoso laboral y cumplimiento regulatorio.</p>
-          <button type="button" class="btn btn--gold btn--sm service-card__cta" data-service="adiestramiento" data-magnetic aria-haspopup="dialog">Agendar diagnóstico <span aria-hidden="true">→</span></button>
-        </article>
-
+        <div class="deck__controls">
+          <div class="slider__dots" role="group" aria-label="Elegir servicio">
+            <button type="button" class="slider__dot" data-slide-to="0" aria-label="Ir al servicio 1: Manuales Corporativos y Políticas Internas"></button>
+            <button type="button" class="slider__dot" data-slide-to="1" aria-label="Ir al servicio 2: Reclutamiento y Selección de Talento"></button>
+            <button type="button" class="slider__dot" data-slide-to="2" aria-label="Ir al servicio 3: Adiestramientos Organizacionales"></button>
+          </div>
+          <div class="slider__controls">
+            <button type="button" class="slider__arrow" data-slider-prev aria-label="Servicio anterior">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M15 6l-6 6 6 6"/></svg>
+            </button>
+            <button type="button" class="slider__arrow" data-slider-next aria-label="Servicio siguiente">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M9 6l6 6-6 6"/></svg>
+            </button>
+          </div>
+        </div>
       </div>
       </div>
     </section>
@@ -195,8 +178,8 @@
     <!-- ============================= PRESENTACIÓN DE SERVICIOS (SLIDE DECK) ============================= -->
     <!-- Diapositivas a pantalla completa con CSS scroll-snap. js/slider.js solo añade flechas e indicadores
          (necesarios con mouse: una rueda vertical no desliza en horizontal). -->
-    <section class="deck reveal" id="presentacion" role="region" aria-roledescription="carrusel" aria-label="Presentación de servicios">
-      <div class="services-presentation" id="sliderTrack" tabindex="0">
+    <section class="deck reveal" id="presentacion" data-slider role="region" aria-roledescription="carrusel" aria-label="Presentación de servicios">
+      <div class="services-presentation" tabindex="0">
         <article class="slide" role="group" aria-roledescription="diapositiva" aria-label="1 de 4: Auditoría de Cumplimiento">
           <div class="slide-image">
             <!-- ADMIN AJCM: imagen temporal; reemplazar por la imagen final de este servicio -->
@@ -431,7 +414,7 @@
   </footer>
 
   <!-- ============================= MODAL DE DOS PASOS ============================= -->
-  <!-- Se abre desde los botones dorados de cada tarjeta. El contenido de los pasos lo genera js/modal.js -->
+  <!-- Se abre desde los botones "Agendar diagnóstico" de la presentación de servicios. El contenido de los pasos lo genera js/modal.js -->
   <div class="modal" id="serviceModal" hidden>
     <div class="modal__backdrop" data-modal-close></div>
     <div class="modal__panel" role="dialog" aria-modal="true" aria-labelledby="modalTitle" tabindex="-1">

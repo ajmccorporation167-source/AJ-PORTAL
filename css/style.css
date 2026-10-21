@@ -210,8 +210,8 @@ textarea:focus-visible,
 
 /* =========================================================================
    BOTONES — píldora (1000px) para todos los CTAs
-   El oro (.btn--gold) solo se ve en el modal de servicios;
-   el resto de contextos lo reinterpreta en blanco/contorno más abajo.
+   El oro (.btn--gold) se ve en el modal de servicios y en "Agenda tu Consulta"
+   del header; el formulario lo reinterpreta en blanco más abajo.
    ========================================================================= */
 .btn {
   display: inline-flex;
@@ -252,29 +252,15 @@ textarea:focus-visible,
 .btn--sm { padding: 10px 22px; font-size: 13px; }
 .btn--block { width: 100%; }
 
-/* Variante monocromática: botones de acción secundaria que heredan .btn--gold
-   en el HTML pero NO deben gastar el oro (nav, tarjetas, formulario). */
-.nav__link--cta.btn--gold,
+/* Variante monocromática: el botón del formulario hereda .btn--gold en el HTML
+   pero NO debe gastar el oro. */
 .contact-panel .btn--gold {
   background: var(--color-pure-white);
   color: var(--color-deep-navy);
 }
-.nav__link--cta.btn--gold:hover,
-.nav__link--cta.btn--gold:focus-visible,
 .contact-panel .btn--gold:hover,
 .contact-panel .btn--gold:focus-visible {
   background: rgba(255, 255, 255, 0.86);
-}
-.service-card .btn--gold {
-  background: transparent;
-  color: #fff;
-  border-color: var(--color-hairline-strong);
-}
-.service-card .btn--gold:hover,
-.service-card .btn--gold:focus-visible {
-  background: var(--color-pure-white);
-  border-color: var(--color-pure-white);
-  color: var(--color-deep-navy);
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -485,7 +471,7 @@ main > section { padding: var(--section-space) var(--gutter); }
 html.js:not(.reveal-failsafe) :is([data-reveal], .reveal, .main-acronym, .sub-descriptor):not(.is-visible) { opacity: 0; }
 
 /* =========================================================================
-   SERVICIOS — encabezado centrado + índice de paneles arquitectónicos debajo
+   SERVICIOS — encabezado centrado + presentación de servicios (texto) debajo
    ========================================================================= */
 .services__layout {
   max-width: 880px;
@@ -498,77 +484,23 @@ html.js:not(.reveal-failsafe) :is([data-reveal], .reveal, .main-acronym, .sub-de
 .services__aside .section__title,
 .services__aside .section__intro { margin-left: auto; margin-right: auto; }
 
-.services__grid {
-  display: flex;
-  flex-direction: column;
+/* Presentación de servicios solo con texto: hereda .services-presentation,
+   .slide y .deck__controls del deck de abajo; aquí solo se ajusta a texto puro */
+.deck--text {
+  min-width: 0; /* hijo flex: sin esto el track de 3 slides ensancha la columna en móvil */
+  border-top: 1px solid var(--color-hairline);
+  border-bottom: 1px solid var(--color-hairline);
 }
-.service-card {
-  position: relative;
-  background: var(--surface-panel);
-  border: 1px solid var(--color-hairline);
-  border-radius: var(--radius-cards);
-  box-shadow: none;
-  padding: clamp(28px, 3vw, 44px);
-  display: grid;
-  grid-template-columns: 56px minmax(0, 1fr) auto;
-  grid-template-areas:
-    "index title cta"
-    "index text  cta";
-  column-gap: var(--spacing-34);
-  row-gap: var(--spacing-22);
-  align-items: start;
-  cursor: default;
-  transition: background var(--transition-medium), border-color var(--transition-medium);
-  will-change: transform;
+.deck--text .services-presentation { min-height: 0; }
+.slide.slide--text {
+  justify-content: center;
+  padding: clamp(56px, 7vw, 96px) clamp(8px, 4%, 48px);
+  text-align: center;
 }
-.service-card + .service-card { margin-top: -1px; } /* bordes compartidos, sin dobles líneas */
-.service-card:hover,
-.service-card:focus-within {
-  background: var(--surface-panel-hover);
-  border-color: var(--color-hairline-strong);
-  box-shadow: none;
-  z-index: 1;
-}
-.service-card__index {
-  grid-area: index;
-  font-size: 12px;
-  font-weight: 400;
-  letter-spacing: 3px;
-  color: var(--color-ash-navy);
-  padding-top: 0.5em;
-}
-.service-card__icon { display: none; } /* el índice numérico sustituye al icono genérico */
-.service-card__title {
-  grid-area: title;
-  font-size: var(--text-heading-sm);
-  line-height: var(--leading-heading-sm);
-  letter-spacing: var(--tracking-heading);
-  font-weight: var(--weight-heading);
-  color: var(--color-pure-white);
-  max-width: 20ch;
-}
-.service-card__text {
-  grid-area: text;
-  color: var(--color-body-copy);
-  font-size: 16px;
-  line-height: 1.75;
-  max-width: 48ch;
-}
-.service-card .service-card__cta {
-  grid-area: cta;
-  align-self: center;
-  margin-top: 0;
-  white-space: nowrap;
-}
-
-@media (max-width: 640px) {
-  .service-card {
-    grid-template-columns: 1fr;
-    grid-template-areas: "index" "title" "text" "cta";
-  }
-  .service-card__index { padding-top: 0; }
-  .service-card .service-card__cta { justify-self: start; margin-top: var(--spacing-11); }
-}
+.slide--text .slide-text { flex: 0 1 auto; width: 100%; max-width: 640px; } /* ancho, no flex-basis: en móvil la slide pasa a columna */
+.slide--text .slide-text__desc { max-width: 52ch; margin-left: auto; margin-right: auto; }
+.deck--text .slide-text__cta { margin-top: var(--spacing-34); } /* modal.css pone margin-top: auto a .service-card__cta */
+.deck--text .deck__controls { justify-content: center; padding-left: 0; padding-right: 0; }
 
 /* =========================================================================
    PRESENTACIÓN DE SERVICIOS — slide deck a pantalla completa (CSS scroll-snap)
@@ -969,7 +901,6 @@ main > section.deck {
   .section__head--split .section__intro { margin-left: 0; margin-top: var(--spacing-34); justify-self: auto; }
   .section__intro { max-width: none; font-size: 17px; }
   .section__head { margin-bottom: var(--spacing-59); }
-  .service-card { padding: 28px 24px; }
   .contact-panel { padding: 28px 24px; }
   .contact-panel--form { order: -1; }
   .contact-panel.contact-panel--channels { flex-direction: column; align-items: stretch; gap: 16px; padding: 0; }
@@ -1030,7 +961,8 @@ main > section.deck {
 .site-footer__logo,
 .site-footer__confidentiality-title,
 .slide-text__title,
-.service-card__title,
+.nav__logo-sub,
+.nav__link:not(.nav__link--cta),
 .contact-panel--form .contact-panel__title,
 .whatsapp-btn__label,
 .email-card__address { color: var(--color-featured-gold); }
