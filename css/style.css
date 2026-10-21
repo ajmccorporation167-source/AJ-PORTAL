@@ -488,20 +488,25 @@ main > section.services { padding-bottom: clamp(48px, 6vw, 96px); } /* la presen
 /* Presentación de servicios solo con texto: hereda .services-presentation,
    .slide y .deck__controls del deck de abajo; aquí solo se ajusta a texto puro.
    Sin bordes: el navy fluye de una sección a otra sin cortes. */
-.deck--text { min-width: 0; } /* hijo flex: sin esto el track de 3 slides ensancha la columna en móvil */
+.deck--text { /* contenedor centrado; el texto dentro nace del margen izquierdo */
+  min-width: 0; /* hijo flex: sin esto el track de 3 slides ensancha la columna en móvil */
+  width: 100%;
+  max-width: 900px;
+  margin: 0 auto;
+}
 .deck--text .services-presentation { min-height: 0; }
-.slide.slide--text {
-  justify-content: center;
-  padding: clamp(24px, 4vw, 48px) clamp(8px, 4%, 48px);
-  text-align: center;
+.deck--text .slide.slide--text { /* 3 clases: gana a la regla móvil de .slide sin repetirla */
+  justify-content: flex-start;
+  padding: clamp(24px, 4vw, 48px) 0;
+  text-align: left;
 }
 .slide--text .slide-text { /* ancho, no flex-basis: en móvil la slide pasa a columna */
   flex: 0 1 auto;
   width: 100%;
-  max-width: 960px;
+  max-width: none;
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: flex-start;
 }
 .slide--text .slide-text__meta { letter-spacing: 5px; margin-bottom: var(--spacing-34); }
 .slide--text .slide-text__title {
@@ -511,11 +516,11 @@ main > section.services { padding-bottom: clamp(48px, 6vw, 96px); } /* la presen
 .slide--text .slide-text__desc {
   font-size: clamp(1.1rem, 2vw, 1.4rem);
   line-height: 1.6;
-  max-width: 800px;
-  margin: var(--spacing-34) auto 0;
+  max-width: 700px;
+  margin: var(--spacing-34) 0 0; /* respiro entre título y descripción */
 }
-.deck--text .slide-text__cta { margin-top: var(--spacing-34); align-self: center; } /* modal.css pone margin-top: auto a .service-card__cta */
-.deck--text .deck__controls { justify-content: center; padding-left: 0; padding-right: 0; }
+.deck--text .slide-text__cta { margin-top: var(--spacing-34); align-self: flex-start; } /* modal.css pone margin-top: auto a .service-card__cta */
+.deck--text .deck__controls { justify-content: flex-start; padding-left: 0; padding-right: 0; }
 
 /* =========================================================================
    PRESENTACIÓN DE SERVICIOS — slide deck a pantalla completa (CSS scroll-snap)
