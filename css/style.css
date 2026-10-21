@@ -528,7 +528,7 @@ main > section.services { padding-bottom: clamp(48px, 6vw, 96px); } /* la presen
 .slide--editorial .slide-image {
   position: relative;
   width: 100%;
-  max-width: 340px;
+  max-width: 260px;
   justify-self: end;
   overflow: hidden;
   border-radius: 2px;
@@ -546,7 +546,7 @@ main > section.services { padding-bottom: clamp(48px, 6vw, 96px); } /* la presen
   width: 100%;
   height: auto;
   aspect-ratio: 4 / 5;
-  max-height: min(52vh, 425px);
+  max-height: min(42vh, 325px);
   object-fit: cover;
   filter: brightness(0.85) saturate(0.8) contrast(1.05); /* tono sobrio, sin brillos que compitan con el oro */
   transition: transform 0.8s cubic-bezier(0.22, 1, 0.36, 1);
@@ -559,7 +559,7 @@ main > section.services { padding-bottom: clamp(48px, 6vw, 96px); } /* la presen
 @media (max-width: 992px) {
   .deck--editorial .slide.slide--editorial { grid-template-columns: minmax(0, 1fr); gap: 32px; }
   .slide--editorial .slide-image { order: -1; justify-self: start; }
-  .slide--editorial .slide-image .slide-img-premium { aspect-ratio: 4 / 3; max-height: 30vh; min-height: 0; }
+  .slide--editorial .slide-image .slide-img-premium { aspect-ratio: 4 / 3; max-height: 24vh; min-height: 0; }
 }
 
 /* =========================================================================
