@@ -525,15 +525,30 @@ main > section.services { padding-bottom: clamp(48px, 6vw, 96px); } /* la presen
 
 /* Imagen: retrato ligeramente vertical, recortada sin deformarse y algo atenuada
    para que las fotos claras no desentonen con el fondo navy */
-.slide--editorial .slide-image { width: 100%; max-width: 420px; justify-self: end; overflow: hidden; border-radius: 4px; }
+.slide--editorial .slide-image {
+  position: relative;
+  width: 100%;
+  max-width: 340px;
+  justify-self: end;
+  overflow: hidden;
+  border-radius: 2px;
+}
+/* Paspartú: filete dorado fino por dentro de la foto, como una lámina enmarcada */
+.slide--editorial .slide-image::after {
+  content: "";
+  position: absolute;
+  inset: 12px;
+  border: 1px solid rgba(212, 175, 55, 0.8);
+  pointer-events: none;
+}
 .slide--editorial .slide-image .slide-img-premium {
   display: block;
   width: 100%;
   height: auto;
   aspect-ratio: 4 / 5;
-  max-height: min(60vh, 525px);
+  max-height: min(52vh, 425px);
   object-fit: cover;
-  filter: brightness(0.9) saturate(0.9);
+  filter: brightness(0.85) saturate(0.8) contrast(1.05); /* tono sobrio, sin brillos que compitan con el oro */
   transition: transform 0.8s cubic-bezier(0.22, 1, 0.36, 1);
 }
 @media (hover: hover) and (prefers-reduced-motion: no-preference) {
@@ -544,7 +559,7 @@ main > section.services { padding-bottom: clamp(48px, 6vw, 96px); } /* la presen
 @media (max-width: 992px) {
   .deck--editorial .slide.slide--editorial { grid-template-columns: minmax(0, 1fr); gap: 32px; }
   .slide--editorial .slide-image { order: -1; justify-self: start; }
-  .slide--editorial .slide-image .slide-img-premium { aspect-ratio: 4 / 3; max-height: 34vh; min-height: 0; }
+  .slide--editorial .slide-image .slide-img-premium { aspect-ratio: 4 / 3; max-height: 30vh; min-height: 0; }
 }
 
 /* =========================================================================
