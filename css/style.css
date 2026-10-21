@@ -474,32 +474,47 @@ html.js:not(.reveal-failsafe) :is([data-reveal], .reveal, .main-acronym, .sub-de
    SERVICIOS — encabezado centrado + presentación de servicios (texto) debajo
    ========================================================================= */
 .services__layout {
-  max-width: 880px;
+  max-width: 1100px; /* ancho para la escala editorial de los títulos de servicio */
   margin: 0 auto;
   display: flex;
   flex-direction: column;
-  gap: clamp(48px, 6vw, 80px);
+  gap: clamp(24px, 3vw, 48px);
 }
+main > section.services { padding-bottom: clamp(48px, 6vw, 96px); } /* la presentación ya aporta su propio aire */
 .services__aside .section__head { margin: 0; text-align: center; }
 .services__aside .section__title,
 .services__aside .section__intro { margin-left: auto; margin-right: auto; }
 
 /* Presentación de servicios solo con texto: hereda .services-presentation,
-   .slide y .deck__controls del deck de abajo; aquí solo se ajusta a texto puro */
-.deck--text {
-  min-width: 0; /* hijo flex: sin esto el track de 3 slides ensancha la columna en móvil */
-  border-top: 1px solid var(--color-hairline);
-  border-bottom: 1px solid var(--color-hairline);
-}
+   .slide y .deck__controls del deck de abajo; aquí solo se ajusta a texto puro.
+   Sin bordes: el navy fluye de una sección a otra sin cortes. */
+.deck--text { min-width: 0; } /* hijo flex: sin esto el track de 3 slides ensancha la columna en móvil */
 .deck--text .services-presentation { min-height: 0; }
 .slide.slide--text {
   justify-content: center;
-  padding: clamp(56px, 7vw, 96px) clamp(8px, 4%, 48px);
+  padding: clamp(24px, 4vw, 48px) clamp(8px, 4%, 48px);
   text-align: center;
 }
-.slide--text .slide-text { flex: 0 1 auto; width: 100%; max-width: 640px; } /* ancho, no flex-basis: en móvil la slide pasa a columna */
-.slide--text .slide-text__desc { max-width: 52ch; margin-left: auto; margin-right: auto; }
-.deck--text .slide-text__cta { margin-top: var(--spacing-34); } /* modal.css pone margin-top: auto a .service-card__cta */
+.slide--text .slide-text { /* ancho, no flex-basis: en móvil la slide pasa a columna */
+  flex: 0 1 auto;
+  width: 100%;
+  max-width: 960px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.slide--text .slide-text__meta { letter-spacing: 5px; margin-bottom: var(--spacing-34); }
+.slide--text .slide-text__title {
+  font-size: clamp(2.5rem, 5vw, 4.5rem);
+  line-height: 1.1;
+}
+.slide--text .slide-text__desc {
+  font-size: clamp(1.1rem, 2vw, 1.4rem);
+  line-height: 1.6;
+  max-width: 800px;
+  margin: var(--spacing-34) auto 0;
+}
+.deck--text .slide-text__cta { margin-top: var(--spacing-34); align-self: center; } /* modal.css pone margin-top: auto a .service-card__cta */
 .deck--text .deck__controls { justify-content: center; padding-left: 0; padding-right: 0; }
 
 /* =========================================================================
@@ -507,8 +522,6 @@ html.js:not(.reveal-failsafe) :is([data-reveal], .reveal, .main-acronym, .sub-de
    ========================================================================= */
 main > section.deck {
   padding: 0; /* las diapositivas van de borde a borde */
-  border-top: 1px solid var(--color-hairline);
-  border-bottom: 1px solid var(--color-hairline);
   /* Textura de ondas bajo un velo navy muy pesado (92–95%): las líneas apenas
      se asoman como relieve. Va en la sección, no en .services-presentation,
      para no tocar el contenedor que hace el scroll-snap. Las diapositivas son
@@ -516,7 +529,8 @@ main > section.deck {
      desenfocaría toda la textura. */
   background-color: var(--color-deep-navy);
   background-image:
-    linear-gradient(to bottom, rgba(11, 19, 43, 0.92), rgba(11, 19, 43, 0.95)),
+    /* Los extremos en navy sólido funden la textura con las secciones vecinas: sin cortes */
+    linear-gradient(to bottom, var(--color-deep-navy), rgba(11, 19, 43, 0.92) 18%, rgba(11, 19, 43, 0.95) 82%, var(--color-deep-navy)),
     url('../bg-abstract-waves.jpg');
   background-size: cover;
   background-position: center;
@@ -852,7 +866,6 @@ main > section.deck {
    ========================================================================= */
 .site-footer {
   background: var(--color-abyss);
-  border-top: 1px solid var(--color-hairline);
   padding: clamp(72px, 8vw, 120px) var(--gutter) var(--spacing-59);
 }
 .site-footer__inner {
