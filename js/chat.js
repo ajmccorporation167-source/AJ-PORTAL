@@ -14,9 +14,9 @@
 
   // Mensaje de bienvenida (solo visual; no se envía como historial a la IA).
   const GREETING =
-    '¡Hola! Soy el asistente virtual de AJCM RRHH Consulting. ' +
-    'Puedo orientarte sobre auditorías de cumplimiento, manuales, Ley 80, ' +
-    'nómina, reclutamiento y adiestramientos. ¿En qué te ayudo?';
+    'Bienvenido. Soy el asistente virtual de AJCM RRHH Consulting. ' +
+    'Puedo orientarle sobre manuales corporativos y políticas internas, ' +
+    'reclutamiento y selección, y adiestramientos corporativos. ¿En qué puedo servirle?';
 
   // Historial real de la conversación que se envía a la IA.
   // Formato: { role: 'user' | 'assistant', content: string }
