@@ -563,19 +563,16 @@ main > section.services { padding-bottom: clamp(48px, 6vw, 96px); } /* la presen
 }
 
 /* =========================================================================
-   PRESENTACIÓN DE SERVICIOS — slide deck a pantalla completa (CSS scroll-snap)
+   FONDO DE SERVICIOS — textura de ondas
    ========================================================================= */
-main > section.deck {
-  padding: 0; /* las diapositivas van de borde a borde */
-  /* Textura de ondas bajo un velo navy muy pesado (92–95%): las líneas apenas
-     se asoman como relieve. Va en la sección, no en .services-presentation,
-     para no tocar el contenedor que hace el scroll-snap. Las diapositivas son
-     transparentes a propósito: un blur sobre slides de ancho completo
-     desenfocaría toda la textura. */
+main > section.services {
+  /* Textura de ondas bajo un velo navy (80–85%): visible sin competir con el texto.
+     Va en la sección, no en .services-presentation, para no tocar el contenedor
+     que hace el scroll-snap. */
   background-color: var(--color-deep-navy);
   background-image:
     /* Los extremos en navy sólido funden la textura con las secciones vecinas: sin cortes */
-    linear-gradient(to bottom, var(--color-deep-navy), rgba(11, 19, 43, 0.92) 18%, rgba(11, 19, 43, 0.95) 82%, var(--color-deep-navy)),
+    linear-gradient(to bottom, var(--color-deep-navy), rgba(11, 19, 43, 0.8) 18%, rgba(11, 19, 43, 0.85) 82%, var(--color-deep-navy)),
     url('../bg-abstract-waves.jpg');
   background-size: cover;
   background-position: center;
