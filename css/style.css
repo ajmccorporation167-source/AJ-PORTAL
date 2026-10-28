@@ -696,8 +696,8 @@ main > section.deck {
   display: grid;
   grid-template-columns: minmax(0, 1fr);
   grid-template-areas:
-    "form"
-    "channels";
+    "channels"
+    "form"; /* WhatsApp, correo y descarga del PDF arriba; el formulario debajo */
   gap: clamp(22px, 2.5vw, 34px);
   align-items: stretch;
 }
@@ -906,7 +906,7 @@ main > section.deck {
 @media (max-width: 1080px) {
   .contact__grid {
     grid-template-columns: 1fr;
-    grid-template-areas: "form" "channels";
+    grid-template-areas: "channels" "form";
   }
   .contact-panel--form { margin-bottom: 0; }
 }
@@ -983,7 +983,6 @@ main > section.deck {
   .section__intro { max-width: none; font-size: 17px; }
   .section__head { margin-bottom: var(--spacing-59); }
   .contact-panel { padding: 28px 24px; }
-  .contact-panel--form { order: -1; }
   .contact-panel.contact-panel--channels { flex-direction: column; align-items: stretch; gap: 16px; padding: 0; }
   .whatsapp-btn, .email-card { flex: none; width: 100%; padding-left: 16px; }
   .download-row { flex: none; margin-top: 8px; }
