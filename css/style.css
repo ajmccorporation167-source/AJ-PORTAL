@@ -744,9 +744,11 @@ main > section.deck {
 .contact-panel__text { color: var(--color-body-copy); font-size: 16px; }
 .contact-panel__text--muted { font-size: 14px; color: var(--color-ash-navy); }
 
-/* B y C. WhatsApp y correo — dos píldoras gemelas: mismo ancho, alto, borde y brillo */
+/* B y C. WhatsApp y correo — dos píldoras gemelas: mismo ancho, alto, borde y brillo.
+   D. La píldora de descarga del PDF comparte la misma base. */
 .whatsapp-btn,
-.email-card {
+.email-card,
+.premium-contact-pill {
   flex: 1 1 calc(50% - 12px); /* misma base para ambas: anchos idénticos */
   min-width: 0;
   min-height: 60px;
@@ -766,7 +768,8 @@ main > section.deck {
 }
 .email-card { padding-right: 12px; } /* el botón de copiar ya aporta su propio aire */
 .whatsapp-btn:hover, .whatsapp-btn:focus-visible,
-.email-card:hover, .email-card:focus-within {
+.email-card:hover, .email-card:focus-within,
+.premium-contact-pill:hover, .premium-contact-pill:focus-visible {
   transform: translateY(-2px);
   border-color: rgba(212, 175, 55, 0.6);
   background: rgba(212, 175, 55, 0.05);
@@ -795,6 +798,22 @@ main > section.deck {
 }
 @media (prefers-reduced-motion: reduce) { .whatsapp-btn__icon::after { animation: none; } }
 .whatsapp-btn__label { font-family: var(--font-body); font-weight: 500; font-size: 15px; letter-spacing: 0.02em; }
+
+/* D. Descarga del formulario de evaluación (PDF): fila completa bajo WhatsApp y correo */
+.premium-download-container {
+  flex: 1 1 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+  margin-top: 6px;
+  text-align: center;
+}
+.premium-download-container__text { font-size: 14px; color: var(--color-ash-navy); }
+.premium-contact-pill { flex: none; width: 100%; max-width: 520px; }
+.icon-download { color: var(--color-featured-gold); flex-shrink: 0; display: flex; }
+.icon-download svg { width: 22px; height: 22px; }
+.text-gold-premium { font-family: var(--font-body); font-weight: 500; font-size: 15px; letter-spacing: 0.02em; color: var(--color-gold-soft); }
 
 .email-card__icon { color: var(--color-featured-gold); flex-shrink: 0; display: flex; }
 .email-card__icon svg { width: 22px; height: 22px; }
@@ -962,7 +981,9 @@ main > section.deck {
   .contact-panel { padding: 28px 24px; }
   .contact-panel--form { order: -1; }
   .contact-panel.contact-panel--channels { flex-direction: column; align-items: stretch; gap: 16px; padding: 0; }
-  .whatsapp-btn, .email-card { flex: none; width: 100%; padding-left: 16px; }
+  .whatsapp-btn, .email-card, .premium-contact-pill { flex: none; width: 100%; padding-left: 16px; }
+  .premium-contact-pill { padding-right: 16px; }
+  .premium-download-container { flex: none; }
   .email-card { gap: 4px; padding-right: 8px; }
   .email-card__address { font-size: 15px; letter-spacing: 0; } /* el correo completo en una sola línea */
   .email-card__icon { display: none; } /* libera ancho para que el correo quepa en una línea */
