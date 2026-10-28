@@ -986,7 +986,9 @@ main > section.deck {
   .contact-panel--form { order: -1; }
   .contact-panel.contact-panel--channels { flex-direction: column; align-items: stretch; gap: 16px; padding: 0; }
   .whatsapp-btn, .email-card { flex: none; width: 100%; padding-left: 16px; }
-  .download-row { flex: none; }
+  .download-row { flex: none; margin-top: 8px; }
+  /* Toque cómodo en teléfono: 44px de alto mínimo y el texto puede partir en dos líneas */
+  .btn-subtle-download { min-height: 44px; max-width: 100%; padding: 10px 22px; justify-content: center; text-align: center; line-height: 1.35; }
   .email-card { gap: 4px; padding-right: 8px; }
   .email-card__address { font-size: 15px; letter-spacing: 0; } /* el correo completo en una sola línea */
   .email-card__icon { display: none; } /* libera ancho para que el correo quepa en una línea */
