@@ -566,20 +566,10 @@ main > section.services { padding-bottom: clamp(48px, 6vw, 96px); } /* la presen
 }
 
 /* =========================================================================
-   FONDO DE SERVICIOS — textura de ondas
+   FONDO DE SERVICIOS — oliva sólido (sin textura)
    ========================================================================= */
 main > section.services {
-  /* Textura de ondas bajo un velo navy (80–85%): visible sin competir con el texto.
-     Va en la sección, no en .services-presentation, para no tocar el contenedor
-     que hace el scroll-snap. */
   background-color: var(--color-olive);
-  background-image:
-    /* Los extremos en navy sólido funden la textura con las secciones vecinas: sin cortes */
-    linear-gradient(to bottom, var(--color-olive), rgba(85, 107, 47, 0.8) 18%, rgba(85, 107, 47, 0.85) 82%, var(--color-olive)),
-    url('../bg-abstract-waves.jpg');
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
 }
 
 .services-presentation {
