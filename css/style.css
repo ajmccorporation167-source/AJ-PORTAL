@@ -360,12 +360,12 @@ textarea:focus-visible,
   padding: 0 var(--gutter);
   overflow: hidden;
   isolation: isolate;
-  /* Fotografía arquitectónica bajo un velo navy: 65% arriba → 95% abajo para
+  /* Textura satinada oliva bajo un velo ligero: 20% arriba → 60% abajo para
      que el titular y los textos blancos se lean siempre con contraste. */
   background-color: var(--color-olive);
   background-image:
-    linear-gradient(to bottom, rgba(85, 107, 47, 0.65), rgba(85, 107, 47, 0.95)),
-    url('../ajcm-hero-background.jpg');
+    linear-gradient(to bottom, rgba(85, 107, 47, 0.2), rgba(85, 107, 47, 0.6)),
+    url('../oliva.jpg');
   background-size: cover;
   background-position: center center;
   background-repeat: no-repeat;
