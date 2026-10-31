@@ -5,9 +5,9 @@
 
 :root {
   --mdl-navy: #0B132B;
-  --mdl-gold: #D4AF37;
-  --mdl-text: #F4F1E8;
-  --mdl-muted: rgba(244, 241, 232, 0.68);
+  --mdl-gold: #F2C230;
+  --mdl-text: #ffffff;
+  --mdl-muted: #ffffff;
   --mdl-line: rgba(212, 175, 55, 0.28);
 }
 

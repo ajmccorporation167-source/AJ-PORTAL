@@ -16,9 +16,9 @@
   --color-olive-dark: #3E4E22;                   /* oliva sutilmente oscurecido */
   --color-pure-white: #ffffff;
   --color-muted-gold: #b3932e;
-  --color-featured-gold: #D4AF37;
-  --color-ash-navy: rgba(255, 255, 255, 0.5);   /* eyebrows y metadatos */
-  --color-body-copy: rgba(255, 255, 255, 0.8);  /* párrafos */
+  --color-featured-gold: #F2C230;
+  --color-ash-navy: #ffffff;   /* eyebrows y metadatos */
+  --color-body-copy: #ffffff;  /* párrafos */
   --color-hairline: rgba(255, 255, 255, 0.08);
   --color-hairline-strong: rgba(255, 255, 255, 0.16);
   --surface-panel: rgba(255, 255, 255, 0.02);
@@ -91,8 +91,8 @@
   --color-navy-deep: #060a18;
   --color-navy-raised: #121c3d;
   --color-gold-soft: #e8cf7a;
-  --color-text-body: #E9E6DC;
-  --color-text-muted: #ABA9C4;
+  --color-text-body: #ffffff;
+  --color-text-muted: #ffffff;
   --color-border-hairline: rgba(212, 175, 55, 0.18);
   --glass-bg: rgba(255, 255, 255, 0.045);
   --glass-bg-hover: rgba(212, 175, 55, 0.08);
@@ -414,7 +414,7 @@ textarea:focus-visible,
   line-height: 1;
   letter-spacing: 0.05em;
   margin-right: -0.05em; /* compensa el tracking tras la última letra: centro óptico exacto */
-  color: #F8F9FA;
+  color: #fff;
 }
 .sub-descriptor {
   margin: 0;
@@ -423,7 +423,7 @@ textarea:focus-visible,
   font-weight: 300;
   letter-spacing: 0.6em;
   margin-right: -0.6em; /* idem: el tracking extremo desplazaría "RR HH" a la izquierda */
-  color: rgba(255, 255, 255, 0.75);
+  color: #fff;
   text-transform: uppercase;
 }
 
@@ -882,7 +882,7 @@ main > section.services {
   background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23ffffff' stroke-opacity='.6' stroke-width='1.5'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E") right 2px center / 16px no-repeat;
 }
 .field select option { color: var(--color-deep-navy); }
-.field input::placeholder, .field textarea::placeholder { color: var(--color-ash-navy); }
+.field input::placeholder, .field textarea::placeholder { color: rgba(255, 255, 255, 0.5); }
 .field input:focus, .field select:focus, .field textarea:focus { border-bottom-color: var(--color-featured-gold); outline: none; box-shadow: 0 1px 0 0 var(--color-featured-gold), 0 8px 12px -10px rgba(212, 175, 55, 0.45); }
 .field textarea { resize: vertical; min-height: 110px; }
 /* Honeypot anti-spam: fuera de pantalla (no display:none, que algunos bots detectan) */
@@ -934,24 +934,24 @@ main > section.services {
   gap: var(--spacing-59);
 }
 .site-footer__logo { font-family: var(--font-display); font-size: clamp(28px, 2.6vw, 38px); letter-spacing: 0; line-height: 1; color: #fff; font-weight: 400; }
-.site-footer__logo span { color: rgba(212, 175, 55, 0.4); font-weight: 400; }
+.site-footer__logo span { color: var(--color-featured-gold); font-weight: 400; }
 .site-footer__tagline { color: var(--color-ash-navy); font-size: 14px; margin-top: var(--spacing-16); max-width: 32ch; }
 .site-footer__links { display: flex; flex-direction: column; gap: 14px; }
 .site-footer__links a { font-size: 11px; letter-spacing: 3px; text-transform: uppercase; color: var(--color-ash-navy); transition: color var(--transition-fast); }
 .site-footer__links a:hover, .site-footer__links a:focus-visible { color: var(--color-featured-gold); }
-.site-footer__legal { color: rgba(255, 255, 255, 0.4); font-size: 12.5px; line-height: 1.7; }
+.site-footer__legal { color: #fff; font-size: 12.5px; line-height: 1.7; }
 .site-footer__legal p + p { margin-top: 8px; }
 .site-footer__confidentiality {
   max-width: var(--page-max-width);
   margin: var(--spacing-59) auto 0;
   padding-top: var(--spacing-34);
   border-top: 1px solid var(--color-hairline);
-  color: rgba(255, 255, 255, 0.4);
+  color: #fff;
   font-size: 12px;
   line-height: 1.7;
 }
 .site-footer__confidentiality p:last-child { max-width: 90ch; }
-.site-footer__confidentiality-title { font-size: 11px; letter-spacing: 3px; text-transform: uppercase; color: rgba(255, 255, 255, 0.7); margin-bottom: var(--spacing-16); }
+.site-footer__confidentiality-title { font-size: 11px; letter-spacing: 3px; text-transform: uppercase; color: #fff; margin-bottom: var(--spacing-16); }
 
 @media (max-width: 760px) {
   .site-footer__inner { grid-template-columns: 1fr; gap: var(--spacing-34); }

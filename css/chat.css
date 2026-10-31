@@ -156,7 +156,7 @@
   align-self: flex-end;
   background: rgba(212, 175, 55, 0.1);
   border: 1px solid rgba(212, 175, 55, 0.2);
-  color: #F8F9FA;
+  color: #fff;
   border-bottom-right-radius: 4px;
 }
 .chat-msg--error {
@@ -201,7 +201,7 @@
   line-height: 1.45;
   transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
 }
-.chat-input textarea::placeholder { color: var(--color-text-muted); }
+.chat-input textarea::placeholder { color: rgba(255, 255, 255, 0.5); }
 .chat-input textarea:focus { outline: none; border-color: var(--color-gold); box-shadow: 0 0 8px rgba(212, 175, 55, 0.1); }
 .chat-input__send {
   flex: 0 0 auto;
