@@ -659,8 +659,8 @@ main > section.services { padding-bottom: clamp(48px, 6vw, 96px); } /* la presen
   display: grid;
   grid-template-columns: minmax(0, 1fr);
   grid-template-areas:
-    "channels"
-    "form"; /* WhatsApp, correo y descarga del PDF arriba; el formulario debajo */
+    "form"
+    "channels"; /* el formulario primero; WhatsApp, correo y descarga del PDF debajo */
   gap: clamp(22px, 2.5vw, 34px);
   align-items: stretch;
 }
@@ -676,6 +676,8 @@ main > section.services { padding-bottom: clamp(48px, 6vw, 96px); } /* la presen
   gap: 24px;
   align-items: stretch;
   justify-content: center;
+  /* Aire entre el formulario y los canales: este margen + el gap de la cuadrícula ≈ 40–60px */
+  margin-top: clamp(18px, 2.6vw, 26px);
   padding: 0;
   background: transparent;
   border: 0;
@@ -685,7 +687,6 @@ main > section.services { padding-bottom: clamp(48px, 6vw, 96px); } /* la presen
   width: 100%;
   max-width: 760px;
   justify-self: center;
-  margin-bottom: clamp(32px, 5vw, 72px);
   padding: clamp(36px, 5vw, 72px) clamp(24px, 5vw, 80px);
   border-top: 1px solid var(--color-featured-gold); /* el hilo de oro marca al protagonista */
   text-align: center;
@@ -869,9 +870,8 @@ main > section.services { padding-bottom: clamp(48px, 6vw, 96px); } /* la presen
 @media (max-width: 1080px) {
   .contact__grid {
     grid-template-columns: 1fr;
-    grid-template-areas: "channels" "form";
+    grid-template-areas: "form" "channels";
   }
-  .contact-panel--form { margin-bottom: 0; }
 }
 @media (max-width: 480px) {
   .field-row { grid-template-columns: 1fr; gap: var(--spacing-22); }
