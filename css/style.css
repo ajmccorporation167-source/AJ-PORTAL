@@ -490,9 +490,9 @@ main > section.services { padding-bottom: clamp(48px, 6vw, 96px); } /* la presen
 .services__aside { width: 100%; }
 .services__aside .section__head { margin: 0; text-align: left; }
 
-/* Presentación de servicios editorial: hereda .services-presentation, .slide,
-   .slide-image y .deck__controls del deck de abajo. Cada slide es un grid de dos
-   columnas (texto a la izquierda, imagen a la derecha) con mucho aire alrededor.
+/* Presentación de servicios editorial: hereda .services-presentation, .slide
+   y .deck__controls del deck de abajo. Cada slide es una sola columna de texto
+   alineada arriba, sin imagen.
    Sin bordes: el navy fluye de una sección a otra sin cortes. */
 .deck--editorial {
   min-width: 0; /* hijo flex: sin esto el track de 3 slides ensancha la columna en móvil */
@@ -501,10 +501,9 @@ main > section.services { padding-bottom: clamp(48px, 6vw, 96px); } /* la presen
 .deck--editorial .services-presentation { min-height: 0; }
 .deck--editorial .slide.slide--editorial { /* 3 clases: gana a las reglas móviles de .slide sin repetirlas */
   display: grid;
-  grid-template-columns: minmax(0, 3fr) minmax(0, 2fr); /* texto protagonista, imagen de acompañamiento */
-  gap: clamp(48px, 6vw, 80px);
-  align-items: center;
-  padding: clamp(24px, 4vw, 48px) 0;
+  grid-template-columns: minmax(0, 1fr); /* solo texto: sin columna de imagen */
+  align-items: start;
+  padding: clamp(8px, 1.5vw, 16px) 0;
   text-align: left;
 }
 .slide--editorial .slide-text {
@@ -527,44 +526,6 @@ main > section.services { padding-bottom: clamp(48px, 6vw, 96px); } /* la presen
 .deck--editorial .slide-text__cta { margin-top: var(--spacing-34); align-self: flex-start; } /* modal.css pone margin-top: auto a .service-card__cta */
 .deck--editorial .deck__controls { justify-content: flex-start; padding-left: 0; padding-right: 0; }
 
-/* Imagen: retrato ligeramente vertical, recortada sin deformarse y algo atenuada
-   para que las fotos claras no desentonen con el fondo navy */
-.slide--editorial .slide-image {
-  position: relative;
-  width: 100%;
-  max-width: 260px;
-  justify-self: end;
-  overflow: hidden;
-  border-radius: 2px;
-}
-/* Paspartú: filete dorado fino por dentro de la foto, como una lámina enmarcada */
-.slide--editorial .slide-image::after {
-  content: "";
-  position: absolute;
-  inset: 12px;
-  border: 1px solid rgba(212, 175, 55, 0.8);
-  pointer-events: none;
-}
-.slide--editorial .slide-image .slide-img-premium {
-  display: block;
-  width: 100%;
-  height: auto;
-  aspect-ratio: 4 / 5;
-  max-height: min(42vh, 325px);
-  object-fit: cover;
-  filter: brightness(0.85) saturate(0.8) contrast(1.05); /* tono sobrio, sin brillos que compitan con el oro */
-  transition: transform 0.8s cubic-bezier(0.22, 1, 0.36, 1);
-}
-@media (hover: hover) and (prefers-reduced-motion: no-preference) {
-  .slide--editorial:hover .slide-img-premium { transform: scale(1.03); }
-}
-
-/* Tablet y móvil: una sola columna, imagen arriba y texto debajo */
-@media (max-width: 992px) {
-  .deck--editorial .slide.slide--editorial { grid-template-columns: minmax(0, 1fr); gap: 32px; }
-  .slide--editorial .slide-image { order: -1; justify-self: start; }
-  .slide--editorial .slide-image .slide-img-premium { aspect-ratio: 4 / 3; max-height: 24vh; min-height: 0; }
-}
 
 /* =========================================================================
    FONDO DE SERVICIOS — oliva sólido (sin textura)
