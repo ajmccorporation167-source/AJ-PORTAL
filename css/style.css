@@ -653,23 +653,83 @@ main > section.services { padding-bottom: clamp(48px, 6vw, 96px); } /* la presen
 /* =========================================================================
    MÓDULO DE CONTACTO
    ========================================================================= */
-/* Presentación de valor (antes del formulario): espejo del slide editorial de
-   Servicios. Reutiliza .slide--editorial .slide-text* para la tipografía y
-   .slide-image para la foto; aquí solo se define la cuadrícula a dos columnas. */
+/* Presentación de valor (antes del formulario): bloque editorial sin imagen.
+   Hilo dorado arriba, título | tesis a dos columnas y tres pilares numerados. */
 .value-pitch {
   max-width: calc(var(--page-max-width) - var(--gutter) * 2);
-  margin: 0 auto clamp(56px, 7vw, 112px);
-  display: grid;
-  grid-template-columns: minmax(0, 45fr) minmax(0, 55fr); /* mismo reparto texto/imagen que .slide */
-  align-items: center;
-  gap: clamp(32px, 5vw, 72px);
+  margin: 0 auto clamp(64px, 8vw, 120px);
+  padding-top: clamp(40px, 5vw, 64px);
+  border-top: 1px solid var(--color-featured-gold);
   text-align: left;
 }
-.value-pitch .slide-text__desc { max-width: 540px; }
-.value-pitch .slide-image img { height: min(64vh, 600px); }
-@media (max-width: 768px) {
-  .value-pitch { grid-template-columns: 1fr; gap: 28px; }
-  .value-pitch .slide-image img { height: 38vh; min-height: 220px; }
+.value-pitch__head {
+  display: grid;
+  grid-template-columns: minmax(0, 5fr) minmax(0, 6fr);
+  gap: clamp(32px, 6vw, 96px);
+  align-items: start;
+}
+.value-pitch__eyebrow { letter-spacing: 5px; margin-bottom: var(--spacing-34); }
+.value-pitch__eyebrow span { color: var(--color-featured-gold); margin: 0 4px; }
+.slide--editorial .value-pitch__title {
+  font-size: clamp(2.5rem, 4.4vw, 4.25rem);
+  line-height: 1.05;
+  max-width: 11ch;
+}
+.value-pitch__body { padding-top: clamp(0px, 3.2vw, 52px); } /* alinea la tesis con el título, no con la etiqueta */
+.value-pitch__lead {
+  font-family: var(--font-display);
+  font-size: clamp(1.4rem, 2vw, 1.85rem);
+  line-height: 1.35;
+  color: var(--color-beige);
+  max-width: 30ch;
+}
+.value-pitch__text {
+  margin-top: var(--spacing-22);
+  font-size: clamp(1rem, 1.15vw, 1.075rem);
+  line-height: 1.75;
+  color: var(--color-body-copy);
+  opacity: 0.82;
+  max-width: 54ch;
+}
+.value-pitch__pillars {
+  list-style: none;
+  margin: clamp(48px, 6vw, 88px) 0 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(24px, 3vw, 48px);
+}
+.value-pitch__pillar {
+  padding-top: var(--spacing-22);
+  border-top: 1px solid var(--color-hairline-strong);
+}
+.value-pitch__num {
+  display: block;
+  font-family: var(--font-body);
+  font-size: 12px;
+  letter-spacing: 3px;
+  color: var(--color-featured-gold);
+  margin-bottom: var(--spacing-16);
+}
+.value-pitch__pillar-title {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: clamp(1.35rem, 1.7vw, 1.6rem);
+  line-height: 1.2;
+  color: var(--color-beige);
+}
+.value-pitch__pillar-text {
+  margin-top: var(--spacing-11);
+  font-size: 15px;
+  line-height: 1.65;
+  color: var(--color-body-copy);
+  opacity: 0.75;
+  max-width: 32ch;
+}
+@media (max-width: 900px) {
+  .value-pitch__head { grid-template-columns: 1fr; gap: var(--spacing-34); }
+  .value-pitch__body { padding-top: 0; }
+  .value-pitch__pillars { grid-template-columns: 1fr; gap: var(--spacing-34); }
 }
 
 .contact__grid {

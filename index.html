@@ -174,17 +174,38 @@
 
     <!-- ============================= MÓDULO DE CONTACTO Y AGENDAMIENTO ============================= -->
     <section class="contact" id="contacto">
-      <!-- Presentación de valor: espejo del slide editorial de Servicios (mismas clases .slide-text*),
-           texto a la izquierda e imagen a la derecha. Sin carrusel: es un solo bloque estático. -->
+      <!-- Presentación de valor (antes del formulario): bloque editorial sin imagen.
+           Título a la izquierda, tesis a la derecha y tres pilares numerados debajo.
+           Reutiliza .eyebrow y .slide-text__title para la misma voz visual de Servicios. -->
       <article class="value-pitch slide--editorial" data-reveal aria-labelledby="valuePitchTitle">
-        <div class="slide-text">
-          <p class="eyebrow slide-text__meta">AJCM | El valor de nuestra consultoría</p>
-          <h2 class="slide-text__title" id="valuePitchTitle">Proteja y Escale su Operación</h2>
-          <p class="slide-text__desc">Delegar la gestión de Recursos Humanos no es un gasto, es la inversión más estratégica para blindar su empresa. En AJCM estructuramos sus políticas, filtramos el talento ideal y mitigamos riesgos laborales bajo las estrictas leyes de Puerto Rico. Transformamos la incertidumbre del manejo de personal en una operación corporativa de alto nivel, permitiéndole a usted enfocarse exclusivamente en hacer crecer su negocio.</p>
+        <div class="value-pitch__head">
+          <div class="value-pitch__heading">
+            <p class="eyebrow value-pitch__eyebrow">AJCM <span aria-hidden="true">|</span> El valor de nuestra consultoría</p>
+            <h2 class="slide-text__title value-pitch__title" id="valuePitchTitle">Proteja y Escale su Operación</h2>
+          </div>
+          <div class="value-pitch__body">
+            <p class="value-pitch__lead">Delegar la gestión de Recursos Humanos no es un gasto, es la inversión más estratégica para blindar su empresa.</p>
+            <p class="value-pitch__text">En AJCM estructuramos sus políticas, filtramos el talento ideal y mitigamos riesgos laborales bajo las estrictas leyes de Puerto Rico. Transformamos la incertidumbre del manejo de personal en una operación corporativa de alto nivel, permitiéndole a usted enfocarse exclusivamente en hacer crecer su negocio.</p>
+          </div>
         </div>
-        <div class="slide-image">
-          <img src="./ajcm-optimizacion-talento-ejecutivo.jpg" alt="Reunión de consultoría: dos profesionales conversan frente a una mesa de cristal con libreta y bolígrafo" width="800" height="1124" loading="lazy" decoding="async" />
-        </div>
+
+        <ol class="value-pitch__pillars">
+          <li class="value-pitch__pillar">
+            <span class="value-pitch__num" aria-hidden="true">01</span>
+            <h3 class="value-pitch__pillar-title">Estructura</h3>
+            <p class="value-pitch__pillar-text">Políticas y manuales que dan orden y respaldo legal a su operación.</p>
+          </li>
+          <li class="value-pitch__pillar">
+            <span class="value-pitch__num" aria-hidden="true">02</span>
+            <h3 class="value-pitch__pillar-title">Talento</h3>
+            <p class="value-pitch__pillar-text">Filtramos y seleccionamos el talento ideal para cada puesto.</p>
+          </li>
+          <li class="value-pitch__pillar">
+            <span class="value-pitch__num" aria-hidden="true">03</span>
+            <h3 class="value-pitch__pillar-title">Cumplimiento</h3>
+            <p class="value-pitch__pillar-text">Mitigamos riesgos laborales bajo las leyes de Puerto Rico.</p>
+          </li>
+        </ol>
       </article>
 
       <div class="contact__grid" data-reveal>
